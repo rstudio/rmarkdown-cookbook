@@ -1,5 +1,5 @@
-# mastering-rmarkdown
+# Mastering R Markdown
+------
+[![Build Status](https://travis-ci.org/mikey-harper/mastering-rmarkdown.svg?branch=master)](https://travis-ci.org/mikey-harper/mastering-rmarkdown)
 
-Book idea: piece together examples of how R Markdown can be used.
-
-- 
+Book in development
