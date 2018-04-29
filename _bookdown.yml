@@ -1,0 +1,5 @@
+book_filename: "mastering-rmarkdown"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
