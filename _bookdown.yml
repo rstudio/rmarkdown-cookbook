@@ -1,4 +1,5 @@
 book_filename: "mastering-rmarkdown"
+output_dir: "docs"
 delete_merged_file: true
 language:
   ui:
