@@ -1,0 +1,21 @@
+# LaTeX
+
+For many authors, the main  of long reports or books, the primary output will bee LaTeX
+
+R Markdown is able to use 
+
+
+## Inserting Commands
+
+## LaTeX preamble
+
+
+## Subfigures
+
+
+## Changing citation Engine
+
+
+
+## Altering Citation Style
+
