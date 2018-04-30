@@ -4,3 +4,8 @@
 - Recommended reading
 - `bookdown` is used as the default engine as it provides improvements
 
+## Quick Tips
+
+- Short index of some basic ideas on how to improve R Markdown documents
+
+- Include current date in R Markdown https://stackoverflow.com/questions/23449319/yaml-current-date-in-rmarkdown/23529410#23529410
