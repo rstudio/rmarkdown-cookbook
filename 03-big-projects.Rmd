@@ -1,6 +1,11 @@
 # Managing Big Projects
 
 - Practical tips on how a big project should be managed
+- `source` is particularly useful for loading external scripts so that the R Markdown project isn't too bloated with code.
+
+**Ideas**:
+- Use `(ref:tag)` to store page formatting options which might need to be reused. For example a page break
+
 
 ## Sourcing Files
 
@@ -15,3 +20,9 @@ source("yourScript.R")
 ## Caching
 
 - Caching
+- Ways it can be tailored to suit analysis. This cache invalidation is a great example: https://stackoverflow.com/questions/18376008/invalidate-a-chunks-cache-when-uncached-chunk-changes
+
+
+## Notifications
+
+- Can link R Markdown with notifications if have long analysis

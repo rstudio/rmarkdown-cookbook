@@ -1,0 +1,3 @@
+# Tables
+
+- Using kableExtra to style tables

@@ -1,0 +1,5 @@
+# Knitr Hooks
+
+- Knitr hooks: these are explained within previous R Markdown book
+- Include practical examples could be very useful for readers to see the power of it.
+- Use some of these: https://gist.github.com/yihui/2629886

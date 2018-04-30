@@ -15,10 +15,8 @@ link-citations: yes
 
 # About the book
 
-This book aims to bring together lots of useful tips for R Markdown.
-
-One of the common criticisms of markdown as a language is that it naturally limits what you can write. Users often therefore feel limited in what they can achieve with advanced customisation. However, we can easily edit.
-
+- This book aims to bring together lots of useful tips for R Markdown.
+- One of the common criticisms of markdown as a language is that it naturally limits what you can write. Users often therefore feel limited in what they can achieve with advanced customisation. However, we can easily edit.
 
 ## Recommended Reading
 
@@ -28,20 +26,6 @@ There are already several fantastic books out there which you may have already r
 - R Markdown: The Definitive guide
 - Authoring books with bookdown
 - Blogdown
-
-## Ideas to be written up
-
-- Use `(ref:tag)` to store page formatting options which might need to be reused. For example a page break
-- Managing big projects: `source` is particularly useful for loading external scripts so that the R Markdown project isn't too bloated with code.
-- Using subfigures within the R Markdown environments: https://stackoverflow.com/questions/12546365/subfigures-or-subcaptions-with-knitr/49086985#49086985
-- Caching, and ways it can be tailored to suit analysis. This cache invalidation is a great example: https://stackoverflow.com/questions/18376008/invalidate-a-chunks-cache-when-uncached-chunk-changes
-- Knitr hooks: these are explained within your previous book, but i I think a few more practical examples could be very useful for readers to see the power of it.
--Designing custom behavior which can respond to change in outputs using `is_latex_output` etc. For example, you may want to have interactive tables using `DT:datatable` in the HTML output but print static versions in the PDF.
-- Creating stylized tables using kableExtra: lots of fun things can be done with this package
-- Using short author citations: https://stackoverflow.com/questions/48303890/using-short-author-citations-in-bookdown-rmarkdown?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-
-
-
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages

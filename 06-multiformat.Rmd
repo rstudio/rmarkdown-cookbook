@@ -1,13 +1,14 @@
 # Multi-format projects
 
 - One of the main benefits of R Markdown is that it is easy to create documents in a single source file and generate PDF, HTML, ebook and Word documents. This book example is available in all three formats. Project should therefore ideally be designed to be flexible for the multiple outputs. However, users will often find themselves wanting to fine-tune the output, and doing so will often require 
+-Designing custom behavior which can respond to change in outputs using `is_latex_output` etc. For example, you may want to have interactive tables using `DT:datatable` in the HTML output but print static versions in the PDF.
 
 ## Output-specific functions
 
-Bookdown is smart in using 
+- **bookdown** will take screenshots of HTML widgets in static reports 
 
 
-```{r}
+```{r eval=FALSE, echo = TRUE}
 library(ggplot2)
 library(plotly)
 p <- ggplot(data = diamonds, aes(x = cut, fill = clarity)) +
