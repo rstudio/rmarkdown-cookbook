@@ -1,2 +1,0 @@
-- Use `(ref:tag)` to store page formatting options which might need to be reused. For example a page break
-- 

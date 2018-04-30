@@ -3,3 +3,4 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Chapter "
+edit: "https://github.com/mikey-harper/mastering-rmarkdown/edit/master/%s"
