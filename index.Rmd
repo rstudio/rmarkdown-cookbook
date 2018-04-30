@@ -11,9 +11,9 @@ link-citations: yes
 
 ---
 
-> This book is in a very early stage of development. If you have any suggestions on what should be included within this book, please get in touch via GitHub: https://github.com/mikey-harper/mastering-rmarkdown
-
 # About the book
+
+> This book is in a very early stage of development. If you have any suggestions on what should be included within this book, please get in touch via GitHub: https://github.com/mikey-harper/mastering-rmarkdown
 
 - This book aims to bring together lots of useful tips for R Markdown.
 - One of the common criticisms of markdown as a language is that it naturally limits what you can write. Users often therefore feel limited in what they can achieve with advanced customisation. However, we can easily edit.
