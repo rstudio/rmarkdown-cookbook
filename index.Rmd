@@ -8,12 +8,20 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-
 ---
 
 # About the book
 
 > This book is in a very early stage of development. If you have any suggestions on what should be included within this book, please get in touch via GitHub: https://github.com/mikey-harper/mastering-rmarkdown
+
+```{r include=FALSE}
+install.packages("DiagrammeR")
+install.packages("webshot")
+webshot::install_phantomjs()
+
+library(webshot)
+library(DiagrammeR)
+```
 
 - This book aims to bring together lots of useful tips for R Markdown.
 - One of the common criticisms of markdown as a language is that it naturally limits what you can write. Users often therefore feel limited in what they can achieve with advanced customisation. However, we can easily edit.
@@ -27,9 +35,11 @@ There are already several fantastic books out there which you may have already r
 - Authoring books with bookdown
 - Blogdown
 
+
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR'
 ), 'packages.bib')
 ```
+
