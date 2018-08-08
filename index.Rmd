@@ -10,9 +10,7 @@ biblio-style: apalike
 link-citations: yes
 ---
 
-# About the book
-
-> This book is in a very early stage of development. If you have any suggestions on what should be included within this book, please get in touch via GitHub: https://github.com/mikey-harper/rmarkdown-cookbook
+> This book is in a **very** early stage of development. If you have any suggestions on what should be included within this book, please get in touch via [GitHub](https://github.com/mikey-harper/rmarkdown-cookbook)
 
 ```{r include=FALSE}
 install.packages("DiagrammeR")
@@ -23,14 +21,13 @@ library(webshot)
 library(DiagrammeR)
 ```
 
+# Preface {-}
 
+- One of the common criticisms of markdown as a language is that it naturally limits what you can write. Users often therefore feel limited in what they can achieve with advanced customisation. However, there are a growing range of options available to achieve tailor the outputs of documents.
+- This book aims to bring together useful tips for R Markdown.
+- Although there are many resources available, many of these cover the basics of R Markdown.
 
-- This book aims to bring together lots of useful tips for R Markdown.
-- One of the common criticisms of markdown as a language is that it naturally limits what you can write. Users often therefore feel limited in what they can achieve with advanced customisation. However, we can easily edit.
-
-It is noted in the book *R Markdown: The Definitive Guide* that "Please do not underestimate the customizability of R Markdown because of the simplicity of its syntax"
-
-## Recommended Reading
+## Recommended Reading {-}
 
 There are already several fantastic books out there which you may have already read:
 
@@ -38,7 +35,6 @@ There are already several fantastic books out there which you may have already r
 - R Markdown: The Definitive guide
 - Authoring books with bookdown
 - Blogdown
-
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
