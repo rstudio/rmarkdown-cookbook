@@ -3,8 +3,6 @@
 - Motivation for book
 - What readers can learn
 - Feedback and errata
-- Suggested examples
-
 
 ## Overview of Book
 

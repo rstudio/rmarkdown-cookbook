@@ -1,8 +1,7 @@
 # Basics
 
 - What should be known before reading this book
-- Recommended reading
-- `bookdown` is used as the default engine as it provides improvements
+- Assumed knowledge of the basics of R Markdown
 
 ## Quick Tips
 

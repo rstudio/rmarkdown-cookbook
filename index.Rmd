@@ -1,6 +1,6 @@
 --- 
-title: "Mastering R Markdown"
-author: "Michael Harper"
+title: "R Markdown Cookbook"
+author: "Michael Harper, Yihui Xie"
 date: "`r Sys.Date()`"
 description: Tips and tricks to build advanced projects in R Markdown
 site: bookdown::bookdown_site
@@ -12,7 +12,7 @@ link-citations: yes
 
 # About the book
 
-> This book is in a very early stage of development. If you have any suggestions on what should be included within this book, please get in touch via GitHub: https://github.com/mikey-harper/mastering-rmarkdown
+> This book is in a very early stage of development. If you have any suggestions on what should be included within this book, please get in touch via GitHub: https://github.com/mikey-harper/rmarkdown-cookbook
 
 ```{r include=FALSE}
 install.packages("DiagrammeR")
@@ -23,8 +23,12 @@ library(webshot)
 library(DiagrammeR)
 ```
 
+
+
 - This book aims to bring together lots of useful tips for R Markdown.
 - One of the common criticisms of markdown as a language is that it naturally limits what you can write. Users often therefore feel limited in what they can achieve with advanced customisation. However, we can easily edit.
+
+It is noted in the book *R Markdown: The Definitive Guide* that "Please do not underestimate the customizability of R Markdown because of the simplicity of its syntax"
 
 ## Recommended Reading
 

@@ -1,3 +1,4 @@
 # Tables
 
+- provide more detailed documentation on kable
 - Using kableExtra to style tables

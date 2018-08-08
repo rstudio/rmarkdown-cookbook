@@ -2,7 +2,7 @@
 
 For many authors, the main  of long reports or books, the primary output will be LaTeX. In this chapter, we discuss approaches which can be used to customise the output of PDF reports.
 
-Users should approach with a note of caution. One of the major benefits of R Markdown is
+Users should approach with a note of caution. One of the major benefits of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format (PDF/Word/HTML), you may improve the appearance and performance of a single output but at the expense of this tranferability.
 
 ## Inserting Commands
 
@@ -58,6 +58,7 @@ The output is shown in Figure \@ref(fig:subcaptions).
 ```{r subcaptions, fig.cap="An example subcaption"}
 knitr::include_graphics("images/subfigure.png", dpi = NA)
 ```
+
 
 
 ### Using with list
