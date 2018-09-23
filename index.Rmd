@@ -15,6 +15,7 @@ cover-image: images/cover.png
 chooseCRANmirror(graphics=FALSE, ind=1)
 install.packages("DiagrammeR")
 install.packages("webshot")
+install.packages("blogdown")
 webshot::install_phantomjs()
 
 library(webshot)
