@@ -1,0 +1,30 @@
+## Adding Multiple Authors
+
+<!--- https://stackoverflow.com/questions/26043807/multiple-authors-and-subtitles-in-rmarkdown-yaml --->
+
+We can add multiple authors to a R Markdown document within the YAML in a number of ways
+
+
+```yaml
+---
+title: "Untitled"
+author: "John Doe, John Smith"
+output: html_document
+---
+```
+
+If you would prefer a linebreak between the two authors, we can add
+
+```yaml
+---
+author:
+- John Doe^[Their institution]
+- John Doe 2^[Their institution]
+output:
+  pdf_document: default
+  html_document: default
+---
+```
+
+
+

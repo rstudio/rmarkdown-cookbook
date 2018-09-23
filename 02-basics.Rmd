@@ -1,5 +1,30 @@
 # Basics
 
+This book by no means intends to be a comprehesive guide to R Markdown, however before we start, it is important to provide an overview of the key challenges which users often face when they attempt to customise their R Markdown documents.
+
+This chapter aims to clarify frequently confused concepts for users wishing to extend
+
+## R Markdown components
+
+<!---
+https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown
+--->
+
+A common source of confusion is understanding which component does what within the R markdown worflow. Figure X highlights the components of the R Markdown workflow.
+
+We focus on `.Rmd` files within this book. `.Rnw` and `.Rhtml` are available but less frequently used formats.
+
+
+**knitr** is responsible for the first stage of the conversion process. This processes all the embedded code chunks.
+
+The conversion process used by **knitr** is output format dependent. 
+
+**pandoc** is responsible for converting the raw markdown file into the required output format (PDF/HTML/Word).
+
+If PDF format is selected, there is one additonal dependency of LaTeX. 
+
+# Basics
+
 - What should be known before reading this book
 - Assumed knowledge of the basics of R Markdown
 

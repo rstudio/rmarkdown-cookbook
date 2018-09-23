@@ -1,0 +1,40 @@
+## Automatically Generate Package Citations
+
+It is important to that an acknowledgements is provided within your work to authors of any literature or software referenced. Within a typical workflow, this can be a frustrating experience if you are required to manually identify the correctly formatted citations, load them into a referencing software and then refer to them within the text. However, R Markdown makes it easy to streamline this process.
+
+We can generate a BibTex file for packages used within your analysis using the `write_bib` function within R Markdown.
+
+```{rcreateBib, echo = TRUE, eval = FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR'
+), 'packages.bib')
+```
+
+Once the bibliography has been generated, we can reference the packages, we can reference the package directly from within the text by 
+
+```yaml
+---
+bibliography: packages.bib
+---
+
+```
+rmarkdown
+
+
+If in addition to your packages 
+
+
+```yaml
+---
+bibliography: [packages.bib. references.bib]
+---
+
+```
+
+A complete example of the elements above is provided below:
+
+
+
+
+

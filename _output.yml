@@ -1,13 +1,13 @@
 bookdown::gitbook:
+  split_by: section
   css: style.css
   config:
     toc:
       before: |
-        <li><a href="./">Mastering R Markdown with examples</a></li>
+        <li><a href="./">R Markdown Cookbook</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     download: ["pdf", "epub"]
-    split_by: section
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
@@ -15,3 +15,4 @@ bookdown::pdf_book:
   citation_package: natbib
   keep_tex: yes
 bookdown::epub_book: default
+

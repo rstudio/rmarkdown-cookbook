@@ -1,0 +1,3 @@
+## Altering Citation Style
+
+- Using short author citations: https://stackoverflow.com/questions/48303890/using-short-author-citations-in-bookdown-rmarkdown?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa

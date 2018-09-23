@@ -16,13 +16,3 @@ if (!requireNamespace("devtools"))
   install.packages('devtools')
 devtools::install_github('rstudio/rmarkdown')
 ```
-
-
-# Recommended Reading
-
-There are already several fantastic books out there which you may have already read:
-
-- Dynamic documents and knitr
-- R Markdown: The Definitive guide
-- Authoring books with bookdown
-- Blogdown

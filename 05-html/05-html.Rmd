@@ -1,0 +1,7 @@
+# HTML Output
+
+How to customise the appearance of HTML documents:
+
+- CSS styles
+- Adapt some of the details from here: https://rmarkdown.rstudio.com/html_document_format.html
+
