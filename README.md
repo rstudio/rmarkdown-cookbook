@@ -1,6 +1,6 @@
 # R Markdown Cookbook
 
-[![Build Status](https://travis-ci.org/mikey-harper/mastering-rmarkdown.svg?branch=master)](https://travis-ci.org/mikey-harper/mastering-rmarkdown)
+[![Build Status](https://travis-ci.org/mikey-harper/rmarkdown-cookbook.svg?branch=master)](https://travis-ci.org/mikey-harper/rmarkdown-cookbook)
 
 > Book in early development. Planned release in 2019.
 
