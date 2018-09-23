@@ -12,9 +12,10 @@ cover-image: images/cover.png
 ---
 
 ```{r include=FALSE}
-# install.packages("DiagrammeR")
-# install.packages("webshot")
-# webshot::install_phantomjs()
+install.packages("DiagrammeR")
+install.packages("webshot")
+webshot::install_phantomjs()
+
 library(webshot)
 library(DiagrammeR)
 ```
