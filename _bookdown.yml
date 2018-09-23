@@ -1,7 +1,7 @@
 book_filename: "rmarkdown-cookbook"
+rmd_subdir: true
 delete_merged_file: true
 language:
   ui:
     chapter_name: "Chapter "
-edit: "https://github.com/mikey-harper/mastering-rmarkdown/edit/master/%s"
-rmd_subdir: true
+edit: "https://github.com/mikey-harper/rmarkdown-cookbook/edit/master/%s"
