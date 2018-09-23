@@ -1,0 +1,28 @@
+\mainmatter
+
+# (PART) Get Started {-}
+
+# Installation
+
+We assume you have already installed R (https://www.r-project.org) [@R-base] and the RStudio IDE (https://www.rstudio.com). RStudio is not required but recommended, because it makes it easier for an average user to work with R Markdown. If you do not have RStudio IDE installed, you will have to install Pandoc\index{Pandoc} (http://pandoc.org), otherwise there is no need to install Pandoc separately because RStudio has bundled it. Next you can install the **rmarkdown** package in R:
+
+```{r eval=FALSE, tidy=FALSE}
+# Install from CRAN
+install.packages('rmarkdown')
+
+# Or if you want to test the development version,
+# install from GitHub
+if (!requireNamespace("devtools"))
+  install.packages('devtools')
+devtools::install_github('rstudio/rmarkdown')
+```
+
+
+# Recommended Reading
+
+There are already several fantastic books out there which you may have already read:
+
+- Dynamic documents and knitr
+- R Markdown: The Definitive guide
+- Authoring books with bookdown
+- Blogdown

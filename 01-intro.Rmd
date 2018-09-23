@@ -1,9 +1,0 @@
-# Introduction {#intro}
-
-- Motivation for book
-- What readers can learn
-- Feedback and errata
-
-## Overview of Book
-
-- Explain the structure of the book
