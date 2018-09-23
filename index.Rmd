@@ -13,11 +13,10 @@ cover-image: images/cover.png
 
 ```{r include=FALSE}
 chooseCRANmirror(graphics=FALSE, ind=1)
-install.packages("DiagrammeR")
-install.packages("blogdown")
-install.packages("webshot")
-
-webshot::install_phantomjs()
+#install.packages("DiagrammeR")
+#install.packages("blogdown")
+#install.packages("webshot")
+#webshot::install_phantomjs()
 
 library(webshot)
 library(DiagrammeR)
@@ -39,7 +38,7 @@ knitr::write_bib(c(
 
 R Markdown is a powerful tool for combining analysis and reporting into the same document. Since the development of the **rmarkdown** package [@R-rmarkdown], it has grown to become a diverse ecosystem of code, and reports, books and websites can all easily be generated directly from R code.
 
-There is a wealth of guidance which has grown over the past few years. [*R Markdown: The Definitive Guide*](https://bookdown.org/yihui/rmarkdown/) [@xie2018]. However, as noted by Yihui, it was commented by the publisher that it would be beneficial to provide more practical examples of the use of R Markdown. And so, the idea of this book was born.
+There is a wealth of guidance which has grown over the past few years, and the book [*R Markdown: The Definitive Guide*](https://bookdown.org/yihui/rmarkdown/) [@xie2018] provides an overview of all that can be done with R Markdown. However, as noted by Yihui, it was commented by the publisher that it would be beneficial to provide more practical examples of the use of R Markdown. And so, the idea of this book was born.
 
 To fill the gap for official documentation, users often seek for help on StackOverflow. At the time of writing, there were almost 4,000 [different questions](https://stackoverflow.com/questions/tagged/r-markdown) with the `r-markdown` tag. However, the use of the website is  relatively difficult if you do not have a specific problem you are trying to search for, and therefore it is hard to be able to tell what is possible with R Markdown unless you have the insight to search for a specific question. This book aims to draw together much existing literature from StackOverflow, and provide up-to-date solutions for everyday queries that users commonly face.
 

@@ -5,3 +5,15 @@ language:
   ui:
     chapter_name: "Chapter "
 edit: "https://github.com/mikey-harper/rmarkdown-cookbook/edit/master/%s"
+rmd_files:
+- "index.Rmd"
+- "00-authors.Rmd"
+- "01-installation.Rmd"
+- "03-content/03-content.Rmd"
+- "03-content/current-date.Rmd"
+- "03-content/multiple-authors.Rmd"
+- "04-latex/04-latex.Rmd"
+- "04-latex/latex-change-font.Rmd"
+- "04-latex/latex-subfigures.Rmd"
+- "05-html/05-html.Rmd"
+- "05-html/html-tabbed-headings.Rmd"
