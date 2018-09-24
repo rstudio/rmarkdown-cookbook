@@ -2,7 +2,7 @@
 
 <!--- https://stackoverflow.com/questions/23449319/yaml-current-date-in-rmarkdown --->
 
-It is useful for the date of the knitted R Markdown document to automatically update each time we rerun the file. To do this, we can add R code directly to the `date` field in the YAML, and use the `Sys.time()` function to extract the current date. As this function will by default provide the date and time, we must format it as shown below:
+It may be useful for the date of the knitted R Markdown document to automatically update each time we rerun the file. To do this, we can add R code directly to the `date` field in the YAML, and use the `Sys.time()` function to extract the current date. As this function will by default provide the date and time, we must specify the desired date time format as shown below:
 
 ```{yaml, eval = FALSE}
 ---
@@ -11,14 +11,13 @@ date: !r format(Sys.time(), '%d %B, %Y')
 ---
 ```
 
-
 This will automatically update each time you Knit your document i.e. `r format(Sys.time(), '%d %B, %Y')`. If we wish to customize the format of the dates, we can alter the time format by providing our own text string. Some examples are shown as follows:
 
-- `%B %Y`: "`r format(Sys.time(), '%B %Y')`"
-- `%d/%m/%y`: "`r format(Sys.time(), '%d/%m/%y')`"
-- `%d/%m/%y`: "`r format(Sys.time(), '%a %d %b')`"
+- `%B %Y`: `r format(Sys.time(), '%B %Y')`
+- `%d/%m/%y`: "`r format(Sys.time(), '%d/%m/%y')`
+- `%d/%m/%y`: `r format(Sys.time(), '%a %d %b')`
 
-A full table of POSIXct formats is shown in Table \@ref(tab:dateTimeFormats), with
+A full table of POSIXct formats is shown in Table \@ref(tab:dateTimeFormats), which allows users to construct their required date format.
 
 ```{r dateTimeFormats, echo = FALSE}
 formats <-
@@ -38,6 +37,3 @@ formats <-
 
 knitr::kable(formats, caption = "Date Time Formats within R")
 ```
-
-
-
