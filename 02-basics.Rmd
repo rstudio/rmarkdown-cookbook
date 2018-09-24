@@ -1,8 +1,6 @@
 # Basics
 
-This book by no means intends to be a comprehesive guide to R Markdown, however before we start, it is important to provide an overview of the key challenges which users often face when they attempt to customise their R Markdown documents.
-
-This chapter aims to clarify frequently confused concepts for users wishing to extend
+This book by no means intends to be a comprehesive guide to R Markdown, however before we start, it is important to provide an overview of the R Markdown ecosystem before we explain how to make changes to it. This chapter therefore aims to provide the basic concepts required for the book.
 
 ## R Markdown components
 
@@ -10,4 +8,5 @@ This chapter aims to clarify frequently confused concepts for users wishing to e
 https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown
 --->
 
-Explain the difference between all the parts in r markdown (pandoc, knitr, LaTeX). 
+- Explain the difference between all the parts in r markdown (pandoc, knitr, LaTeX).
+- Use this section to signpost readers to the correct chapter.

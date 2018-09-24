@@ -1,30 +1,32 @@
-## Adding Multiple Authors
+## Adding Multiple Authors to Document
 
 <!--- https://stackoverflow.com/questions/26043807/multiple-authors-and-subtitles-in-rmarkdown-yaml --->
 
-We can add multiple authors to a R Markdown document within the YAML in a number of ways
-
+We can add multiple authors to a R Markdown document within the YAML in a number of ways. If we simply want to list them on the same line, we can provide a text string to the document:
 
 ```yaml
 ---
 title: "Untitled"
 author: "John Doe, John Smith"
-output: html_document
 ---
 ```
 
-If you would prefer a linebreak between the two authors, we can add
+Alternatively, if we wish for each entry to be on its own line we can provide a list of entries to the YAML field. This can be useful if you wish to include further information about each author such as an email address or instituion:
+
+```yaml
+---
+author: 
+- John Doe, Institution One
+- John Smith, Institution Two
+---
+```
+
+We can make use of the markdown syntax `^[]` to add additional information as a footnote to the document. This may be more useful if you have extended information you wish to include for each author, such as providing a contact email, address etc. The exact behaviour will depend on the output format (HTML/PDF/Word):
 
 ```yaml
 ---
 author:
-- John Doe^[Their institution]
-- John Doe 2^[Their institution]
-output:
-  pdf_document: default
-  html_document: default
+- John Doe^[Institution One, email@domain.com]
+- John Doe 2^[Institution Two, email2@domain.com]
 ---
 ```
-
-
-

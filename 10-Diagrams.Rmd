@@ -34,15 +34,7 @@ There are extensive controls which can be used to control the shape of nodes, co
 
 ## Adding parameters to plots
 
-We can allow 
-
-
-Graphviz substitution allows for mixing in R expressions into a Graphviz graph specification without sacrificing readability.
-
-If you specify a subsitution with `@@`, you must ensure there is a valid expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object (i.e., not a data frame, list, or matrix). Because there is the possibility to have multiple substitutions, numbering is required. Thus, the @@ notation is immediately followed by a number and that number should correspond to the number of the footnoted R expression.
-
-For example, suppose we have a dataset which is being analysed, and we would like to identify how many values are removed at each stage of a process.
-
+Graphviz substitution allows for mixing in R expressions into a Graphviz graph specification without sacrificing readability. If you specify a subsitution with `@@`, you must ensure there is a valid expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object (i.e., not a data frame, list, or matrix). Because there is the possibility to have multiple substitutions, numbering is required. Thus, the @@ notation is immediately followed by a number and that number should correspond to the number of the footnoted R expression. For example, suppose we have a dataset which is being analysed, and we would like to identify how many values are removed at each stage of a process.
 
 ```{r diagramme-parameters}
 
