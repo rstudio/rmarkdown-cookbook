@@ -1,38 +1,28 @@
 ## Automatically Generate Package Citations
 
-It is important to that an acknowledgements is provided within your work to authors of any literature or software referenced. Within a typical workflow, this can be a frustrating experience if you are required to manually identify the correctly formatted citations, load them into a referencing software and then refer to them within the text. However, R Markdown makes it easy to streamline this process.
+<!--- TODO: May add a full example into the repository examples --->
 
-We can generate a BibTex file for packages used within your analysis using the `write_bib` function within R Markdown.
+It is important to that an acknowledgements is provided within your work to authors of any literature or software referenced. Within a typical workflow, this can be a frustrating experience if you are required to manually identify the correctly formatted citations, load them into a referencing software and then refer to them within the text. However, R Markdown makes it easy to streamline this process. We can generate a BibTex file for packages used within your analysis using the `write_bib` function within R Markdown.
 
-```{rcreateBib, echo = TRUE, eval = FALSE}
+```{r createBib, echo = TRUE, eval = FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR'
 ), 'packages.bib')
 ```
 
-Once the bibliography has been generated, we can reference the packages, we can reference the package directly from within the text by 
+To refer to the packages in the text, we must add `bibliography: packages.bib` to the YAML frontmatter, and then references can be made using the format `[@R-package]` where `package` is replaced with the package name i.e. `[@R-rmarkdown]`. This will be replaced with an intext citation and will be added to the bibliography at the end of your document.
 
-```yaml
----
-bibliography: packages.bib
----
-
-```
-rmarkdown
-
-
-If in addition to your packages 
-
+Note, that the `write_bib` command is designed to overwrite the existing bibliography. If you want to manually add any other items to the bibligraphy in your document, it is recommended that you create a second `.bib` file which is also referred to within the YAML `bibliography` field, as shown below:
 
 ```yaml
 ---
 bibliography: [packages.bib. references.bib]
 ---
-
 ```
 
-A complete example of the elements above is provided below:
+
+
 
 
 
