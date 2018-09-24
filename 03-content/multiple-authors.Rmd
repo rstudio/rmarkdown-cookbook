@@ -30,3 +30,23 @@ author:
 - John Doe 2^[Institution Two, email2@domain.com]
 ---
 ```
+
+Certain R Markdown templates will allow you to specify additional parameters directly within the YAML. For example, the [Radix](https://rstudio.github.io/radix/) output format allows `url`, `affiliation` and `affiliation_url` to be specified. We must first install the Radix package from GitHub:
+
+```{r, echo = TRUE, eval = FALSE}
+devtools::install_github("rstudio/radix")
+```
+We can use the new format by changing the `output` option as specified below:
+
+```yaml
+---
+title: "Radix for R Markdown"
+author:
+  - name: "JJ Allaire"
+    url: https://github.com/jjallaire
+    affiliation: RStudio
+    affiliation_url: https://www.rstudio.com
+ output: radix::radix_article
+ ---
+ ```
+
