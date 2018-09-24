@@ -46,7 +46,7 @@ author:
     url: https://github.com/jjallaire
     affiliation: RStudio
     affiliation_url: https://www.rstudio.com
- output: radix::radix_article
- ---
- ```
+output: radix::radix_article
+---
+```
 
