@@ -13,10 +13,10 @@ cover-image: images/cover.png
 
 ```{r include=FALSE}
 chooseCRANmirror(graphics=FALSE, ind=1)
-#install.packages("DiagrammeR")
-#install.packages("blogdown")
-#install.packages("webshot")
-#webshot::install_phantomjs()
+install.packages("DiagrammeR")
+install.packages("blogdown")
+install.packages("webshot")
+webshot::install_phantomjs()
 
 library(webshot)
 library(DiagrammeR)
