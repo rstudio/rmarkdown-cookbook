@@ -1,0 +1,48 @@
+## Include additional LaTeX packages
+
+<!--- https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown/452884#452884 --->
+
+If your primary output format for your R Markdown document is PDF, then the use of additional LaTeX packages can allow for extensive customization of document styling. In addition, several packages such as [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf) may have LaTeX dependencies for the R package to function. Much like R, we need to load packages within the R Markdown document before we are able to use their functions.
+
+### Loading LaTeX Packages
+
+We can load additional LaTeX packages using the `extra_dependencies` option within the `pdf_document` YAML settings. This allows us to provide a list of R Markdown packages:
+
+```yaml
+---
+title: "Untitled"
+output: 
+  pdf_document:
+    extra_dependencies: ["bbm", "threeparttable"]
+---
+```
+
+If you need to specify options when loading the package, you can add a second-level to the list and provide the options as a list:
+
+```
+output: 
+  pdf_document:
+    extra_dependencies:
+      caption: ["labelfont={bf}"]
+      hyperref: ["unicode=true", "breaklinks=true"]
+      lmodern: null
+```
+
+For those familiar with LaTeX, this is equivalent to the following LaTeX file:
+
+```latex
+\usepackage[labelfont={bf}]{caption} 
+\usepackage[unicode=true, breaklinks=true]{hyperref}
+\userpackage{lmodern}
+```
+
+### Example Packages
+
+There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprohensive Tex Archive Network](https://ctan.org/) (CTAN). As some examples of LaTeX packages you could consider using within your analysis:
+
+- [pdfpages](https://ctan.org/pkg/pdfpages?lang=en): include full PDF pages within your document. This is useful if you wish to have appendices within your document
+- [caption](https://ctan.org/pkg/caption?lang=en): change the appearance of caption subtitles. For example, you can make the Figure title italics, centered.
+- [fancyhdr](https://ctan.org/pkg/fancyhdr?lang=en): change the style of page headers.
+
+<!--- ADD MORE PACKAGES --->
+
