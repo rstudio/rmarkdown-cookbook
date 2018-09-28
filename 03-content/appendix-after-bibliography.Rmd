@@ -1,0 +1,32 @@
+## Include Appendix after Bibliography
+
+<!--- https://stackoverflow.com/questions/41532707/include-rmd-appendix-after-references/42258998#42258998 --->
+<!--- https://stackoverflow.com/questions/16427637/pandoc-insert-appendix-after-bibliography?noredirect=1&lq=1 --->
+
+By default, the bibliography appears at the very end of the document. However, there can be cases where we want to place additional text after the references, most typically if we wish to include appendices within the document. We can force the position of the references by using `<div id="refs"></div>`, as shown below:
+
+```
+# References
+
+<div id="refs"></div>
+
+# Appendices 
+
+```
+
+We can improve this further by using the **bookdown** package, which offers a [special header](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#special-headers) for the Appendix as shown with the syntax below:
+
+```
+# References
+
+<div id="refs"></div>
+
+# (APPENDIX) Appendix {-} 
+
+# Appendix A
+
+# Appendix B
+
+```
+
+The numbering style of appendices will be automatically changed in LaTeX/PDF and HTML output (usually in the form A, A.1, A.2, B, B.1, …).
