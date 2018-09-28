@@ -30,7 +30,7 @@ output:
 
 For those familiar with LaTeX, this is equivalent to the following LaTeX file:
 
-```latex
+```
 \usepackage[labelfont={bf}]{caption} 
 \usepackage[unicode=true, breaklinks=true]{hyperref}
 \userpackage{lmodern}
