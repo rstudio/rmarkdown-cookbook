@@ -1,0 +1,36 @@
+## Changing Font Colour
+<!--- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color --->
+
+The markdown syntax has no built-in method for changing text colours. We can use HTML and LaTeX syntax to change the formatting of words:
+
+- **For HTML**: we can wrap the text in the `<font color='",color,"'>",x,"</font>` command.
+- **For PDF**: we can use the LaTeX command `\textcolor{}{}`. This requires the extra LaTeX package **xcolor**.
+
+As an example of changing the colour in PDF text:
+
+```
+---
+output:
+  pdf_document:
+    extra_dependencies: ["xcolor"]
+---
+
+Roses are \textcolor{red}{red}, violets are \textcolor{blue}{blue}
+```
+
+### Multi-output text colour
+
+We should attempt to design our R Markdown documents to allow for multiple outputs. If we embed raw HTML or LaTeX code into our documents, this formatting will be ignored in the other output format. We can write a custom function which will insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output` functions as follows:
+
+```{r}
+format_with_col = function(x, color){
+  if(knitr::is_latex_output())
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(knitr::is_html_output())
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+```
+
+We can then use the code as an inline R expression `format_with_col("text", "red")` which will create `r format_with_col("text", "red")` text.
