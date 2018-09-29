@@ -33,4 +33,4 @@ format_with_col = function(x, color){
 }
 ```
 
-We can then use the code as an inline R expression `format_with_col("text", "red")` which will create `r format_with_col("text", "red")` text.
+We can then use the code as an inline R expression `format_with_col("red", "red")` which will create `r format_with_col("red", "red")` text.

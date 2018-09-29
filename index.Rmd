@@ -22,15 +22,11 @@ library(DiagrammeR)
 ```{r writeBib, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', "blogdown"
 ), 'packages.bib')
 ```
 
 # Preface {-}
-
-```{block2, type = "rmdnote"}
-If you need a reminder in the basics of the markdown language, the [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) provides a good overview of the basic syntax.
-```
 
 ```{block2, type = "rmdcaution"}
 This book is in a **very** early stage of development. If you have any suggestions on what should be included within this book, please get in touch via [GitHub](https://github.com/dr-harper/rmarkdown-cookbook/issues/new)
