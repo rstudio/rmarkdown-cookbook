@@ -12,8 +12,8 @@ R Markdown combines several different processes together to create documents, an
 
 The basic workflow structure for an R Markdown document is shown in Figure \@ref(fig:rmdworkflow), highlighting the processes (arrows) and the intermediate files which are created before producing the output. Each stage is explained in further detail below.
 
-```{r rmdworkflow, fig.cap = "Schematic highlighting the R Markdown workflow. (DRAFT DIAGRAM)"}
-knitr::include_graphics("images/workflow.png")
+```{r rmdworkflow, echo = FALSE, fig.cap = "Schematic highlighting the R Markdown workflow. (DRAFT DIAGRAM)", out.width='100%'}
+knitr::include_graphics("images/workflow.png", dpi = NA)
 ```
 
 The `.Rmd` document is the original format of the document. It contains a combination of YAML, text and code chunks.
@@ -31,7 +31,6 @@ As a final clarification, the **bookdown** package is often used within more com
 The way in which **knitr** can be controlled is via the code chunk options.
 
 To set variables in a single location, we can use
-
 
 ````r
 `r ''````{r, echo = FALSE, message = FALSE}
