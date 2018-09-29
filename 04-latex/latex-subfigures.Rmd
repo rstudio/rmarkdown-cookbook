@@ -16,8 +16,7 @@ An example is demonstrated below:
 ```{yaml, eval = FALSE}
 output:
   pdf_document:
-    extra_dependencies:
-      caption: ["labelfont={bf}"]
+    extra_dependencies: subfig
 ```
 
 `r ''````{r fig-sub, fig.cap='two plots', fig.subcap=c('one plot', 'the other one'), out.width='.49\\linewidth', fig.asp=1, fig.ncol = 2}
@@ -31,5 +30,3 @@ The output is shown in Figure \@ref(fig:subcaptions).
 ```{r subcaptions, fig.cap="An example subcaption"}
 knitr::include_graphics("images/subfigure.png", dpi = NA)
 ```
-
-### Using with list
