@@ -6,8 +6,7 @@ It may be useful for the date of the knitted R Markdown document to automaticall
 
 ```{yaml, eval = FALSE}
 ---
-title: Your title
-date: !r format(Sys.time(), '%d %B, %Y')
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 ---
 ```
 
@@ -37,3 +36,12 @@ formats <-
 
 knitr::kable(formats, caption = "Date Time Formats within R")
 ```
+
+As a final note, you may even want to include some explanatory text along with the date. We can easily add any text such as "Last Compiled on" before the R code as follows:
+
+```{yaml, eval = FALSE}
+---
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+---
+```
+

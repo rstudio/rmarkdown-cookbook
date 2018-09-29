@@ -2,11 +2,52 @@
 
 This book by no means intends to be a comprehesive guide to R Markdown, however before we start, it is important to provide an overview of the R Markdown ecosystem before we explain how to make changes to it. This chapter therefore aims to provide the basic concepts required for the book.
 
+For those seeking the background, we recommend that readers refer to *(The R Markdown Definitive Guide)[https://bookdown.org/yihui/rmarkdown/]*, which provides a comprenhensive overview of the R Markdown components.
+
 ## R Markdown components
 
-<!---
-https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown
---->
+<!--- https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown --->
 
-- Explain the difference between all the parts in r markdown (pandoc, knitr, LaTeX).
-- Use this section to signpost readers to the correct chapter.
+R Markdown combines several different processes together to create documents, and one of the main sources of confusion from R Markdown is how all the components work together. Fortunately, as a user, it is not essential to understand all the inner workings of these processes to be able to create documents. However, as a user who may be seeking to alter the behaviour of a document, it is important to understand the components which part is responsible for what. This makes it a lot easier to seek help as you can target your searches on the correct area.
+
+The basic workflow structure for an R Markdown document is shown in Figure \@ref(fig:rmdworkflow), highlighting the processes (arrows) and the intermediate files which are created before producing the output. Each stage is explained in further detail below.
+
+```{r rmdworkflow, fig.cap = "Schematic highlighting the R Markdown workflow. (DRAFT DIAGRAM)"}
+knitr::include_graphics("images/workflow.png")
+```
+
+The `.Rmd` document is the original format of the document. It contains a combination of YAML, text and code chunks.
+
+**knitr** is used to convert any code embedded within the `.Rmd` file. This will run all the R code contained within the report and prepare the outputs to be displayed within the output results. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
+
+The `.md` file is processed by [pandoc](https://pandoc.org/), a multipurpose tool which is designed to convert files from one markup language to another. This takes any parameters specified within the YAML frontmatter of the document (e.g. `title`, `author`, `date`) to convert the document to the output format specified in the `output` argument (HTML/PDF/Word).
+
+If the output document is PDF, there is an additional layer of processing, as Pandoc will convert the raw `.md` into an intermediate `'tex` file. This is file is then processed by [LaTeX](https://www.latex-project.org/about/) to form the final PDF document.
+
+As a final clarification, the **bookdown** package is often used within more complex, multiple file books such as this. This essentially provides a layer of preprocessing to the R Markdown document which extends the functionality of the **rmarkdown** package.
+
+## Controlling Each layer
+
+The way in which **knitr** can be controlled is via the code chunk options.
+
+To set variables in a single location, we can use
+
+
+````r
+`r ''````{r, echo = FALSE, message = FALSE}
+
+```
+````
+
+Alternatively, we can set global properties for a R Markdown document.
+
+
+
+
+
+
+
+
+
+
+

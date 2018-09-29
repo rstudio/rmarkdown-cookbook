@@ -1,0 +1,16 @@
+## Cross-referencing Tables and Figures
+
+Cross-referencing is a useful way of directing your readers through your document. 
+
+```{block2, type='rmdwarning'}
+
+Cross-referencing requires you to use **bookdown** must be using the **bookdown** package for cross-referencing to function.
+
+
+```
+
+
+
+
+
+

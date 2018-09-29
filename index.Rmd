@@ -11,7 +11,7 @@ link-citations: yes
 cover-image: images/cover.png
 ---
 
-```{r include=FALSE}
+```{r installPackages, include=FALSE}
 chooseCRANmirror(graphics=FALSE, ind=1)
 install.packages("DiagrammeR")
 install.packages("blogdown")
@@ -23,7 +23,7 @@ library(DiagrammeR)
 ```
 
 
-```{r include=FALSE}
+```{r writeBib, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR'

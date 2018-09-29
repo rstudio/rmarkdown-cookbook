@@ -13,10 +13,11 @@ As listed within the knitr [chunk options](https://yihui.name/knitr/options/), s
 An example is demonstrated below:
 
 ````
-```yaml
-output: pdf_document
-header-includes:
-   - \usepackage{subfig}
+```{yaml, eval = FALSE}
+output:
+  pdf_document:
+    extra_dependencies:
+      caption: ["labelfont={bf}"]
 ```
 
 `r ''````{r fig-sub, fig.cap='two plots', fig.subcap=c('one plot', 'the other one'), out.width='.49\\linewidth', fig.asp=1, fig.ncol = 2}

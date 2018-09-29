@@ -1,3 +1,24 @@
+.rmdcaution, .rmdimportant, .rmdnote, .rmdtip, .rmdwarning {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.rmdcaution {
+  background-image: url("images/icons/caution.png");
+}
+.rmdimportant {
+  background-image: url("images/icons/important.png");
+}
+.rmdnote {
+  background-image: url("images/icons/note.png");
+}
+.rmdtip {
+  background-image: url("images/icons/tip.png");
+}
+.rmdwarning {
+  background-image: url("images/icons/warning.png");
+}
+
 p.caption {
   color: #777;
   margin-top: 10px;
@@ -41,3 +62,5 @@ h1.title {
 .book .book-body .page-wrapper .page-inner section.normal strong {
   font-weight: 500;
 }
+
+

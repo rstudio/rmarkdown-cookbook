@@ -8,7 +8,7 @@ If your primary output format for your R Markdown document is PDF, then the use 
 
 We can load additional LaTeX packages using the `extra_dependencies` option within the `pdf_document` YAML settings. This allows us to provide a list of R Markdown packages:
 
-```yaml
+```
 ---
 title: "Untitled"
 output: 
