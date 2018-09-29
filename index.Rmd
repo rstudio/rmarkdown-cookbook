@@ -13,10 +13,6 @@ cover-image: images/cover.png
 
 ```{r installPackages, include=FALSE}
 chooseCRANmirror(graphics=FALSE, ind=1)
-install.packages("DiagrammeR")
-install.packages("blogdown")
-install.packages("webshot")
-webshot::install_phantomjs()
 
 library(webshot)
 library(DiagrammeR)
@@ -31,6 +27,10 @@ knitr::write_bib(c(
 ```
 
 # Preface {-}
+
+```{block2, type = "rmdnote"}
+If you need a reminder in the basics of the markdown language, the [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) provides a good overview of the basic syntax.
+```
 
 > This book is in a **very** early stage of development. If you have any suggestions on what should be included within this book, please get in touch via [GitHub](https://github.com/mikey-harper/rmarkdown-cookbook)
 
