@@ -22,7 +22,7 @@ The `.Rmd` document is the original format of the document. It contains a combin
 
 The `.md` file is processed by [pandoc](https://pandoc.org/), a multipurpose tool which is designed to convert files from one markup language to another. This takes any parameters specified within the YAML frontmatter of the document (e.g. `title`, `author`, `date`) to convert the document to the output format specified in the `output` argument (HTML/PDF/Word).
 
-If the output document is PDF, there is an additional layer of processing, as Pandoc will convert the raw `.md` into an intermediate `'tex` file. This is file is then processed by [LaTeX](https://www.latex-project.org/about/) to form the final PDF document.
+If the output document is PDF, there is an additional layer of processing, as Pandoc will convert the raw `.md` into an intermediate `.tex` file. This file is then processed by [LaTeX](https://www.latex-project.org/about/) to form the final PDF document.
 
 As a final clarification, the **bookdown** package is often used within more complex, multiple file books such as this. This essentially provides a layer of preprocessing to the R Markdown document which extends the functionality of the **rmarkdown** package.
 
