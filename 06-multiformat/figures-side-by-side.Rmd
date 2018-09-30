@@ -1,0 +1,10 @@
+##  Plotting multiple figures side-by-side
+
+As explained in https://bookdown.org/yihui/rmarkdown/r-code.html#figures of @xie2018, we can place multiple figures side-by-side using the `fig.hold='hold'` along with the `out.width` option. As an example below, we have set the `out.width="50%"`:
+
+```{r fig-sub-2, fig.show ="hold", out.width = "50%", fig.cap="Side-by-side figures", echo = TRUE}
+plot(1:10)
+plot(rnorm(10), pch=19)
+```
+
+The main benefits of this approach is that it is easily achieved, and also works for both PDF and HTML outputs.
