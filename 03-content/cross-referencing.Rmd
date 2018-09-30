@@ -1,15 +1,41 @@
-## Cross-referencing Tables and Figures
+## Cross-referencing within documents
 
-Cross-referencing is a useful way of directing your readers through your document. 
+<!---https://stackoverflow.com/questions/38861041/knitr-rmarkdown-latex-how-to-cross-reference-figures-and-tables--->
 
-```{block2, type='rmdwarning'}
+Cross-referencing is a useful way of directing your readers through your document, and can be automatically done within R Markdown. While this is explained in [Section 2.6](https://bookdown.org/yihui/bookdown/cross-references.html) from the bookdown book [@xie2016bookdown], it is useful to remind readers of how to use these within documents. 
 
-Cross-referencing requires you to use **bookdown** must be using the **bookdown** package for cross-referencing to function.
+```{block2, type = "rmdwarning"}
 
+If you are having problems with cross-referencing, make sure you are:
 
+- Using a bookdown output format such as `html_document2`, `pdf_document2` and `word_document2`.
+- Have given a caption to your figure or table.
+- Have named your code chunk.
 ```
 
+We can make cross-references within the text using the format `\@ref(type:label)`, where `label` is the chunk label and `type` is the environment being referenced. A complete example is provided below:
 
+```yaml
+---
+output: bookdown::html_document2
+---
+```
+````markdown
+See Figure \@ref(fig:cars-plot)
+
+`r ''````{r cars-plot, fig.cap="A plot caption"}
+plot(cars)  # a scatterplot
+```
+
+See Table \@ref(tab:mtcars)
+
+`r ''````{r mtcars}
+knitr::kable(mtcars[1:5, 1:5], caption = "A caption")
+```
+
+````
+
+We can also cross-reference equations, theorems and section headers, which are explained further in Section [12.3.5](https://bookdown.org/yihui/rmarkdown/bookdown-markdown.html#cross-referencing) of the R Markdown book [@xie2018].
 
 
 
