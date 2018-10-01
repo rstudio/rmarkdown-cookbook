@@ -1,6 +1,7 @@
 ## Add Custom Headers and Fsooters
 
 <!--- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown --->
+<!--- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc --->
 
 We can use LaTeX package **fancyhdr** to customise the header and footer of PDF outputs. It provides several commands that allow you to customize the header and footer lines of your document. For a more complete guide, please refer to the [full documentation](http://tug.ctan.org/tex-archive/macros/latex/contrib/fancyhdr/fancyhdr.pdf). To begin with, we must load the package and change the header style:
 

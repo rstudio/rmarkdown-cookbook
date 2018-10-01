@@ -1,0 +1,22 @@
+## Controlling the Placement of Figures
+
+One of the common 
+
+To new users of LaTeX, the behaviour of figure positioning can be fairly confusing and it is not clear how [floats]( https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions) work. Floats are used as containers for things which cannot be broken over a page, such as tables and figures. designed to minim
+
+You may run into some problems if you have multiple figures in close 
+
+> Authors sometimes have many floats occurring in rapid succession, which raises the problem of how they are supposed to fit on the page and still leave room for text. In this case, LaTeX stacks them all up and prints them together if possible, or leaves them to the end of the chapter in protest. The skill is to space them out within your text so that they intrude neither on the thread of your argument or discussion, nor on the visual balance of the typeset pages.
+
+
+### Controlling Float
+
+
+
+### Forcing the position
+
+
+
+
+### Forcing Float Forwards
+
