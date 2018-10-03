@@ -4,10 +4,10 @@ Typically we write code chunks and inline expressions that we want to be parsed 
 
 Unfortunately, we can't wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting  "`` `r ''` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
 
-````
-```{r, eval=TRUE}`r ''`
+````{r echo = FALSE, comment = NA}
+cat("```{r, eval=TRUE}`r ''`
 1 + 1
-```
+```")
 ````
 
 will be rendered as:
@@ -20,13 +20,12 @@ will be rendered as:
 
 in the output. The inline expression is gone because it is substituted by an empty string. However, that is only the first step. To show something verbatim in the output, the syntax in Markdown is to wrap it in a code block (indent by four spaces or use backtick fences). This will be the actual source if you want to see the output above:
 
-`````md
-````
+```{r echo = FALSE, comment = NA}
+cat("````
 ```{r, eval=TRUE}`r ''`
 1 + 1
+```\n````")
 ```
-````
-`````
 
 Why four backticks? That is because you have to use at least N+1 backticks to wrap up N backticks.
 

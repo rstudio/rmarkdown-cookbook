@@ -16,6 +16,8 @@ biblio-style: apalike
 ```{r installPackages, include=FALSE}
 chooseCRANmirror(graphics=FALSE, ind=1)
 
+knitr::opts_current$set(comment = NA)
+
 library(webshot)
 library(DiagrammeR)
 ```
