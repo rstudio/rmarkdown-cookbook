@@ -2,13 +2,15 @@
 title: "R Markdown Cookbook"
 author: "Michael Harper, Yihui Xie"
 date: "`r Sys.Date()`"
-description: Tips and tricks to build advanced projects in R Markdown
-site: bookdown::bookdown_site
-documentclass: book
-bibliography: [book.bib, packages.bib]
-biblio-style: apalike
-link-citations: yes
 cover-image: images/cover.png
+bibliography:
+- book.bib
+- packages.bib
+description: Tips and tricks to build advanced projects in R Markdown
+documentclass: book
+link-citations: yes
+site: bookdown::bookdown_site
+biblio-style: apalike
 ---
 
 ```{r installPackages, include=FALSE}
