@@ -1,0 +1,62 @@
+## Change Chunk Styling
+
+<!--- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown --->
+
+We can customize the style of code chunks and outputs using the arguments `class.source` and `class.output`. One way this can be useful is motivated by the original [Stack Overflow question](http://stackoverflow.com/q/41030477/559676) on how we use **knitr** to help us to emphasize "bad" coding practices.
+
+By default,  R Markdown will include the Bootstrap framework. This can make things very easy for you to signify your code and your output. Bootstrap defines some [CSS classes for backgrounds](http://getbootstrap.com/css/#helper-classes-backgrounds): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.
+
+For example, we are warned that the normal subsetting of a data frame can be type-unstable. To show this here,  the chunk options are set: `class.source = 'bg-warning', class.output = 'bg-warning'`.
+
+````
+```{r df-drop, class.source='bg-warning', class.output='bg-warning'}`r ''`
+mtcars[, "mpg"]
+```
+````
+
+In our output document, this will create the code chunk as shown in Figure \@ref(fig:bgWarning).
+
+```{r bgWarning, echo = FALSE, fig.cap = "Output of customised code chunk"}
+knitr::include_graphics("images/bgWarning.png", dpi = NA)
+```
+
+To make sure that we return a data frame, we set the argument `drop = FALSE`. Here the chunk options are set: `class.source = 'bg-success', class.output = 'bg-success'`.
+
+````
+```{r df-drop-ok, class.source='bg-success', class.output='bg-success'}`r ''`
+mtcars[, "mpg", drop=FALSE]
+```
+````
+
+### Using Custom CSS
+
+If we wish to specify custom styling options, we can include a CSS file by setting a parameter in the YAML header ([reference](http://rmarkdown.rstudio.com/html_document_format.html#custom_css)). You can also include a chunk of CSS code, as is done here. Note that for this example, only `class.source` is set.
+
+````
+```{css echo=FALSE}`r ''`
+.chunk-style{
+  background-color: #F5B7B1;
+  border: 1px solid #797D7F;
+  border-radius: 1px;}
+```
+
+```{r df-drop-2, class.source='chunk-style'}`r ''`
+mtcars[, "mpg"] 
+``` 
+````
+
+The output style is shown in Figure \@ref(fig:bgCustom).
+
+```{r bgCustom, echo = FALSE, fig.cap = "Custom Background styling as defined by CSS"}
+knitr::include_graphics("images/bgCustom.png", dpi = NA)
+```
+
+### Setting Default Style for Document
+
+If we wish for all code chunks in the document to use our newly created style, we can add the `class.source` to the global knitr options.:
+
+```{r, echo = TRUE, eval = FALSE}
+knitr::opts_chunk$set(class.source='chunk-style')
+```
+
+
