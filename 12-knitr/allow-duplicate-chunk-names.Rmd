@@ -1,0 +1,36 @@
+## Allow Duplicate Code Chunks
+
+By default, **knitr** will not allow duplicate code chunks names in the document, and will result in an error when the document is knitted. This most frequently occurs when a code chunk is copy-and-pasted within a document. Most R Markdown users will have seen an error message like this at some stage:
+
+```
+processing file: myfile.Rmd
+Error in parse_block(g[-1], g[1], params.src) : duplicate label 'cars'
+Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
+Execution halted
+```
+
+However, there are scenarios where we may wish to allow duplicate cases. For example, if we have one master document `parent.rmd` and several child documents, each with a number of chunks. If I attempt to re-use the same child-chunks, however, this will fail:
+
+```{r, eval = FALSE}
+# settings
+settings = list(...)
+
+# run once
+knit_child('useful_analysis.rmd')
+
+# new settings
+settings = list(...)
+
+# run again
+knit_child('useful_analysis.rmd')
+```
+
+In such scenario, we can allow duplicate labels:
+
+```{r, eval = FALSE}
+options(knitr.duplicate.label = 'allow')
+```
+
+Note, it is not recommended that this option is set in documents without valid reason. As with most error messages, they are there for a reason, and allowing duplicate chunks can create issues with figures and cross-references. You have been warned!
+
+
