@@ -1,4 +1,4 @@
-## Add Custom Headers and Fsooters
+## Add Custom Headers and Footers
 
 <!--- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown --->
 <!--- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc --->
