@@ -1,0 +1,82 @@
+## Multi-file documents
+
+<!--- https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output --->
+
+With larger R Markdown projects, it can be useful to split the document into smaller files which are easier to handle than a single, massive `'.Rmd` document. Also, we may also have generic components which we wish to use across all of our analyses, and rather than copying and pasting the same code across for each report.
+
+In this section, we highlight two approaches which can be used when splitting an R Markdown document into separate `.Rmd` files, using child documents and the **bookdown** [@R-bookdown] package. Most importantly, we will highlight when it is preferred for each to be used within your analysis.
+
+### Child documents
+
+We can include other R Markdown documents within a file by using child documents. The contents of the child document is loaded into the parent document, and any R code will be run as normally within **knitr**.
+
+To include a child document, we can add a code chunk with the option `child`, providing the file path to the `.Rmd` file to be included. The chunk should contain no code but we can specify additional chunk options if we wish to suppress the code output i.e. `echo=FALSE`. For example:
+
+````md
+```{r, child = "about.Rmd"}`r ''`
+```
+````
+
+Whereby the content of `about.Rmd` provides a short description of the packages used for the analysis:
+
+```md
+# About
+
+This analysis was written in the R programming language [@R-base]. The report was generated using **rmarkdown** [@R-markdown] and **knitr** [@R-knitr].
+```
+
+Child documents are useful where we have a standard piece of text that we wish to include across multiple documents. Rather than copying and pasting the text to each file, we can refer to a single source file. If any changes are made to our generic description at a later date, we can update a single source file and all the reports will be up to date. 
+
+Further examples where child documents could be useful include:
+
+- **Project Description**: it is often useful to include generic description of the project
+- **Funding Statements**: research will often have the same funding statement used across all outputs
+- **R Session Information**: you may wish to include document metadata
+
+### Using bookdown
+
+The **bookdown** [@R-bookdown] package is designed for craeting long format documents within R Markdown, and allows us to split our files into multiple components. To demonstrate the use, we provide a minimal example comprising of three files within the same directory:
+
+```md
+directory
+  |- index.Rmd
+  |- 01-intro.Rmd
+  |- 02-analysis.Rmd
+```
+- **index.Rmd**:
+
+The main detail is that the main file has to be called `index.Rmd` , and must include the additional YAML line site: `bookdown::bookdown_site`. We must also use a **bookdown** output format such as `html_document2`, `pdf_document2`, `word_document2`:
+
+````md
+---
+title: "A Minimal bookdown document"
+site: bookdown::bookdown_site
+output: bookdown::pdf_document2
+---
+
+Some content
+````
+
+- **01-intro.Rmd:**
+
+````md
+# Chapter 1
+
+This is chapter 1.
+````
+
+- **02-analysis.Rmd**:
+
+```md
+# Chapter 2
+
+This is chapter 2.
+```
+
+When the file is built, **bookdown** merges the results of the separate files into a single output document. This will automatically be done in alphabetical order, so it makes sense to precede your file name with a numeric index as above.
+
+For a comprehensive overview of the package, readers may refer to the [*Bookdown Book*]() [@xie2016bookdown] or [Chapter 18](https://bookdown.org/yihui/rmarkdown/) of the *R Markdown Definitive Guide* [@xie2018].
+
+### Which method should you use?
+
+There is a legacy of using child documents when creating longer documents, as **bookdown** was only released in 2016. As such, there is some confusion over which should be used when. In general, if you are wishing to reuse a component across multiple documents, it is recommended to use child documents. However, if you are wanting to write a book and split it into multiple files (preferably one per chapter), **bookdown** provides a lot of extra functionality and is generally preferred.
