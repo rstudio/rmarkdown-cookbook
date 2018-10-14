@@ -1,0 +1,25 @@
+## Adding numbered figure captions
+
+<!--- https://stackoverflow.com/questions/37116632/r-markdown-html-number-figures --->
+
+We can use the **bookdown** to add figure numbers to the figure captions. An example is provided below:
+
+```yaml
+---
+output: bookdown::html_document2
+---
+```
+````md
+`r ''```{r cars, fig.cap = "An amazing plot"}
+plot(cars)
+```
+
+`r ''```{r cars2, fig.cap = "Another amazing plot"}
+plot(cars)
+```
+````
+
+Section \@ref(crossRef) demonstrates how we can extend this further by cross-referencing the numbered figures within the text.
+
+
+

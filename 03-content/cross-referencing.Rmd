@@ -1,4 +1,4 @@
-## Cross-referencing within documents
+## Cross-referencing within documents {#crossRef}
 
 <!---https://stackoverflow.com/questions/38861041/knitr-rmarkdown-latex-how-to-cross-reference-figures-and-tables--->
 
