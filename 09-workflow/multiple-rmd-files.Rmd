@@ -35,7 +35,7 @@ Further examples where child documents could be useful include:
 
 ### Using bookdown
 
-The **bookdown** [@R-bookdown] package is designed for craeting long format documents within R Markdown, and allows us to split our files into multiple components. To demonstrate the use, we provide a minimal example comprising of three files within the same directory:
+The **bookdown** [@R-bookdown] package is designed for creating long format documents within R Markdown, and allows us to split our files into multiple components. To demonstrate the use, we provide a minimal example comprising of three files within the same directory:
 
 ```md
 directory
