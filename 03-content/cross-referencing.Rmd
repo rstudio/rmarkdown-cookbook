@@ -2,18 +2,15 @@
 
 <!---https://stackoverflow.com/questions/38861041/knitr-rmarkdown-latex-how-to-cross-reference-figures-and-tables--->
 
-Cross-referencing is a useful way of directing your readers through your document, and can be automatically done within R Markdown. While this is explained in [Section 2.6](https://bookdown.org/yihui/bookdown/cross-references.html) from the bookdown book [@xie2016bookdown], it is useful to remind readers of how to use these within documents. 
+Cross-referencing is a useful way of directing your readers through your document, and can be automatically done within R Markdown. While this is explained in [Section 2.6](https://bookdown.org/yihui/bookdown/cross-references.html) from the bookdown book [@xie2016bookdown], it is useful to remind readers of how to use these within documents.
 
-```{block2, type = "rmdwarning"}
+To use cross-references, we must:
 
-If you are having problems with cross-referencing, make sure you are:
+- **Use a bookdown output format**: cross-referencing is not provided directly within the base **rmarkdown**, but is provided as an extension. We must therefore use an output format (e.g. `html_document2`, `pdf_document2`, `word_document2`) include this in the YAML `output` field.
+- **A caption to your figure or table**: figures without a caption will be included directly as images and will therefore not be a numbered figure.
+- **A named code chunk**: this provides our identifier for referencing the chunk from within the text.
 
-- Using a bookdown output format such as `html_document2`, `pdf_document2` and `word_document2`.
-- Have given a caption to your figure or table.
-- Have named your code chunk.
-```
-
-We can make cross-references within the text using the format `\@ref(type:label)`, where `label` is the chunk label and `type` is the environment being referenced. A complete example is provided below:
+Having met these conditions, we can make cross-references within the text using the format `\@ref(type:label)`, where `label` is the chunk label and `type` is the environment being referenced (e.g. `tab`, `fig`, `eqn`). An example is provided below:
 
 ```yaml
 ---
@@ -34,8 +31,18 @@ knitr::kable(mtcars[1:5, 1:5], caption = "A caption")
 ```
 
 ````
+The output of this document is shown in Figure \@ref(fig:crossReferencing). 
 
+```{r crossReferencing, fig.cap = "Example of cross-referencing within an R Markdown document", echo = FALSE}
+knitr::include_graphics("images/crossReferencing.png", dpi = NA)
+```
+
+```{block2, type = "rmdnote"}
 We can also cross-reference equations, theorems and section headers, which are explained further in Section [12.3.5](https://bookdown.org/yihui/rmarkdown/bookdown-markdown.html#cross-referencing) of the R Markdown book [@xie2018].
+```
+
+
+
 
 
 
