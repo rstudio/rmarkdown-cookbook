@@ -26,24 +26,6 @@ If the output document is PDF, there is an additional layer of processing, as Pa
 
 As a final clarification, the **bookdown** package is often used within more complex, multiple file books such as this. This essentially provides a layer of preprocessing to the R Markdown document which extends the functionality of the **rmarkdown** package.
 
-## Controlling Each layer
-
-The way in which **knitr** can be controlled is via the code chunk options.
-
-To set variables in a single location, we can use
-
-````r
-`r ''````{r, echo = FALSE, message = FALSE}
-
-```
-````
-
-Alternatively, we can set global properties for a R Markdown document.
-
-
-
-
-
 
 
 
