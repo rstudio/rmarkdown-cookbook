@@ -1,4 +1,4 @@
-## Scrollable Code Chunks {#hooks-scroll}
+## Scrollable code chunks {#hooks-scroll}
 
 It was shown in Section \@ref(html-scroll) how we can use custom CSS to add a scroll bar to the output code chunks. To highlight the use of code chunks, we extend the example here to allow for user-specified maximum heights to be provided to chunks.
 

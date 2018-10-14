@@ -1,4 +1,4 @@
-## Set Date to Current Date
+## Automatically update document date
 
 <!--- https://stackoverflow.com/questions/23449319/yaml-current-date-in-rmarkdown --->
 

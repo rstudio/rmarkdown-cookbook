@@ -1,4 +1,4 @@
-## Adding Multiple Authors to Document
+## Adding multiple authors to document
 
 <!--- https://stackoverflow.com/questions/26043807/multiple-authors-and-subtitles-in-rmarkdown-yaml --->
 

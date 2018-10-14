@@ -1,4 +1,4 @@
-## Indenting Text
+## Indenting text
 
 <!--- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 --->
 <!--- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks --->

@@ -1,4 +1,4 @@
-## Allow Duplicate Code Chunks
+## Allow duplicate code chunks
 
 <!--- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 --->
 
