@@ -1,0 +1,107 @@
+## Bibliographies and citations
+
+<!--- https://stackoverflow.com/questions/32946203/including-bibliography-in-rmarkdown-document-with-use-of-the-knitcitations --->
+
+R Markdown makes it easy include citations within your document by using pandoc. For a comprehensive overview, we recommend [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of @xie2016bookdown However, the basic usage requires us to specify a bibliography file using the `bibliography` metadata field in the YAML. For example:
+
+```{yaml, eval = FALSE}
+---
+output: html_document
+bibliography: references.bib  
+---
+```
+
+where the A BibTeX database is a plain-text file that consists of bibliography entries like this:
+
+```
+@Manual{R-base,
+  title = {R: A Language and Environment for Statistical
+    Computing},
+  author = {{R Core Team}},
+  organization = {R Foundation for Statistical Computing},
+  address = {Vienna, Austria},
+  year = {2016},
+  url = {https://www.R-project.org/},
+}
+```
+
+Items can be cited directly within the documentation using the first line `@R-base`.
+
+### Changing citation style
+
+By default, pandoc will use a Chicago author-date format for citations and references. To use another style, you will need to specify a CSL 1.0 style file in the `csl` metadata field:
+
+```yaml
+---
+output: html_document
+bibliography: references.bib
+csl: biomed-central.csl
+---
+```
+
+To find your required formats, we recommend using the Zotero [website](https://www.zotero.org/styles), which makes it search for and download your required style.
+
+Although beyond the scope of the book, it is worth highlighting at the behaviour of CSL files can be tweaked to customise the behaviour as required. For example, we can change the number of authors required before "et.al" is used to abbreviate them. This can be simplified through the use of visual editors such as the one found [here](http://editor.citationstyles.org/visualEditor/).
+
+### Add item to bibliography without using it 
+
+By default, the bibliography will only display items which are directly referenced in the document. If you want to include items in the bibliography without actually citing them in the body text, you can define a dummy `nocite` metadata field and put the citations there. This can be included anywhere in the document but it is normally best to place it at the end of the document:
+
+```md
+# References
+---
+nocite: |
+ @item1, @item2
+...
+```
+
+
+### Add all items to bibliography
+
+If we do not wish to explicitally state all of the items within the bibliography but would still like them to show them in our references, we can use the following syntax:
+
+```md
+---
+nocite: '@*'
+...
+```
+
+This will force all items to be displayed in the bibliography.
+
+
+### Include appendix after bibliography
+
+<!--- https://stackoverflow.com/questions/41532707/include-rmd-appendix-after-references/42258998#42258998 --->
+<!--- https://stackoverflow.com/questions/16427637/pandoc-insert-appendix-after-bibliography?noredirect=1&lq=1 --->
+
+By default, the bibliography appears at the very end of the document. However, there can be cases where we want to place additional text after the references, most typically if we wish to include appendices within the document. We can force the position of the references by using `<div id="refs"></div>`, as shown below:
+
+```md
+# References
+
+<div id="refs"></div>
+
+# Appendices 
+
+```
+
+We can improve this further by using the **bookdown** package, which offers a [special header](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#special-headers) for the Appendix as shown with the syntax below:
+
+```md
+# References
+
+<div id="refs"></div>
+
+# (APPENDIX) Appendix {-} 
+
+# Appendix A
+
+# Appendix B
+
+```
+
+The numbering style of appendices will be automatically changed in LaTeX/PDF and HTML output (usually in the form A, A.1, A.2, B, B.1, …).
+
+
+
+
