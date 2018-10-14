@@ -1,1 +1,3 @@
+<!---
 # About the Authors {#author .unnumbered}
+--->

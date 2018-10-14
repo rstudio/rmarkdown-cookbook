@@ -2,7 +2,7 @@
 
 This book by no means intends to be a comprehesive guide to R Markdown, however before we start, it is important to provide an overview of the R Markdown ecosystem before we explain how to make changes to it. This chapter therefore aims to provide the basic concepts required for the book.
 
-For those seeking the background, we recommend that readers refer to *(The R Markdown Definitive Guide)[https://bookdown.org/yihui/rmarkdown/]*, which provides a comprenhensive overview of the R Markdown components.
+For those seeking the background, we recommend that readers refer to *[The R Markdown Definitive Guide](https://bookdown.org/yihui/rmarkdown/)* of @xie2018, which provides a comprenhensive overview of the R Markdown components.
 
 ## R Markdown components
 
@@ -25,10 +25,4 @@ The `.md` file is processed by [pandoc](https://pandoc.org/), a multipurpose too
 If the output document is PDF, there is an additional layer of processing, as Pandoc will convert the raw `.md` into an intermediate `.tex` file. This file is then processed by [LaTeX](https://www.latex-project.org/about/) to form the final PDF document.
 
 As a final clarification, the **bookdown** package is often used within more complex, multiple file books such as this. This essentially provides a layer of preprocessing to the R Markdown document which extends the functionality of the **rmarkdown** package.
-
-
-
-
-
-
 

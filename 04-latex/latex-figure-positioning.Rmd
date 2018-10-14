@@ -1,13 +1,12 @@
 ## Controlling the Placement of Figures
 
-One of the common 
+One of the common frustrations with LaTeX is how Figures and Tables are handled. Unlike in a word processor like *Microsoft Word*, LaTeX will attempt to place the figure in a position on the page which leads to the least amount of whitespace being added. In doing so, it can result in large gaps appearing between where the originally created, and where it is placed in the report.
 
-To new users of LaTeX, the behaviour of figure positioning can be fairly confusing and it is not clear how [floats]( https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions) work. Floats are used as containers for things which cannot be broken over a page, such as tables and figures. designed to minim
+To new users of LaTeX, the behaviour of figure positioning can be fairly confusing and it is not clear how [floats]( https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions) work. Floats are used as containers for things which cannot be broken over a page, such as tables and figures.
 
-You may run into some problems if you have multiple figures in close 
+You may run into some problems if you have multiple figures in rapid sucession, as this raises the problem of how they are supposed to fit on the page and still leave room for text. In this case, LaTeX stacks them all up and prints them together if possible, or leaves them to the end of the chapter in protest. The skill is to space them out within your text so that they intrude neither on the thread of your argument or discussion, nor on the visual balance of the typeset pages.
 
-> Authors sometimes have many floats occurring in rapid succession, which raises the problem of how they are supposed to fit on the page and still leave room for text. In this case, LaTeX stacks them all up and prints them together if possible, or leaves them to the end of the chapter in protest. The skill is to space them out within your text so that they intrude neither on the thread of your argument or discussion, nor on the visual balance of the typeset pages.
-
+<!---
 
 ### Controlling Float
 
@@ -20,3 +19,4 @@ You may run into some problems if you have multiple figures in close
 
 ### Forcing Float Forwards
 
+--->
