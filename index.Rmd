@@ -22,7 +22,7 @@ library(webshot)
 library(DiagrammeR)
 
 # knitrhooks on GitHub
-library(knitrhooks)
+# library(knitrhooks)
 chunk_head()
 
 ```
