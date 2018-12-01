@@ -1,0 +1,162 @@
+## Using Custom Blocks
+<!--- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown --->
+
+Section [2.7](https://bookdown.org/yihui/bookdown/custom-blocks.html) of -@xie2016bookdown highlighted how we can use custom blocks in R Markdown to customise the appearance of sections of text. They can be a useful way to make some text stand out from your reports or books, and are a great way to make sure that your readers take away the key points from your work. As some examples of how these could be used:
+
+- Add a warning to let users know to make sure users are using up-to-date packages before running your analysis:
+- Add a link at the start of your document to your GitHub repository containing code:
+- To highlight key results and findings from your analysis:
+
+In this section, we will explain how to create your own custom blocks for both PDF and HTML outputs. They can both use the same formatting within the R Markdown document, but require slight different configurations in your project for this to work. You may wish to explore the [customBlocks](https://github.com/dr-harper/customBlocks) repository on GitHub which provides a minimal example of the code highlighted in this section.
+
+### Basic Structure
+
+We can generate a custom block using either the `block2` engine in **knitr**. We must also specify the chunk option `type`, which specifies the class of the `<div>` and the name of the LaTeX environment. For example:
+
+    `r ''````{block, type='FOO'}
+    Some text for this block.
+    ```
+
+It is up to the user to define their own `<div>` in CSS for the HTML output,  or `\newenvironment` in LaTeX for PDF outputs. These customisations will normally be contained in their own files such as `style.css` or `premable.tex`, and then included within the YAML options:
+
+```yaml
+---
+output:
+  bookdown::html_book:
+    css: style.css
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
+---
+```
+
+With this basic setup, we will demonstrate several custom blocks that we can be used to create custom blocks for your work.
+
+### Adding a Shaded Box
+
+First we will highlight how we can add a shaded box for our content. Both HTML and PDF outputs allow for quite a lot of customisation of our custom blocks, and it should allow you to sufficient choice in customising the styles to match if you would like consistency across your outputs.
+
+For the HTML output, we will specify our custom class in the `style.css` file. If you are unfamiliar with CSS, you may want to search for options [using this link](https://www.w3schools.com/cssref/default.asp) to see what we can easily control. For example, we create a greyed out box with a red border, adding curved corners to the box:
+
+```{css}
+.customBlock {
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 10px;
+  background: #F8F9F9;
+  border-color: #A93226;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: thin;
+}
+```
+
+For the LaTeX output, we will add our custom block to the `preamble.tex` file. We will use use the **tcolorbox** LaTeX package, which offers quite a flexible set of options for creating shaded boxes, as detailed within the [package documentation](hhttp://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/tcolorbox/tcolorbox.pdf). Below, we create a new environment called `customBlock`, with a similar design of that outlined above:
+
+```{latex}
+\usepackage[many]{tcolorbox}
+\usepackage{graphicx}
+\usetikzlibrary{calc}
+
+% Define the colours to match the CSS above
+\definecolor{background}{HTML}{F8F9F9}
+\definecolor{border}{HTML}{A93226}
+
+% Create our custom box
+\newtcolorbox{customBlock}{
+  colback = background,
+  colframe = border,
+  boxsep=5pt,
+  arc=4pt}
+```
+
+By using the chunk header `{block2, type = "customBlock"}`, we can now use our custom block design in both PDF and HTML output formats. This is shown as follows:
+
+```{block2, type = "customBlock"}
+Look at our custom block!
+```
+
+### Including Images
+
+We can make custom blocks even more visually appealing by including images in them, and it can be an effective way to convey the content of the block. For the following examples, we will assume we are working within a directory below which is a simplified version what is used to build the book:
+
+```
+directory/
+├── yourReport.Rmd
+├── style.css
+├── preamble.tex
+└── images/ 
+      └── icons/
+            └── ├── important.png
+                ├── note.png
+                └── caution.png
+```
+
+For the HTML output, we can add an image to the box by adding `background-image`. The image is inserted into the background, and the padding is offset on the right-hand side to avoid the text overlapping this image. If you are using local images, the file path to the images is provided relative to the CSS file. For example:
+
+```{css, eval = FALSE}
+.rmdcaution{
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+  background-image: url("images/icons/caution.png");
+}
+```
+
+If you want to have a consistent styled box but have different icons, we can globally assign the CSS style to several custom blocks and then add the image for each block seperately. This approach is used within the [source code of this book](https://github.com/dr-harper/rmarkdown-cookbook/blob/master/style.css#L1-L20), as we can define multiple styles without repeating the same basic formatting, as follows:
+
+```{css, eval = FALSE}
+.rmdcaution, .rmdimportant, .rmdnote, .rmdtip, .rmdwarning {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.rmdcaution {
+  background-image: url("images/icons/caution.png");
+}
+.rmdimportant {
+  background-image: url("images/icons/important.png");
+}
+```
+
+For the PDF output, we can adapt the **tcolorbox** code shown above to add the image to the left side of the box, whereby some slight adjustments are made to offset the text from the left and to insert the image into the box. As for the HTML, if we want to create multiple custom blocks of a similar style, it is generally more useful to make a more general function which can be used to create each block. Below, we demonstrate the use of this, where a new environment `customBlockImage` is created which is then used to build our final environments that we wish to use in our report (`rmdnote`, `rmdimportant`):
+
+```{latex}
+
+% Create our general design
+\newtcolorbox{customBlockImage}[2][]{
+  enhanced,
+  top=10pt,
+  bottom=10pt,
+  colframe = white,
+  width=\textwidth,
+  boxsep=5pt,
+  arc=4pt,
+  outer arc=4pt,
+  leftupper=1.5cm,
+overlay={
+    \node[anchor=west] 
+      at ([xshift=10pt] $ (frame.north west)!0.5!(frame.south west) $ )
+       {{\setkeys{Gin}{width=3em,keepaspectratio}\includegraphics{#2}}};},
+#1}
+    
+ % Create the new environments for R Markdown
+\newenvironment{rmdnote}
+  {\begin{customBlockImage}{images/note}}
+  {\end{customBlockImage}}
+  
+\newenvironment{rmdimportant}
+  {\begin{customBlockImage}{images/important}}
+  {\end{customBlockImage}}
+         
+% We can also change the colour of the box
+\newenvironment{rmdwarning}
+  {\begin{customBlockImage}[colback=red]{images/important}}
+  {\end{customBlockImage}}
+          
+```
+
+Again, we have designed an output which should be consistent across HTML and PDF outputs. Below we show the output of the `rmdnote` custom block:
+
+```{block2, type = "rmdnote"}
+This is the rmdnote custom block
+```
