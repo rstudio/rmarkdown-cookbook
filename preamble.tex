@@ -30,62 +30,39 @@
   }%
 \fi
 
-\makeatletter
-\newenvironment{kframe}{%
-\medskip{}
-\setlength{\fboxsep}{.8em}
- \def\at@end@of@kframe{}%
- \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
-  \begin{minipage}{\columnwidth}%
- \fi\fi%
- \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
- \colorbox{shadecolor}{##1}\hskip-\fboxsep
-     % There is no \\@totalrightmargin, so:
-     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
- \MakeFramed {\advance\hsize-\width
-   \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
- {\par\unskip\endMakeFramed%
- \at@end@of@kframe}
-\makeatother
 
-\makeatletter
-\@ifundefined{Shaded}{
-}{\renewenvironment{Shaded}{\begin{kframe}}{\end{kframe}}}
-\makeatother
+% Create our general design
+\newtcolorbox{customBlockImage}[2][]{
+  enhanced,
+  top=10pt,
+  bottom=10pt,
+  colframe = white,
+  width=\textwidth,
+  boxsep=5pt,
+  arc=4pt,
+  outer arc=4pt,
+  leftupper=1.5cm,
+overlay={
+    \node[anchor=west] 
+      at ([xshift=10pt] $ (frame.north west)!0.5!(frame.south west) $ )
+       {{\setkeys{Gin}{width=3em,keepaspectratio}\includegraphics{#2}}};},
+#1}
 
-\newenvironment{rmdblock}[1]
-  {
-  \begin{itemize}
-  \renewcommand{\labelitemi}{
-    \raisebox{-.7\height}[0pt][0pt]{
-      {\setkeys{Gin}{width=3em,keepaspectratio}\includegraphics{images/icons/#1}}
-    }
-  }
-  \setlength{\fboxsep}{1em}
-  \begin{kframe}
-  \item
-  }
-  {
-  \end{kframe}
-  \end{itemize}
-  }
 \newenvironment{rmdnote}
-  {\begin{rmdblock}{note}}
-  {\end{rmdblock}}
+  {\begin{customBlockImage}{note}}
+  {\end{customBlockImage}}
 \newenvironment{rmdcaution}
-  {\begin{rmdblock}{caution}}
-  {\end{rmdblock}}
+  {\begin{customBlockImage}{caution}}
+  {\end{customBlockImage}}
 \newenvironment{rmdimportant}
-  {\begin{rmdblock}{important}}
-  {\end{rmdblock}}
+  {\begin{customBlockImage}{important}}
+  {\end{customBlockImage}}
 \newenvironment{rmdtip}
-  {\begin{rmdblock}{tip}}
-  {\end{rmdblock}}
+  {\begin{customBlockImage}{tip}}
+  {\end{customBlockImage}}
 \newenvironment{rmdwarning}
-  {\begin{rmdblock}{warning}}
-  {\end{rmdblock}}
+  {\begin{customBlockImage}{warning}}
+  {\end{customBlockImage}}
 
 \usepackage{makeidx}
 \makeindex
@@ -101,3 +78,26 @@
 \makeatother
 
 \frontmatter
+
+
+% Custom block used for example
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{xcolor}
+
+\definecolor{background}{HTML}{F8F9F9}
+\definecolor{border}{HTML}{A93226}
+
+\newenvironment{customBlock}{
+  \vspace{10mm}
+  \begin{mdframed}[
+  backgroundcolor=background,
+  linecolor = border,
+  roundcorner = 5pt,
+  nobreak=true,
+  innertopmargin = 10pt,
+  innerbottommargin = 10pt]
+  }
+  {
+  \vspace{10mm}
+  \end{mdframed}
+  }
