@@ -23,7 +23,7 @@ library(DiagrammeR)
 
 # knitrhooks on GitHub
 # library(knitrhooks)
-chunk_head()
+# chunk_head()
 
 ```
 
