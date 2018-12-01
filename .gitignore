@@ -4,5 +4,9 @@
 .Ruserdata
 _book/*
 _bookdown_files/*
+
+# OS generated files #
+######################
 .DS_Store
-.DS_Store
+.DS_Store?
+
