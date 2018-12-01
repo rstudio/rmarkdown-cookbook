@@ -20,6 +20,11 @@ knitr::opts_current$set(comment = NA, out.width = "100%")
 
 library(webshot)
 library(DiagrammeR)
+
+# knitrhooks on GitHub
+library(knitrhooks)
+chunk_head()
+
 ```
 
 
