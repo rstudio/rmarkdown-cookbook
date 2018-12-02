@@ -135,7 +135,7 @@ For the PDF output, we can adapt the **tcolorbox** code shown above to add the i
   leftupper=1.5cm,
 overlay={
     \node[anchor=west] 
-      at ([xshift=10pt] $ (frame.north west)!0.5!(frame.south west) $ )
+      at ([xshift=10pt] $ (interior.north west)!0.5!(interior.south west) $ )
        {{\setkeys{Gin}{width=3em,keepaspectratio}\includegraphics{#2}}};},
 #1}
     
