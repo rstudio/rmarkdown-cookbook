@@ -12,13 +12,15 @@ As listed within the knitr [chunk options](https://yihui.name/knitr/options/), s
 
 An example is demonstrated below:
 
-````
 ```{yaml, eval = FALSE}
+---
 output:
   pdf_document:
     extra_dependencies: subfig
+---
 ```
 
+````
 `r ''````{r fig-sub, fig.cap='two plots', fig.subcap=c('one plot', 'the other one'), out.width='.49\\linewidth', fig.asp=1, fig.ncol = 2}
 plot(1:10)
 plot(rnorm(10), pch=19)
