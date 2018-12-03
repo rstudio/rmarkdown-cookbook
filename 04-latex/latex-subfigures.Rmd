@@ -2,7 +2,15 @@
 
 When writing a document you may want to include some slightly more complicated figures with multiple images. Subfigures are a useful LaTeX feature which allows us to achieve this by plotting multiple figures within a single plot and providing each with their own subcaption.
 
-Subfigures require the LaTeX package `subfig`. The line `\usepackage{subfig}` must therefore be included within the YAML, or if you are using an external tex template you can add this to that file. For example:
+Subfigures require the LaTeX package `subfig`. We can load this via the `extra_dependencies` YAML option within the `pdf_document` output. For example:
+
+````
+```{yaml, eval = FALSE}
+output:
+  pdf_document:
+    extra_dependencies: subfig
+```
+````
 
 As listed within the knitr [chunk options](https://yihui.name/knitr/options/), subfigures require a few additional settings to be set in the chunk header:
 
@@ -27,6 +35,6 @@ plot(rnorm(10), pch=19)
 
 The output is shown in Figure \@ref(fig:subcaptions).
 
-```{r subcaptions, fig.cap="An example subcaption"}
+```{r subcaptions, fig.cap="An example subcaption", echo = FALSE}
 knitr::include_graphics("images/subfigure.png", dpi = NA)
 ```
