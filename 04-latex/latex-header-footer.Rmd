@@ -1,5 +1,4 @@
 ## Add Custom Headers and Footers
-
 <!--- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown --->
 <!--- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc --->
 
@@ -40,3 +39,11 @@ header-includes:
 output: pdf_document
 ---
 ```
+
+### Force Header and footer for every page
+<!--- https://stackoverflow.com/questions/30922602/creating-a-footer-for-every-page-including-first-using-r-markdown --->
+
+By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line in the YAML frontmatter specification `\fancypagestyle{plain}{\pagestyle{fancy}}`.
+
+
+
