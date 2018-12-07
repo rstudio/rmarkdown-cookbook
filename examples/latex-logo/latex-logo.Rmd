@@ -1,7 +1,6 @@
 ---
 title: "Adding a Logo to LaTeX Title"
 author: Michael Harper
-subtitle: Easy tips to style your PDF output
 date: 7th December 2018
 output: pdf_document
 header-includes:
