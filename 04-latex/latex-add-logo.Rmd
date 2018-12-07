@@ -1,0 +1,15 @@
+## Add logo to title page
+<!--- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf --->
+
+We can use the **titling** LaTeX package to alter our title block to include an image. We can include the following lines of text in our YAML, where we change the `my-image` with your local image file:
+
+```yaml
+- \usepackage{titling}
+- \pretitle{\begin{center}\LARGE\includegraphics[width=6cm]{my-image}\\[\bigskipamount]}
+- \posttitle{\end{center}}
+```
+An example output is shown in Figure \@ref(fig:latexLogo).
+
+```{r latexLogo, echo = FALSE, fig.cap = "Example LaTeX title with logo"}
+knitr::include_graphics("images/latexLogo.png", dpi = NA)
+```
