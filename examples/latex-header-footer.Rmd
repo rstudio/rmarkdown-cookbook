@@ -1,0 +1,13 @@
+---
+title: "Test"
+author: "Author Name"
+header-includes:
+- \usepackage{fancyhdr}
+- \usepackage{lipsum}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{This is fancy header}
+- \fancyfoot[CO,CE]{And this is a fancy footer}
+- \fancypagestyle{plain}{\pagestyle{fancy}}
+output: pdf_document
+---
+\lipsum[1-30]
