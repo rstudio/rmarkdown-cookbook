@@ -10,3 +10,6 @@ _bookdown_files/*
 .DS_Store
 .DS_Store?
 
+# Compiled example files
+examples/*.pdf
+examples/*.html
