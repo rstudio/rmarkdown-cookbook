@@ -33,7 +33,7 @@ Piecing this components together, a complete example is presented below. The cod
 header-includes:
 - \usepackage{fancyhdr}
 - \pagestyle{fancy}
-- \fancyhead[CO,CE]{YOur Document Header}
+- \fancyhead[CO,CE]{Your Document Header}
 - \fancyfoot[CO,CE]{And this is a fancy footer}
 - \fancyfoot[LE,RO]{\thepage}
 output: pdf_document
