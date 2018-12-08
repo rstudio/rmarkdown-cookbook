@@ -46,4 +46,15 @@ output: pdf_document
 By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line in the YAML frontmatter specification `\fancypagestyle{plain}{\pagestyle{fancy}}`.
 
 
-
+```{yaml, eval = FALSE}
+---
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{YOur Document Header}
+- \fancyfoot[CO,CE]{And this is a fancy footer}
+- \fancyfoot[LE,RO]{\thepage}
+- \fancypagestyle{plain}{\pagestyle{fancy}}
+output: pdf_document
+---
+```
