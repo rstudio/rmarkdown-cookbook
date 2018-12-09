@@ -26,7 +26,33 @@ For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on t
 - `\leftmark`: adds name and number of the current top-level structure in uppercase letters.
 - `\rightmark`: adds name and number of the current next to top-level structure in uppercase letters.
 
-Piecing this components together, a complete example is presented below. The code has been included directly within the YAML:
+
+Piecing this components together, a complete example is presented below.
+
+This could be inserted in the document, or another _header.tex_ file :
+
+```latex
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[CO,CE]{Your Document Header}
+\fancyfoot[CO,CE]{And this is a fancy footer}
+\fancyfoot[LE,RO]{\thepage}
+```
+
+If in an external _.tex_ file, then it could be included in the header of our `rmarkdown::pdf_document` format:
+
+```{yaml, eval = FALSE}
+title: "Document with header and footer"
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex
+---
+```
+
+The _includes_ feature of `pdf_document` is presented in [Advanced customisation](https://bookdown.org/yihui/rmarkdown/pdf-document.html#includes-1) of @xie2018.
+
+An alternative,^[You cannot use both as `in_header:` in yaml will currently override the content of pandoc variable `header-includes`] it could also be included directly in header to a rmarkdown document within the YAML using the pandoc variable `header-includes`:
 
 ```{yaml, eval = FALSE}
 ---
@@ -43,8 +69,9 @@ output: pdf_document
 ### Force Header and footer for every page
 <!--- https://stackoverflow.com/questions/30922602/creating-a-footer-for-every-page-including-first-using-r-markdown --->
 
-By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line in the YAML frontmatter specification `\fancypagestyle{plain}{\pagestyle{fancy}}`.
+By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line `\fancypagestyle{plain}{\pagestyle{fancy}}`.
 
+As an example in the YAML frontmatter specification
 
 ```{yaml, eval = FALSE}
 ---
