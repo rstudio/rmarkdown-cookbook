@@ -1,19 +1,12 @@
-## RStudio integration with Rmarkdown
+## RStudio integration with R Markdown
 
-Rmarkdown format and features can be used with R and `rmarkdown` package, with
-any editor that got your preference. However, RStudio has a deep integration
-with Rmarkdown and offers additional feature that will help your project
-worflown without a doubt.
+R Markdown format and features can be used with R and **rmarkdown** package, with any editor that got your preference. However, RStudio has a deep integration with R Markdown and offers additional feature that will help your project workflow without a doubt.
 
-### Rmarkdown specific Rstudio keyboard shorcuts
+### R Markdown specific Rstudio keyboard shorcuts
 
 <!--- https://stackoverflow.com/questions/30938280/keyboard-shortcut-to-produce-code-chunk-brackets-in-markdown-in-r-for-rstudio --->
 
-Like any great IDE, RStudio has keyboard shorcuts ^[A full list can be found on
-the
-[web](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
-or directly in the IDE under tools menu `Tools -> Keyboard Shortcuts Help.`] and
-some are specific to Rmarkdown:
+Like any great IDE, RStudio has keyboard shorcuts ^[A full list can be found on the [web](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts) or directly in the IDE under tools menu `Tools -> Keyboard Shortcuts Help.`] and some are specific to R Markdown. Some of the most useful shortcuts are summarised in Table \@ref(tab:keyboardShortcuts).
 
 ```{r, include = FALSE}
 ks_win <- function(letters, ctrl = TRUE, alt = TRUE, shift = FALSE, enter = FALSE) {
@@ -36,8 +29,7 @@ ks_mac <- function(letters, cmd = TRUE, opt = TRUE, shift = FALSE, enter = FALSE
 }
 ```
 
-
-```{r keyboard-shortcuts, echo = FALSE}
+```{r keyboardShortcuts, echo = FALSE}
 keyboard_table <- tibble::tribble(
   ~ "Description"             , ~ "Windows & Linux"                    , ~ "Mac",
   "Insert R chunk"            , ks_win("I")                            , ks_mac("I"),
@@ -57,10 +49,3 @@ keyboard_table <- tibble::tribble(
 )
 knitr::kable(keyboard_table, caption = "Rmarkdown related Rstudio keyboard shorcuts")
 ```
-
-
-
-
-
-
-
