@@ -2,8 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-_book/*
-_bookdown_files/*
+book/_book/*
+book/_bookdown_files/*
 
 # OS generated files #
 ######################
@@ -13,3 +13,5 @@ _bookdown_files/*
 # Compiled example files
 examples/*.pdf
 examples/*.html
+examples/*/*.pdf
+examples/*/*.html
