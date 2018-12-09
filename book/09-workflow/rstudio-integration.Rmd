@@ -1,0 +1,51 @@
+## RStudio integration with R Markdown
+
+R Markdown format and features can be used with R and **rmarkdown** package, with any editor that got your preference. However, RStudio has a deep integration with R Markdown and offers additional feature that will help your project workflow without a doubt.
+
+### R Markdown specific Rstudio keyboard shorcuts
+
+<!--- https://stackoverflow.com/questions/30938280/keyboard-shortcut-to-produce-code-chunk-brackets-in-markdown-in-r-for-rstudio --->
+
+Like any great IDE, RStudio has keyboard shorcuts ^[A full list can be found on the [web](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts) or directly in the IDE under tools menu `Tools -> Keyboard Shortcuts Help.`] and some are specific to R Markdown. Some of the most useful shortcuts are summarised in Table \@ref(tab:keyboardShortcuts).
+
+```{r, include = FALSE}
+ks_win <- function(letters, ctrl = TRUE, alt = TRUE, shift = FALSE, enter = FALSE) {
+  paste0(
+    if (ctrl) "Ctrl+",
+    if (alt) "Alt+",
+    if (shift) "Shift+",
+    if (enter) "Enter+",
+    letters
+  )
+}
+ks_mac <- function(letters, cmd = TRUE, opt = TRUE, shift = FALSE, enter = FALSE) {
+  paste0(
+    if (cmd) "Command+",
+    if (opt) "Option+",
+    if (shift) "Shift+",
+    if (enter) "Enter+",
+    letters
+  )
+}
+```
+
+```{r keyboardShortcuts, echo = FALSE}
+keyboard_table <- tibble::tribble(
+  ~ "Description"             , ~ "Windows & Linux"                    , ~ "Mac",
+  "Insert R chunk"            , ks_win("I")                            , ks_mac("I"),
+  "Preview HTML"              , ks_win("K", alt = FALSE, shift = TRUE) , ks_mac("K", opt = FALSE, shift = TRUE),
+  "Knitr document (knitr)"    , ks_win("K", alt = FALSE, shift = TRUE) , ks_mac("K", opt = FALSE, shift = TRUE),
+  "Compile Notebook"          , ks_win("K", alt = FALSE, shift = TRUE) , ks_mac("K", opt = FALSE, shift = TRUE),
+  "Compile PDF"               , ks_win("K", alt = FALSE, shift = TRUE) , ks_mac("K", opt = FALSE, shift = TRUE),
+  "Run all chunks above"      , ks_win("P")                            , ks_mac("P"),
+  "Run current chunk"         , ks_win("C")                            , ks_mac("C"),
+  "Run current chunk"         , ks_win("Enter", TRUE, FALSE, TRUE)     , ks_mac("Enter", TRUE, FALSE, TRUE),
+  "Run next chunk"            , ks_win("N")                            , ks_mac("N"),
+  "Run all chunks"            , ks_win("R")                            , ks_mac("R"),
+  "Go to next chunk/title"    , ks_win("PgDown", alt = FALSE)          , ks_mac("PgDown", opt = FALSE),
+  "Go to previous chunk/title", ks_win("PgUp", alt = FALSE)            , ks_mac("PgUp", opt = FALSE),
+  "Show/hide document outline", ks_win("O", TRUE, FALSE, TRUE)         , ks_mac("O", TRUE, FALSE, TRUE),
+  "Build book, website, ..."  , ks_win("B", TRUE, FALSE, TRUE)         , ks_mac("B", TRUE, FALSE, TRUE)
+)
+knitr::kable(keyboard_table, caption = "Rmarkdown related Rstudio keyboard shorcuts")
+```
