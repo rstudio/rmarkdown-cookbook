@@ -4,7 +4,7 @@
 
 It may be useful for the date of the knitted R Markdown document to automatically update each time we rerun the file. To do this, we can add R code directly to the `date` field in the YAML, and use the `Sys.time()` function to extract the current date. As this function will by default provide the date and time, we must specify the desired date time format as shown below:
 
-```yaml
+```{cat , class.source = 'yaml'}
 ---
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 ---
@@ -39,7 +39,7 @@ knitr::kable(formats, caption = "Date Time Formats within R")
 
 As a final note, you may even want to include some explanatory text along with the date. We can easily add any text such as "Last Compiled on" before the R code as follows:
 
-```yaml
+```{cat, class.source = 'yaml'}
 ---
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
 ---
