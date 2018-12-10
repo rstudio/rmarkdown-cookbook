@@ -52,7 +52,7 @@ For the HTML output, we will specify our custom class in the `style.css` file. I
 
 For the LaTeX output, we will add our custom block to the `preamble.tex` file. We will use use the **tcolorbox** LaTeX package, which offers quite a flexible set of options for creating shaded boxes, as detailed within the [package documentation](hhttp://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/tcolorbox/tcolorbox.pdf). Below, we create a new environment called `customBlock`, with a similar design of that outlined above:
 
-```{latex}
+```{cat, class.source = 'latex'}
 \usepackage[many]{tcolorbox}
 \usepackage{graphicx}
 \usetikzlibrary{calc}
@@ -120,8 +120,7 @@ If you want to have a consistent styled box but have different icons, we can glo
 
 For the PDF output, we can adapt the **tcolorbox** code shown above to add the image to the left side of the box, whereby some slight adjustments are made to offset the text from the left and to insert the image into the box. As for the HTML, if we want to create multiple custom blocks of a similar style, it is generally more useful to make a more general function which can be used to create each block. Below, we demonstrate the use of this, where a new environment `customBlockImage` is created which is then used to build our final environments that we wish to use in our report (`rmdnote`, `rmdimportant`):
 
-```{latex}
-
+```{cat, engine.opts = list(lang = 'latex')}
 % Create our general design
 \newtcolorbox{customBlockImage}[2][]{
   enhanced,
@@ -152,7 +151,6 @@ overlay={
 \newenvironment{rmdwarning}
   {\begin{customBlockImage}[colback=red]{images/important}}
   {\end{customBlockImage}}
-          
 ```
 
 Again, we have designed an output which should be consistent across HTML and PDF outputs. Below we show the output of the `rmdnote` custom block:
