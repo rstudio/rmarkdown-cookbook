@@ -41,7 +41,8 @@ This could be inserted in the document, or another `header.tex` file :
 
 If in an external `.tex` file, then it could be included in the header of our `rmarkdown::pdf_document` format:
 
-```{yaml, eval = FALSE}
+```yaml
+---
 title: "Document with header and footer"
 output: 
   pdf_document:

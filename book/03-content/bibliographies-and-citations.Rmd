@@ -4,7 +4,7 @@
 
 R Markdown makes it easy include citations within your document by using pandoc. For a comprehensive overview, we recommend [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of @xie2016bookdown However, the basic usage requires us to specify a bibliography file using the `bibliography` metadata field in the YAML. For example:
 
-```{yaml, eval = FALSE}
+```yaml
 ---
 output: html_document
 bibliography: references.bib  

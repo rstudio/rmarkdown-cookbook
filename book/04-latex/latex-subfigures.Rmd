@@ -4,13 +4,13 @@ When writing a document you may want to include some slightly more complicated f
 
 Subfigures require the LaTeX package `subfig`. We can load this via the `extra_dependencies` YAML option within the `pdf_document` output. For example:
 
-````
-```{yaml, eval = FALSE}
+```yaml
+---
 output:
-  pdf_document:
+  pBdf_document:
     extra_dependencies: subfig
+---
 ```
-````
 
 As listed within the knitr [chunk options](https://yihui.name/knitr/options/), subfigures require a few additional settings to be set in the chunk header:
 
@@ -20,7 +20,7 @@ As listed within the knitr [chunk options](https://yihui.name/knitr/options/), s
 
 An example is demonstrated below:
 
-```{yaml, eval = FALSE}
+```yaml
 ---
 output:
   pdf_document:
