@@ -58,7 +58,7 @@ nocite: |
 
 ### Add all items to bibliography
 
-If we do not wish to explicitally state all of the items within the bibliography but would still like them to show them in our references, we can use the following syntax:
+If we do not wish to explicitly state all of the items within the bibliography but would still like to show them in our references, we can use the following syntax:
 
 ```md
 ---
