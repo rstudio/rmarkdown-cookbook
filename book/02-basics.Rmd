@@ -1,6 +1,6 @@
 # Basics
 
-This book by no means intends to be a comprehesive guide to R Markdown, however before we start, it is important to provide an overview of the R Markdown ecosystem before we explain how to make changes to it. This chapter therefore aims to provide the basic concepts required for the book.
+This book by no means intends to be a comprehensive guide to R Markdown, however before we start, it is important to provide an overview of the R Markdown ecosystem before we explain how to make changes to it. This chapter therefore aims to provide the basic concepts required for the book.
 
 For those seeking the background, we recommend that readers refer to *[The R Markdown Definitive Guide](https://bookdown.org/yihui/rmarkdown/)* of @xie2018, which provides a comprenhensive overview of the R Markdown components.
 
