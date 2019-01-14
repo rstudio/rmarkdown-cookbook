@@ -9,12 +9,13 @@ We can use the **bookdown** to add figure numbers to the figure captions. An exa
 output: bookdown::html_document2
 ---
 ```
+
 ````md
-`r ''```{r cars, fig.cap = "An amazing plot"}
+```{r cars, fig.cap = "An amazing plot"}`r ''`
 plot(cars)
 ```
 
-`r ''```{r cars2, fig.cap = "Another amazing plot"}
+```{r cars2, fig.cap = "Another amazing plot"}`r ''`
 plot(cars)
 ```
 ````
