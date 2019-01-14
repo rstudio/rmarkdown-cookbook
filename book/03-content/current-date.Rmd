@@ -13,8 +13,8 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 This will automatically update each time you Knit your document i.e. `r format(Sys.time(), '%d %B, %Y')`. If we wish to customize the format of the dates, we can alter the time format by providing our own text string. Some examples are shown as follows:
 
 - `%B %Y`: `r format(Sys.time(), '%B %Y')`
-- `%d/%m/%y`: "`r format(Sys.time(), '%d/%m/%y')`
-- `%d/%m/%y`: `r format(Sys.time(), '%a %d %b')`
+- `%d/%m/%y`: `r format(Sys.time(), '%d/%m/%y')`
+- `%a/%d/%b`: `r format(Sys.time(), '%a %d %b')`
 
 A full table of POSIXct formats is shown in Table \@ref(tab:dateTimeFormats), which allows users to construct their required date format.
 
