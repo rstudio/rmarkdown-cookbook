@@ -4,8 +4,8 @@ Sometime we may want to exit knitting early and not at the end of the document. 
 
 Below is a simple example, where we have a very simple chunk followed by a more time-consuming one:
 
-````
-`r ''````{r}
+````md
+```{r}`r ''`
 library(knitr)
 1 + 1
 knit_exit()
@@ -13,7 +13,7 @@ knit_exit()
 
 Okay, you will not see me in the output.
 
-`r ''````{r}
+```{r}`r ''`
 Sys.sleep(100)
 ```
 ````
