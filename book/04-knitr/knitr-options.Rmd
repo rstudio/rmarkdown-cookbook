@@ -1,6 +1,6 @@
 ## Customising knitr options
 
-There are more than 40 different chunk options which can be used to fine-tune the behaviour of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of @xie2018 provides a subset of these, while the full list of these variables is available [https://yihui.name/knitr/options/](https://yihui.name/knitr/options/).
+There are more than 40 different chunk options which can be used to fine-tune the behaviour of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of @xie2018 provides a subset of these, while the full list of these variables is available at [https://yihui.name/knitr/options/](https://yihui.name/knitr/options/).
 
 This section aims to provides some useful recipes on some commonly used configurations within R Markdown documents.
 
