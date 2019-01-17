@@ -1,7 +1,7 @@
 ## Using Custom Blocks
 <!--- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown --->
 
-Section [2.7](https://bookdown.org/yihui/bookdown/custom-blocks.html) of -@xie2016bookdown highlighted how we can use custom blocks in R Markdown to customise the appearance of sections of text. They can be a useful way to make some text stand out from your reports or books, and are a great way to make sure that your readers take away the key points from your work. As some examples of how these could be used:
+Section [2.7](https://bookdown.org/yihui/bookdown/custom-blocks.html) of @xie2016bookdown highlighted how we can use custom blocks in R Markdown to customise the appearance of sections of text. They can be a useful way to make some text stand out from your reports or books, and are a great way to make sure that your readers take away the key points from your work. As some examples of how these could be used:
 
 - Add a warning to let users know to make sure users are using up-to-date packages before running your analysis:
 - Add a link at the start of your document to your GitHub repository containing code:
@@ -17,7 +17,7 @@ We can generate a custom block using either the `block2` engine in **knitr**. We
     Some text for this block.
     ```
 
-It is up to the user to define their own `<div>` in CSS for the HTML output,  or `\newenvironment` in LaTeX for PDF outputs. These customisations will normally be contained in their own files such as `style.css` or `premable.tex`, and then included within the YAML options:
+It is up to the user to define their own `<div>` in CSS for the HTML output,  or `\newenvironment` in LaTeX for PDF outputs. These customisations will normally be contained in their own files such as `style.css` or `preamble.tex`, and then included within the YAML options:
 
 ```yaml
 ---
