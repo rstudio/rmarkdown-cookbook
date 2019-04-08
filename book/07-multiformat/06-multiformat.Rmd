@@ -6,10 +6,6 @@ Project should therefore ideally be designed to be flexible for the multiple out
 
 This chapter aims to provide several examples on how a document can be customised with output specific features, whilst also retaining the ability to export documents to multiple formats.
 
-## Control Output
-
-Dsigning custom behavior which can respond to change in outputs using `is_latex_output` etc. For example, you may want to have interactive tables using `DT:datatable` in the HTML output but print static versions in the PDF.
-
 ## Output-specific functions
 
 HTML documents have the capacity to contain. The webshot package is available to take screenshots of HTML elements for non-interactive output formats (ebooks, PDF).
@@ -31,6 +27,9 @@ knitr::is_html_output()
 ```
 
 This can be used to control the output of statements.
+
+For example, you may want to have interactive tables using `DT:datatable` in the HTML output but print static versions in the PDF.
+
 
 
 

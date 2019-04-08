@@ -2,7 +2,7 @@
 
 <!--- https://stackoverflow.com/questions/32946203/including-bibliography-in-rmarkdown-document-with-use-of-the-knitcitations --->
 
-R Markdown makes it easy include citations within your document by using pandoc. For a comprehensive overview, we recommend [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of @xie2016bookdown However, the basic usage requires us to specify a bibliography file using the `bibliography` metadata field in the YAML. For example:
+R Markdown makes it easy include citations within your document by using pandoc. For a comprehensive overview, we recommend [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of @xie2016bookdown. However, the basic usage requires us to specify a bibliography file using the `bibliography` metadata field in the YAML. For example:
 
 ```yaml
 ---
@@ -41,7 +41,7 @@ csl: biomed-central.csl
 
 To find your required formats, we recommend using the Zotero [website](https://www.zotero.org/styles), which makes it search for and download your required style.
 
-Although beyond the scope of the book, it is worth highlighting at the behaviour of CSL files can be tweaked to customise the behaviour as required. For example, we can change the number of authors required before "et.al" is used to abbreviate them. This can be simplified through the use of visual editors such as the one found [here](http://editor.citationstyles.org/visualEditor/).
+Although beyond the scope of the book, it is worth highlighting that the behaviour of CSL files can be tweaked to customise the behaviour as required. For example, we can change the number of authors required before "et.al" is used to abbreviate them. This can be simplified through the use of visual editors such as the one found [here](http://editor.citationstyles.org/visualEditor/).
 
 ### Add item to bibliography without using it 
 
@@ -58,7 +58,7 @@ nocite: |
 
 ### Add all items to bibliography
 
-If we do not wish to explicitally state all of the items within the bibliography but would still like them to show them in our references, we can use the following syntax:
+If we do not wish to explicitly state all of the items within the bibliography but would still like to show them in our references, we can use the following syntax:
 
 ```md
 ---
