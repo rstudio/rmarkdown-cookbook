@@ -1,0 +1,16 @@
+## Extension Packages {#tableExtensions}
+
+Although `kable` offers flexible tables within R Markdown documents, you may wish to extend the functionality of tables using other packages. There are several packages which have been developed to create tables in R Markdown:
+
+- **stargazer** [@stargazer]
+- **gt** [@gt]
+
+These packages are explained in the following subsections.
+
+### stargazer
+
+TO ADD
+
+### gt
+
+TO ADD

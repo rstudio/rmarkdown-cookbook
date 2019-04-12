@@ -1,0 +1,46 @@
+## Customising kable outputs
+
+The `kable` package provides the most convenient way of producing tables within the R Markdown package, providing neatly formatted tables for PDF, HTML, and Word and Markdown documents. The majority of the time, the default settings are generally suitable, but if we wish to have more control of their behaviour, there is an extensive number of settings which can be used. Table \@ref(tab:kableArgs) shows the possible arguments which can be used, and with some examples shown below on how they can be used.
+
+```{r kableArgs, echo = FALSE}
+tibble::tribble(
+      ~Argument, ~Description, ~HTML, ~LaTeX, ~Markdown,
+       "digits",           NA,   "X",    "X",       "X",
+    "row.names",           NA,   "X",    "X",       "X",
+    "col.names",           NA,   "X",    "X",       "X",
+        "align",           NA,   "X",    "X",       "X",
+      "caption",           NA,   "X",    "X",       "X",
+       "format",           NA,   "X",    "X",       "X",
+       "escape",           NA,   "X",    "X",       "-",
+     "booktabs",           NA,   "-",    "X",       "-",
+    "longtable",           NA,   "-",    "X",       "-",
+    "linesep",             NA,   "-",    "X",       "-",
+  "table.envir",           NA,   "-",    "X",       "-",
+   "table.attr",           NA,   "-",    "X",       "-",
+  "format.args",           NA,   "-",    "X",       "-",
+      "padding",           NA,   "-",    "-",       "X"
+  ) %>%
+  knitr::kable(caption = "Possible arguments for the kable function")
+```
+
+<!--- LateX options also include toprule, bottomrule, midrule, centering --->
+
+### Changing column names
+
+The names of columns in a dataframe will often not be the same as what we want to display in our output format. It can be particularly annoying to have spaces in the name of a variable. We can use the the `col.names` argument to replace the names with a vector of names:
+
+```{r}
+knitr::kable(head(iris),
+      col.names = c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width", "Species"))
+```
+
+### Customising LaTeX options
+
+There are a lot of extra options which can be controlled for LaTeX tables. 
+
+- `booktabs` [booktabs](https://ctan.org/pkg/booktabs?lang=en) LaTeX package.
+- If we are creating tables which are longer than a page, we can  `longtable` option. This will load the [longtable](https://ctan.org/pkg/longtable?lang=en) LaTeX package. 
+- The `caption.short` argument can be useful if we wish to show a shortened caption in our table of contents.
+- `linesep` can be used to change the line spacing. We can play around with this option if you want to  change the style. For example `linesep = c("", "", "", "\\hline")` would add a horizontal line every four spaces.
+
+
