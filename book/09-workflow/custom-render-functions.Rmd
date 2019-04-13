@@ -1,0 +1,2 @@
+## Creating custom render functions {#customRender}
+

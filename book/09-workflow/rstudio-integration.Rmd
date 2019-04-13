@@ -49,3 +49,57 @@ keyboard_table <- tibble::tribble(
 )
 knitr::kable(keyboard_table, caption = "Rmarkdown related Rstudio keyboard shorcuts")
 ```
+
+### Customising the knit button
+
+When you click the `Knit` button in RStudio, it will run the `rmarkdown::render` in a clean R session and output a file of the same name in the same directory. For example, running `example.Rmd` with the `output:html_document` will create an output file `example.html`. 
+
+There may be situations where we want to customise how the document is rendered. For example, perhaps we would like the rendered document to contain the current date, or would like to output the compiled report into a different directory. Although we can customise the `render` function using external scripts (See section \@ref(customRender)), it can be inconvenient to have to rely on external scripts to compile your report.
+
+It is possible to control the behaviour of the knit button by using the `knit` argument within the YAML of your document. This requires a function to be specified with the arguments `inputFile`, and `encoding`.  There are two techniques that we can use to customise the behaviour of the knit function:
+
+1. Embed the custom function directly within the YAML
+2. Create a custom function and save it in a package
+
+The easiest way of creating a function is to store the code directly within the YAML. We must wrap the entire function in brackets, and any linebreaks in the YAML must start with 4 spaces.  For example, if we want the output filename to include the date it was rendered, we could use the following YAML code:
+
+```yaml
+---
+knit: (function(inputFile, encoding)
+    {rmarkdown::render(input = inputFile,
+    encoding = encoding,
+    output_file = paste0(tools::file_path_sans_ext(basename(inputFile)),
+                                         '-',
+                                         format(Sys.Date(), "%Y%m%d"),
+                                         '.html'))})
+---
+``` 
+
+For example, we if knitted `example.Rmd` on `r format(Sys.Date(), '%Y/%m/%d')`, the output file name would be `r paste0("example", '-', format(Sys.Date(), '%Y%m%d'), ".html")`.
+
+While the above approach does benefit from simplicity, it may get more complicated if we wish to do more advanced behaviour (perhaps creating a directory, setting some other environment variables). Embedding longer functions directly in your YAML may become difficult to manage. It may therefore be worth creating a function which could be used in a package. Taking our example above, we have created an example `knit_with_date` as defined below:
+
+```r
+#' Custom Knit function for RStudio
+#'
+#' @export
+knit_with_date <- function(inputFile, encoding) {
+
+  rmarkdown::render(inputFile,
+                    encoding = encoding,
+                    output_file = paste0(dirname(inputFile),'/', tools::file_path_sans_ext(basename(inputFile)),
+                                         '-',
+                                         format(Sys.Date(), '%Y%m%d'),
+                                         '.html'))
+  }
+```
+
+If we were to add this to the package `myPackage`, you will then be able to refer to your custom Knit function using the following YAML argument:
+  
+```yaml
+---
+knit: myPackage::knit_with_date
+---
+```
+                                    
+Readers may wish to refer to Section \@ref(customRender) to find out more ideas on how they could customise the control of their render function.
