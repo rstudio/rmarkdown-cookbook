@@ -12,7 +12,7 @@ tibble::tribble(
         "align",           NA,   "X",    "X",       "X",
       "caption",           NA,   "X",    "X",       "X",
         "label",           NA,   "X",    "X",       "X",
-  "format.args",           NA,   "-",    "X",       "-",
+  "format.args",           NA,   "X",    "X",       "X",
        "escape",           NA,   "X",    "X",       "-",
      "booktabs",           NA,   "-",    "X",       "-",
     "longtable",           NA,   "-",    "X",       "-",
