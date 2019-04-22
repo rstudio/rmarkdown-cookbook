@@ -53,6 +53,13 @@ If we wish to change the alignment of a knitr table, we can use either a vector 
 knitr::kable(head(mtcars), align = "llrrcc")
 ```
 
+
+The shortest form can't be used with _latex_ format. You must use longer form using a vector
+```{r, eval = FALSE}
+knitr::kable(head(mtcars), align = c("l", "l", "r", "r", "c", "c"), format = "latex")
+```
+
+
 ### Customising LaTeX options
 
 There are a lot of extra options which can be controlled for LaTeX tables. 
