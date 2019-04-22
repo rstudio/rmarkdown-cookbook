@@ -1,0 +1,35 @@
+## Output figures in HTML5 format
+
+By default, images in R Markdown are translated to `<img src='...' alt='...'>` in the HTML output. This demo shows how to use the HTML5 `<figure>` tag to display images in R Markdown. Firstly we must define the custom hook as follows:
+
+```{r setup}
+# Reconfigure the plot hook
+library(knitr)
+knit_hooks$set(plot = function(x, options) {
+  paste('<figure><img src="',
+        opts_knit$get('base.url'), paste(x, collapse = '.'),
+        '"><figcaption>', options$fig.cap, '</figcaption></figure>',
+        sep = '')
+})
+```
+
+One motivation for this is that we could use CSS to customise the output using the HTML5 specification, and readers may want to check out this [website](https://www.w3.org/Style/Examples/007/figures.en.html) for some ideas. For example, we could add a border to the plot and then change the background colour of the figure caption text:
+
+```{css}
+figure {
+  border: thin silver solid;
+  padding-top: 0;
+}
+figcaption {
+  padding: 0.5em;
+  border: thin silver solid;
+  background: #D2F0F7;
+}
+```
+
+Having specified the custom hook and CSS, the output of an example figure is shown in Figure \@ref(fig:hookHTML5). A full reproducible example is provided in the examples [online](https://github.com/dr-harper/rmarkdown-cookbook/blob/master/examples/hook-html5-figures.Rmd).
+
+```{r hookHTML5, fig.cap = "Customised Figure Output styled by HTML5 CSS"}
+knitr::include_graphics("images/hookHtml5Images.png", dpi = NA)
+```
+
