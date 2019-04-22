@@ -23,4 +23,23 @@ devtools::install_github("haozhu233/kableExtra")
 
 ### Customising HTML
 
+  - Width and position
+  - column and row spec
+  - bootstrap styling
+  - Scroll box
+
 ### Customising PDF
+
+  - Width and position
+  - column and row spec
+  - Styling
+  - Landscape page
+
+You can scale the width of the table using the function `kable_styling(latex_options = "scale_down")`. This will force the table to the width of the page.
+
+```{r, eval=FALSE, echo=TRUE}
+ kable(iris[1:5,],
+          format = "latex", booktabs = TRUE) %>%
+          kable_styling(latex_options = "scale_down")
+```
+
