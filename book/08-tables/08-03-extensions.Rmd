@@ -4,6 +4,7 @@ Although `kable` offers flexible tables within R Markdown documents, you may wis
 
 - **stargazer** [@stargazer]
 - **gt** [@gt]
+- **flextable** [@flextable]
 
 These packages are explained in the following subsections.
 
@@ -14,3 +15,13 @@ TO ADD
 ### gt
 
 TO ADD
+
+### flextable
+
+This package is develop by David Gohel and is part of the `officer` package suits. 
+
+`flextable` aims at easily creating tables for reporting to be embedded within:
+
+* R Markdown documents with support for HTML, Word and PowerPoint documents.
+* Microsoft Word or PowerPoint documents directly.
+
