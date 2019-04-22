@@ -18,7 +18,7 @@ tibble::tribble(
     "longtable",           NA,   "-",    "X",       "-",
     "linesep",             NA,   "-",    "X",       "-",
   "table.envir",           NA,   "-",    "X",       "-",
-   "table.attr",           NA,   "-",    "X",       "-",
+   "table.attr",           NA,   "X",    "-",       "-",
       "padding",           NA,   "-",    "-",       "X"
   ) %>%
   knitr::kable(caption = "Possible arguments for the kable function")
