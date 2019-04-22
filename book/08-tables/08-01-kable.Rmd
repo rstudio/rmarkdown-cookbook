@@ -1,29 +1,39 @@
 ## Customising kable outputs
 
-The `kable` package provides the most convenient way of producing tables within the R Markdown package, providing neatly formatted tables for PDF, HTML, and Word and Markdown documents. The majority of the time, the default settings are generally suitable, but if we wish to have more control of their behaviour, there is an extensive number of settings which can be used. Table \@ref(tab:kableArgs) shows the possible arguments which can be used, and with some examples shown below on how they can be used.
+The `kable` package provides the most convenient way of producing tables within the R Markdown package, providing neatly formatted tables for PDF, HTML, Word and Markdown documents. The majority of the time, the default settings are generally suitable, but if we wish to have more control of their behaviour, there is an extensive number of settings which can be used. Table \@ref(tab:kableArgs) shows the possible arguments which can be used, and with some examples shown below on how they can be used.
 
 ```{r kableArgs, echo = FALSE}
-tibble::tribble(
-      ~Argument, ~Description, ~HTML, ~LaTeX, ~Markdown,
-       "digits",           NA,   "X",    "X",       "X",
-    "row.names",           NA,   "X",    "X",       "X",
-    "col.names",           NA,   "X",    "X",       "X",
-        "align",           NA,   "X",    "X",       "X",
-      "caption",           NA,   "X",    "X",       "X",
-       "format",           NA,   "X",    "X",       "X",
-       "escape",           NA,   "X",    "X",       "-",
-     "booktabs",           NA,   "-",    "X",       "-",
-    "longtable",           NA,   "-",    "X",       "-",
-    "linesep",             NA,   "-",    "X",       "-",
-  "table.envir",           NA,   "-",    "X",       "-",
-   "table.attr",           NA,   "-",    "X",       "-",
-  "format.args",           NA,   "-",    "X",       "-",
-      "padding",           NA,   "-",    "-",       "X"
-  ) %>%
+filter_out <- c("x", "...")
+to_table <- function(args, HTML = FALSE, Latex = FALSE, Markdown = FALSE) {
+  tibble::tibble(
+    Argument = names(args),
+    Description = NA,
+    HTML = HTML,
+    Latex = Latex,
+    Markdown = Markdown,
+    Default = vapply(args, rlang::as_label, FUN.VALUE = "")
+  )
+}
+extract_args <- function(fun) {
+  args <- rlang::fn_fmls(fun)
+  args <- args[setdiff(names(args), filter_out)]
+}
+
+# get all args from default function
+all_args <- to_table(extract_args(knitr::kable), HTML = TRUE, Latex = TRUE, Markdown = TRUE)
+# get args from specific html function
+html_args <- to_table(extract_args(knitr:::kable_html), HTML = TRUE)
+html_args <- html_args[!html_args$Argument %in% all_args$Argument,]
+# get args from specific latex function
+latex_args <- to_table(extract_args(knitr:::kable_latex), Latex = TRUE)
+latex_args <- latex_args[!latex_args$Argument %in% all_args$Argument,]
+# get args from specific markdown function
+markdown_args <- to_table(extract_args(knitr:::kable_markdown), Markdown = TRUE)
+markdown_args <- markdown_args[!markdown_args$Argument %in% all_args$Argument,]
+# format table
+rbind(all_args, html_args, latex_args, markdown_args) %>%
   knitr::kable(caption = "Possible arguments for the kable function")
 ```
-
-<!--- LateX options also include toprule, bottomrule, midrule, centering --->
 
 ### Changing column names
 <!--- https://stackoverflow.com/questions/51432502/replace-column-names-in-kable-r-markdown/51444998#51444998 --->
@@ -42,6 +52,13 @@ If we wish to change the alignment of a knitr table, we can use either a vector 
 ```{r}
 knitr::kable(head(mtcars), align = "llrrcc")
 ```
+
+
+The shortest form can't be used with _latex_ format. You must use longer form using a vector
+```{r, eval = FALSE}
+knitr::kable(head(mtcars), align = c("l", "l", "r", "r", "c", "c"), format = "latex")
+```
+
 
 ### Customising LaTeX options
 
