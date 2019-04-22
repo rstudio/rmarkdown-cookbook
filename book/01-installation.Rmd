@@ -6,7 +6,7 @@
 
 We assume you have already installed R (https://www.r-project.org) [@R-base] and the RStudio IDE (https://www.rstudio.com). RStudio is not required but recommended, because it makes it easier for an average user to work with R Markdown. If you do not have RStudio IDE installed, you will have to install Pandoc\index{Pandoc} (http://pandoc.org), otherwise there is no need to install Pandoc separately because RStudio has bundled it. Next you can install the **rmarkdown** package in R:
 
-```{r eval=FALSE, tidy=FALSE}
+```{r eval=FALSE}
 # Install from CRAN
 install.packages('rmarkdown')
 
@@ -15,4 +15,18 @@ install.packages('rmarkdown')
 if (!requireNamespace("devtools"))
   install.packages('devtools')
 devtools::install_github('rstudio/rmarkdown')
+```
+
+## Installing LaTeX with TinyTex
+
+If you would like to create PDF outputs from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, these can be cumbersome to install if you primarily want to use LaTeX within R Markdown.
+
+To make this process easier, TinyTeX is a custom LaTeX distribution based on TeX Live that is small in size (150Mb on macOS/Linux and 220Mb on Windows) but functions well in most cases, especially for R users. Installing or running TinyTeX does not require admin privileges, which means you no longer need sudo or your IT.
+
+If you want to use TinyTeX, we recommend that you first uninstall your existing LaTeX distribution. The **tinytex** R package [@R-tinytex] can be used to install TinyTeX:
+
+```{r eval=FALSE}
+install.packages('tinytex')
+tinytex::install_tinytex()
+# to uninstall TinyTeX, run tinytex::uninstall_tinytex() 
 ```
