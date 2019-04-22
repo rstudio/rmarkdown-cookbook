@@ -31,7 +31,7 @@ library(DiagrammeR)
 ```{r writeBib, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', "blogdown", "kableExtra"
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', "blogdown", "kableExtra", "tinytex"
 ), 'packages.bib')
 ```
 
