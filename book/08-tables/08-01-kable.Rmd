@@ -1,6 +1,6 @@
 ## Customising kable outputs
 
-The `kable` package provides the most convenient way of producing tables within the R Markdown package, providing neatly formatted tables for PDF, HTML, and Word and Markdown documents. The majority of the time, the default settings are generally suitable, but if we wish to have more control of their behaviour, there is an extensive number of settings which can be used. Table \@ref(tab:kableArgs) shows the possible arguments which can be used, and with some examples shown below on how they can be used.
+The `kable` package provides the most convenient way of producing tables within the R Markdown package, providing neatly formatted tables for PDF, HTML, Word and Markdown documents. The majority of the time, the default settings are generally suitable, but if we wish to have more control of their behaviour, there is an extensive number of settings which can be used. Table \@ref(tab:kableArgs) shows the possible arguments which can be used, and with some examples shown below on how they can be used.
 
 ```{r kableArgs, echo = FALSE}
 tibble::tribble(
