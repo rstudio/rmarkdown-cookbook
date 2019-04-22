@@ -5,19 +5,20 @@ The `kable` package provides the most convenient way of producing tables within 
 ```{r kableArgs, echo = FALSE}
 tibble::tribble(
       ~Argument, ~Description, ~HTML, ~LaTeX, ~Markdown,
+       "format",           NA,   "X",    "X",       "X",
        "digits",           NA,   "X",    "X",       "X",
     "row.names",           NA,   "X",    "X",       "X",
     "col.names",           NA,   "X",    "X",       "X",
         "align",           NA,   "X",    "X",       "X",
       "caption",           NA,   "X",    "X",       "X",
-       "format",           NA,   "X",    "X",       "X",
+        "label",           NA,   "X",    "X",       "X",
+  "format.args",           NA,   "-",    "X",       "-",
        "escape",           NA,   "X",    "X",       "-",
      "booktabs",           NA,   "-",    "X",       "-",
     "longtable",           NA,   "-",    "X",       "-",
     "linesep",             NA,   "-",    "X",       "-",
   "table.envir",           NA,   "-",    "X",       "-",
    "table.attr",           NA,   "-",    "X",       "-",
-  "format.args",           NA,   "-",    "X",       "-",
       "padding",           NA,   "-",    "-",       "X"
   ) %>%
   knitr::kable(caption = "Possible arguments for the kable function")
