@@ -67,7 +67,6 @@ data.frame(
   stringsAsFactors=FALSE
 ) %>%
   knitr::kable(caption = "Default LaTeX float settings", escape = TRUE)
-
 ```
 
 To encourage LaTeX not to move your figure, we can alter these default settings. We could include the following in our LaTeX preamble file, reducing the minimum amount of text required on a page and allow more room for floats:
