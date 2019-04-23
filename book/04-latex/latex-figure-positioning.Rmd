@@ -33,7 +33,7 @@ We can use the `fig.pos` to control the float behaviour, and the use of `!H` wil
 knitr::opts_chunk$set(fig.pos = "!H")
 ```
 
-Please note, that we would strongly advise that readers consider the behaviour of float in their document. This solution was included within the book by popular demand^[the related[StackOverflow question](https://stackoverflow.com/q/16626462/7347699) has been viewed over 40000 times] but there are some serious sides effects overriding the default settings. Primarily, you may end 
+Please note, that we would strongly advise that readers consider the behaviour of float in their document. This solution was included within the book by popular demand^[the related[StackOverflow question](https://stackoverflow.com/q/16626462/7347699) has been viewed over 40000 times] but there are some serious sides effects overriding the default settings.
 
 ### Force floats forwards
 <!--- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text --->
