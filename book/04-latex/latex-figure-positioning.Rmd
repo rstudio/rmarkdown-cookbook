@@ -52,7 +52,7 @@ LaTeX’s own float placement parameters could be preventing placements that see
 
 <!--- This table may work better as a diagram? --->
 
-```{r latexFloatDefault}
+```{r latexFloatDefault, echo = FALSE}
 data.frame(
   Command = c("topfraction", "bottomfraction", "textfraction",
               "floatpagefraction", "topnumber", "bottomnumber",
