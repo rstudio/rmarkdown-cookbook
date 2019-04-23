@@ -40,7 +40,7 @@ Please note, that we would strongly advise that readers consider the behaviour o
 
 An alternative to forcing all floats to be held is to force floats forwards in the text. This can remove a common issue, where a figure is shown at the top of the page on which it is created. This can break the flow of a report. We can force it so that the figure always appears after the text by using the **flafter** LaTeX package as follows:
 
-```
+```yaml
 output: 
 pdf_document:
 extra_dependencies: ["flafter"]
