@@ -23,8 +23,8 @@ Many users will initially want to prevent figures from floating in their documen
 
 ```yaml
 output: 
-pdf_document:
-extra_dependencies: ["float"]
+  pdf_document:
+    extra_dependencies: ["float"]
 ```
 
 We can use the `fig.pos` to control the float behaviour, and the use of `!H` will prevent any floating within the document. We can set the default behaviour for the document so that all chunks have this setting by including the following line at the start of your R Markdown document:
@@ -42,8 +42,8 @@ An alternative to forcing all floats to be held is to force floats forwards in t
 
 ```yaml
 output: 
-pdf_document:
-extra_dependencies: ["flafter"]
+  pdf_document:
+    extra_dependencies: ["flafter"]
 ```
 
 ### Adjust LaTeX placement rules
@@ -87,9 +87,9 @@ If we added these changes to our `premable.tex` file, we could reference to them
 
 ```yaml
 output:
-    pdf_document:
-        includes:
-            in_header: premable.tex
+  pdf_document:
+    includes:
+      in_header: premable.tex
 ```
 
 
