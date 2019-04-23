@@ -21,7 +21,7 @@ The default behaviour for LaTeX in R Markdown is `tbp`, that is it will try posi
 
 Many users will initially want to prevent figures from floating in their document, replicating the behaviour of a traditional word processor. To do this, we must firstly load the LaTeX package `float`. This can be done by including the following line in the YAML:
 
-```
+```yaml
 output: 
 pdf_document:
 extra_dependencies: ["float"]
