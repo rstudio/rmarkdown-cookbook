@@ -1,0 +1,17 @@
+---
+title: "CSS generated in chunk"
+output: 
+  html_document:
+    css: my_custom.css
+---
+
+The chunk below will be written to `my_custom.css` that will be used during
+pandoc conversion, as specified in the yaml header above.
+
+```{cat, engine.opts = list(file = "my_custom.css")}
+h2 {
+  color: blue;
+}
+```
+
+## And this title will blue.

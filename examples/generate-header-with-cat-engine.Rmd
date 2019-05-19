@@ -1,0 +1,42 @@
+---
+title: "Generate a header template for latex from a chunk"
+author: "Jane Doe"
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex
+---
+
+# how it works
+
+Adding some content to put in header file.
+
+```{cat, engine.opts=list(file = 'header.tex')}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\pagestyle{fancy}
+\fancyhead[CO,CE]{This is fancy header}
+\fancyfoot[CO,CE]{And this is a fancy footer}
+\fancyfoot[LE,RO]{\thepage}
+\fancypagestyle{plain}{\pagestyle{fancy}}
+```
+
+However, the aim here is to add the author name from the yaml header into the tex template.
+Some R code can't be passed into the `cat` engine because it won't be executed, but it is possible to append some more to the created file. 
+
+Here we generate the line to append in a R chunk using `knitr::knit_expand` templating tool. Any other way to build a string will work obviously.
+
+```{r, include = FALSE}
+author_template <- knitr::knit_expand(text = '\\fancyfoot[CO,CE]{%rmarkdown::metadata$author%}', delim = c("%", "%"))
+```
+
+Then, providing `append = TRUE` and using the `code` chunk option to provide content to the chunk
+
+```{cat, engine.opts=list(file = 'header.tex', append = TRUE), code = author_template}
+```
+
+This will generate a footer with the author name that we got from the yaml header. Pretty advanced combination !
+
+# Some other content to see the footer
+
+\lipsum[1-30]
