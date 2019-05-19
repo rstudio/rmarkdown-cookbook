@@ -122,75 +122,15 @@ This complete example shows how to generate `my_custom.css` from a chunk in the
 document while telling pandoc to use this css with the yaml field `css:
 my_custom.css`
 
-
-````md
----
-title: "CSS generated in chunk"
-output: 
-  html_document:
-    css: my_custom.css
----
-
-The chunk below will be written to `my_custom.css` that will be used during
-pandoc conversion, as specified in the yaml header above.
-
-```{cat, engine.opts = list(file = "my_custom.css")}`r ''`
-h2 {
-  color: blue;
-}
+```{r, echo = FALSE, results='asis', comment=""}
+import_example("generate-css-cat-engine.Rmd")
 ```
-
-## And this title will blue.
-````
 
 This could also be used to generate any file that can be given to pandoc, like
 an `in_header` tex file for a `pdf_document` output.^[Those yaml options for
 pandoc can be found in *R Markdown Definitive Guide* [@xie2018]]
 
-````md
----
-title: "Generate a header template for latex from a chunk"
-author: "Jane Doe"
-output: 
-  pdf_document:
-    includes:
-      in_header: header.tex
----
-
-# how it works
-
-Adding some content to put in header file.
-
-```{cat, engine.opts=list(file = 'header.tex')}`r ''`
-\usepackage{fancyhdr}
-\usepackage{lipsum}
-\pagestyle{fancy}
-\fancyhead[CO,CE]{This is fancy header}
-\fancyfoot[CO,CE]{And this is a fancy footer}
-\fancyfoot[LE,RO]{\thepage}
-\fancypagestyle{plain}{\pagestyle{fancy}}
+```{r, echo = FALSE, results='asis', comment=""}
+import_example("generate-latex-header-with-cat-engine.Rmd")
 ```
 
-However, the aim here is to add the author name from the yaml header into the
-tex template. Some R code can't be passed into the `cat` engine because it won't
-be executed, but it is possible to append some more to the created file.
-
-Here we generate the line to append in a R chunk using `knitr::knit_expand`
-templating tool. Any other way to build a string will work obviously.
-
-```{r, include = FALSE}`r ''`
-author_template <- knitr::knit_expand(text = '\\fancyfoot[CO,CE]{%rmarkdown::metadata$author%}', delim = c("%", "%"))
-```
-
-Then, providing `append = TRUE` and using the `code` chunk option to provide content to the chunk
-
-```{cat, engine.opts=list(file = 'header.tex', append = TRUE), code = author_template}`r ''`
-```
-
-This will generate a footer with the author name that we got from the yaml header. Pretty advanced combination !
-
-# Some other content to see the footer
-
-\lipsum[1-30]
-
-````
