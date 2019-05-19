@@ -1,4 +1,4 @@
-## Change Chunk Styling
+## Change Chunk Styling {#chunk-styling}
 
 <!--- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown --->
 
