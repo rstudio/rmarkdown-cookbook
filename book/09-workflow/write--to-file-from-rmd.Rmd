@@ -85,7 +85,7 @@ b:
 ```
 ````
 
-They will write to file and print the code with the chosen syntax higlighting, here `yaml`
+They will write to file and print the code with the chosen syntax highlighting, here `yaml`
 ```{cat, engine.opts = list(file = fs::path_temp('demo.yml'), lang = "yaml")}
 a:
   aa: something
