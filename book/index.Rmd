@@ -6,7 +6,7 @@ date: "`r Sys.Date()`"
 bibliography:
 - book.bib
 - packages.bib
-description: Tips and tricks to build advanced projects in R Markdown
+description: Examples, tips, and tricks of using R Markdown.
 documentclass: book
 link-citations: yes
 site: bookdown::bookdown_site
