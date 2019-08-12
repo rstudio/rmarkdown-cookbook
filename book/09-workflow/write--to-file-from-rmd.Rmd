@@ -1,0 +1,136 @@
+## Writing to file from an Rmd file with the `cat` engine
+
+<!-- https://github.com/dr-harper/rmarkdown-cookbook/issues/140 -->
+
+Sometimes it could be useful to write to some files from inside the Rmd. If this
+could be achieved using pure R code in a r code chunk, `knitr` as a little
+unknown gem for this : the `cat` engine.
+
+### About the `cat` engine 
+
+The `cat` engine allows to write to a file some codes from a Rmarkdown chunk.
+The file path is passed as an argument in the generic `engine.opts` chunk
+options: `engine.opts = list(file = <file to write to>)`. The element in this
+list will be pass to `base::cat()` function allowing to customize how the
+content is written to file.
+
+In this example, we will write to a temp file with `fs::path_temp()`. 
+
+````md
+```{cat, engine.opts = list(file = fs::path_temp('script.R'))}`r ''`
+my_function <- function(x){ x+1 }
+```
+```` 
+
+```{cat, engine.opts = list(file = fs::path_temp('script.R'))}
+my_function <- function(x){ x+1 }
+```
+
+The content can be used by filling a chunk from that file. This is another trick made possible using the `code` chunk option. You'll see the content of the file
+
+````md
+```{r, code = readLines(fs::path_temp('script.R'))}`r ''`
+```
+````
+
+This will render 
+```{r, code = readLines(fs::path_temp('script.R'))}
+```
+
+As the code above is executed, the function is available in any following r chunk.
+
+```{r, results='hold'}
+my_function(5)
+rm(my_function)
+```
+
+
+And the file can be sourced as usual too.
+```{r, results='hold'}
+source(fs::path_temp('script.R'))
+my_function(5)
+rm(my_function)
+```
+
+
+Writing to an R script is not really a real use case example and the `cat`
+engine can handled any format.
+
+Here, we use it to write some yaml to a file. The default behavior for `cat`
+engine is to show nothing in the output document. However, here we will also
+show the content in the output R Markdown file. The `cat` engine understand the
+field `lang` in `engine.opts` option or directly `class.source` chunk option for
+html outputs (see Section \@ref(chunk-styling)). You can provide any language
+supported by the syntax highlighting. This two chunks are equivalent:
+
+````md
+```{cat, engine.opts = list(file = fs::path_temp('demo.yml'), lang = "yaml")}`r ''`
+a:
+  aa: something
+  bb: 1
+b:
+  aa: somethingelse
+  bb: 2
+```
+````
+
+````md
+```{cat, engine.opts = list(file = fs::path_temp('demo.yml')), class.source = "yaml"}`r ''`
+a:
+  aa: something
+  bb: 1
+b:
+  aa: somethingelse
+  bb: 2
+```
+````
+
+They will write to file and print the code with the chosen syntax highlighting, here `yaml`
+```{cat, engine.opts = list(file = fs::path_temp('demo.yml'), lang = "yaml")}
+a:
+  aa: something
+  bb: 1
+b:
+  aa: somethingelse
+  bb: 2
+```
+
+As previously, the file can be access later on and read into R
+```{r}
+yaml::read_yaml(fs::path_temp('demo.yml'))
+```
+
+
+```{r cleaning, include = FALSE}
+unlink(c(fs::path_temp('demo.yml'), fs::path_temp('script.R')))
+```
+
+### Generate a template file from inside the rmarkdown
+
+<!-- https://github.com/dr-harper/rmarkdown-cookbook/issues/149 -->
+
+As detailed in section \@ref(chunk-styling), `css` chunk can directly be used to
+apply custom style. However, it is also possible to provide a custom css file to
+pandoc directly to be used with the html output and the `cat` engine can be used
+to write this css file from the Rmarkdown.
+
+One important key is that all chunks are executed before pandoc conversion. This
+means it is possible in the yaml header to link to a file that does not exist
+and will be created when rendering the document.
+
+This complete example shows how to generate `my_custom.css` from a chunk in the
+document while telling pandoc to use this css with the yaml field `css:
+my_custom.css`
+
+```{r, echo = FALSE, results='asis', comment=""}
+import_example("generate-css-cat-engine.Rmd")
+```
+
+This could also be used to generate any file that can be given to pandoc, like
+an `in_header` tex file for a `pdf_document` output.^[Those yaml options for
+pandoc can be found in *R Markdown Definitive Guide* [@xie2018]]
+
+```{r, echo = FALSE, results='asis', comment=""}
+import_example("generate-latex-header-with-cat-engine.Rmd")
+```
+
