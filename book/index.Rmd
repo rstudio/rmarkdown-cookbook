@@ -53,7 +53,7 @@ This book is designed to provide a range of examples of how to extend the functi
 
 The book is designed to highlight the many ways in which your R Markdown documents can be customized. Users are encouraged to try using the concepts within their own documents. The code detailed in the book should be sufficient, but the full source code and examples are provided on [GitHub](https://github.com/mikey-harper/rmarkdown-cookbook).
 
-It is recommended that readers have a basic understanding of R Markdown. [Chapter 2](https://bookdown.org/yihui/rmarkdown/basics.html) of [*R Markdown: The Definitive Guide*](https://bookdown.org/yihui/rmarkdown/) [@xie2018] provides a great overview of the basics of R Markdown and is recommended background reading for any new users of R Markdown.
+It is recommended that readers have a basic understanding of R Markdown. [Chapter 2](https://bookdown.org/yihui/rmarkdown/basics.html) of [*R Markdown: The Definitive Guide*](https://bookdown.org/yihui/rmarkdown/) [@xie2018] provides an overview of the basics of R Markdown and is recommended background reading for any new users of R Markdown.
 
 It should be noted that this guide does not intend to provide a full technical reference for R Markdown, and there is already extensive literature available on these topics. This book aims to supplement, not replace, this existing literature, and it is therefore recommended that readers explore the following books if they seek further information:
 
