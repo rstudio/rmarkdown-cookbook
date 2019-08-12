@@ -14,6 +14,12 @@ biblio-style: apalike
 ---
 
 ```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = FALSE, formatR.indent = 2,
+  width = 55, digits = 4,
+  warnPartialMatchAttr = FALSE, warnPartialMatchDollar = FALSE
+)
+
 lapply(c('webshot', 'DiagrammeR'), function(pkg) {
   if (system.file(package = pkg) == '') install.packages(pkg)
 })
