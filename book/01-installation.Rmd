@@ -17,7 +17,7 @@ if (!requireNamespace("devtools"))
 devtools::install_github('rstudio/rmarkdown')
 ```
 
-## Installing LaTeX with TinyTex
+## Installing LaTeX with TinyTeX
 
 If you would like to create PDF outputs from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, these can be cumbersome to install if you primarily want to use LaTeX within R Markdown.
 
