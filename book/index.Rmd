@@ -14,8 +14,6 @@ biblio-style: apalike
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_current$set(comment = NA, out.width = "100%")
-
 lapply(c('webshot', 'DiagrammeR'), function(pkg) {
   if (system.file(package = pkg) == '') install.packages(pkg)
 })
