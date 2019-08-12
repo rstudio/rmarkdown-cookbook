@@ -4,4 +4,5 @@
 
 It is useful to include commented text within the source document which is not displayed within the final outputted document. We can use the HTML syntax `<!--- your comment --->`. This will not be displayed in any output format.
 
-Comments can span either single or multiple lines. This may be useful if you have draft comment, and it also allows us to comment out code chunks (and prevent them from being run in knitr).
+Comments can span either single or multiple lines. This may be useful if you have draft comment.
+<!-- , and it also allows us to comment out code chunks (and prevent them from being run in knitr). -->
