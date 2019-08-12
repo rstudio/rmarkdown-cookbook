@@ -13,18 +13,12 @@ site: bookdown::bookdown_site
 biblio-style: apalike
 ---
 
-```{r installPackages, include=FALSE}
-chooseCRANmirror(graphics=FALSE, ind=1)
-
+```{r setup, include=FALSE}
 knitr::opts_current$set(comment = NA, out.width = "100%")
 
-library(webshot)
-library(DiagrammeR)
-
-# knitrhooks on GitHub
-# library(knitrhooks)
-# chunk_head()
-
+lapply(c('webshot', 'DiagrammeR'), function(pkg) {
+  if (system.file(package = pkg) == '') install.packages(pkg)
+})
 ```
 
 
