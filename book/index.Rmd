@@ -4,13 +4,22 @@ author: "Michael Harper, Yihui Xie"
 date: "`r Sys.Date()`"
 # cover-image: images/cover.png
 bibliography:
-- book.bib
-- packages.bib
-description: Examples, tips, and tricks of using R Markdown.
-documentclass: book
-link-citations: yes
-site: bookdown::bookdown_site
+  - book.bib
+  - packages.bib
 biblio-style: apalike
+description: Examples, tips, and tricks of using R Markdown.
+documentclass: krantz
+link-citations: yes
+colorlinks: yes
+graphics: yes
+lot: yes
+lof: yes
+fontsize: 11pt
+mainfont: Palatino
+monofont: "Source Code Pro"
+monofontoptions: "Scale=0.8"
+site: bookdown::bookdown_site
+github-repo: dr-harper/rmarkdown-cookbook
 ---
 
 ```{r setup, include=FALSE}
