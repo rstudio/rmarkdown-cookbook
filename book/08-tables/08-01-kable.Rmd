@@ -31,8 +31,10 @@ latex_args <- latex_args[!latex_args$Argument %in% all_args$Argument,]
 markdown_args <- to_table(extract_args(knitr:::kable_markdown), Markdown = TRUE)
 markdown_args <- markdown_args[!markdown_args$Argument %in% all_args$Argument,]
 # format table
-rbind(all_args, html_args, latex_args, markdown_args) %>%
-  knitr::kable(caption = "Possible arguments for the kable function")
+knitr::kable(
+  rbind(all_args, html_args, latex_args, markdown_args),
+  caption = "Possible arguments for the kable function"
+)
 ```
 
 ### Changing column names
