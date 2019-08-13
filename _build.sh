@@ -1,5 +1,4 @@
 #!/usr/bin/env Rscript
-webshot::install_phantomjs()
 
 setwd("book")
 bookdown::render_book('index.Rmd', 'bookdown::gitbook')
