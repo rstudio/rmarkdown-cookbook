@@ -78,26 +78,3 @@ overlay={
 \makeatother
 
 \frontmatter
-
-
-% Custom block used for example
-\usepackage[framemethod=TikZ]{mdframed}
-\usepackage{xcolor}
-
-\definecolor{background}{HTML}{F8F9F9}
-\definecolor{border}{HTML}{A93226}
-
-\newenvironment{customBlock}{
-  \vspace{10mm}
-  \begin{mdframed}[
-  backgroundcolor=background,
-  linecolor = border,
-  roundcorner = 5pt,
-  nobreak=true,
-  innertopmargin = 10pt,
-  innerbottommargin = 10pt]
-  }
-  {
-  \vspace{10mm}
-  \end{mdframed}
-  }

@@ -52,9 +52,9 @@ For the HTML output, we will specify our custom class in the `style.css` file. I
 
 For the LaTeX output, we will add our custom block to the `preamble.tex` file. We will use use the **tcolorbox** LaTeX package, which offers quite a flexible set of options for creating shaded boxes, as detailed within the [package documentation](hhttp://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/tcolorbox/tcolorbox.pdf). Below, we create a new environment called `customBlock`, with a similar design of that outlined above:
 
-```{cat, class.source = 'latex'}
-\usepackage[many]{tcolorbox}
-\usepackage{graphicx}
+```{cat, class.source = 'latex', engine.opts = list(file = 'latex/customBlock.tex')}
+\usepackage{tcolorbox}
+\usepackage{tikz}
 \usetikzlibrary{calc}
 
 % Define the colours to match the CSS above
