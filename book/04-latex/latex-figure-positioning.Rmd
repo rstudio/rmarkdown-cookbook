@@ -53,7 +53,7 @@ LaTeX’s own float placement parameters could be preventing placements that see
 <!--- This table may work better as a diagram? --->
 
 ```{r latexFloatDefault, echo = FALSE}
-data.frame(
+floatOpts <- data.frame(
   Command = c("topfraction", "bottomfraction", "textfraction",
               "floatpagefraction", "topnumber", "bottomnumber",
               "totalnumber"),
@@ -64,9 +64,9 @@ data.frame(
                   "maximum number of floats at top of page", "maximum number of floats at bottom of page",
                   "maximum number of floats on a page"),
   Default = c("0.7", "0.3", "0.2", "0.5", "2", "1", "3"),
-  stringsAsFactors=FALSE
-) %>%
-  knitr::kable(caption = "Default LaTeX float settings", escape = TRUE)
+  stringsAsFactors = FALSE
+)
+knitr::kable(floatOpts, caption = "Default LaTeX float settings")
 ```
 
 To encourage LaTeX not to move your figure, we can alter these default settings. We could include the following in our LaTeX preamble file, reducing the minimum amount of text required on a page and allow more room for floats:
