@@ -29,7 +29,7 @@ options(
   warnPartialMatchAttr = FALSE, warnPartialMatchDollar = FALSE
 )
 
-lapply(c('webshot', 'DiagrammeR'), function(pkg) {
+lapply(c('webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable'), function(pkg) {
   if (system.file(package = pkg) == '') install.packages(pkg)
 })
 
