@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+rsconnect
 _book/*
 _bookdown_files/*
 packages.bib
