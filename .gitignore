@@ -6,6 +6,7 @@ _book/*
 _bookdown_files/*
 packages.bib
 css/customBlock.css
+latex/customBlock.tex
 
 # OS generated files #
 ######################
