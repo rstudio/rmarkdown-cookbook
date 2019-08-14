@@ -9,7 +9,7 @@ bookdown::gitbook:
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 bookdown::pdf_book:
   includes:
-    in_header: [preamble.tex, latex/customBlock.tex]
+    in_header: [latex/preamble.tex, latex/customBlock.tex]
   keep_tex: yes
   latex_engine: xelatex
   citation_package: natbib
