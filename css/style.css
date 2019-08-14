@@ -8,19 +8,19 @@
   border-width: thin;
 }
 .rmdcaution {
-  background-image: url("images/icons/caution.png");
+  background-image: url("../images/icons/caution.png");
 }
 .rmdimportant {
-  background-image: url("images/icons/important.png");
+  background-image: url("../images/icons/important.png");
 }
 .rmdnote {
-  background-image: url("images/icons/note.png");
+  background-image: url("../images/icons/note.png");
 }
 .rmdtip {
-  background-image: url("images/icons/tip.png");
+  background-image: url("../images/icons/tip.png");
 }
 .rmdwarning {
-  background-image: url("images/icons/warning.png");
+  background-image: url("../images/icons/warning.png");
 }
 
 p.caption {
