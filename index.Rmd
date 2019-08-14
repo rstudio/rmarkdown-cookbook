@@ -39,14 +39,6 @@ import_example <- function(file) {
 }
 ```
 
-
-```{r writeBib, include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', "blogdown", "kableExtra", "tinytex"
-), 'packages.bib')
-```
-
 # Preface {-}
 
 ```{block2, type = "rmdcaution"}

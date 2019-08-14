@@ -1,1 +1,22 @@
+\backmatter
+
+`r if (knitr::is_html_output()) '
 # References {-}
+'`
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+bib = knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', "blogdown", "kableExtra", "tinytex"
+), file = NULL)
+bib = unlist(bib)
+# remove the ugly single quotes required by CRAN policy
+bib = gsub("'(Htmlwidgets|iframes|TeX Live|LaTeX)'", '\\1', bib)
+xfun::write_utf8(bib, 'packages.bib')
+
+# embed fonts
+if (knitr::is_latex_output()) {
+  pdfs = list.files(knitr::opts_chunk$get('fig.path'), '[.]pdf$', full.names = TRUE)
+  invisible(lapply(pdfs, embedFonts))
+}
+```
