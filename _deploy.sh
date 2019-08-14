@@ -14,7 +14,7 @@ cd book-output
 ls | xargs rm -rf
 git ls-files --deleted -z | xargs -0 git rm
 
-cp -r ../book/_book/* ./
+cp -r ../_book/* ./
 git add --all *
 git commit -m"Update the book" || true
 git push -q origin gh-pages
