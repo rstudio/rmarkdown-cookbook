@@ -3,5 +3,5 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Chapter "
-edit: "https://github.com/mikey-harper/rmarkdown-cookbook/edit/book/master/%s"
+edit: "https://github.com/dr-harper/rmarkdown-cookbook/edit/book/master/%s"
 
