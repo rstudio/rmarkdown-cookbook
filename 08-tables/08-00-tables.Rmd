@@ -1,9 +1,0 @@
-# Tables
-
-Tables are one of the primary ways in which we can communicate results in a report, and it can often be desired to tweak the appearance of these to suit our particular needs. In this chapter, we will highlight several techniques which can be used to customise tables. The chapter aims to:
-
-- explain how we can customise the formatting of tables
-- highlight more advanced customisation of tables using the the `kableExtra` package
-- provide examples of other packages which can be used to produce tables.
-
-

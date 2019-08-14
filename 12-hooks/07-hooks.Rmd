@@ -1,6 +1,0 @@
-# Knitr Hooks
-
-Hooks offer a useful tool for extending the functionality of **knitr**. 
-
-Many of the examples included within this chapter have been integrated into the **knitrhooks** package, avaialable at [https://github.com/nathaneastwood/knitrhook](https://github.com/nathaneastwood/knitrhooks).
-

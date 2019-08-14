@@ -1,5 +1,0 @@
-# Document Elements
-
-There are lots of small tips and tricks that can be used to customize the content of R Markdown documents. This chapter provides short recipes which are useful for tweaking the behaviour of your own R Markdown documents.
-
-

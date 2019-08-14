@@ -1,3 +1,0 @@
-## Tabbed headings
-
-<!---https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings--->

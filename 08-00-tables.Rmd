@@ -1,3 +1,13 @@
+# Tables
+
+Tables are one of the primary ways in which we can communicate results in a report, and it can often be desired to tweak the appearance of these to suit our particular needs. In this chapter, we will highlight several techniques which can be used to customise tables. The chapter aims to:
+
+- explain how we can customise the formatting of tables
+- highlight more advanced customisation of tables using the the `kableExtra` package
+- provide examples of other packages which can be used to produce tables.
+
+
+
 ## Customising kable outputs
 
 The `kable` package provides the most convenient way of producing tables within the R Markdown package, providing neatly formatted tables for PDF, HTML, Word and Markdown documents. The majority of the time, the default settings are generally suitable, but if we wish to have more control of their behaviour, there is an extensive number of settings which can be used. Table \@ref(tab:kableArgs) shows the possible arguments which can be used, and with some examples shown below on how they can be used.
@@ -81,4 +91,78 @@ There are many global options which apply to kable which can be set within your 
 - `options(knitr.kable.NA = '')`
 - ADD MORE
 
+
+
+## kableExtra
+
+The **kableExtra** package [@R-kableExtra] is designed to extend the basic functionality of tables produced using `kable`. As explained by the package author, the intention with using **kableExtra** is that you can:
+
+- Use default base `kable()` for all simple tables
+- Use `kable()` with **kableExtra** to generate 90 % of complex/advanced/self-customized/beautiful tables in either HTML or LaTeX
+- Only have to mess with raw HTML/LaTeX in the last 10% cases where kableExtra cannot solve the problem
+
+This section aims to provide a quick overview of some of the main principles of **kableExtra**, and provides some examples of how you may wish to integrate it into your document. For extensive documentation, readers are recommended to check the [documentation online](https://haozhu233.github.io/kableExtra/), which provides full details on how the outputs can be customised for both [HTML](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) and [LaTeX](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf) outputs.
+
+### Setup
+
+**kableExtra** is available to download through CRAN: 
+
+```{r kableExtra, echo=TRUE, eval=FALSE}
+
+# Install from CRAN
+install.packages("kableExtra")
+
+# install the development version
+devtools::install_github("haozhu233/kableExtra")
+```
+
+### Customising HTML
+
+  - Width and position
+  - column and row spec
+  - bootstrap styling
+  - Scroll box
+
+### Customising PDF
+
+  - Width and position
+  - column and row spec
+  - Styling
+  - Landscape page
+
+You can scale the width of the table using the function `kable_styling(latex_options = "scale_down")`. This will force the table to the width of the page.
+
+```{r, eval=FALSE, echo=TRUE}
+ kable(iris[1:5,],
+          format = "latex", booktabs = TRUE) %>%
+          kable_styling(latex_options = "scale_down")
+```
+
+
+## Extension Packages {#tableExtensions}
+
+Although `kable` offers flexible tables within R Markdown documents, you may wish to extend the functionality of tables using other packages. There are several packages which have been developed to create tables in R Markdown:
+
+- **stargazer** [@stargazer]
+- **gt** [@gt]
+- **flextable** [@flextable]
+
+These packages are explained in the following subsections.
+
+### stargazer
+
+TO ADD
+
+### gt
+
+TO ADD
+
+### flextable
+
+This package is develop by David Gohel and is part of the `officer` package suits. 
+
+`flextable` aims at easily creating tables for reporting to be embedded within:
+
+* R Markdown documents with support for HTML, Word and PowerPoint documents.
+* Microsoft Word or PowerPoint documents directly.
 

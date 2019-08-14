@@ -1,0 +1,103 @@
+# Knitr
+
+
+## Allow duplicate code chunks
+
+<!--- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 --->
+
+By default, **knitr** will not allow duplicate code chunks names in the document, and will result in an error when the document is knitted. This most frequently occurs when a code chunk is copy-and-pasted within a document. Most R Markdown users will have seen an error message like this at some stage:
+
+```
+processing file: myfile.Rmd
+Error in parse_block(g[-1], g[1], params.src) : duplicate label 'cars'
+Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
+Execution halted
+```
+
+However, there are scenarios where we may wish to allow duplicate cases. For example, if we have one master document `parent.rmd` and several child documents, each with a number of chunks. If I attempt to re-use the same child-chunks, however, this will fail:
+
+```{r, eval = FALSE}
+# settings
+settings = list(...)
+
+# run once
+knit_child('useful_analysis.rmd')
+
+# new settings
+settings = list(...)
+
+# run again
+knit_child('useful_analysis.rmd')
+```
+
+In such scenario, we can allow duplicate labels:
+
+```{r, eval = FALSE}
+options(knitr.duplicate.label = 'allow')
+```
+
+Note, it is not recommended that this option is set in documents without valid reason. As with most error messages, they are there for a reason, and allowing duplicate chunks can create issues with figures and cross-references. You have been warned!
+
+
+
+## Exit Knitting Early
+
+Sometime we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom which is not yet complete. In these situations, we could consider using the `knit_exit` function, which will end the knitting process at that location.
+
+Below is a simple example, where we have a very simple chunk followed by a more time-consuming one:
+
+````md
+```{r}`r ''`
+library(knitr)
+1 + 1
+knit_exit()
+```
+
+Okay, you will not see me in the output.
+
+```{r}`r ''`
+Sys.sleep(100)
+```
+````
+
+Normally you have to wait for 100 seconds, but since we have called `knit_exit()`, the rest of the document is actually ignored.
+
+## Customising knitr options
+
+There are more than 40 different chunk options which can be used to fine-tune the behaviour of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of @xie2018 provides a subset of these, while the full list of these variables is available at [https://yihui.name/knitr/options/](https://yihui.name/knitr/options/).
+
+This section aims to provides some useful recipes on some commonly used configurations within R Markdown documents.
+
+### Hide code and all outputs
+
+We often wish to setup our R Markdown documents by loading a series of packages. Instead of using separate commands to R source code (`echo=FALSE`), hide text output (`results='hide'`), hide warnings (`warnings=FALSE`), hide messages (`messages=FALSE`) and so on, we can suppress all forms of output elements using the `include=FALSE` setting as shown below:
+
+````
+`r ''````{r, include=FALSE}
+
+```
+````
+
+With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), but the output will be completely suppressed.
+
+### Remove hashes from code output
+
+<!--- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr --->
+
+By default, R code output will have hashes `#` inserted in front of the outputted code. We can alter this behaviour by using the `comment` chunk option. If we only want to change the output for a single block we can include it directly within the code block. For example:
+
+````
+`r ''````{r include=FALSE, comment = NA}
+plot(cars)
+```
+````
+
+It is typically more useful to change this globally, so that all your code chunks have the same appearrance. We can change this globally using the `opts_chunk$set` option:
+
+````
+`r ''````{r include=FALSE}
+knitr::opts_chunk$set(comment = NA)
+```
+````
+
+

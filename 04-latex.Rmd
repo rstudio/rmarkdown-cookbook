@@ -1,0 +1,298 @@
+# LaTeX
+
+For many authors, the main output of their work will be the PDF report, and will be able to utilise the styling of LaTeX. In this chapter, we discuss approaches which can be used to customise the output of PDF reports.
+
+Users should approach with a note of caution. One of the major benefits of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format (PDF/Word/HTML), you may improve the appearance and performance of a single output but at the expense of this tranferability.
+
+## Add logo to title page
+<!--- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf --->
+
+We can use the **titling** LaTeX package to alter our title block to include an image. We can include the following lines of text in our YAML, where we change the `my-image` with your local image file:
+
+```yaml
+- \usepackage{titling}
+- \pretitle{\begin{center}\LARGE\includegraphics[width=6cm]{my-image}\\[\bigskipamount]}
+- \posttitle{\end{center}}
+```
+An example output is shown in Figure \@ref(fig:latexLogo).
+
+```{r latexLogo, echo = FALSE, fig.cap = "Example LaTeX title with logo"}
+knitr::include_graphics("images/latexLogo.png", dpi = NA)
+```
+
+## Include additional LaTeX packages
+
+<!--- https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown/452884#452884 --->
+
+If your primary output format for your R Markdown document is PDF, then the use of additional LaTeX packages can allow for extensive customization of document styling. In addition, several packages such as [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf) may have LaTeX dependencies for the R package to function. Much like R, we need to load packages within the R Markdown document before we are able to use their functions.
+
+### Loading LaTeX Packages
+
+We can load additional LaTeX packages using the `extra_dependencies` option within the `pdf_document` YAML settings. This allows us to provide a list of R Markdown packages:
+
+```
+---
+title: "Untitled"
+output: 
+  pdf_document:
+    extra_dependencies: ["bbm", "threeparttable"]
+---
+```
+
+If you need to specify options when loading the package, you can add a second-level to the list and provide the options as a list:
+
+```
+output: 
+  pdf_document:
+    extra_dependencies:
+      caption: ["labelfont={bf}"]
+      hyperref: ["unicode=true", "breaklinks=true"]
+      lmodern: null
+```
+
+For those familiar with LaTeX, this is equivalent to the following LaTeX file:
+
+```
+\usepackage[labelfont={bf}]{caption} 
+\usepackage[unicode=true, breaklinks=true]{hyperref}
+\userpackage{lmodern}
+```
+
+### Example Packages
+
+There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprohensive Tex Archive Network](https://ctan.org/) (CTAN). As some examples of LaTeX packages you could consider using within your analysis:
+
+- [pdfpages](https://ctan.org/pkg/pdfpages?lang=en): include full PDF pages within your document. This is useful if you wish to have appendices within your document
+- [caption](https://ctan.org/pkg/caption?lang=en): change the appearance of caption subtitles. For example, you can make the Figure title italics, centered.
+- [fancyhdr](https://ctan.org/pkg/fancyhdr?lang=en): change the style of page headers.
+
+<!--- ADD MORE PACKAGES --->
+
+
+## Controlling the Placement of Figures
+<!--- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 --->
+<!--- Some of the solutions adapted from https://texfaq.org/FAQ-floats. Link left here for future reference --->
+
+One of the common frustrations with LaTeX is how Figures and Tables are handled. Unlike in a word processor like *Microsoft Word*, where figures are placed directly where the user specifies, LaTeX will attempt to place the figure in a position which does not violate certain typographic rules. In doing so, it can result in figures being located away from where they are referenced in the text. This section will explain some background information on how floats work, before providing several options for how to customise their behaviour for your work.
+
+### Floats
+
+A detailed description of floats is available within the [LaTeX Wiki](https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions), but in summary, floats are used as containers for things which cannot be broken over a page, such as tables and figures.  By default, if the figure or table can not be contained in the space left in the current page, it is placed at the top of the next page. This behaviour can be controlled by different placement specifiers as follows:
+
+- `h`:	Place the float here, i.e., approximately at the same point it occurs in the source text (however, not exactly at the spot)
+- `t`:	Position at the top of the page.
+- `b`:	Position at the bottom of the page.
+- `p`:	Put on a special page for floats only.
+- `!`:	Override internal parameters LaTeX uses for determining "good" float positions.
+- `H`: Places the float at precisely the location in the LaTeX code. Requires the float package (`\usepackage{float}`)
+
+The default behaviour for LaTeX in R Markdown is `tbp`, that is it will try positioning the figure at the top of the page, then then bottom, and if not it will put them on a separate page for floats.
+
+### Preventing figures floating
+
+Many users will initially want to prevent figures from floating in their document, replicating the behaviour of a traditional word processor. To do this, we must firstly load the LaTeX package `float`. This can be done by including the following line in the YAML:
+
+```yaml
+output: 
+  pdf_document:
+    extra_dependencies: ["float"]
+```
+
+We can use the `fig.pos` to control the float behaviour, and the use of `!H` will prevent any floating within the document. We can set the default behaviour for the document so that all chunks have this setting by including the following line at the start of your R Markdown document:
+
+```{r, echo=TRUE, eval=FALSE}
+knitr::opts_chunk$set(fig.pos = "!H")
+```
+
+Please note, that we would strongly advise that readers consider the behaviour of float in their document. This solution was included within the book by popular demand^[the related[StackOverflow question](https://stackoverflow.com/q/16626462/7347699) has been viewed over 40000 times] but there are some serious sides effects overriding the default settings.
+
+### Force floats forwards
+<!--- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text --->
+
+An alternative to forcing all floats to be held is to force floats forwards in the text. This can remove a common issue, where a figure is shown at the top of the page on which it is created. This can break the flow of a report. We can force it so that the figure always appears after the text by using the **flafter** LaTeX package as follows:
+
+```yaml
+output: 
+  pdf_document:
+    extra_dependencies: ["flafter"]
+```
+
+### Adjust LaTeX placement rules
+
+LaTeX’s own float placement parameters could be preventing placements that seem entirely “reasonable” to you — they’re notoriously rather conservative. These defaults are displayed in Table \@ref(tab:latexFloatDefault).
+
+<!--- This table may work better as a diagram? --->
+
+```{r latexFloatDefault, echo = FALSE}
+floatOpts <- data.frame(
+  Command = c("topfraction", "bottomfraction", "textfraction",
+              "floatpagefraction", "topnumber", "bottomnumber",
+              "totalnumber"),
+  Description = c("maximum fraction of page for floats at top",
+                  "maximum fraction of page for floats at bottom",
+                  "minimum fraction of page for text",
+                  "minimum fraction of floatpage that should have floats",
+                  "maximum number of floats at top of page", "maximum number of floats at bottom of page",
+                  "maximum number of floats on a page"),
+  Default = c("0.7", "0.3", "0.2", "0.5", "2", "1", "3"),
+  stringsAsFactors = FALSE
+)
+knitr::kable(floatOpts, caption = "Default LaTeX float settings")
+```
+
+To encourage LaTeX not to move your figure, we can alter these default settings. We could include the following in our LaTeX preamble file, reducing the minimum amount of text required on a page and allow more room for floats:
+
+```latex
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+\setcounter{dbltopnumber}{9}
+```
+If we added these changes to our `premable.tex` file, we could reference to them within our YAML of our document:
+
+```yaml
+output:
+  pdf_document:
+    includes:
+      in_header: premable.tex
+```
+
+
+
+## Add Custom Headers and Footers
+<!--- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown --->
+<!--- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc --->
+
+We can use LaTeX package **fancyhdr** to customise the header and footer of PDF outputs. It provides several commands that allow you to customize the header and footer lines of your document. For a more complete guide, please refer to the [full documentation](http://tug.ctan.org/tex-archive/macros/latex/contrib/fancyhdr/fancyhdr.pdf). To begin with, we must load the package and change the header style:
+
+```latex
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+```
+
+The package offers three different interfaces, but we will use the commands `\fancyhead` and `\fancyfoot`. The syntax for the formatting `\fancyhead[selectors]{output text}`, whereby the selectors state which part of the header we wish to customize. We can use the following selectors for the page locators:
+
+- **E** for even page
+- **O** for odd page
+- **L** for left side
+- **C** for centered
+- **R** for right side
+
+For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on the Left side of the header for Even pages, and the Right side for Odd pages. We can combine this with additional LaTeX commands to extract details from our document for each page:
+
+- `\thepage`: adds number of the current page.
+- `\thechapter`: adds number of the current chapter.
+- `\thesection`: adds number of the current section.
+- `\chaptername`: adds the word "Chapter" in English or its equivalent in the current language.
+- `\leftmark`: adds name and number of the current top-level structure in uppercase letters.
+- `\rightmark`: adds name and number of the current next to top-level structure in uppercase letters.
+
+
+Piecing this components together, a complete example is presented below.
+
+This could be inserted in the document, or another `header.tex` file :
+
+```latex
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[CO,CE]{Your Document Header}
+\fancyfoot[CO,CE]{And this is a fancy footer}
+\fancyfoot[LE,RO]{\thepage}
+```
+
+If in an external `.tex` file, then it could be included in the header of our `rmarkdown::pdf_document` format:
+
+```yaml
+---
+title: "Document with header and footer"
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex
+---
+```
+
+The `includes` feature of `pdf_document` is presented in [Advanced customisation](https://bookdown.org/yihui/rmarkdown/pdf-document.html#includes-1) of @xie2018.
+
+An alternative,^[You cannot use both as `in_header:` in yaml will currently override the content of pandoc variable `header-includes`] it could also be included directly in header to a rmarkdown document within the YAML using the pandoc variable `header-includes`:
+
+```yaml
+---
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{Your Document Header}
+- \fancyfoot[CO,CE]{And this is a fancy footer}
+- \fancyfoot[LE,RO]{\thepage}
+output: pdf_document
+---
+```
+
+### Force Header and footer for every page
+<!--- https://stackoverflow.com/questions/30922602/creating-a-footer-for-every-page-including-first-using-r-markdown --->
+
+By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line `\fancypagestyle{plain}{\pagestyle{fancy}}`.
+
+As an example in the YAML frontmatter specification
+
+```yaml
+---
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{YOur Document Header}
+- \fancyfoot[CO,CE]{And this is a fancy footer}
+- \fancyfoot[LE,RO]{\thepage}
+- \fancypagestyle{plain}{\pagestyle{fancy}}
+output: pdf_document
+---
+```
+
+## LaTeX subfigures
+
+When writing a document you may want to include some slightly more complicated figures with multiple images. Subfigures are a useful LaTeX feature which allows us to achieve this by plotting multiple figures within a single plot and providing each with their own subcaption.
+
+Subfigures require the LaTeX package `subfig`. We can load this via the `extra_dependencies` YAML option within the `pdf_document` output. For example:
+
+```yaml
+---
+output:
+  pBdf_document:
+    extra_dependencies: subfig
+---
+```
+
+As listed within the knitr [chunk options](https://yihui.name/knitr/options/), subfigures require a few additional settings to be set in the chunk header:
+
+- `fig.subcap` is a list of the captions for subfigures
+- `fig.ncol`: the number of columns of subfigures
+- `out.width`: the output width of the figures. You will normally set this 100% divided by the number of sub columns.
+
+An example is demonstrated below:
+
+```yaml
+---
+output:
+  pdf_document:
+    extra_dependencies: subfig
+---
+```
+
+````
+`r ''````{r fig-sub, fig.cap='two plots', fig.subcap=c('one plot', 'the other one'), out.width='.49\\linewidth', fig.asp=1, fig.ncol = 2}
+plot(1:10)
+plot(rnorm(10), pch=19)
+```
+````
+
+The output is shown in Figure \@ref(fig:subcaptions).
+
+```{r subcaptions, fig.cap="An example subcaption", echo = FALSE}
+knitr::include_graphics("images/subfigure.png", dpi = NA)
+```

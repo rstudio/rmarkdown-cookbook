@@ -1,0 +1,136 @@
+# Formatting
+
+One of the strengths of the markdown language is that it's simplicity makes it very easy to read even to newcomers to understand. This is one of its key design principles, and as outlined creator of the markdown language:
+
+> A Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions. – [John Gruber](http://daringfireball.net/projects/markdown/syntax#philosophy)
+
+However, this comes at a cost of customisation, and many of the features which users of typical word processors are used to are not directly accessible. This includes:
+
+- Changing font size
+- Changing font colour
+- Editing font alignment
+- Indenting text
+
+It can be helpful for such features to be included within documents. This chapter provides an extended guide to the basics of  the R Markdown language, and highlights how we can customise the appearance and styling within an R Markdown document.
+
+```{block2, type = "rmdnote"}
+If you need a reminder in the basics of the markdown language, the [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) provides a good overview of the basic syntax.
+```
+
+## Changing Font Colour
+<!--- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color --->
+
+The markdown syntax has no built-in method for changing text colours. We can use HTML and LaTeX syntax to change the formatting of words:
+
+- **For HTML**: we can wrap the text in the `<font color='",color,"'>",x,"</font>` command.
+- **For PDF**: we can use the LaTeX command `\textcolor{}{}`. This requires the extra LaTeX package **xcolor**.
+
+As an example of changing the colour in PDF text:
+
+```
+---
+output:
+  pdf_document:
+    extra_dependencies: ["xcolor"]
+---
+
+Roses are \textcolor{red}{red}, violets are \textcolor{blue}{blue}
+```
+
+### Multi-output text colour
+
+We should attempt to design our R Markdown documents to allow for multiple outputs. If we embed raw HTML or LaTeX code into our documents, this formatting will be ignored in the other output format. We can write a custom function which will insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output` functions as follows:
+
+```{r}
+format_with_col = function(x, color){
+  if(knitr::is_latex_output())
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(knitr::is_html_output())
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+```
+
+We can then use the code as an inline R expression `format_with_col("red", "red")` which will create `r format_with_col("red", "red")` text.
+
+## Comment out content
+
+<!--- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown --->
+
+It is useful to include commented text within the source document which is not displayed within the final outputted document. We can use the HTML syntax `<!--- your comment --->`. This will not be displayed in any output format.
+
+Comments can span either single or multiple lines. This may be useful if you have draft comment.
+<!-- , and it also allows us to comment out code chunks (and prevent them from being run in knitr). -->
+
+## Indenting text
+
+<!--- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 --->
+<!--- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks --->
+
+Markdown will ignore indentations by default. However, we may want to keep indentation within the text, for example within verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The division into lines will be preserved in the output, as will any leading spaces; otherwise, the lines will be formatted as Markdown. As an example:
+
+```
+| The limerick packs laughs anatomical
+| In space that is quite economical.
+|    But the good ones I've seen
+|    So seldom are clean
+| And the clean ones so seldom are comical
+```
+
+The lines can be hard-wrapped if needed, but the continuation line must begin with a space. For example:
+
+```
+| The Right Honorable Most Venerable and Righteous Samuel L.
+  Constable, Jr.
+| 200 Main St.
+| Berkeley, CA 94718
+```
+
+## Verbatim code chunks
+
+Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
+
+Unfortunately, we can't wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting  "`` `r ''` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
+
+````{r echo = FALSE, comment = NA}
+cat("```{r, eval=TRUE}`r ''`
+1 + 1
+```")
+````
+
+will be rendered as:
+
+````
+```{r, eval=TRUE}`r ''`
+1 + 1
+```
+````
+
+in the output. The inline expression is gone because it is substituted by an empty string. However, that is only the first step. To show something verbatim in the output, the syntax in Markdown is to wrap it in a code block (indent by four spaces or use backtick fences). This will be the actual source if you want to see the output above:
+
+```{r echo = FALSE, comment = NA}
+cat("````
+```{r, eval=TRUE}`r ''`
+1 + 1
+```\n````")
+```
+
+Why four backticks? That is because you have to use at least N+1 backticks to wrap up N backticks.
+
+### Show a verbatim inline expression
+
+There are multiple ways to show a verbatim inline expression. I mentioned this trick for R Markdown documents in the FAQ:
+
+```md
+This will show a verbatim inline R expression `` `r
+1+1` `` in the output.
+```
+
+The trick works due to two reasons (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression. In the output document, you should see:
+
+```
+This will show a verbatim inline R expression `r 1+1` in the output.
+```
+
+You can read more about this behaviour [here](https://yihui.name/en/2017/11/knitr-verbatim-code-chunk/).

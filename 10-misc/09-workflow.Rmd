@@ -1,3 +1,0 @@
-
-- Working with non R users
-- Use HTML outputs and interactive graphics

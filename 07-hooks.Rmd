@@ -1,0 +1,106 @@
+# Knitr Hooks
+
+Hooks offer a useful tool for extending the functionality of **knitr**. 
+
+Many of the examples included within this chapter have been integrated into the **knitrhooks** package, avaialable at [https://github.com/nathaneastwood/knitrhook](https://github.com/nathaneastwood/knitrhooks).
+
+
+## Scrollable code chunks {#hooks-scroll}
+
+It was shown in Section \@ref(html-scroll) how we can use custom CSS to add a scroll bar to the output code chunks. To highlight the use of code chunks, we extend the example here to allow for user-specified maximum heights to be provided to chunks.
+
+Firstly, we define the custom hook. In this chunk, we need to insert the formatting required to style the scroll bar. The variable `max_height` is used to control the maximum height of the code chunk:
+
+```{r}
+knitr::knit_hooks$set(output = function(x, options){
+  if(!is.null(options$max_height)){
+    paste('<pre style = "max-height:',
+          options$max_height, 
+          ';float: left; width: 910px; overflow-y: auto;">',
+          x,
+          "</pre>",
+          sep = "")
+  }else{
+    x
+  }
+  
+})
+```
+
+To use this option, we can specify the option within the code chunk header.
+
+````
+```{r max_height = "200px"}`r ''`
+print(cars)
+```
+````
+
+## Output figures in HTML5 format
+
+By default, images in R Markdown are translated to `<img src='...' alt='...'>` in the HTML output. This demo shows how to use the HTML5 `<figure>` tag to display images in R Markdown. Firstly we must define the custom hook as follows:
+
+```{r}
+# Reconfigure the plot hook
+library(knitr)
+knit_hooks$set(plot = function(x, options) {
+  paste('<figure><img src="',
+        opts_knit$get('base.url'), paste(x, collapse = '.'),
+        '"><figcaption>', options$fig.cap, '</figcaption></figure>',
+        sep = '')
+})
+```
+
+One motivation for this is that we could use CSS to customise the output using the HTML5 specification, and readers may want to check out this [website](https://www.w3.org/Style/Examples/007/figures.en.html) for some ideas. For example, we could add a border to the plot and then change the background colour of the figure caption text:
+
+```{css}
+figure {
+  border: thin silver solid;
+  padding-top: 0;
+}
+figcaption {
+  padding: 0.5em;
+  border: thin silver solid;
+  background: #D2F0F7;
+}
+```
+
+Having specified the custom hook and CSS, the output of an example figure is shown in Figure \@ref(fig:hookHTML5). A full reproducible example is provided in the examples [online](https://github.com/dr-harper/rmarkdown-cookbook/blob/master/examples/hook-html5-figures.Rmd).
+
+```{r hookHTML5, fig.cap = "Customised Figure Output styled by HTML5 CSS"}
+knitr::include_graphics("images/hookHtml5Images.png", dpi = NA)
+```
+
+
+
+
+
+
+```{r eval = FALSE}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(if (abs(lines[1])>1) more else NULL, 
+            x[lines], 
+            if (length(x)>lines[abs(length(lines))]) more else NULL
+           )
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+```
+
+
+

@@ -1,3 +1,0 @@
-# HTML Output
-
-How to customise the appearance of HTML outputs.
