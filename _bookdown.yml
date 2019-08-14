@@ -8,5 +8,5 @@ language:
     tab: "TABLE "
   ui:
     chapter_name: "Chapter "
-edit: "https://github.com/dr-harper/rmarkdown-cookbook/edit/book/master/%s"
+edit: "https://github.com/dr-harper/rmarkdown-cookbook/edit/master/%s"
 
