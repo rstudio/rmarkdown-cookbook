@@ -2,8 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-book/_book/*
-book/_bookdown_files/*
+_book/*
+_bookdown_files/*
 
 # OS generated files #
 ######################
@@ -15,4 +15,3 @@ examples/*.pdf
 examples/*.html
 examples/*/*.pdf
 examples/*/*.html
-book/missfont.log

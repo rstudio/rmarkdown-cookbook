@@ -1,5 +1,4 @@
 book_filename: "rmarkdown-cookbook"
-rmd_subdir: true
 delete_merged_file: true
 before_chapter_script: ["build_book_utils.R"]
 language:
