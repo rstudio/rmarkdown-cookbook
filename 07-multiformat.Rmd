@@ -75,7 +75,7 @@ First we will highlight how we can add a shaded box for our content. Both HTML a
 
 For the HTML output, we will specify our custom class in the `style.css` file. If you are unfamiliar with CSS, you may want to search for options [using this link](https://www.w3schools.com/cssref/default.asp) to see what we can easily control. For example, we create a greyed out box with a red border, adding curved corners to the box:
 
-```{css}
+```{cat, class.source = 'css', engine.opts = list(file = 'css/customBlock.css')}
 .customBlock {
   padding: 1em 1em 1em 1em;
   margin-bottom: 10px;

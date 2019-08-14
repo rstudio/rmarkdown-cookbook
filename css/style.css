@@ -66,14 +66,3 @@ h1.title {
 .book .book-body .page-wrapper .page-inner section.normal strong {
   font-weight: 500;
 }
-
-/* Custom block used for example in book */
-.customBlock {
-  padding: 1em 1em 1em 1em;
-  margin-bottom: 10px;
-  background: #F8F9F9;
-  border-color: #A93226;
-  border-style: solid;
-  border-radius: 10px;
-  border-width: thin;
-}

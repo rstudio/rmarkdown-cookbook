@@ -1,6 +1,6 @@
 bookdown::gitbook:
   split_by: section
-  css: style.css
+  css: [css/style.css, css/customBlock.css]
   config:
     toc:
       before: |
