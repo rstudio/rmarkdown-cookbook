@@ -39,7 +39,7 @@ print(cars)
 
 By default, images in R Markdown are translated to `<img src='...' alt='...'>` in the HTML output. This demo shows how to use the HTML5 `<figure>` tag to display images in R Markdown. Firstly we must define the custom hook as follows:
 
-```{r}
+```{r, eval=FALSE}
 # Reconfigure the plot hook
 library(knitr)
 knit_hooks$set(plot = function(x, options) {
