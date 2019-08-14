@@ -3,5 +3,5 @@ cache: packages
 pandoc_version: 2.3.1
 
 script:
-  - ./_build.sh
+  - make gitbook
   - ./_deploy.sh
