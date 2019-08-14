@@ -7,6 +7,9 @@ bookdown::gitbook:
         <li><a href="./">R Markdown Cookbook</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    sharing:
+      github: yes
+      facebook: no
 bookdown::pdf_book:
   includes:
     in_header: [latex/preamble.tex, latex/customBlock.tex]
@@ -23,4 +26,3 @@ bookdown::pdf_book:
   highlight_bw: yes
   quote_footer: ["\\VA{", "}{}"]
 bookdown::epub_book: default
-
