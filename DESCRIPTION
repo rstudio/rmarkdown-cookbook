@@ -3,3 +3,4 @@ Type: Book
 Title: Does not matter.
 Version: 0.0.1
 Imports: bookdown, DiagrammeR, blogdown, webshot, fs, here
+Remotes: rstudio/gt
