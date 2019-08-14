@@ -318,7 +318,7 @@ This complete example shows how to generate `my_custom.css` from a chunk in the
 document while telling pandoc to use this css with the yaml field `css:
 my_custom.css`
 
-```{r, echo = FALSE, results='asis', comment=""}
+```{r, echo = FALSE, comment=""}
 import_example("generate-css-cat-engine.Rmd")
 ```
 
@@ -326,7 +326,7 @@ This could also be used to generate any file that can be given to pandoc, like
 an `in_header` tex file for a `pdf_document` output.^[Those yaml options for
 pandoc can be found in *R Markdown Definitive Guide* [@xie2018]]
 
-```{r, echo = FALSE, results='asis', comment=""}
+```{r, echo = FALSE, comment=""}
 import_example("generate-latex-header-with-cat-engine.Rmd")
 ```
 

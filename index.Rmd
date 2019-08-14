@@ -32,6 +32,11 @@ options(
 lapply(c('webshot', 'DiagrammeR'), function(pkg) {
   if (system.file(package = pkg) == '') install.packages(pkg)
 })
+
+import_example <- function(file) {
+  x <- xfun::read_utf8(file.path("examples", file))
+  knitr::asis_output(c("````md", x, "````"))
+}
 ```
 
 
