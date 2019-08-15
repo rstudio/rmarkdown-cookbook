@@ -11,7 +11,7 @@ It was shown in Section \@ref(html-scroll) how we can use custom CSS to add a sc
 
 Firstly, we define the custom hook. In this chunk, we need to insert the formatting required to style the scroll bar. The variable `max_height` is used to control the maximum height of the code chunk:
 
-```{r}
+```{r, eval=FALSE}
 knitr::knit_hooks$set(output = function(x, options){
   if(!is.null(options$max_height)){
     paste('<pre style = "max-height:',
