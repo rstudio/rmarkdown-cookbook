@@ -35,7 +35,7 @@ lapply(c('webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable'), function(pkg)
 
 import_example <- function(file) {
   x <- xfun::read_utf8(file.path("examples", file))
-  knitr::asis_output(c("````md", x, "````"))
+  knitr::asis_output(paste(c("````md", x, "````"), collapse = '\n'))
 }
 
 options(bookdown.post.latex = function(x) {
