@@ -94,7 +94,7 @@ Typically we write code chunks and inline expressions that we want to be parsed 
 Unfortunately, we can't wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting  "`` `r ''` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
 
 ````{r echo = FALSE, comment = NA}
-`r ''`cat("```{r, eval=TRUE}
+cat("`r ''````{r, eval=TRUE}
 1 + 1
 ```")
 ````
