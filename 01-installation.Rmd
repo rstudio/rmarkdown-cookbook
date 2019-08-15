@@ -2,29 +2,32 @@
 
 # Installation
 
-We assume you have already installed R (https://www.r-project.org) [@R-base] and the RStudio IDE (https://www.rstudio.com). RStudio is not required but recommended, because it makes it easier for an average user to work with R Markdown. If you do not have RStudio IDE installed, you will have to install Pandoc\index{Pandoc} (http://pandoc.org), otherwise there is no need to install Pandoc separately because RStudio has bundled it. Next you can install the **rmarkdown** package in R:
+To use R Markdown, you have to install R [@R-base] and the R package **rmarkdown** [@R-rmarkdown]. We also recommend that you install the RStudio IDE (https://www.rstudio.com). RStudio is not required, but it will make it easier for an average user to work with R Markdown because of the editor support. If choose not to use the RStudio IDE, you will need a separate installation of Pandoc\index{Pandoc} (https://pandoc.org).
 
 ```{r eval=FALSE}
-# Install from CRAN
+# install the rmarkdown package from CRAN in R
 install.packages('rmarkdown')
 
-# Or if you want to test the development version,
-# install from GitHub
-if (!requireNamespace("devtools"))
-  install.packages('devtools')
-devtools::install_github('rstudio/rmarkdown')
+# or install from GitHub if you want to test the development version
+if (!requireNamespace("remotes")) install.packages('remotes')
+remotes::install_github('rstudio/rmarkdown')
 ```
 
-## Installing LaTeX with TinyTeX
+## Install LaTeX for PDF reports
 
-If you would like to create PDF outputs from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, these can be cumbersome to install if you primarily want to use LaTeX within R Markdown.
+If you would like to create PDF documents from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, we recommend that R Markdown users install [TinyTeX](https://yihui.name/tinytex/).
 
-To make this process easier, TinyTeX is a custom LaTeX distribution based on TeX Live that is small in size (150Mb on macOS/Linux and 220Mb on Windows) but functions well in most cases, especially for R users. Installing or running TinyTeX does not require admin privileges, which means you no longer need sudo or your IT.
-
-If you want to use TinyTeX, we recommend that you first uninstall your existing LaTeX distribution. The **tinytex** R package [@R-tinytex] can be used to install TinyTeX:
+TinyTeX is a custom LaTeX distribution based on TeX Live that is small in size (150Mb on macOS/Linux and 220Mb on Windows when installed) but functions well in most cases, especially for R users. Installing or running TinyTeX does not require sysadmin privileges. You can install TinyTeX with the R package **tinytex** [@R-tinytex]:
 
 ```{r eval=FALSE}
-install.packages('tinytex')
 tinytex::install_tinytex()
 # to uninstall TinyTeX, run tinytex::uninstall_tinytex() 
 ```
+
+Please note that "**tinytex**" refers to the R package, and "TinyTeX" refers to the LaTeX distribution. There are two advantages of using TinyTeX: 
+
+1. TinyTeX is lightweight (compared to other LaTeX distributions), cross-platform, and portable. For example, you can store a copy of TinyTeX on your USB drive or other portable devices, and use it on other computers with the same operating system. 
+
+1. When R Markdown is converted to PDF, Pandoc converts Markdown to an intermediate LaTeX document first. The R package **tinytex** has provided helper functions to compile LaTeX documents to PDF (the main function is `tinytex::latexmk()`). If you use TinyTeX and certain LaTeX packages are required but not installed, **tinytex** will try to automatically install them for you. It will also try to compile the LaTeX file for a sufficient number of times to make sure all cross-references are resolved.
+
+If you are interested in the technical details, you may check out the article @tug-tinytex and the FAQ page at https://yihui.name/tinytex/faq/.
