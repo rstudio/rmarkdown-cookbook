@@ -276,11 +276,11 @@ output: bookdown::html_document2
 ```
 
 ````md
-```{r cars, fig.cap = "An amazing plot"}`r ''`
+`r ''````{r cars, fig.cap = "An amazing plot"}
 plot(cars)
 ```
 
-```{r cars2, fig.cap = "Another amazing plot"}`r ''`
+`r ''````{r cars2, fig.cap = "Another amazing plot"}
 plot(cars)
 ```
 ````

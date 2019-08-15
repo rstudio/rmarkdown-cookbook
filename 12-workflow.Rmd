@@ -20,7 +20,7 @@ We can include other R Markdown documents within a file by using child documents
 To include a child document, we can add a code chunk with the option `child`, providing the file path to the `.Rmd` file to be included. The chunk should contain no code but we can specify additional chunk options if we wish to suppress the code output i.e. `echo=FALSE`. For example:
 
 ````md
-```{r, child = "about.Rmd"}`r ''`
+`r ''````{r, child = "about.Rmd"}
 ```
 ````
 
@@ -213,7 +213,7 @@ content is written to file.
 In this example, we will write to a temp file with `fs::path_temp()`. 
 
 ````md
-```{cat, engine.opts = list(file = fs::path_temp('script.R'))}`r ''`
+`r ''````{cat, engine.opts = list(file = fs::path_temp('script.R'))}
 my_function <- function(x){ x+1 }
 ```
 ```` 
@@ -225,11 +225,12 @@ my_function <- function(x){ x+1 }
 The content can be used by filling a chunk from that file. This is another trick made possible using the `code` chunk option. You'll see the content of the file
 
 ````md
-```{r, code = readLines(fs::path_temp('script.R'))}`r ''`
+`r ''````{r, code = readLines(fs::path_temp('script.R'))}
 ```
 ````
 
-This will render 
+This will render
+
 ```{r, code = readLines(fs::path_temp('script.R'))}
 ```
 
@@ -240,8 +241,8 @@ my_function(5)
 rm(my_function)
 ```
 
-
 And the file can be sourced as usual too.
+
 ```{r, results='hold'}
 source(fs::path_temp('script.R'))
 my_function(5)
@@ -260,7 +261,7 @@ html outputs (see Section \@ref(chunk-styling)). You can provide any language
 supported by the syntax highlighting. This two chunks are equivalent:
 
 ````md
-```{cat, engine.opts = list(file = fs::path_temp('demo.yml'), lang = "yaml")}`r ''`
+`r ''````{cat, engine.opts = list(file = fs::path_temp('demo.yml'), lang = "yaml")}
 a:
   aa: something
   bb: 1
@@ -271,7 +272,7 @@ b:
 ````
 
 ````md
-```{cat, engine.opts = list(file = fs::path_temp('demo.yml')), class.source = "yaml"}`r ''`
+`r ''````{cat, engine.opts = list(file = fs::path_temp('demo.yml')), class.source = "yaml"}
 a:
   aa: something
   bb: 1

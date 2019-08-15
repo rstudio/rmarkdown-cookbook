@@ -13,7 +13,7 @@ By default,  R Markdown will include the Bootstrap framework. This can make thin
 For example, we are warned that the normal subsetting of a data frame can be type-unstable. To show this here,  the chunk options are set: `class.source = 'bg-warning', class.output = 'bg-warning'`.
 
 ````
-```{r df-drop, class.source='bg-warning', class.output='bg-warning'}`r ''`
+`r ''````{r df-drop, class.source='bg-warning', class.output='bg-warning'}
 mtcars[, "mpg"]
 ```
 ````
@@ -27,7 +27,7 @@ knitr::include_graphics("images/bgWarning.png", dpi = NA)
 To make sure that we return a data frame, we set the argument `drop = FALSE`. Here the chunk options are set: `class.source = 'bg-success', class.output = 'bg-success'`.
 
 ````
-```{r df-drop-ok, class.source='bg-success', class.output='bg-success'}`r ''`
+`r ''````{r df-drop-ok, class.source='bg-success', class.output='bg-success'}
 mtcars[, "mpg", drop=FALSE]
 ```
 ````
@@ -37,14 +37,14 @@ mtcars[, "mpg", drop=FALSE]
 If we wish to specify custom styling options, we can include a CSS file by setting a parameter in the YAML header ([reference](http://rmarkdown.rstudio.com/html_document_format.html#custom_css)). You can also include a chunk of CSS code, as is done here. Note that for this example, only `class.source` is set.
 
 ````
-```{css echo=FALSE}`r ''`
+`r ''````{css echo=FALSE}
 .chunk-style{
   background-color: #F5B7B1;
   border: 1px solid #797D7F;
   border-radius: 1px;}
 ```
 
-```{r df-drop-2, class.source='chunk-style'}`r ''`
+`r ''````{r df-drop-2, class.source='chunk-style'}
 mtcars[, "mpg"] 
 ``` 
 ````
@@ -107,7 +107,7 @@ If you would desire more control over when the scroll bar is used, you may prefe
 To use this class, we can specify the 'class.output' option within the code chunk header:
 
 ````
-```{r, class.output = "scroll"}`r ''`
+`r ''````{r, class.output = "scroll"}
 print(cars)
 ```
 ````
