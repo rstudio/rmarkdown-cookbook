@@ -24,7 +24,7 @@ github-repo: dr-harper/rmarkdown-cookbook
 
 ```{r setup, include=FALSE}
 options(
-  htmltools.dir.version = FALSE, formatR.indent = 2,
+  htmltools.dir.version = FALSE, formatR.indent = 2, formatR.arrow = TRUE,
   width = 55, digits = 4,
   warnPartialMatchAttr = FALSE, warnPartialMatchDollar = FALSE
 )
