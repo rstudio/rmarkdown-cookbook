@@ -7,9 +7,10 @@ One of the strengths of the markdown language is that it's simplicity makes it v
 However, this comes at a cost of customisation, and many of the features which users of typical word processors are used to are not directly accessible. This includes:
 
 - Changing font size
+
 - Changing font colour
+
 - Editing font alignment
-- Indenting text
 
 It can be helpful for such features to be included within documents. This chapter provides an extended guide to the basics of  the R Markdown language, and highlights how we can customise the appearance and styling within an R Markdown document.
 
