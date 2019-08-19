@@ -119,3 +119,49 @@ This example is extended further within Section \@ref(hooks-scroll), which uses 
 ## Tabbed headings
 
 <!---https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings--->
+
+## Embed the Rmd source file in the HTML output file {#embed-rmd}
+
+When you share an HTML output page with others, they may want the Rmd source file, too. For example, they may want to change the Rmd source and compile the report by themselves. You can use the option `code_download` to embed a copy of the Rmd source file in the HTML output file:
+
+```yaml
+output:
+  html_document:
+    code_download: true
+```
+
+After the option is turned on, the HTML output page will contain a download button, and readers of the page can hit the button to download the Rmd source file.
+
+## Embed arbitrary files in the HTML output file {#embed-file}
+
+As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source document in the HTML output file. Sometimes the Rmd source file alone may not be enough to reproduce the report. For example, the report may need an external data file. There is a series of functions in the **xfun** package that enable you to embed arbitrary files in the HTML output file. To use these functions, make sure you have the following R packages available:
+
+```{r, eval=FALSE}
+xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
+```
+
+Then you can use one of the functions `xfun::embed_file()`, `xfun::embed_dir()`, or `xfun::embed_files()` in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
+
+````md
+`r ''````{r echo=FALSE}
+# a single file
+xfun::embed_file('source.Rmd')
+
+# multiple files
+xfun::embed_files(c('source.Rmd', 'data.csv'))
+
+# a directory
+xfun::embed_dir('data/', text = 'Download full data')
+```
+````
+
+You can also provide the list of files programmatically, e.g.,
+
+```{r eval=FALSE}
+# embed all Rmd and csv files
+xfun::embed_files(list.files('.', '[.](Rmd|csv)$'))
+```
+
+For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, which a reader can click on the HTML page to download the embedded file.
+
+You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.name/en/2018/07/embed-file/.
