@@ -287,5 +287,25 @@ plot(cars)
 
 Section \@ref(crossRef) demonstrates how we can extend this further by cross-referencing the numbered figures within the text.
 
+## Combine words into a comma-separated phrase
 
+When you want to output a character vector for humans to read (e.g., `x <- c("apple", "banana", "cherry")`), you probably do not want something like `[1] "apple" "banana" "cherry"`, which is the normal way to print a vector in R. Instead, you may want a character string "`apple, banana, and cherry`". There is a base R function `paste()` that you can use to concatenate a character vector into a single string, e.g., `paste(x, collapse = ', ')`, and the output will be `"apple, banana, cherry"`. The problems are (1) the conjunction "and" is missing, and (2) when the vector only contains two elements, we should not use commas (e.g., the output should be `"apple and banana"` instead of `"apple, banana"`).
 
+The function `knitr::combine_words()` can be used to concatenate words into a phrase regardless of the length of the character vector. Basically, for a single word, it will just return this word; for two words A and B, it return `"A and B"`; for three or more words, it returns `"A, B, C, ..., Y, and Z"`. The function also has a few arguments that can customize the output. For example, if you want to output the words in pairs of backticks, you may use ``knitr::combine_words(x, before = '`')``.
+
+```{r, collapse=TRUE}
+v = c("apple", "banana", "cherry")
+knitr::combine_words(v)
+knitr::combine_words(v, before = '`', after = "'")
+knitr::combine_words(v, and = "")
+knitr::combine_words(v, sep = " / ", and = "")
+knitr::combine_words(v[1])  # a single word
+knitr::combine_words(v[1:2])  # two words
+knitr::combine_words(LETTERS[1:5])
+```
+
+This function can be particularly handy when it is used in an inline R expression, e.g.,
+
+```markdown
+This morning we had `r knitr::inline_expr("knitr::combine_words(v)")` for breakfast.
+```
