@@ -309,3 +309,57 @@ This function can be particularly handy when it is used in an inline R expressio
 ```markdown
 This morning we had `r knitr::inline_expr("knitr::combine_words(v)")` for breakfast.
 ```
+
+## Preserve a large number of linebreaks
+
+Markdown users may be surprised to realize that whitespaces (including linebreaks) are usually meaningless unless they are used in a verbatim environment (code blocks). Two or more spaces are the same as one space, and a linebreak is the same as a space. If you have used LaTeX or HTML before, you may not be surprised because the rule is the same in these languages.
+
+In Markdown, we often use a blank line to separate elements such as paragraphs. To break a line without introducing a new paragraph, you have to use two trailing spaces. Sometimes you may want to break the lines for many times, especially when you write or quote poems or lyrics. Adding two spaces after each line manually is a tedious task. The function `blogdown:::quote_poem()` can do this task automatically, e.g.,
+
+```{r, collapse=TRUE}
+blogdown:::quote_poem(c('This line', 'should be', 'broken.'))
+```
+
+If you use the RStudio IDE, you can select the text in which you want to preserve the linebreaks, and apply the addin "Quote Poem". For example, the text below (in a fenced code block) does not contain trailing spaces:
+
+```md
+Like Barley Bending
+　by Sara Teasdale
+
+Like barley bending
+　In low fields by the sea,
+Singing in hard wind
+　Ceaselessly;
+
+Like barley bending
+　And rising again,
+So would I, unbroken,
+　Rise from pain;
+
+So would I softly,
+　Day long, night long,
+Change my sorrow
+　Into song.
+```
+
+After we select the above poem and click the RStudio addin "Quote Poem", the output will be:
+
+> Like Barley Bending  
+　by Sara Teasdale
+
+> Like barley bending  
+　In low fields by the sea,  
+Singing in hard wind  
+　Ceaselessly;
+
+> Like barley bending  
+　And rising again,  
+So would I, unbroken,  
+　Rise from pain;
+
+> So would I softly,  
+　Day long, night long,  
+Change my sorrow  
+　Into song.
+
+Some users may ask, "Since the fenced code block preserves whitespaces, why not putting poems in code blocks?" Code could be poetic, but poems are not code. Do not be too addicted to coding.
