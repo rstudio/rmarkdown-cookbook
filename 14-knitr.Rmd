@@ -59,6 +59,23 @@ Sys.sleep(100)
 
 Normally you have to wait for 100 seconds, but since we have called `knit_exit()`, the rest of the document will be ignored.
 
+## Generate a plot and display it elsewhere
+
+Normally plots generated in a code chunk are displayed beneath the code chunk, but you can choose to show them elsewhere and (optionally) hide them in the code chunk. Below is an example:
+
+````md
+We generate a plot in this code chunk but do not show it:
+
+`r ''````{r cars-plot, dev='png', fig.show='hide'}
+plot(cars)
+```
+
+After another paragraph, we introduce the plot:
+
+![A nice plot.](`r knitr::inline_expr("knitr::fig_chunk('cars-plot', 'png')")`)
+````
+
+In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot temporarily. Then in another paragraph, we called the function `knitr::fig_chunk()` to retrieve the path of the plot file, which is usually like `test_files/figure-html/cars-plot-1.png`. You need to pass the chunk label and the graphical device name to `fig_chunk()` for it to calculate the plot file path. You may see https://stackoverflow.com/a/46305297/559676 for an application of `fig_chunk()` to **blogdown** websites.
 
 ## Allow duplicate labels in code chunks
 
