@@ -1,5 +1,64 @@
 # Knitr
 
+As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** is one of the two major components of R Markdown (the other being Pandoc). In this chapter, we show some recipes related to **knitr**.
+
+## Using knitr options
+
+There are more than 40 different chunk options which can be used to fine-tune the behaviour of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of @xie2018 provides a subset of these, while the full list is available at <https://yihui.name/knitr/options/>.
+
+This section aims to highlight some useful **knitr** chunk options that may not be widely known. In the following recipes, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
+
+````md
+`r ''````{r, include=FALSE}
+knitr::opts_chunk$set(comment = "", echo = FALSE)
+```
+````
+
+### Hide code and all outputs
+
+We often wish to setup our R Markdown documents by loading a series of packages. Instead of using separate commands to R source code (`echo=FALSE`), hide text output (`results='hide'`), hide warnings (`warnings=FALSE`), hide messages (`messages=FALSE`), and so on, we can suppress the output of the entire code chunk using the single option `include=FALSE` as shown below:
+
+````md
+`r ''````{r, include=FALSE}
+# any R code here
+```
+````
+
+With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), but the output will be completely suppressed.
+
+### Remove leading hashes in text output
+
+<!--- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr --->
+
+By default, R code output will have two hashes `#` inserted in front of the text output. We can alter this behaviour by using the `comment` chunk option, which defaults to a character string of two hashes `"##"`. We can use an empty string if we want to remove the hashes. For example:
+
+````md
+`r ''````{r, comment=""}
+1:100
+```
+````
+
+## Exit knitting early
+
+Sometimes we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom that is not yet complete. In these situations, we could consider using the `knit_exit()` function, which will end the knitting process at that location.
+
+Below is a simple example, where we have a very simple chunk followed by a more time-consuming one:
+
+````md
+`r ''````{r}
+1 + 1
+knitr::knit_exit()
+```
+
+Okay, you will not see me in the output.
+
+`r ''````{r}
+Sys.sleep(100)
+```
+````
+
+Normally you have to wait for 100 seconds, but since we have called `knit_exit()`, the rest of the document will be ignored.
+
 
 ## Allow duplicate labels in code chunks
 
@@ -39,60 +98,3 @@ options(knitr.duplicate.label = 'allow')
 ```
 
 You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross-references. For example, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without an error or warning message), because the filenames of plots are determined by the chunk labels.
-
-## Exit Knitting Early
-
-Sometimes we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom that is not yet complete. In these situations, we could consider using the `knit_exit()` function, which will end the knitting process at that location.
-
-Below is a simple example, where we have a very simple chunk followed by a more time-consuming one:
-
-````md
-`r ''````{r}
-1 + 1
-knitr::knit_exit()
-```
-
-Okay, you will not see me in the output.
-
-`r ''````{r}
-Sys.sleep(100)
-```
-````
-
-Normally you have to wait for 100 seconds, but since we have called `knit_exit()`, the rest of the document will be ignored.
-
-## Using knitr options
-
-There are more than 40 different chunk options which can be used to fine-tune the behaviour of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of @xie2018 provides a subset of these, while the full list is available at <https://yihui.name/knitr/options/>.
-
-This section aims to highlight some useful **knitr** chunk options that may not be widely known. In the following recipes, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
-
-````md
-`r ''````{r, include=FALSE}
-knitr::opts_chunk$set(comment = "", echo = FALSE)
-```
-````
-
-### Hide code and all outputs
-
-We often wish to setup our R Markdown documents by loading a series of packages. Instead of using separate commands to R source code (`echo=FALSE`), hide text output (`results='hide'`), hide warnings (`warnings=FALSE`), hide messages (`messages=FALSE`), and so on, we can suppress the output of the entire code chunk using the single option `include=FALSE` as shown below:
-
-````md
-`r ''````{r, include=FALSE}
-# any R code here
-```
-````
-
-With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), but the output will be completely suppressed.
-
-### Remove leading hashes in text output
-
-<!--- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr --->
-
-By default, R code output will have two hashes `#` inserted in front of the text output. We can alter this behaviour by using the `comment` chunk option, which defaults to a character string of two hashes `"##"`. We can use an empty string if we want to remove the hashes. For example:
-
-````md
-`r ''````{r, comment=""}
-1:100
-```
-````
