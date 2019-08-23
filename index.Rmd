@@ -2,7 +2,6 @@
 title: "R Markdown Cookbook"
 author: "Michael Harper, Yihui Xie"
 date: "`r Sys.Date()`"
-# cover-image: images/cover.png
 bibliography:
   - book.bib
   - packages.bib
@@ -35,9 +34,10 @@ lapply(c('webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable'), function(pkg)
   if (system.file(package = pkg) == '') install.packages(pkg)
 })
 
-import_example <- function(file) {
+import_example <- function(file, lang = xfun::file_ext(file)) {
   x <- xfun::read_utf8(file.path("examples", file))
-  knitr::asis_output(paste(c("````md", x, "````"), collapse = '\n'))
+  lang <- sub('^R', '', lang)
+  knitr::asis_output(paste(c(sprintf("````%s", lang), x, "````"), collapse = '\n'))
 }
 
 options(bookdown.post.latex = function(x) {

@@ -134,3 +134,48 @@ This will show a verbatim inline R expression `r 1+1` in the output.
 ```
 
 You can read more about this behaviour [here](https://yihui.name/en/2017/11/knitr-verbatim-code-chunk/).
+
+## Multi-column layout
+
+Pandoc's Markdown supports the multi-column layout for slides but not other types of documents. In this recipe, we show how to use the multi-column layout in normal HTML documents and LaTeX documents. This recipe was inspired by Atsushi Yasumoto's solutions to the **knitr** issue https://github.com/yihui/knitr/issues/1743.
+
+The recipe will be much simpler if you only need to consider HTML output, because arranging HTML elements side by side is relatively simple via CSS. It will be even simpler if you only need to arrange the text output of a code chunk side by side. Below is the first example:
+
+````md
+---
+output: html_document
+---
+
+`r ''````{r attr.source="style='display:inline-block;'", collapse=TRUE}
+1:10  # a sequence from 1 to 10
+10:1  # in the reverse order
+```
+````
+
+The CSS attribute `display: inline-block;` means the output code blocks (i.e., the `<pre>` tags in HTML) should be displayed as inline elements. By default, these blocks are displayed as block-level elements (i.e., `display: block;`) and will occupy whole rows. The chunk option `collapse = TRUE` means the text output will be merged into the R source code block, so both the source and its text output will be placed in the same `<pre>` block.
+
+If you want to arrange arbitrary content side by side in HTML output, you can use Pandoc's [fenced Div](https://pandoc.org/MANUAL.html#divs-and-spans). The name "Div" comes from the HTML tag `<div>`, but you can interpret it as an arbitrary block or container. A Div starts and ends with three or more colons (e.g., `:::`). A Div with more colons can contain Divs with fewer colons. An important and useful feature of the fenced Div is that you can attach attributes to it. For example, you can apply the CSS attribute `display: flex;` to an outside container, so that the inside containers will be placed side by side:
+
+`r import_example('multicol-html.Rmd')`
+
+In the above example, the outside Div (`::::`) contains two Divs (`:::`). You can certainly add more Divs inside. To learn more about the very powerful CSS attribute `display: flex;` (CSS Flexbox), you may read the guide at https://css-tricks.com/snippets/css/a-guide-to-flexbox/. The CSS Grid (`display: grid;`) is also very powerful and can be used in the above example, too. If you want to try it, you may change `display: flex;` to `display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;`. See the guide at https://css-tricks.com/snippets/css/complete-guide-grid/ if you want to learn more about the grid layout.
+
+It is tricker if you want the layout to work for both HTML and LaTeX output. We show a full example below that works for HTML document, LaTeX document, and Beamer presentation output:
+
+`r import_example('multicol.Rmd')`
+
+```{r, multicol, echo=FALSE, fig.cap='A two-column layout that works for HTML, LaTeX, and Beamer output.', out.width='100%'}
+knitr::include_graphics('images/multicol.png', dpi = NA)
+```
+
+Figure \@ref(fig:multicol) shows the output. In this example, we used an outside Div with the class `.columns` and three inside Divs with the class `.column`. For HTML output, we introduced an external CSS file `columns.css`, in which we applied the Flexbox layout to the outside Div so the inside Divs can be placed side by side:
+
+`r import_example('columns.css')`
+
+For Beamer output, there is nothing we need to do, because the LaTeX class `beamer.cls` has defined environments `columns` and `column`. They will just work.
+
+For LaTeX output (`pdf_document`), we have to introduce some dirty hacks stored in `columns.tex` to the LaTeX preamble to define the LaTeX environments `columns` and `column`:
+
+`r import_example('columns.tex')`
+
+The `column` environment is particularly complicated mainly because Pandoc starts a new paragraph for each Div in LaTeX output, and we have to remove these new paragraphs, otherwise the Divs cannot be placed side by side. The hacks were borrowed from https://tex.stackexchange.com/q/179016/9128.
