@@ -2,7 +2,9 @@
 
 One of the strengths of the markdown language is that it's simplicity makes it very easy to read even to newcomers to understand. This is one of its key design principles, and as outlined creator of the markdown language:
 
-> A Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions. – [John Gruber](http://daringfireball.net/projects/markdown/syntax#philosophy)
+> A Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions.
+>
+> --- [John Gruber](http://daringfireball.net/projects/markdown/syntax#philosophy)
 
 However, this comes at a cost of customisation, and many of the features which users of typical word processors are used to are not directly accessible. This includes:
 

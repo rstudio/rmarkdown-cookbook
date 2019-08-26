@@ -346,17 +346,17 @@ After we select the above poem and click the RStudio addin "Quote Poem", the out
 
 > Like Barley Bending  
 　by Sara Teasdale
-
+>
 > Like barley bending  
 　In low fields by the sea,  
 Singing in hard wind  
 　Ceaselessly;
-
+>
 > Like barley bending  
 　And rising again,  
 So would I, unbroken,  
 　Rise from pain;
-
+>
 > So would I softly,  
 　Day long, night long,  
 Change my sorrow  
