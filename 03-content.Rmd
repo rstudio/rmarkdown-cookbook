@@ -363,3 +363,62 @@ Change my sorrow
 　Into song.
 
 Some users may ask, "Since the fenced code block preserves whitespaces, why not putting poems in code blocks?" Code could be poetic, but poems are not code. Do not be too addicted to coding.
+
+## Put together all code in the appendix {#code-appendix}
+
+Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report, but set the chunk option `echo = FALSE` to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
+
+There is a simple method of extracting all code chunks in a document and put them together in a single code chunk using the chunk option `ref.label` (label references) and the function `knitr::all_labels()`, e.g.,
+
+````md
+# Appendix: All code for this report
+
+`r ''````{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+````
+
+The chunk option `ref.label` takes a vector of chunk labels to retrieve the content of these chunks. For example, the code chunk with the label `chunk-a` is the combination of `chunk-c` and `chunk-b` below:
+
+````md
+`r ''````{r chunk-a, ref.label=c('chunk-c', 'chunk-b')}
+```
+
+`r ''````{r chunk-b}
+# this is the chunk b
+1 + 1
+```
+
+`r ''````{r chunk-c}
+# this is the chunk c
+2 + 2
+```
+````
+
+In other words, `chunk-a` is essentially this:
+
+````md
+`r ''````{r chunk-a}
+# this is the chunk c
+2 + 2
+# this is the chunk b
+1 + 1
+```
+````
+
+The chunk option `ref.label` has provided a very flexible way of reorganizing code chunks in a document without resorting to cut-and-paste. It does not matter if the code chunks referenced are before or after the code chunk that uses `ref.label`. An early code chunk can reference a later chunk.
+
+The function `knitr::all_labels()` returns a vector of all chunk labels in the document, so `ref.label = knitr::all_labels()` means retrieving all source code chunks to this code chunk. With the chunk options `echo = TRUE` (display the code) and `eval = FALSE` (do not evaluate this particular code chunk because all code has been executed before), you can show a copy of all your source code in one code chunk.
+
+Since `ref.label` can be a character vector of arbitrary chunk labels, you can certainly filter the labels to decide a subset of code chunks to display in the code appendix. Below is an example (credits to [Ariel Muldoon](https://yihui.name/en/2018/09/code-appendix/)) of excluding the labels `setup` and `get-labels`:
+
+````md
+`r ''````{r get-labels, echo = FALSE}
+labs = knitr::all_labels()
+labs = setdiff(labs, c("setup", "get-labels"))
+```
+
+`r ''````{r all-code, ref.label=labs, eval=FALSE}
+```
+````
+
+You can also filter code chunks using the arguments of `knitr::all_labels()`. For example, you may use `knitr::all_labels(engine == "Rcpp", echo == FALSE)` to obtain all your code chunks that use the `Rcpp` engine (`engine == "Rcpp"`) and are not displayed in the document (`echo = FALSE`). If you want precise control over which code chunks to display in the appendix, you may use a special chunk option `appendix = TRUE` on certain code chunks, and `ref.label = knitr::all_labels(appendix == TRUE)` to obtain the labels of these code chunks.
