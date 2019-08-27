@@ -13,7 +13,7 @@ if (!requireNamespace("remotes")) install.packages('remotes')
 remotes::install_github('rstudio/rmarkdown')
 ```
 
-## Install LaTeX for PDF reports
+## Install LaTeX for PDF reports {#install-latex}
 
 If you would like to create PDF documents from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, we recommend that R Markdown users install [TinyTeX](https://yihui.name/tinytex/).
 
