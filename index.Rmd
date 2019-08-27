@@ -36,7 +36,8 @@ lapply(c('webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable'), function(pkg)
 
 import_example <- function(file, lang = xfun::file_ext(file)) {
   x <- xfun::read_utf8(file.path("examples", file))
-  lang <- sub('^R', '', lang)
+  lang <- tolower(lang)
+  if (nchar(lang) > 1) lang <- sub('^r', '', lang)
   knitr::asis_output(paste(c(sprintf("````%s", lang), x, "````"), collapse = '\n'))
 }
 

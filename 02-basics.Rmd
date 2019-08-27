@@ -8,7 +8,7 @@ For those seeking the background, we recommend that readers refer to the R Markd
 
 R Markdown combines several different processes together to create documents, and one of the main sources of confusion from R Markdown is how all the components work together. Fortunately, as a user, it is not essential to understand all the inner workings of these processes to be able to create documents. However, as a user who may be seeking to alter the behavior of a document, it is important to understand which component is responsible for what. This makes it a lot easier to seek help as you can target your searches on the correct area.
 
-The basic workflow structure for an R Markdown document is shown in Figure \@ref(fig:rmdworkflow), highlighting the processes (arrows) and the intermediate files that are created before producing the output. Each stage is explained in further detail below.
+The basic workflow structure for an R Markdown document is shown in Figure \@ref(fig:rmdworkflow), highlighting the steps (arrows) and the intermediate files that are created before producing the output. The whole process is implemented via the function `rmarkdown::render()`. Each stage is explained in further detail below.
 
 ```{r rmdworkflow, echo = FALSE, fig.cap = "A diagram illustrating how an R Markdown document is converted to the final output document.", out.width='100%'}
 knitr::include_graphics("images/workflow.png", dpi = NA)
@@ -16,10 +16,44 @@ knitr::include_graphics("images/workflow.png", dpi = NA)
 
 The `.Rmd` document is the original format of the document. It contains a combination of YAML (metadata), text (narratives), and code chunks.
 
-First, the **knitr** package is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
+First, the `knit()` function in **knitr** is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
 
 Then the `.md` file is processed by [Pandoc](https://pandoc.org), a multipurpose tool designed to convert files from one markup language to another. It takes any parameters specified within the YAML frontmatter of the document (e.g., `title`, `author`, and `date`) to convert the document to the output format specified in the `output` parameter (such as `html_document` for HTML output).
 
 If the output format is PDF, there is an additional layer of processing, as Pandoc will convert the intermediate `.md` file into an intermediate `.tex` file. This file is then processed by [LaTeX](https://www.latex-project.org) to form the final PDF document. As we mentioned in Section \@ref(install-latex), the **rmarkdown** package calls the `latexmk()` function in the **tinytex** package [@R-tinytex], which in turn calls LaTeX to compile `.tex` to `.pdf`.
 
+In short, `rmarkdown::render()` = `knitr::knit()` + Pandoc (+ LaTeX for PDF output only).
+
 Robin Linacre has written a nice summary of the relationship between R Markdown, **knitr**, and Pandoc at https://stackoverflow.com/q/40563479/559676, which contains more technical details than the above overview.
+
+## Render an R script to a report {#spin}
+
+Even if you are a long-time R Markdown user, you may have missed another possibility. Dean Attali called it ["**knitr**'s best hidden gem"](https://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/). That is, you can render a pure R script to a report directly. If you use the RStudio IDE, the keyboard shortcut to render R scripts is the same as when you knit Rmd documents (`Ctrl / Cmd + Shift + K`).
+
+When rendering an R script to a report, the function `knitr::spin()` is called to convert the R script to an Rmd file first. This function is what Dean Attali called **knitr**'s best hidden gem. You will see all text and graphical output in the report.
+
+If you want granular control over the elements in the report, below are a few syntax rules to help you:
+
+- Roxygen comments will be treated as normal text. A roxygen comment is an R comment that starts with `#'`. This can help you write narratives in your report. You can use any Markdown syntax in the comments.
+
+- A comment starting with `#+` is treated as the **knitr** chunk header. For example, `knitr::spin()` will translate the comment `#+ label, fig.width=5` to the chunk header ```` ```{r label, fig.width=5}```` in R Markdown.
+
+- R code of the form `{{ code }}` is translated to an inline R expression in R Markdown. Please note that `{{ code }}` must be on its own line.
+
+- The YAML frontmatter can be written in the beginning of the R script in roxygen comments, too.
+
+- Any text between `/*` and `*/` will be ignored (i.e., they are treated as true comments).
+
+Below is a full example illustrating the above rules:
+
+`r import_example('spin.R')`
+
+When this script is rendered to a report, `knitr::spin()` will convert it to R Markdown:
+
+```{r, class.output='md', comment='', echo=FALSE}
+xfun::raw_string(
+  knitr::spin(text = xfun::read_utf8('examples/spin.R'), knit = FALSE)
+)
+```
+
+This method of generating reports can be particularly useful when you primarily work with R scripts and do not need a lot of narratives. If the portion of text is substantial in your report, R Markdown may be a better choice, because you do not need to put all text in roxygen comments. When you need an R script from an R Markdown document, you can call the function `knitr::purl()` to extract code in the Rmd file to an R script.
