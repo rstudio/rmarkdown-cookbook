@@ -1,26 +1,34 @@
 # LaTeX
 
-For many authors, the main output of their work will be the PDF report, and will be able to utilise the styling of LaTeX. In this chapter, we discuss approaches which can be used to customise the output of PDF reports.
+For many authors, the main output of their work will be the PDF report, in which case they can utilize the powerful styling of LaTeX. In this chapter, we discuss approaches that can be used to customize the output of PDF reports.
 
-Users should approach with a note of caution. One of the major benefits of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format (PDF/Word/HTML), you may improve the appearance and performance of a single output but at the expense of this tranferability.
+Users should approach with a note of caution. One of the major benefits of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format but at the expense of this transferability.
 
-## Add logo to title page
-<!--- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf --->
+## Add logo to title page {#latex-logo}
 
-We can use the **titling** LaTeX package to alter our title block to include an image. We can include the following lines of text in our YAML, where we change the `my-image` with your local image file:
+<!-- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf -->
+
+We can use the **titling** LaTeX package to alter our title block to include an image. Below is a full example that shows how to add the R logo (`logo.jpg`) to the title page. The image can be of any format that LaTeX supports (e.g., `jpg`, `png`, or `pdf`).
+
+`r import_example('latex-logo.Rmd')`
+
+An example output is shown in Figure \@ref(fig:latex-logo).
+
+```{r latex-logo, echo=FALSE, fig.cap="A logo on a LaTeX title page.", fig.align='center'}
+knitr::include_graphics("images/latex-logo.png", dpi = NA)
+```
+
+An alternative method that does not require a special LaTeX package (**titling**) is to just insert the image to the `title` field using the Markdown syntax. For example:
 
 ```yaml
-- \usepackage{titling}
-- \pretitle{\begin{center}\LARGE\includegraphics[width=6cm]{my-image}\\[\bigskipamount]}
-- \posttitle{\end{center}}
-```
-An example output is shown in Figure \@ref(fig:latexLogo).
-
-```{r latexLogo, echo = FALSE, fig.cap = "Example LaTeX title with logo"}
-knitr::include_graphics("images/latexLogo.png", dpi = NA)
+title: |
+  ![](logo.jpg){width=1in}  
+  Adding a Logo to LaTeX Title
 ```
 
-## Include additional LaTeX packages
+In this case, you will not need the `header-includes` field in the YAML frontmatter in the first example. Please note that although you cannot see them, there are two trailing spaces after `![](logo.jpg){width=1in}`, which means a linebreak in Markdown (see Section \@ref(linebreaks)). Without the linebreak, the image and the title would be on the same line, which may not be what you desire.
+
+## Include additional LaTeX packages {#latex-extra}
 
 <!--- https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown/452884#452884 --->
 
@@ -73,11 +81,11 @@ There is an extensive community for LaTeX, and there are over 4,000 packages ava
 <!--- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 --->
 <!--- Some of the solutions adapted from https://texfaq.org/FAQ-floats. Link left here for future reference --->
 
-One of the common frustrations with LaTeX is how Figures and Tables are handled. Unlike in a word processor like *Microsoft Word*, where figures are placed directly where the user specifies, LaTeX will attempt to place the figure in a position which does not violate certain typographic rules. In doing so, it can result in figures being located away from where they are referenced in the text. This section will explain some background information on how floats work, before providing several options for how to customise their behaviour for your work.
+One of the common frustrations with LaTeX is how Figures and Tables are handled. Unlike in a word processor like *Microsoft Word*, where figures are placed directly where the user specifies, LaTeX will attempt to place the figure in a position which does not violate certain typographic rules. In doing so, it can result in figures being located away from where they are referenced in the text. This section will explain some background information on how floats work, before providing several options for how to customize their behavior for your work.
 
 ### Floats
 
-A detailed description of floats is available within the [LaTeX Wiki](https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions), but in summary, floats are used as containers for things which cannot be broken over a page, such as tables and figures.  By default, if the figure or table can not be contained in the space left in the current page, it is placed at the top of the next page. This behaviour can be controlled by different placement specifiers as follows:
+A detailed description of floats is available within the [LaTeX Wiki](https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions), but in summary, floats are used as containers for things which cannot be broken over a page, such as tables and figures.  By default, if the figure or table can not be contained in the space left in the current page, it is placed at the top of the next page. This behavior can be controlled by different placement specifiers as follows:
 
 - `h`:	Place the float here, i.e., approximately at the same point it occurs in the source text (however, not exactly at the spot)
 - `t`:	Position at the top of the page.
@@ -86,11 +94,11 @@ A detailed description of floats is available within the [LaTeX Wiki](https://en
 - `!`:	Override internal parameters LaTeX uses for determining "good" float positions.
 - `H`: Places the float at precisely the location in the LaTeX code. Requires the float package (`\usepackage{float}`)
 
-The default behaviour for LaTeX in R Markdown is `tbp`, that is it will try positioning the figure at the top of the page, then then bottom, and if not it will put them on a separate page for floats.
+The default behavior for LaTeX in R Markdown is `tbp`, that is it will try positioning the figure at the top of the page, then then bottom, and if not it will put them on a separate page for floats.
 
 ### Preventing figures floating
 
-Many users will initially want to prevent figures from floating in their document, replicating the behaviour of a traditional word processor. To do this, we must firstly load the LaTeX package `float`. This can be done by including the following line in the YAML:
+Many users will initially want to prevent figures from floating in their document, replicating the behavior of a traditional word processor. To do this, we must firstly load the LaTeX package `float`. This can be done by including the following line in the YAML:
 
 ```yaml
 output: 
@@ -98,13 +106,13 @@ output:
     extra_dependencies: ["float"]
 ```
 
-We can use the `fig.pos` to control the float behaviour, and the use of `!H` will prevent any floating within the document. We can set the default behaviour for the document so that all chunks have this setting by including the following line at the start of your R Markdown document:
+We can use the `fig.pos` to control the float behavior, and the use of `!H` will prevent any floating within the document. We can set the default behavior for the document so that all chunks have this setting by including the following line at the start of your R Markdown document:
 
 ```{r, echo=TRUE, eval=FALSE}
 knitr::opts_chunk$set(fig.pos = "!H")
 ```
 
-Please note, that we would strongly advise that readers consider the behaviour of float in their document. This solution was included within the book by popular demand^[the related[StackOverflow question](https://stackoverflow.com/q/16626462/7347699) has been viewed over 40000 times] but there are some serious sides effects overriding the default settings.
+Please note, that we would strongly advise that readers consider the behavior of float in their document. This solution was included within the book by popular demand^[the related[StackOverflow question](https://stackoverflow.com/q/16626462/7347699) has been viewed over 40000 times] but there are some serious sides effects overriding the default settings.
 
 ### Force floats forwards
 <!--- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text --->
@@ -169,7 +177,7 @@ output:
 <!--- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown --->
 <!--- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc --->
 
-We can use LaTeX package **fancyhdr** to customise the header and footer of PDF outputs. It provides several commands that allow you to customize the header and footer lines of your document. For a more complete guide, please refer to the [full documentation](http://tug.ctan.org/tex-archive/macros/latex/contrib/fancyhdr/fancyhdr.pdf). To begin with, we must load the package and change the header style:
+We can use LaTeX package **fancyhdr** to customize the header and footer of PDF outputs. It provides several commands that allow you to customize the header and footer lines of your document. For a more complete guide, please refer to the [full documentation](http://tug.ctan.org/tex-archive/macros/latex/contrib/fancyhdr/fancyhdr.pdf). To begin with, we must load the package and change the header style:
 
 ```latex
 \usepackage{fancyhdr}

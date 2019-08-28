@@ -1,0 +1,24 @@
+---
+title: Adding a Logo to LaTeX Title
+author: Michael Harper
+date: December 7th, 2018
+output: pdf_document
+header-includes:
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=2in,height=2in]{logo.jpg}\LARGE\\}
+  - \posttitle{\end{center}}
+---
+
+<!-- Optionally include a page break. This will force the start
+of the document to the second page -->
+
+\newpage
+
+This is your report.
+
+```{r, include=FALSE}
+# copy the R logo to the current directory
+file.copy(file.path(R.home("doc"), "html", "logo.jpg"), '.')
+```
+
