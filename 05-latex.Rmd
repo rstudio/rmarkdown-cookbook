@@ -32,24 +32,24 @@ In this case, you will not need the `header-includes` field in the YAML frontmat
 
 <!--- https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown/452884#452884 --->
 
-If your primary output format for your R Markdown document is PDF, then the use of additional LaTeX packages can allow for extensive customization of document styling. In addition, several packages such as [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf) may have LaTeX dependencies for the R package to function. Much like R, we need to load packages within the R Markdown document before we are able to use their functions.
+The use of additional LaTeX packages can allow for extensive customization of document styling. In addition, several packages such as **kableExtra** [@R-kableExtra] may have LaTeX dependencies for the R package to function. Much like R, we need to load packages within the R Markdown document before we are able to use their functions.
 
-### Loading LaTeX Packages
+### Loading LaTeX packages
 
-We can load additional LaTeX packages using the `extra_dependencies` option within the `pdf_document` YAML settings. This allows us to provide a list of R Markdown packages:
+We can load additional LaTeX packages using the `extra_dependencies` option within the `pdf_document` YAML settings. This allows us to provide a list of LaTeX packages to be loaded in the intermediate LaTeX output document, e.g.,
 
-```
+```yaml
 ---
-title: "Untitled"
+title: "Using more LaTeX packages"
 output: 
   pdf_document:
     extra_dependencies: ["bbm", "threeparttable"]
 ---
 ```
 
-If you need to specify options when loading the package, you can add a second-level to the list and provide the options as a list:
+If you need to specify options when loading the package, you can add a second-level to the list and provide the options as a list, e.g.,
 
-```
+```yaml
 output: 
   pdf_document:
     extra_dependencies:
@@ -58,28 +58,29 @@ output:
       lmodern: null
 ```
 
-For those familiar with LaTeX, this is equivalent to the following LaTeX file:
+For those familiar with LaTeX, this is equivalent to the following LaTeX code:
 
-```
+```tex
 \usepackage[labelfont={bf}]{caption} 
 \usepackage[unicode=true, breaklinks=true]{hyperref}
 \userpackage{lmodern}
 ```
 
-### Example Packages
+### Example packages
 
-There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprohensive Tex Archive Network](https://ctan.org/) (CTAN). As some examples of LaTeX packages you could consider using within your analysis:
+There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprohensive TeX Archive Network](https://ctan.org) (CTAN). As some examples of LaTeX packages you could consider using within your report:
 
-- [pdfpages](https://ctan.org/pkg/pdfpages?lang=en): include full PDF pages within your document. This is useful if you wish to have appendices within your document
-- [caption](https://ctan.org/pkg/caption?lang=en): change the appearance of caption subtitles. For example, you can make the Figure title italics, centered.
-- [fancyhdr](https://ctan.org/pkg/fancyhdr?lang=en): change the style of page headers.
+- [pdfpages](https://ctan.org/pkg/pdfpages): include full PDF pages from an external PDF document within your document.
+- [caption](https://ctan.org/pkg/caption): change the appearance of caption subtitles. For example, you can make the figure title italic or bold.
+- [fancyhdr](https://ctan.org/pkg/fancyhdr): change the style of running headers of all pages.
 
-<!--- ADD MORE PACKAGES --->
+<!-- TODO: ADD MORE PACKAGES -->
 
 
-## Controlling the Placement of Figures
-<!--- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 --->
-<!--- Some of the solutions adapted from https://texfaq.org/FAQ-floats. Link left here for future reference --->
+## Controlling the Placement of Figures {#figure-placement}
+
+<!-- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 -->
+<!-- Some of the solutions adapted from https://texfaq.org/FAQ-floats. Link left here for future reference -->
 
 One of the common frustrations with LaTeX is how Figures and Tables are handled. Unlike in a word processor like *Microsoft Word*, where figures are placed directly where the user specifies, LaTeX will attempt to place the figure in a position which does not violate certain typographic rules. In doing so, it can result in figures being located away from where they are referenced in the text. This section will explain some background information on how floats work, before providing several options for how to customize their behavior for your work.
 
