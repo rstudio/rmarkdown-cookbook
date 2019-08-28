@@ -4,7 +4,7 @@ How to customise the appearance of HTML outputs.
 
 ## Change Chunk Styling {#chunk-styling}
 
-<!--- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown --->
+<!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
 We can customize the style of code chunks and outputs using the arguments `class.source` and `class.output`. One way this can be useful is motivated by the original [Stack Overflow question](http://stackoverflow.com/q/41030477/559676) on how we use **knitr** to help us to emphasize "bad" coding practices.
 
@@ -118,7 +118,7 @@ This example is extended further within Section \@ref(hooks-scroll), which uses 
 
 ## Tabbed headings
 
-<!---https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings--->
+<!--https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings-->
 
 ## Embed the Rmd source file in the HTML output file {#embed-rmd}
 

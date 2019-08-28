@@ -7,7 +7,7 @@ Tips for running your R Markdown projects.
 
 ## Multi-file documents
 
-<!--- https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output --->
+<!-- https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output -->
 
 With larger R Markdown projects, it can be useful to split the document into smaller files which are easier to handle than a single, massive `'.Rmd` document. Also, we may also have generic components which we wish to use across all of our analyses, and rather than copying and pasting the same code across for each report.
 
@@ -94,7 +94,7 @@ R Markdown format and features can be used with R and **rmarkdown** package, wit
 
 ### R Markdown specific Rstudio keyboard shorcuts
 
-<!--- https://stackoverflow.com/questions/30938280/keyboard-shortcut-to-produce-code-chunk-brackets-in-markdown-in-r-for-rstudio --->
+<!-- https://stackoverflow.com/questions/30938280/keyboard-shortcut-to-produce-code-chunk-brackets-in-markdown-in-r-for-rstudio -->
 
 Like any great IDE, RStudio has keyboard shorcuts ^[A full list can be found on the [web](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts) or directly in the IDE under tools menu `Tools -> Keyboard Shortcuts Help.`] and some are specific to R Markdown. Some of the most useful shortcuts are summarised in Table \@ref(tab:keyboardShortcuts).
 

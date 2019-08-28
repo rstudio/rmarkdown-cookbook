@@ -36,7 +36,7 @@ For example, you may want to have interactive tables using `DT:datatable` in the
 
 
 ## Using Custom Blocks
-<!--- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown --->
+<!-- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown -->
 
 Section [2.7](https://bookdown.org/yihui/bookdown/custom-blocks.html) of @xie2016bookdown highlighted how we can use custom blocks in R Markdown to customise the appearance of sections of text. They can be a useful way to make some text stand out from your reports or books, and are a great way to make sure that your readers take away the key points from your work. As some examples of how these could be used:
 

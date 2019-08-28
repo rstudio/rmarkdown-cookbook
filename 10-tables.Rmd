@@ -48,7 +48,7 @@ knitr::kable(
 ```
 
 ### Changing column names
-<!--- https://stackoverflow.com/questions/51432502/replace-column-names-in-kable-r-markdown/51444998#51444998 --->
+<!-- https://stackoverflow.com/questions/51432502/replace-column-names-in-kable-r-markdown/51444998#51444998 -->
 
 The names of columns in a dataframe will often not be the same as what we want to display in our output format. It can be particularly annoying to have spaces in the name of a variable. We can use the the `col.names` argument to replace the names with a vector of names:
 
@@ -82,7 +82,7 @@ There are a lot of extra options which can be controlled for LaTeX tables.
 - `linesep` can be used to change the line spacing. We can play around with this option if you want to  change the style. For example `linesep = c("", "", "", "\\hline")` would add a horizontal line every four spaces.
 
 ### Customising HTML table appearance
-<!--- https://stackoverflow.com/questions/24254552/knitr-style-table-with-css --->
+<!-- https://stackoverflow.com/questions/24254552/knitr-style-table-with-css -->
 
 ### Changing default behavour
 

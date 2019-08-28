@@ -28,7 +28,7 @@ With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), bu
 
 ### Remove leading hashes in text output
 
-<!--- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr --->
+<!-- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr -->
 
 By default, R code output will have two hashes `#` inserted in front of the text output. We can alter this behaviour by using the `comment` chunk option, which defaults to a character string of two hashes `"##"`. We can use an empty string if we want to remove the hashes. For example:
 
@@ -79,7 +79,7 @@ In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot t
 
 ## Allow duplicate labels in code chunks
 
-<!--- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 --->
+<!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
 
 By default, **knitr** does not allow duplicate code chunk labels in the document. Duplicate labels will result in an error when the document is knitted. This occurs most frequently when a code chunk is copied and pasted within a document. You may have seen an error message like this:
 

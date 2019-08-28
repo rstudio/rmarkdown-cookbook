@@ -21,7 +21,7 @@ If you need a reminder in the basics of the markdown language, the [R Markdown c
 ```
 
 ## Changing Font Colour
-<!--- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color --->
+<!-- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color -->
 
 The markdown syntax has no built-in method for changing text colours. We can use HTML and LaTeX syntax to change the formatting of words:
 
@@ -58,17 +58,17 @@ We can then use the code as an inline R expression `colorize("red text", "red")`
 
 ## Comment out content
 
-<!--- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown --->
+<!-- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown -->
 
-It is useful to include commented text within the source document which is not displayed within the final outputted document. We can use the HTML syntax `<!--- your comment --->`. This will not be displayed in any output format.
+It is useful to include commented text within the source document which is not displayed within the final outputted document. We can use the HTML syntax `<!-- your comment -->`. This will not be displayed in any output format.
 
 Comments can span either single or multiple lines. This may be useful if you have draft comment.
 <!-- , and it also allows us to comment out code chunks (and prevent them from being run in knitr). -->
 
 ## Indenting text
 
-<!--- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 --->
-<!--- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks --->
+<!-- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 -->
+<!-- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks -->
 
 Markdown will ignore indentations by default. However, we may want to keep indentation within the text, for example within verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The division into lines will be preserved in the output, as will any leading spaces; otherwise, the lines will be formatted as Markdown. As an example:
 
