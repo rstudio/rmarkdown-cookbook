@@ -63,7 +63,7 @@ In this case, you will not need the `header-includes` field in the YAML frontmat
 
 ## Include additional LaTeX packages {#latex-extra}
 
-<!--- https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown/452884#452884 --->
+<!-- https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown/452884#452884 -->
 
 The use of additional LaTeX packages can allow for extensive customization of document styling. In addition, several packages such as **kableExtra** [@R-kableExtra] may have LaTeX dependencies for the R package to function. Much like R, we need to load packages within the R Markdown document before we are able to use their functions.
 
@@ -110,29 +110,44 @@ There is an extensive community for LaTeX, and there are over 4,000 packages ava
 <!-- TODO: ADD MORE PACKAGES -->
 
 
-## Controlling the Placement of Figures {#figure-placement}
+## Control the placement of figures {#figure-placement}
 
 <!-- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 -->
 <!-- Some of the solutions adapted from https://texfaq.org/FAQ-floats. Link left here for future reference -->
 
-One of the common frustrations with LaTeX is how Figures and Tables are handled. Unlike in a word processor like *Microsoft Word*, where figures are placed directly where the user specifies, LaTeX will attempt to place the figure in a position which does not violate certain typographic rules. In doing so, it can result in figures being located away from where they are referenced in the text. This section will explain some background information on how floats work, before providing several options for how to customize their behavior for your work.
+One common frustration with LaTeX is the placement of figures and tables. Unlike in a word processor like Microsoft Word, in which figures are placed directly where the user specifies, LaTeX will attempt to place a figure in a position that does not violate certain typographic rules. In doing so, it can result in figures floating away from where they are referenced in the text. This section will explain some background information on how floating environments (such as figures) work, before providing several options for how to customize their behavior for your work.
 
-### Floats
+### Floating environments
 
-A detailed description of floats is available within the [LaTeX Wiki](https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions), but in summary, floats are used as containers for things which cannot be broken over a page, such as tables and figures.  By default, if the figure or table can not be contained in the space left in the current page, it is placed at the top of the next page. This behavior can be controlled by different placement specifiers as follows:
+By default, figures with captions are generated with the `figure` environment in LaTeX. For example, Pandoc will convert the following Markdown code that contains an image
 
-- `h`:	Place the float here, i.e., approximately at the same point it occurs in the source text (however, not exactly at the spot)
-- `t`:	Position at the top of the page.
-- `b`:	Position at the bottom of the page.
-- `p`:	Put on a special page for floats only.
-- `!`:	Override internal parameters LaTeX uses for determining "good" float positions.
-- `H`: Places the float at precisely the location in the LaTeX code. Requires the float package (`\usepackage{float}`)
+```md
+![This is a figure.](images/cool.jpg)
+```
 
-The default behavior for LaTeX in R Markdown is `tbp`, that is it will try positioning the figure at the top of the page, then then bottom, and if not it will put them on a separate page for floats.
+to the LaTeX code:
 
-### Preventing figures floating
+```tex
+\begin{figure}
+  \includegraphics{images/cool.jpg}
+  \caption{This is a figure.}
+\end{figure}
+```
 
-Many users will initially want to prevent figures from floating in their document, replicating the behavior of a traditional word processor. To do this, we must firstly load the LaTeX package `float`. This can be done by including the following line in the YAML:
+The `figure` environment is a floating environment. You can read a detailed description of floats at https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions. In summary, floats are used as containers for things that cannot be broken over a page, such as tables and figures. If the figure or table can not be contained in the space left on the current page, LaTeX will try to place it at the top of the next page. If the figure is tall enough, it may occupy the whole next page, even if there is still space left for a few lines of text. The behavior can be controlled by different placement specifiers in square brackets after `\begin{figure}`, e.g., `\begin{figure}[b]`. Below is a list of possible specifiers:
+
+- `h`: Place the float _here_, i.e., approximately at the same point it occurs in the source text.
+- `t`: Position at the _top_ of the page.
+- `b`: Position at the _bottom_ of the page.
+- `p`: Put on a special _page_ for floats only.
+- `!`: Override internal parameters LaTeX uses for determining "good" float positions.
+- `H`: Place the float at precisely the location in the LaTeX code. This requires the **float** package (`\usepackage{float}`).
+
+These specifiers can be used in conjunction, e.g., `!b` forces LaTeX to place the figure at the bottom of a page. The default behavior is `tbp`. That is, LaTeX will try to position the figure at the top of the page, then at the bottom, and then on a separate page.
+
+### Prevent figures from floating
+
+Many users will initially want to prevent figures from floating in their document, replicating the behavior of a traditional word processor. To do this, we must firstly load the LaTeX package **float**. This can be done by including the following line in the YAML:
 
 ```yaml
 output: 
@@ -140,18 +155,19 @@ output:
     extra_dependencies: ["float"]
 ```
 
-We can use the `fig.pos` to control the float behavior, and the use of `!H` will prevent any floating within the document. We can set the default behavior for the document so that all chunks have this setting by including the following line at the start of your R Markdown document:
+We can use the chunk option `fig.pos` to control the float behavior, and the use of `!H` will prevent any floating within the document. We can set the default behavior for the document so that all chunks have this setting by including the following line in the first code chunk in your R Markdown document:
 
-```{r, echo=TRUE, eval=FALSE}
-knitr::opts_chunk$set(fig.pos = "!H")
+```{r, eval=FALSE}
+knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
-Please note, that we would strongly advise that readers consider the behavior of float in their document. This solution was included within the book by popular demand^[the related[StackOverflow question](https://stackoverflow.com/q/16626462/7347699) has been viewed over 40000 times] but there are some serious sides effects overriding the default settings.
+In general, we do not recommend that users force LaTeX to stop floating figures. This solution was included in this book by popular demand,^[The related Stack Overflow question has been viewed for over 45,000 times: https://stackoverflow.com/q/16626462/559676.] but there could be some serious side-effects when LaTeX is unable to float figures.
 
 ### Force floats forwards
-<!--- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text --->
 
-An alternative to forcing all floats to be held is to force floats forwards in the text. This can remove a common issue, where a figure is shown at the top of the page on which it is created. This can break the flow of a report. We can force it so that the figure always appears after the text by using the **flafter** LaTeX package as follows:
+<!-- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text -->
+
+An alternative to forcing all floats to be held is to force floating forwards in the text. This can remove a common issue, where a figure is shown at the top of the page before the relevant text comes. This can break the reading flow of a report. We can force it so that the figure always appears after the text by using the **flafter** LaTeX package as follows:
 
 ```yaml
 output: 
@@ -161,180 +177,127 @@ output:
 
 ### Adjust LaTeX placement rules
 
-LaTeX’s own float placement parameters could be preventing placements that seem entirely “reasonable” to you — they’re notoriously rather conservative. These defaults are displayed in Table \@ref(tab:latexFloatDefault).
+LaTeX's own float placement parameters could prevent placements that seem entirely "reasonable" to you---they are notoriously rather conservative. These defaults are displayed in Table \@ref(tab:float-default).
 
-<!--- This table may work better as a diagram? --->
+<!-- This table may work better as a diagram? -->
 
-```{r latexFloatDefault, echo = FALSE}
+```{r float-default, echo = FALSE}
 floatOpts <- data.frame(
   Command = c("topfraction", "bottomfraction", "textfraction",
               "floatpagefraction", "topnumber", "bottomnumber",
               "totalnumber"),
-  Description = c("maximum fraction of page for floats at top",
-                  "maximum fraction of page for floats at bottom",
-                  "minimum fraction of page for text",
-                  "minimum fraction of floatpage that should have floats",
-                  "maximum number of floats at top of page", "maximum number of floats at bottom of page",
-                  "maximum number of floats on a page"),
+  Description = c("max fraction of page for floats at top",
+                  "max fraction of page for floats at bottom",
+                  "min fraction of page for text",
+                  "min fraction of page that should have floats",
+                  "max number of floats at top of page", "max number of floats at bottom of page",
+                  "max number of floats on a page"),
   Default = c("0.7", "0.3", "0.2", "0.5", "2", "1", "3"),
   stringsAsFactors = FALSE
 )
-knitr::kable(floatOpts, caption = "Default LaTeX float settings")
+knitr::kable(floatOpts, caption = "Default LaTeX float settings.")
 ```
 
-To encourage LaTeX not to move your figure, we can alter these default settings. We could include the following in our LaTeX preamble file, reducing the minimum amount of text required on a page and allow more room for floats:
+To encourage LaTeX not to move your figures, we can alter these default settings. We could include the following in our LaTeX preamble file, reducing the minimum amount of text required on a page and allow more room for floats:
 
-```latex
+```tex
 \renewcommand{\topfraction}{.85}
 \renewcommand{\bottomfraction}{.7}
 \renewcommand{\textfraction}{.15}
 \renewcommand{\floatpagefraction}{.66}
-\renewcommand{\dbltopfraction}{.66}
-\renewcommand{\dblfloatpagefraction}{.66}
-\setcounter{topnumber}{9}
-\setcounter{bottomnumber}{9}
-\setcounter{totalnumber}{20}
-\setcounter{dbltopnumber}{9}
-```
-If we added these changes to our `premable.tex` file, we could reference to them within our YAML of our document:
-
-```yaml
-output:
-  pdf_document:
-    includes:
-      in_header: premable.tex
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
 ```
 
+If we have added these lines to a `.tex` file, we could include this file in the preamble of the LaTeX document using the method introduced in Section \@ref(latex-preamble).
 
+## Add custom headers and footers {#latex-header}
 
-## Add Custom Headers and Footers
-<!--- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown --->
-<!--- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc --->
+<!-- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown -->
+<!-- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc -->
 
-We can use LaTeX package **fancyhdr** to customize the header and footer of PDF outputs. It provides several commands that allow you to customize the header and footer lines of your document. For a more complete guide, please refer to the [full documentation](http://tug.ctan.org/tex-archive/macros/latex/contrib/fancyhdr/fancyhdr.pdf). To begin with, we must load the package and change the header style:
+The LaTeX package **fancyhdr** has provided several commands to customize the header and footer lines of your document. For a more complete guide, please refer to the full documentation at https://ctan.org/pkg/fancyhdr. To begin with, we must load the package. Then we can change the header style, e.g.,
 
-```latex
+```tex
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 ```
 
-The package offers three different interfaces, but we will use the commands `\fancyhead` and `\fancyfoot`. The syntax for the formatting `\fancyhead[selectors]{output text}`, whereby the selectors state which part of the header we wish to customize. We can use the following selectors for the page locators:
+The package offers three different interfaces, but we will use the commands `\fancyhead` and `\fancyfoot`. The syntax for the formatting is `\fancyhead[selectors]{output text}`, whereby the selectors state the part of the header that we wish to customize. We can use the following selectors for the page locators:
 
-- **E** for even page
-- **O** for odd page
-- **L** for left side
-- **C** for centered
-- **R** for right side
+- **E** for even pages
+- **O** for odd pages
+- **L** for the left side
+- **C** for the center
+- **R** for the right side
 
-For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on the Left side of the header for Even pages, and the Right side for Odd pages. We can combine this with additional LaTeX commands to extract details from our document for each page:
+For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on the left side of the header for even pages, and the right side for odd pages. We can combine this with additional LaTeX commands to extract details from our document for each page:
 
-- `\thepage`: adds number of the current page.
-- `\thechapter`: adds number of the current chapter.
-- `\thesection`: adds number of the current section.
-- `\chaptername`: adds the word "Chapter" in English or its equivalent in the current language.
-- `\leftmark`: adds name and number of the current top-level structure in uppercase letters.
-- `\rightmark`: adds name and number of the current next to top-level structure in uppercase letters.
+- `\thepage`: the number of the current page.
+- `\thechapter`: the number of the current chapter.
+- `\thesection`: the number of the current section.
+- `\chaptername`: the the word "Chapter" in English, or its equivalent in the current language, or the text that the author specified by redefining this command.
+- `\leftmark`: thes name and number of the current top-level structure in uppercase letters.
+- `\rightmark`: the name and number of the current next to top-level structure in uppercase letters.
 
-
-Piecing this components together, a complete example is presented below.
-
-This could be inserted in the document, or another `header.tex` file :
+Below is some example LaTeX code that you can add to the preamble using the methods introduced in Section \@ref(latex-preamble):
 
 ```latex
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+% center of header
 \fancyhead[CO,CE]{Your Document Header}
+% center of footer
 \fancyfoot[CO,CE]{And this is a fancy footer}
+% page number on the left of even pages and right of odd pages
 \fancyfoot[LE,RO]{\thepage}
 ```
 
-If in an external `.tex` file, then it could be included in the header of our `rmarkdown::pdf_document` format:
-
-```yaml
----
-title: "Document with header and footer"
-output: 
-  pdf_document:
-    includes:
-      in_header: header.tex
----
-```
-
-The `includes` feature of `pdf_document` is presented in [Advanced customisation](https://bookdown.org/yihui/rmarkdown/pdf-document.html#includes-1) of @xie2018.
-
-An alternative,^[You cannot use both as `in_header:` in yaml will currently override the content of pandoc variable `header-includes`] it could also be included directly in header to a rmarkdown document within the YAML using the pandoc variable `header-includes`:
-
-```yaml
----
-header-includes:
-- \usepackage{fancyhdr}
-- \pagestyle{fancy}
-- \fancyhead[CO,CE]{Your Document Header}
-- \fancyfoot[CO,CE]{And this is a fancy footer}
-- \fancyfoot[LE,RO]{\thepage}
-output: pdf_document
----
-```
-
-### Force Header and footer for every page
-<!--- https://stackoverflow.com/questions/30922602/creating-a-footer-for-every-page-including-first-using-r-markdown --->
+<!-- https://stackoverflow.com/questions/30922602/creating-a-footer-for-every-page-including-first-using-r-markdown -->
 
 By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line `\fancypagestyle{plain}{\pagestyle{fancy}}`.
 
-As an example in the YAML frontmatter specification
+## LaTeX sub-figures {#latex-subfigure}
 
-```yaml
----
-header-includes:
-- \usepackage{fancyhdr}
-- \pagestyle{fancy}
-- \fancyhead[CO,CE]{YOur Document Header}
-- \fancyfoot[CO,CE]{And this is a fancy footer}
-- \fancyfoot[LE,RO]{\thepage}
-- \fancypagestyle{plain}{\pagestyle{fancy}}
-output: pdf_document
----
-```
+Sometimes you may want to include multiple images in a single figure environment. Sub-figures allow us to achieve this by arranging multiple images within a single environment and providing each with their own sub-caption.
 
-## LaTeX subfigures
-
-When writing a document you may want to include some slightly more complicated figures with multiple images. Subfigures are a useful LaTeX feature which allows us to achieve this by plotting multiple figures within a single plot and providing each with their own subcaption.
-
-Subfigures require the LaTeX package `subfig`. We can load this via the `extra_dependencies` YAML option within the `pdf_document` output. For example:
-
-```yaml
----
-output:
-  pBdf_document:
-    extra_dependencies: subfig
----
-```
-
-As listed within the knitr [chunk options](https://yihui.name/knitr/options/), subfigures require a few additional settings to be set in the chunk header:
-
-- `fig.subcap` is a list of the captions for subfigures
-- `fig.ncol`: the number of columns of subfigures
-- `out.width`: the output width of the figures. You will normally set this 100% divided by the number of sub columns.
-
-An example is demonstrated below:
+Sub-figures require the LaTeX package **subfig**. We can load it via the `extra_dependencies` YAML option within the `pdf_document` output. For example:
 
 ```yaml
 ---
 output:
   pdf_document:
-    extra_dependencies: subfig
+    extra_dependencies: "subfig"
 ---
 ```
 
-````
-`r ''````{r fig-sub, fig.cap='two plots', fig.subcap=c('one plot', 'the other one'), out.width='.49\\linewidth', fig.asp=1, fig.ncol = 2}
+To arrange all plots from a code chunk in sub-figures, you have to use the chunk options `fig.cap` (the caption for the whole figure environment) and `fig.subcap` (a character vector of the captions for sub-figures). For best output, you can also use the following options:
+
+- `fig.ncol`: The number of columns of sub-figures. By default, all plots are arranged in a single row. You can break them into multiple rows.
+
+- `out.width`: The output width of individual plots. You will normally set this to `100%` divided by the number of columns. For example, if you have two plots, the `out.width` option should be equal to or less than `50%`, otherwise the plots may exceed the page margin.
+
+Below is an illustrative example:
+
+```yaml
+---
+output:
+  pdf_document:
+    extra_dependencies: "subfig"
+---
+```
+
+````md
+```{r fig-sub, fig.cap='All', fig.subcap=c('A', 'B', 'C')}`r ''`
 plot(1:10)
-plot(rnorm(10), pch=19)
+plot(cars, pch = 19)
+boxplot(Sepal.Width ~ Species, data = iris)
 ```
 ````
 
-The output is shown in Figure \@ref(fig:subcaptions).
+The output is shown in Figure \@ref(fig:latex-subfig). For the sake of simplicity, we omitted a few chunk options in the chunk header of the above example, including `fig.ncol = 2`, `out.width = "50%"`, `fig.align = "center"`, and the actual long captions.
 
-```{r subcaptions, fig.cap="An example subcaption", echo = FALSE}
-knitr::include_graphics("images/subfigure.png", dpi = NA)
+```{r latex-subfig, fig.cap="An example of one figure environment containing multiple sub-figures.", echo=FALSE}
+knitr::include_graphics("images/latex-subfig.png", dpi = NA)
 ```

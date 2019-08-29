@@ -1,0 +1,12 @@
+---
+output:
+  pdf_document:
+    extra_dependencies: "subfig"
+---
+
+```{r fig-sub, fig.dim=c(5, 3), fig.cap='Multiple plots from a single code chunk.', fig.subcap=c('A boring scatterplot showing numbers from 1 to 10.', 'Another scatterplot for the cars data, with solid points.', 'A boxplot of the iris data.'), out.width='50%', fig.ncol=2, fig.align='center'}
+par(mar = c(4, 4, .1, .1))
+plot(1:10)
+plot(cars, pch = 19)
+boxplot(Sepal.Width ~ Species, data = iris, horizontal = TRUE, col = 'gray', notch = TRUE)
+```
