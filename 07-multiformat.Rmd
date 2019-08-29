@@ -50,9 +50,11 @@ In this section, we will explain how to create your own custom blocks for both P
 
 We can generate a custom block using either the `block2` engine in **knitr**. We must also specify the chunk option `type`, which specifies the class of the `<div>` and the name of the LaTeX environment. For example:
 
-    `r ''````{block, type='FOO'}
-    Some text for this block.
-    ```
+````md
+`r ''````{block, type='FOO'}
+Some text for this block.
+```
+````
 
 It is up to the user to define their own `<div>` in CSS for the HTML output,  or `\newenvironment` in LaTeX for PDF outputs. These customisations will normally be contained in their own files such as `style.css` or `preamble.tex`, and then included within the YAML options:
 
