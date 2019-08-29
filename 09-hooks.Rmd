@@ -30,7 +30,7 @@ knitr::knit_hooks$set(output = function(x, options){
 To use this option, we can specify the option within the code chunk header.
 
 ````
-`r ''````{r max_height = "200px"}
+```{r max_height = "200px"}`r ''`
 print(cars)
 ```
 ````

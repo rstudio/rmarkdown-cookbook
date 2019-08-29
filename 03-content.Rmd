@@ -133,13 +133,13 @@ output: bookdown::html_document2
 ````markdown
 See Figure \@ref(fig:cars-plot)
 
-`r ''````{r cars-plot, fig.cap="A plot caption"}
+```{r cars-plot, fig.cap="A plot caption"}`r ''`
 plot(cars)  # a scatterplot
 ```
 
 See Table \@ref(tab:mtcars)
 
-`r ''````{r mtcars}
+```{r mtcars}`r ''`
 knitr::kable(mtcars[1:5, 1:5], caption = "A caption")
 ```
 
@@ -276,11 +276,11 @@ output: bookdown::html_document2
 ```
 
 ````md
-`r ''````{r cars, fig.cap = "An amazing plot"}
+```{r cars, fig.cap = "An amazing plot"}`r ''`
 plot(cars)
 ```
 
-`r ''````{r cars2, fig.cap = "Another amazing plot"}
+```{r cars2, fig.cap = "Another amazing plot"}`r ''`
 plot(cars)
 ```
 ````
@@ -373,22 +373,22 @@ There is a simple method of extracting all code chunks in a document and put the
 ````md
 # Appendix: All code for this report
 
-`r ''````{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}`r ''`
 ```
 ````
 
 The chunk option `ref.label` takes a vector of chunk labels to retrieve the content of these chunks. For example, the code chunk with the label `chunk-a` is the combination of `chunk-c` and `chunk-b` below:
 
 ````md
-`r ''````{r chunk-a, ref.label=c('chunk-c', 'chunk-b')}
+```{r chunk-a, ref.label=c('chunk-c', 'chunk-b')}`r ''`
 ```
 
-`r ''````{r chunk-b}
+```{r chunk-b}`r ''`
 # this is the chunk b
 1 + 1
 ```
 
-`r ''````{r chunk-c}
+```{r chunk-c}`r ''`
 # this is the chunk c
 2 + 2
 ```
@@ -397,7 +397,7 @@ The chunk option `ref.label` takes a vector of chunk labels to retrieve the cont
 In other words, `chunk-a` is essentially this:
 
 ````md
-`r ''````{r chunk-a}
+```{r chunk-a}`r ''`
 # this is the chunk c
 2 + 2
 # this is the chunk b
@@ -412,12 +412,12 @@ The function `knitr::all_labels()` returns a vector of all chunk labels in the d
 Since `ref.label` can be a character vector of arbitrary chunk labels, you can certainly filter the labels to decide a subset of code chunks to display in the code appendix. Below is an example (credits to [Ariel Muldoon](https://yihui.name/en/2018/09/code-appendix/)) of excluding the labels `setup` and `get-labels`:
 
 ````md
-`r ''````{r get-labels, echo = FALSE}
+```{r get-labels, echo = FALSE}`r ''`
 labs = knitr::all_labels()
 labs = setdiff(labs, c("setup", "get-labels"))
 ```
 
-`r ''````{r all-code, ref.label=labs, eval=FALSE}
+```{r all-code, ref.label=labs, eval=FALSE}`r ''`
 ```
 ````
 

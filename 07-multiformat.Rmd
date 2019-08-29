@@ -51,7 +51,7 @@ In this section, we will explain how to create your own custom blocks for both P
 We can generate a custom block using either the `block2` engine in **knitr**. We must also specify the chunk option `type`, which specifies the class of the `<div>` and the name of the LaTeX environment. For example:
 
 ````md
-`r ''````{block, type='FOO'}
+```{block, type='FOO'}`r ''`
 Some text for this block.
 ```
 ````

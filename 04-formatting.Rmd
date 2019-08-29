@@ -104,7 +104,7 @@ cat("`r ''````{r, eval=TRUE}
 will be rendered as:
 
 ````
-`r ''````{r, eval=TRUE}
+```{r, eval=TRUE}`r ''`
 1 + 1
 ```
 ````
@@ -113,7 +113,7 @@ in the output. The inline expression is gone because it is substituted by an emp
 
 ```{r echo = FALSE, comment = NA}
 cat("````
-`r ''````{r, eval=TRUE}
+```{r, eval=TRUE}`r ''`
 1 + 1
 ```\n````")
 ```
@@ -148,7 +148,7 @@ The recipe will be much simpler if you only need to consider HTML output, becaus
 output: html_document
 ---
 
-`r ''````{r attr.source="style='display:inline-block;'", collapse=TRUE}
+```{r attr.source="style='display:inline-block;'", collapse=TRUE}`r ''`
 1:10  # a sequence from 1 to 10
 10:1  # in the reverse order
 ```

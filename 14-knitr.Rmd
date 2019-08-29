@@ -9,7 +9,7 @@ There are more than 40 different chunk options which can be used to fine-tune th
 This section aims to highlight some useful **knitr** chunk options that may not be widely known. In the following recipes, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
 
 ````md
-`r ''````{r, include=FALSE}
+```{r, include=FALSE}`r ''`
 knitr::opts_chunk$set(comment = "", echo = FALSE)
 ```
 ````
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(comment = "", echo = FALSE)
 We often wish to setup our R Markdown documents by loading a series of packages. Instead of using separate commands to R source code (`echo=FALSE`), hide text output (`results='hide'`), hide warnings (`warnings=FALSE`), hide messages (`messages=FALSE`), and so on, we can suppress the output of the entire code chunk using the single option `include=FALSE` as shown below:
 
 ````md
-`r ''````{r, include=FALSE}
+```{r, include=FALSE}`r ''`
 # any R code here
 ```
 ````
@@ -33,7 +33,7 @@ With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), bu
 By default, R code output will have two hashes `#` inserted in front of the text output. We can alter this behaviour by using the `comment` chunk option, which defaults to a character string of two hashes `"##"`. We can use an empty string if we want to remove the hashes. For example:
 
 ````md
-`r ''````{r, comment=""}
+```{r, comment=""}`r ''`
 1:100
 ```
 ````
@@ -45,14 +45,14 @@ Sometimes we may want to exit knitting early and not at the end of the document.
 Below is a simple example, where we have a very simple chunk followed by a more time-consuming one:
 
 ````md
-`r ''````{r}
+```{r}`r ''`
 1 + 1
 knitr::knit_exit()
 ```
 
 Okay, you will not see me in the output.
 
-`r ''````{r}
+```{r}`r ''`
 Sys.sleep(100)
 ```
 ````
@@ -66,7 +66,7 @@ Normally plots generated in a code chunk are displayed beneath the code chunk, b
 ````md
 We generate a plot in this code chunk but do not show it:
 
-`r ''````{r cars-plot, dev='png', fig.show='hide'}
+```{r cars-plot, dev='png', fig.show='hide'}`r ''`
 plot(cars)
 ```
 
