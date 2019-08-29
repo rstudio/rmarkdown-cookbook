@@ -4,6 +4,39 @@ For many authors, the main output of their work will be the PDF report, in which
 
 Users should approach with a note of caution. One of the major benefits of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format but at the expense of this transferability.
 
+## Add LaTeX code to the preamble {#latex-preamble}
+
+The general structure of a LaTeX document is like this:
+
+```tex
+\documentclass{article}
+% preamble
+\begin{document}
+% body
+\end{document}
+```
+
+That is, you declare the document class in `\documentclass{}`, load certain LaTeX packages and set certain options if necessary in the preamble, and start writing the body of your document after `\begin{document}`. A Markdown document is mostly the body of the document. If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
+
+For example, below is a trick that turns the URLs in hyperlinks into footnotes. This trick is useful because (by default) readers do not know the actual URL when they see the text in PDF generated from `\href{URL}{text}`. This trick displays both the text ad URL.
+
+```tex
+% you may want to save a copy of \href before redefining it
+% \let\oldhref\href
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+```
+
+You can save the above code in a file with an arbitrary filename, e.g., `preamble.tex`. Then include it in the preamble through:
+
+```yaml
+output:
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+```
+
+Another way to add code to the preamble is to use the `header-includes` field in the YAML frontmatter. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
+
 ## Add logo to title page {#latex-logo}
 
 <!-- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf -->
