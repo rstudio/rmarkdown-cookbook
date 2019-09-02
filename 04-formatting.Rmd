@@ -47,7 +47,7 @@ We should attempt to design our R Markdown documents to allow for multiple outpu
 ```{r}
 colorize = function(x, color){
   if (knitr::is_latex_output()) {
-    sprintf("\\textcolor{%s}(%s)", color, x)
+    sprintf("\\textcolor{%s}{%s}", color, x)
   } else if (knitr::is_html_output()) {
     sprintf("<font color='%s'>%s</font>", color, x)
   } else x
