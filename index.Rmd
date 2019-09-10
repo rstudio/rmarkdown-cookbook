@@ -22,6 +22,8 @@ github-repo: dr-harper/rmarkdown-cookbook
 ---
 
 ```{r setup, include=FALSE}
+set.seed(0728)
+
 options(
   htmltools.dir.version = FALSE, formatR.indent = 2, formatR.arrow = TRUE,
   width = 55, digits = 4,
