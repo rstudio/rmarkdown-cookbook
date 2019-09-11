@@ -415,7 +415,7 @@ TO ADD
 
 ### flextable
 
-This package is develop by David Gohel and is part of the `officer` package suits. 
+This package is developed by David Gohel and is part of the `officer` package suits. 
 
 `flextable` aims at easily creating tables for reporting to be embedded within:
 

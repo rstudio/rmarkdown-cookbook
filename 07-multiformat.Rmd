@@ -207,4 +207,4 @@ plot(1:10)
 plot(rnorm(10), pch=19)
 ```
 
-The main benefits of this approach is that it is easily achieved, and also works for both PDF and HTML outputs.
+The main benefit of this approach is that it is easily achieved, and also works for both PDF and HTML outputs.
