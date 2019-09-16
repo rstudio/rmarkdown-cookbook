@@ -18,7 +18,7 @@ The general structure of a LaTeX document is like this:
 
 That is, you declare the document class in `\documentclass{}`, load certain LaTeX packages and set certain options if necessary in the preamble, and start writing the body of your document after `\begin{document}`. A Markdown document is mostly the body of the document. If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
 
-For example, below is a trick that turns the URLs in hyperlinks into footnotes. This trick is useful because (by default) readers do not know the actual URL when they see the text in PDF generated from `\href{URL}{text}`. This trick displays both the text ad URL.
+For example, below is a trick that turns the URLs in hyperlinks into footnotes. This trick is useful because (by default) readers do not know the actual URL when they see the text in PDF generated from `\href{URL}{text}`. This trick displays both the text and URL.
 
 ```tex
 % you may want to save a copy of \href before redefining it

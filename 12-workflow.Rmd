@@ -9,7 +9,7 @@ Tips for running your R Markdown projects.
 
 <!-- https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output -->
 
-With larger R Markdown projects, it can be useful to split the document into smaller files which are easier to handle than a single, massive `'.Rmd` document. Also, we may also have generic components which we wish to use across all of our analyses, and rather than copying and pasting the same code across for each report.
+With larger R Markdown projects, it can be useful to split the document into smaller files which are easier to handle than a single, massive `.Rmd` document. Also, we may also have generic components which we wish to use across all of our analyses, and rather than copying and pasting the same code across for each report.
 
 In this section, we highlight two approaches which can be used when splitting an R Markdown document into separate `.Rmd` files, using child documents and the **bookdown** [@R-bookdown] package. Most importantly, we will highlight when it is preferred for each to be used within your analysis.
 
@@ -92,11 +92,11 @@ There is a legacy of using child documents when creating longer documents, as **
 
 R Markdown format and features can be used with R and **rmarkdown** package, with any editor that got your preference. However, RStudio has a deep integration with R Markdown and offers additional feature that will help your project workflow without a doubt.
 
-### R Markdown specific Rstudio keyboard shorcuts
+### R Markdown specific Rstudio keyboard shortcuts
 
 <!-- https://stackoverflow.com/questions/30938280/keyboard-shortcut-to-produce-code-chunk-brackets-in-markdown-in-r-for-rstudio -->
 
-Like any great IDE, RStudio has keyboard shorcuts ^[A full list can be found on the [web](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts) or directly in the IDE under tools menu `Tools -> Keyboard Shortcuts Help.`] and some are specific to R Markdown. Some of the most useful shortcuts are summarised in Table \@ref(tab:keyboardShortcuts).
+Like any great IDE, RStudio has keyboard shortcuts ^[A full list can be found on the [web](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts) or directly in the IDE under tools menu `Tools -> Keyboard Shortcuts Help.`] and some are specific to R Markdown. Some of the most useful shortcuts are summarised in Table \@ref(tab:keyboardShortcuts).
 
 ```{r, include = FALSE}
 ks_win <- function(letters, ctrl = TRUE, alt = TRUE, shift = FALSE, enter = FALSE) {
@@ -137,7 +137,7 @@ keyboard_table <- tibble::tribble(
   "Show/hide document outline", ks_win("O", TRUE, FALSE, TRUE)         , ks_mac("O", TRUE, FALSE, TRUE),
   "Build book, website, ..."  , ks_win("B", TRUE, FALSE, TRUE)         , ks_mac("B", TRUE, FALSE, TRUE)
 )
-knitr::kable(keyboard_table, caption = "Rmarkdown related Rstudio keyboard shorcuts")
+knitr::kable(keyboard_table, caption = "Rmarkdown related Rstudio keyboard shortcuts")
 ```
 
 ### Customising the knit button
@@ -251,14 +251,14 @@ rm(my_function)
 
 
 Writing to an R script is not really a real use case example and the `cat`
-engine can handled any format.
+engine can handle any format.
 
 Here, we use it to write some yaml to a file. The default behavior for `cat`
 engine is to show nothing in the output document. However, here we will also
 show the content in the output R Markdown file. The `cat` engine understand the
 field `lang` in `engine.opts` option or directly `class.source` chunk option for
 html outputs (see Section \@ref(chunk-styling)). You can provide any language
-supported by the syntax highlighting. This two chunks are equivalent:
+supported by the syntax highlighting. These two chunks are equivalent:
 
 ````md
 ```{cat, engine.opts = list(file = fs::path_temp('demo.yml'), lang = "yaml")}`r ''`
@@ -292,7 +292,7 @@ b:
   bb: 2
 ```
 
-As previously, the file can be access later on and read into R
+As previously, the file can be accessed later on and read into R
 ```{r}
 yaml::read_yaml(fs::path_temp('demo.yml'))
 ```
