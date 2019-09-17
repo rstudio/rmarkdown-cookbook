@@ -56,4 +56,38 @@ xfun::raw_string(
 )
 ```
 
-This method of generating reports can be particularly useful when you primarily work with R scripts and do not need a lot of narratives. If the portion of text is substantial in your report, R Markdown may be a better choice, because you do not need to put all text in roxygen comments. When you need an R script from an R Markdown document, you can call the function `knitr::purl()` to extract code in the Rmd file to an R script.
+This method of generating reports can be particularly useful when you primarily work with R scripts and do not need a lot of narratives. If the proportion of text is substantial in your report, R Markdown may be a better choice, because you do not need to put all text in roxygen comments.
+
+## Convert R Markdown to R script {#purl}
+
+When you want to extract all R code from an R Markdown document, you can call the function `knitr::purl()`. Below is a simple Rmd example with the filename `purl.Rmd`:
+
+`r import_example('purl.Rmd')`
+
+If we call `knitr::purl("purl.Rmd")`, it generates the following R script (with the filename `purl.R` by default):
+
+```{r, class.output='r', comment='', echo=FALSE}
+xfun::raw_string(
+  knitr::purl(text = xfun::read_utf8('examples/purl.Rmd'), quiet = TRUE)
+)
+```
+
+The above R script contains the chunk options in a comment. If you want pure R code, you may call `knitr::purl()` with the argument `documentation = 0`, which will generate the R script below:
+
+```{r, class.output='r', comment='', echo=FALSE}
+xfun::raw_string(
+  knitr::purl(text = xfun::read_utf8('examples/purl.Rmd'), quiet = TRUE, documentation = 0)
+)
+```
+
+If you want to retain all the text, you may use the argument `documentation = 2`, which generates the R script below:
+
+```{r, class.output='r', comment='', echo=FALSE}
+xfun::raw_string(
+  knitr::purl(text = xfun::read_utf8('examples/purl.Rmd'), quiet = TRUE, documentation = 2)
+)
+```
+
+Note that code chunks with the option `purl = FALSE` will be excluded in the R script.
+
+Inline R expresions are ignored by default. If you want to include them in the R script, you need to set the global R option `options(knitr.purl.inline = TRUE)` before calling `knitr::purl()`.
