@@ -396,3 +396,19 @@ labs = setdiff(labs, c("setup", "get-labels"))
 ````
 
 You can also filter code chunks using the arguments of `knitr::all_labels()`. For example, you may use `knitr::all_labels(engine == "Rcpp", echo == FALSE)` to obtain all your code chunks that use the `Rcpp` engine (`engine == "Rcpp"`) and are not displayed in the document (`echo = FALSE`). If you want precise control over which code chunks to display in the appendix, you may use a special chunk option `appendix = TRUE` on certain code chunks, and `ref.label = knitr::all_labels(appendix == TRUE)` to obtain the labels of these code chunks.
+
+## Convert models to equations {#equatiomatic}
+
+The **equatiomatic** package (https://github.com/datalorax/equatiomatic) developed by Daniel Anderson et al. provides a convenient and automatic way to show the equations corresponding to models fitted in R. At the time of writing, this package is still very new on GitHub and its API may change significantly before its possible future CRAN release, so we only show a few brief examples below:
+
+```{r, results='asis'}
+fit <- lm(mpg ~ cyl + disp, mtcars)
+# show the theoretical model
+equatiomatic::extract_eq(fit)
+# display the actual coefficients
+equatiomatic::extract_eq(fit, use_coefs = TRUE)
+```
+
+To display the actual math equations, you need the chunk option `results = "asis"`, otherwise the equations will be displayed as normal text output.
+
+Please read the documentation and follow the development of this package on GitHub if you are interested in knowing more about it.

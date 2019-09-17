@@ -26,9 +26,19 @@ set.seed(0728)
 
 knitr::opts_chunk$set(tidy = TRUE)
 
-lapply(c('webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR'), function(pkg) {
-  if (system.file(package = pkg) == '') install.packages(pkg)
-})
+# packages only available on Github
+remote_pkgs = c(gt = 'rstudio', equatiomatic = 'datalorax')
+
+lapply(c(
+  'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR', 'equatiomatic'
+  ), function(pkg) {
+    if (system.file(package = pkg) != '') return()
+    repo = remote_pkgs[pkg]
+    if (is.na(repo)) install.packages(pkg) else {
+      remotes::install_github(paste(repo, pkg, sep = '/'))
+    }
+  }
+)
 
 import_example <- function(file, lang = xfun::file_ext(file)) {
   x <- xfun::read_utf8(file.path("examples", file))
