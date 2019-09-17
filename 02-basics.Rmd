@@ -90,4 +90,4 @@ xfun::raw_string(
 
 Note that code chunks with the option `purl = FALSE` will be excluded in the R script.
 
-Inline R expresions are ignored by default. If you want to include them in the R script, you need to set the global R option `options(knitr.purl.inline = TRUE)` before calling `knitr::purl()`.
+Inline R expressions are ignored by default. If you want to include them in the R script, you need to set the global R option `options(knitr.purl.inline = TRUE)` before calling `knitr::purl()`.

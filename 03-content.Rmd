@@ -412,3 +412,32 @@ equatiomatic::extract_eq(fit, use_coefs = TRUE)
 To display the actual math equations, you need the chunk option `results = "asis"`, otherwise the equations will be displayed as normal text output.
 
 Please read the documentation and follow the development of this package on GitHub if you are interested in knowing more about it.
+
+## Create an animation from multiple R plots {#animation}
+
+When you generate a series of plots in a code chunk, you can combine them into an animation. It is easy to do so if the output format is HTML---you only need to install the **gifski** package and set the chunk option `animation.hook = "gifski"`. Figure \@ref(fig:pacman) shows a simple "Pac-man" animation created from the code chunk below:
+
+````md
+```{r, animation.hook="gifski"}`r ''`
+for (i in 1:2) {
+  pie(c(i %% 2, 6), col = c('red', 'yellow'), labels = NA)
+}
+```
+````
+
+```{r pacman, animation.hook=if (knitr::is_html_output()) 'gifski', echo=FALSE, fig.cap='A Pac-man animation.', fig.show='hold', out.width=if (knitr::is_latex_output()) '50%'}
+par(mar = rep(0, 4))
+for (i in 1:2) {
+  pie(c(i %% 2, 6), col = c('red', 'yellow'), labels = NA)
+}
+```
+
+The image format of the animation is GIF, which works well for HTML output, but it is not straightforward to support GIF in LaTeX. That is why you only see two static image frames if you are reading the PDF or printed version of this book in Figure \@ref(fig:pacman). If you read the online version of this book, you will see the actual animation.
+
+Animations can work in PDF, but there are two prerequisites. First, you have to load the LaTeX package [**animate**](https://ctan.org/pkg/animate) (see Section \@ref(latex-extra) for how). Second, you can only use Acrobat Reader to view the animation. Then the chunk option `fig.show = "animate"` will use the **animate** package to create the animation. Below is an example:
+
+`r import_example('latex-animation.Rmd')`
+
+The time interval between image frames in the animation can be set by the chunk option `interval`. By default, `interval = 1` (i.e., one second).
+
+The R package **animation** (https://github.com/yihui/animation) contains several animation examples to illustrate methods and ideas in statistical computing. The **gganimate** package (https://github.com/thomasp85/gganimate) allows us to create smooth animations based on **ggplot2**. Both packages work with R Markdown.

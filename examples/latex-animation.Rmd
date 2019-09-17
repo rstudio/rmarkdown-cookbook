@@ -1,0 +1,14 @@
+---
+title: Animations in PDF
+output:
+  pdf_document:
+    extra_dependencies: animate
+---
+
+The animation below can only be viewed in Acrobat Reader.
+
+```{r, fig.show='animate'}
+for (i in 1:2) {
+  pie(c(i %% 2, 6), col = c('red', 'yellow'), labels = NA)
+}
+```
