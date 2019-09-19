@@ -59,7 +59,7 @@ This option can also be a function that returns the format string or `NULL`. In 
 
 ```{r, eval=FALSE}
 options(knitr.table.format = function() {
-  if (knitr::is_latex_output()) 'latex' else NULL
+  if (knitr::is_latex_output()) 'latex' else 'pandoc'
 })
 ```
 
