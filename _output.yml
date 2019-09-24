@@ -1,6 +1,6 @@
 bookdown::gitbook:
   split_by: section
-  css: [css/style.css, css/customBlock.css]
+  css: [css/style.css, css/box.css]
   config:
     toc:
       before: |
@@ -12,7 +12,7 @@ bookdown::gitbook:
       facebook: no
 bookdown::pdf_book:
   includes:
-    in_header: [latex/preamble.tex, latex/customBlock.tex]
+    in_header: [latex/preamble.tex, latex/blackbox.tex, latex/infobox.tex]
     before_body: latex/before_body.tex
     after_body: latex/after_body.tex
   keep_tex: yes

@@ -16,9 +16,7 @@ However, this comes at a cost of customisation, and many of the features which u
 
 It can be helpful for such features to be included within documents. This chapter provides an extended guide to the basics of  the R Markdown language, and highlights how we can customise the appearance and styling within an R Markdown document.
 
-```{block2, type = "rmdnote"}
-If you need a reminder in the basics of the markdown language, the [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) provides a good overview of the basic syntax.
-```
+If you need a reminder in the basics of the Markdown language, the R Markdown cheatsheet at https://www.rstudio.com/resources/cheatsheets/ provides a good overview of the basic syntax.
 
 ## Changing Font Colour
 <!-- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color -->

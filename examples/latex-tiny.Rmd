@@ -1,0 +1,33 @@
+---
+title: Render a table in a tiny environment
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(knitr.table.format = function() {
+  if (knitr::is_latex_output()) 'latex' else 'pandoc'
+})
+```
+
+The LaTeX environment `tiny` is only generated for LaTeX output.
+
+```{r, include=knitr::is_latex_output()}
+knitr::asis_output('\n\n\\begin{tiny}')
+```
+
+```{r}
+knitr::kable(mtcars)
+```
+
+```{r, include=knitr::is_latex_output()}
+knitr::asis_output('\\end{tiny}\n\n')
+```
+
+By comparison, below is the table with the normal font size.
+
+```{r}
+knitr::kable(mtcars)
+```
