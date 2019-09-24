@@ -30,7 +30,8 @@ knitr::opts_chunk$set(tidy = TRUE)
 remote_pkgs = c(gt = 'rstudio', equatiomatic = 'datalorax')
 
 lapply(c(
-  'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR', 'equatiomatic'
+  'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
+  'equatiomatic', 'gifski'
   ), function(pkg) {
     if (system.file(package = pkg) != '') return()
     repo = remote_pkgs[pkg]
