@@ -1,32 +1,33 @@
 # Formatting
 
-One of the strengths of the markdown language is that it's simplicity makes it very easy to read even to newcomers to understand. This is one of its key design principles, and as outlined creator of the markdown language:
+The greatest strength of the Markdown language is that its simplicity makes it very easy to read and write even to newcomers. This is one of its key design principles, and as outlined creator of the original Markdown language:
 
-> A Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions.
+> A Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions.
 >
 > --- [John Gruber](http://daringfireball.net/projects/markdown/syntax#philosophy)
 
-However, this comes at a cost of customisation, and many of the features which users of typical word processors are used to are not directly accessible. This includes:
+However, this comes at a cost of customization. Many features of typical word processors are not directly available in Markdown. These include:
 
-- Changing font size
+- Changing the font size of a piece of text;
 
-- Changing font colour
+- Changing the font color of certain words;
 
-- Editing font alignment
+- Specifying text alignment.
 
-It can be helpful for such features to be included within documents. This chapter provides an extended guide to the basics of  the R Markdown language, and highlights how we can customise the appearance and styling within an R Markdown document.
+We leave it to you to decide whether such features are worth your effort. To some degree, Markdown reflects the philosophy of Stoicism: the "natural world" consists of plain text, and you should not be controlled by the desire for (visual) pleasure. Anyway, this chapter offers some tips on how you can customize the appearance and styling of elements in an R Markdown document.
 
 If you need a reminder in the basics of the Markdown language, the R Markdown cheatsheet at https://www.rstudio.com/resources/cheatsheets/ provides a good overview of the basic syntax.
 
-## Font color
+## Font color {#font-color}
 <!-- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color -->
 
-The markdown syntax has no built-in method for changing text colours. We can use HTML and LaTeX syntax to change the formatting of words:
+The Markdown syntax has no built-in method for changing text colors. We can use HTML and LaTeX syntax to change the formatting of words:
 
 - For HTML, we can wrap the text in the `<font>` tag, e.g., `<font color="red">text</font>`.
+
 - For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the extra LaTeX package **xcolor**.
 
-As an example of changing the colour in PDF text:
+As an example of changing the color in PDF text:
 
 ```text
 ---
@@ -38,9 +39,7 @@ output:
 Roses are \textcolor{red}{red}, violets are \textcolor{blue}{blue}.
 ```
 
-### Multi-output text colour
-
-We should attempt to design our R Markdown documents to allow for multiple outputs. If we embed raw HTML or LaTeX code into our documents, this formatting will be ignored in the other output format. We can write a custom function which will insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output()` functions as follows:
+If you want to design an R Markdown document for multiple output formats, you should not embed raw HTML or LaTeX code in your document, because they will be ignored in the other output formats (e.g., LaTeX code will be ignored in HTML output). We can write a custom function to insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output()` functions in **knitr** as follows:
 
 ```{r}
 colorize = function(x, color){
@@ -52,40 +51,51 @@ colorize = function(x, color){
 }
 ```
 
-We can then use the code as an inline R expression `colorize("red text", "red")` which will create `r colorize("red text", "red")`.
+We can then use the code as an inline R expression `colorize("some words in red", "red")` which will create `r colorize("some words in red", "red")` (you may not see the red color if you are reading this book printed in black and white).
 
-## Comment out content
-
-<!-- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown -->
-
-It is useful to include commented text within the source document which is not displayed within the final outputted document. We can use the HTML syntax `<!-- your comment -->`. This will not be displayed in any output format.
-
-Comments can span either single or multiple lines. This may be useful if you have draft comment.
-<!-- , and it also allows us to comment out code chunks (and prevent them from being run in knitr). -->
-
-## Indenting text
+## Indent text
 
 <!-- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 -->
 <!-- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks -->
 
-Markdown will ignore indentations by default. However, we may want to keep indentation within the text, for example within verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The division into lines will be preserved in the output, as will any leading spaces; otherwise, the lines will be formatted as Markdown. As an example:
+As mentioned in Section \@ref(linebreaks), whitespaces are often meaningless in Markdown. Markdown will also ignore spaces used for indentation by default. However, we may want to keep the indentation in certain cases, e.g., in verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The linebreaks and any leading spaces will be preserved in the output. For example:^[This is a limerick written by Claus Ekstrøm: https://yihui.name/en/2018/06/xaringan-math-limerick/.]
 
-```
-| The limerick packs laughs anatomical
-| In space that is quite economical.
-|    But the good ones I've seen
-|    So seldom are clean
-| And the clean ones so seldom are comical
+```md
+| When dollars appear it's a sign
+|   that your code does not quite align  
+| Ensure that your math  
+|   in xaringan hath  
+|   been placed on a single long line
 ```
 
-The lines can be hard-wrapped if needed, but the continuation line must begin with a space. For example:
+The output is:
 
+> | When dollars appear it's a sign
+|   that your code does not quite align  
+| Ensure that your math  
+|   in xaringan hath  
+|   been placed on a single long line
+
+
+The lines can be hard-wrapped in the Markdown source. If the continuation line begins with a space, the previous linebreak and the leading spaces on this line will be ignored as usual. For example:
+
+```md
+| Hiring Manager
+| School of Ninja,
+  Hacker's University
+| 404 Not Found Road,
+  Undefined 0x1234, NA
 ```
-| The Right Honorable Most Venerable and Righteous Samuel L.
-  Constable, Jr.
-| 200 Main St.
-| Berkeley, CA 94718
-```
+
+The output is:
+
+> | Hiring Manager
+> | School of Ninja,
+>  Hacker's University
+> | 404 Not Found Road,
+>  Undefined 0x1234, NA
+
+You can see that the linebreak after "School of Ninja" was ignored.
 
 ## Verbatim code chunks
 
@@ -133,7 +143,7 @@ The trick works due to two reasons (1) a single line break is often the same as 
 This will show a verbatim inline R expression `r 1+1` in the output.
 ```
 
-You can read more about this behaviour [here](https://yihui.name/en/2017/11/knitr-verbatim-code-chunk/).
+You can read more about this behavior [here](https://yihui.name/en/2017/11/knitr-verbatim-code-chunk/).
 
 ## Multi-column layout
 
@@ -154,13 +164,13 @@ output: html_document
 
 The CSS attribute `display: inline-block;` means the output code blocks (i.e., the `<pre>` tags in HTML) should be displayed as inline elements. By default, these blocks are displayed as block-level elements (i.e., `display: block;`) and will occupy whole rows. The chunk option `collapse = TRUE` means the text output will be merged into the R source code block, so both the source and its text output will be placed in the same `<pre>` block.
 
-If you want to arrange arbitrary content side by side in HTML output, you can use Pandoc's [fenced Div](https://pandoc.org/MANUAL.html#divs-and-spans). The name "Div" comes from the HTML tag `<div>`, but you can interpret it as an arbitrary block or container. A Div starts and ends with three or more colons (e.g., `:::`). A Div with more colons can contain Divs with fewer colons. An important and useful feature of the fenced Div is that you can attach attributes to it. For example, you can apply the CSS attribute `display: flex;` to an outside container, so that the inside containers will be placed side by side:
+If you want to arrange arbitrary content side by side in HTML output, you can use Pandoc's [fenced `Div`](https://pandoc.org/MANUAL.html#divs-and-spans). The name "Div" comes from the HTML tag `<div>`, but you can interpret it as an arbitrary block or container. A `Div` starts and ends with three or more colons (e.g., `:::`). A `Div` with more colons can contain `Div`s with fewer colons. An important and useful feature of the fenced `Div` is that you can attach attributes to it. For example, you can apply the CSS attribute `display: flex;` to an outside container, so that the inside containers will be placed side by side:
 
 `r import_example('multicol-html.Rmd')`
 
-In the above example, the outside Div (`::::`) contains two Divs (`:::`). You can certainly add more Divs inside. To learn more about the very powerful CSS attribute `display: flex;` (CSS Flexbox), you may read the guide at https://css-tricks.com/snippets/css/a-guide-to-flexbox/. The CSS Grid (`display: grid;`) is also very powerful and can be used in the above example, too. If you want to try it, you may change `display: flex;` to `display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;`. See the guide at https://css-tricks.com/snippets/css/complete-guide-grid/ if you want to learn more about the grid layout.
+In the above example, the outside `Div` (`::::`) contains two `Div`s (`:::`). You can certainly add more `Div`s inside. To learn more about the very powerful CSS attribute `display: flex;` (CSS Flexbox), you may read the guide at https://css-tricks.com/snippets/css/a-guide-to-flexbox/. The CSS Grid (`display: grid;`) is also very powerful and can be used in the above example, too. If you want to try it, you may change `display: flex;` to `display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;`. See the guide at https://css-tricks.com/snippets/css/complete-guide-grid/ if you want to learn more about the grid layout.
 
-It is tricker if you want the layout to work for both HTML and LaTeX output. We show a full example below that works for HTML document, LaTeX document, and Beamer presentation output:
+It is trickier if you want the layout to work for both HTML and LaTeX output. We show a full example below that works for HTML document, LaTeX document, and Beamer presentation output:
 
 `r import_example('multicol.Rmd')`
 
@@ -168,7 +178,7 @@ It is tricker if you want the layout to work for both HTML and LaTeX output. We 
 knitr::include_graphics('images/multicol.png', dpi = NA)
 ```
 
-Figure \@ref(fig:multicol) shows the output. In this example, we used an outside Div with the class `.columns` and three inside Divs with the class `.column`. For HTML output, we introduced an external CSS file `columns.css`, in which we applied the Flexbox layout to the outside Div so the inside Divs can be placed side by side:
+Figure \@ref(fig:multicol) shows the output. In this example, we used an outside `Div` with the class `.columns` and three inside `Div`s with the class `.column`. For HTML output, we introduced an external CSS file `columns.css`, in which we applied the Flexbox layout to the outside `Div` so the inside `Div`s can be placed side by side:
 
 `r import_example('columns.css')`
 
@@ -178,4 +188,4 @@ For LaTeX output (`pdf_document`), we have to introduce some dirty hacks stored 
 
 `r import_example('columns.tex')`
 
-The `column` environment is particularly complicated mainly because Pandoc starts a new paragraph for each Div in LaTeX output, and we have to remove these new paragraphs, otherwise the Divs cannot be placed side by side. The hacks were borrowed from https://tex.stackexchange.com/q/179016/9128.
+The `column` environment is particularly complicated mainly because Pandoc starts a new paragraph for each `Div` in LaTeX output, and we have to remove these new paragraphs, otherwise the `Div`s cannot be placed side by side. The hacks were borrowed from https://tex.stackexchange.com/q/179016/9128.

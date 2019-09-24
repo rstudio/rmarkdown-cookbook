@@ -441,3 +441,12 @@ Animations can work in PDF, but there are two prerequisites. First, you have to 
 The time interval between image frames in the animation can be set by the chunk option `interval`. By default, `interval = 1` (i.e., one second).
 
 The R package **animation** (https://github.com/yihui/animation) contains several animation examples to illustrate methods and ideas in statistical computing. The **gganimate** package (https://github.com/thomasp85/gganimate) allows us to create smooth animations based on **ggplot2**. Both packages work with R Markdown.
+
+## Comment out text {#comments}
+
+<!-- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown -->
+
+It is useful to comment out text in the source document, which will not be displayed in the final output document. We can use the HTML syntax `<!-- your comment -->`. The comments will not be displayed in any output format.
+
+Comments can span either a single line or multiple lines. This may be useful for you to write draft content.
+<!-- , and it also allows us to comment out code chunks (and prevent them from being run in knitr). -->

@@ -23,7 +23,7 @@ If a certain output element can only be generated in LaTeX or HTML, you can use 
 
 The key in the above example is the chunk option `include = knitr::is_latex_output()`. That is, the environment `\begin{tiny} \end{tiny}` is only included when the output format is LaTeX. The two tables in the example will look identical when the output format is not LaTeX.
 
-In Section \@ref(animation), we showed an animation example, which actually used this trick. The code chunk that generated the animation for HTML output and static images for LaTeX output is like this:
+In Section \@ref(font-color), we used these functions to change the text color for HTML and LaTeX output. In Section \@ref(animation), we showed an animation example, which also used this trick. The code chunk that generated the animation for HTML output and static images for LaTeX output is like this:
 
 ````md
 ```{r animation.hook=if (knitr::is_html_output()) 'gifski'}`r ''`
