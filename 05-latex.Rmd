@@ -330,7 +330,7 @@ R Markdown is certainly not the best possible document format for authoring or t
 
 The **knitr** package supports a variety of source document formats, including but not limited to R Markdown. Below is an example of intermingling R code with pure LaTeX code:
 
-`r import_example('latex.Rnw')`
+`r import_example('knitr.Rnw')`
 
 The filename usually has the extension `.Rnw`, e.g., the above file is `latex.Rnw`. The idea is the same but the syntax for writing R code chunks and inline R expressions is different. An R code chunk starts with `<<>>=` and ends with `@`. An inline R expression is written in `\Sexpr{}`.
 
