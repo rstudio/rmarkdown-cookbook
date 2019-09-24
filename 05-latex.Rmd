@@ -1,4 +1,4 @@
-# LaTeX
+# LaTeX Output
 
 For many authors, the main output of their work will be the PDF report, in which case they can utilize the powerful styling of LaTeX. In this chapter, we discuss approaches that can be used to customize the output of PDF reports.
 

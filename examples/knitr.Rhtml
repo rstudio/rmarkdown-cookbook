@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A minimal knitr example in HTML</title>
+</head>
+<body>
+<!--begin.rcode
+  knitr::opts_chunk$set(fig.width=5, fig.height=5)
+  end.rcode-->
+
+  <p>This is a minimal example that shows
+  how <strong>knitr</strong> works with pure HTML
+  pages.</p>
+
+  <p>Boring stuff as usual:</p>
+
+<!--begin.rcode
+    # a simple calculator
+    1 + 1
+    # boring random numbers
+    set.seed(123)
+    rnorm(5)
+    end.rcode-->
+
+  <p>We can also produce plots (centered by the
+  option <code>fig.align='center'</code>):</p>
+
+<!--begin.rcode cars-scatter, fig.align='center'
+    plot(mpg ~ hp, data = mtcars)
+    end.rcode-->
+
+  <p>Errors, messages and warnings can be put into
+  <code>div</code>s with different <code>class</code>es:</p>
+
+<!--begin.rcode
+    sqrt(-1)  # warning
+    message('knitr says hello to HTML!')
+    1 + 'a'  # mission impossible
+    end.rcode-->
+
+  <p>Well, everything seems to be working. Let's ask R what is
+  the value of &pi;? Of course it is <!--rinline pi -->.</p>
+
+</body>
+</html>

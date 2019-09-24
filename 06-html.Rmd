@@ -165,3 +165,11 @@ xfun::embed_files(list.files('.', '[.](Rmd|csv)$'))
 For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, which a reader can click on the HTML page to download the embedded file.
 
 You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.name/en/2018/07/embed-file/.
+
+## Hardcore HTML users {#html-hardcore}
+
+In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.
+
+In an `Rhtml` document, code chunks are embedded between `<!--begin.rcode` and `end.rcode-->`, and inline R expressions are embedded in `<!--rinline -->`. Below is a full `Rhtml` example. You can save it to a file named `test.Rhtml`, and use `knitr::knit("test.Rhtml")` to compile it. The output will be an HTML (`.html`) file. In RStudio, you can also hit the `Knit` button on the toolbar to compile the document.
+
+`r import_example('knitr.Rhtml')`
