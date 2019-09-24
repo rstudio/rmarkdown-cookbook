@@ -7,7 +7,7 @@
 - Use `(ref:tag)` to store page formatting options which might need to be reused. For example a page break
 
 
-## Sourcing Files
+## Sourcing files
 
 A benefit of using R Markdown is that it is easy 
 
@@ -31,11 +31,11 @@ source("yourScript.R")
 - Working with non R users
 - Use HTML outputs and interactive graphics
 
-## Altering Citation Style
+## Citation style
 
 - Using short author citations: https://stackoverflow.com/questions/48303890/using-short-author-citations-in-bookdown-rmarkdown?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
-## Automatically Generate Package Citations
+## Generate package citations
 
 <!-- TODO: May add a full example into the repository examples -->
 

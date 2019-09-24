@@ -18,7 +18,7 @@ It can be helpful for such features to be included within documents. This chapte
 
 If you need a reminder in the basics of the Markdown language, the R Markdown cheatsheet at https://www.rstudio.com/resources/cheatsheets/ provides a good overview of the basic syntax.
 
-## Changing Font Colour
+## Font color
 <!-- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color -->
 
 The markdown syntax has no built-in method for changing text colours. We can use HTML and LaTeX syntax to change the formatting of words:

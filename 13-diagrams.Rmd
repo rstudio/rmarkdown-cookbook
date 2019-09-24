@@ -4,7 +4,7 @@ It is often useful to express analysis using flowcharts and diagrams within repo
 
 While there are several different packages available for R, we will focus on the package **DiagrammeR** [@R-DiagrammeR]. We also recommend that you read at http://rich-iannone.github.io/DiagrammeR/index.html . In this chapter we will explain some of the basic usages of the package.
 
-## Basic Diagrams
+## Basic diagrams
 
 **DiagrammeR** provides methods to build graphs for a number of different graphing languages.
 

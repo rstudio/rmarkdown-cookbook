@@ -395,7 +395,7 @@ You can scale the width of the table using the function `kable_styling(latex_opt
 ```
 
 
-## Extension Packages {#tableExtensions}
+## Extension packages {#table-ext}
 
 Although `kable` offers flexible tables within R Markdown documents, you may wish to extend the functionality of tables using other packages. There are several packages which have been developed to create tables in R Markdown:
 

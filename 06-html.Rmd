@@ -2,7 +2,7 @@
 
 How to customise the appearance of HTML outputs.
 
-## Change Chunk Styling {#chunk-styling}
+## Chunk styling {#chunk-styling}
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
@@ -32,7 +32,7 @@ mtcars[, "mpg", drop=FALSE]
 ```
 ````
 
-### Using Custom CSS
+### Custom CSS
 
 If we wish to specify custom styling options, we can include a CSS file by setting a parameter in the YAML header ([reference](http://rmarkdown.rstudio.com/html_document_format.html#custom_css)). You can also include a chunk of CSS code, as is done here. Note that for this example, only `class.source` is set.
 
@@ -55,7 +55,7 @@ The output style is shown in Figure \@ref(fig:bgCustom).
 knitr::include_graphics("images/bgCustom.png", dpi = NA)
 ```
 
-### Setting Default Style for Document
+### Default style for document
 
 If we wish for all code chunks in the document to use our newly created style, we can add the `class.source` to the global knitr options.:
 
@@ -66,7 +66,7 @@ knitr::opts_chunk$set(class.source='chunk-style')
 
 
 
-## Scrollable Code Chunks {#html-scroll}
+## Scrollable code chunks {#html-scroll}
 
 If we are including large amounts of code within our documents, we may want the code chunks to be limited in height with a scroll bar to navigate through the full details. Such a code chunk is highlighted in Figure \@ref(fig:scrollableCode). Here we demonstrate several ways in which this behaviour could be implemented.
 
@@ -74,7 +74,7 @@ If we are including large amounts of code within our documents, we may want the 
 knitr::include_graphics("images/scrollableCode.png", dpi = NA)
 ```
 
-### Overwriting the Default CSS
+### Overwriting the default CSS
 
 The simplist way of adding a scroll bar is to overwrite the global CSS options for the document. This will change the behaviour of all code chunks within the document. This requires us to specify the following CSS, where the user can set the height of the box using the `max-height` option:
 
@@ -91,7 +91,7 @@ pre.r {
 }
 ```
 
-### Specifing Additional CSS
+### Specifing additional CSS
 
 If you would desire more control over when the scroll bar is used, you may prefer to specify another style class which we can used when required. Below, we have created an additional class called 'scroll' which we can include within our R Markdown document:
 
