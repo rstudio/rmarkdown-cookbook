@@ -97,8 +97,8 @@ It should be noted that this guide does not intend to provide a full technical r
 
 - *R Markdown: The Definitive guide* [@xie2018]: provides an overview of the R Markdown package and the wide range of ways it can be used.
 - *Dynamic documents and knitr*: provides more detailed technical guidance on the inner workings of **rmarkdown** and **knitr** [@R-knitr].
-- *Authoring books with bookdown* [@xie2016bookdown]: a short book which provides details on the **bookdown** package [@R-bookdown], which is designed to simplify the creation of long-format documents in R Markdown.
-- *blogdown: Creating Websites with R Markdown* [@xie2017blogdown]: provides details of the **blogdown** package [@R-blogdown] package.
+- *Authoring books with bookdown* [@xie2016]: a short book which provides details on the **bookdown** package [@R-bookdown], which is designed to simplify the creation of long-format documents in R Markdown.
+- *blogdown: Creating Websites with R Markdown* [@xie2017]: provides details of the **blogdown** package [@R-blogdown] package.
 
 Where relevant, this book provides references to these existing resources.
 

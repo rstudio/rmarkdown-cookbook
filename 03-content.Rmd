@@ -6,7 +6,7 @@ In this chapter, we introduce some tips and tricks that can be used to customize
 
 <!-- https://stackoverflow.com/questions/32946203/including-bibliography-in-rmarkdown-document-with-use-of-the-knitcitations -->
 
-For an overview of including bibliographies in your output document, you may see [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of @xie2016bookdown. The basic usage requires us to specify a bibliography file using the `bibliography` metadata field in YAML. For example:
+For an overview of including bibliographies in your output document, you may see [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of @xie2016. The basic usage requires us to specify a bibliography file using the `bibliography` metadata field in YAML. For example:
 
 ```yaml
 ---
