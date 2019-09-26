@@ -1,0 +1,22 @@
+---
+title: Assign custom classes to chunks
+output: html_document
+---
+
+First we define some CSS rules for a class `watch-out`.
+
+```{css, echo=FALSE}
+.watch-out {
+  background-color: lightpink;
+  border: 3px solid red;
+  font-weight: bold;
+}
+```
+
+Then we assign a class `watch-out` to the code chunk via the
+chunk option `class.source`.
+
+```{r class.source="watch-out"}
+mtcars[1:5, "mpg"]
+```
+

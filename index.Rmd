@@ -26,6 +26,16 @@ set.seed(0728)
 
 knitr::opts_chunk$set(tidy = TRUE)
 
+if (knitr::is_html_output()) {
+  # ignore percentage widths for HTML output, unless they are used for mutiple
+  # figures side by side
+  knitr::opts_hooks$set(out.width = function(options) {
+    if (options$fig.show != 'hold' && grepl('%$', options$out.width))
+      options$out.width = NULL
+    options
+  })
+}
+
 # packages only available on Github
 remote_pkgs = c(gt = 'rstudio', equatiomatic = 'datalorax')
 

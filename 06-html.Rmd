@@ -1,124 +1,130 @@
 # HTML Output
 
-How to customise the appearance of HTML outputs.
+Compared to LaTeX, HTML may be a little weak in typesetting for paged output, but it is much more powerful in presenting results, especially when combined with CSS and JavaScript. For example, you can embed interactive applications in HTML, and dynamically modify the appearance and even the content of an HTML page. Some useful yet simple CSS and JavaScript tricks for HTML output are very difficult (and often impossible) to reproduce in LaTeX output. In this chapter, we show examples on how to enhance your HTML output from R Markdown.
 
-## Chunk styling {#chunk-styling}
+## Apply custom CSS {#html-css}
+
+We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. The [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [@xie2017] contains short tutorials on HTML, CSS, and JavaScript.
+
+For beginners, it is extremely important to understand selectors and precedence of rules in CSS, otherwise you may be confused why your custom CSS rules do not work as expected (they may not have enough precedence).
+
+To include one or multiple custom stylesheets in an Rmd document, you can use the `css` option, e.g.,
+
+```yaml
+output:
+  html_document:
+    css: "style.css"
+    # or multiple sheets in an array
+    # css: ["style-1.css", "style-2.css"]
+```
+
+Alternatively, you can use a `css` code chunk to embed the CSS rules directly in your Rmd document, e.g.,
+
+````md
+We embed a `css` code chunk here.
+
+```{css, echo=FALSE}`r ''`
+p {
+  font-size: 32px;
+}
+```
+````
+
+The chunk option `echo = FALSE` means the CSS code will not be displayed verbatim in the output, but a `<style>` tag containing the CSS code will be generated to the HTML output file.
+
+## Style code blocks and text output {#chunk-styling}
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
-We can customize the style of code chunks and outputs using the arguments `class.source` and `class.output`. One way this can be useful is motivated by the original [Stack Overflow question](http://stackoverflow.com/q/41030477/559676) on how we use **knitr** to help us to emphasize "bad" coding practices.
+We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names. For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class. This can be useful when you want to highlight a certain code chunk or its text output.
 
-By default,  R Markdown will include the Bootstrap framework. This can make things very easy for you to signify your code and your output. Bootstrap defines some [CSS classes for backgrounds](http://getbootstrap.com/css/#helper-classes-backgrounds): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.
+By default, the HTML output of R Markdown includes the Bootstrap framework, which makes it easy for you to change the appearance of your code and output, because Bootstrap has predefined some [CSS classes for backgrounds:](https://getbootstrap.com/docs/3.4/css/#helper-classes): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.
 
-For example, we are warned that the normal subsetting of a data frame can be type-unstable. To show this here,  the chunk options are set: `class.source = 'bg-warning', class.output = 'bg-warning'`.
+Below is an example using the chunk options `class.source = "bg-danger"` and `class.output = "bg-warning"`, and you can see its output in Figure \@ref(fig:chunk-bg).
 
-````
-```{r df-drop, class.source='bg-warning', class.output='bg-warning'}`r ''`
-mtcars[, "mpg"]
-```
-````
+`r import_example('chunk-style.Rmd')`
 
-In our output document, this will create the code chunk as shown in Figure \@ref(fig:bgWarning).
-
-```{r bgWarning, echo = FALSE, fig.cap = "Output of customised code chunk"}
-knitr::include_graphics("images/bgWarning.png", dpi = NA)
+```{r chunk-bg, echo=FALSE, fig.cap="A code chunk and its text output with background colors defined by Bootstrap."}
+knitr::include_graphics("images/chunk-bg.png", dpi = NA)
 ```
 
-To make sure that we return a data frame, we set the argument `drop = FALSE`. Here the chunk options are set: `class.source = 'bg-success', class.output = 'bg-success'`.
+You can also use arbitrary class names and define CSS rules accordingly. In this case, you will have to include your custom CSS rules using the methods mentioned in Section \@ref(html-css).
+Below is an example:
 
-````
-```{r df-drop-ok, class.source='bg-success', class.output='bg-success'}`r ''`
-mtcars[, "mpg", drop=FALSE]
-```
-````
+`r import_example('chunk-custom.Rmd')`
 
-### Custom CSS
+The output style is shown in Figure \@ref(fig:chunk-border).
 
-If we wish to specify custom styling options, we can include a CSS file by setting a parameter in the YAML header ([reference](http://rmarkdown.rstudio.com/html_document_format.html#custom_css)). You can also include a chunk of CSS code, as is done here. Note that for this example, only `class.source` is set.
-
-````
-```{css echo=FALSE}`r ''`
-.chunk-style{
-  background-color: #F5B7B1;
-  border: 1px solid #797D7F;
-  border-radius: 1px;}
+```{r chunk-border, echo=FALSE, fig.cap="A code chunk with a light pink background color and a thick red border."}
+knitr::include_graphics("images/chunk-border.png", dpi = NA)
 ```
 
-```{r df-drop-2, class.source='chunk-style'}`r ''`
-mtcars[, "mpg"] 
-``` 
-````
+If you want all code chunks in the document to use the custom style, you can set `class.source` in the global **knitr** options, e.g.,
 
-The output style is shown in Figure \@ref(fig:bgCustom).
-
-```{r bgCustom, echo = FALSE, fig.cap = "Custom Background styling as defined by CSS"}
-knitr::include_graphics("images/bgCustom.png", dpi = NA)
+```{r, eval=FALSE}
+knitr::opts_chunk$set(class.source='watch-out')
 ```
 
-### Default style for document
+## Scrollable code blocks {#html-scroll}
 
-If we wish for all code chunks in the document to use our newly created style, we can add the `class.source` to the global knitr options.:
+When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights, otherwise the page may look overwhelmingly lengthy, which will make it difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format, which will fold code blocks in the output and readers can unfold them by clicking a button.
 
-```{r, echo = TRUE, eval = FALSE}
-knitr::opts_chunk$set(class.source='chunk-style')
+```yaml
+output:
+  html_document:
+    code_fold: hide
 ```
 
+The other possible solution is to make the code blocks scrollable within a fixed height when they are too long. This can be achieved by the CSS properties `max-height` and `overflow-y`. Below is a full example with the output in Figure \@ref(fig:html-scroll):
 
+`r import_example('html-scroll.Rmd')`
 
-
-## Scrollable code chunks {#html-scroll}
-
-If we are including large amounts of code within our documents, we may want the code chunks to be limited in height with a scroll bar to navigate through the full details. Such a code chunk is highlighted in Figure \@ref(fig:scrollableCode). Here we demonstrate several ways in which this behaviour could be implemented.
-
-```{r scrollableCode, echo = FALSE, fig.cap = "A Scrollable Code chunk using custom CSS"}
-knitr::include_graphics("images/scrollableCode.png", dpi = NA)
+```{r html-scroll, echo=FALSE, fig.cap="Scrollable code blocks using custom CSS."}
+knitr::include_graphics("images/html-scroll.png", dpi = NA)
 ```
 
-### Overwriting the default CSS
+In the above example, we defined a global maximum height of 300px for all code blocks. Remember that code blocks are placed in `<pre>` tags in the HTML output. Then we limited the height of `<pre>` blocks with `class` attributes to 100px. That is what the CSS selector `pre[class]` means. By default, text output will be contained in `<pre> </pre>`, and R code blocks are contained in `<pre class="r"> </pre>` (note that the `<pre>` tag has a `class` attribute here).
 
-The simplist way of adding a scroll bar is to overwrite the global CSS options for the document. This will change the behaviour of all code chunks within the document. This requires us to specify the following CSS, where the user can set the height of the box using the `max-height` option:
+The height of the text output from the second R code chunk is also 100px. That is because we assigned a custom class name `scroll-100` to the output, and defined the maximum height to be 100px.
 
-```{css, eval = FALSE}
-pre {
-  max-height: 300px;
-  float: left;
-  width: 910px;
-  overflow-y: auto;
-}
+If you want to specify different maximum heights for individual code blocks, you may see the example in Section \@ref(hooks-scroll).
 
-pre.r {
-  max-height: none;
-}
-```
-
-### Specifing additional CSS
-
-If you would desire more control over when the scroll bar is used, you may prefer to specify another style class which we can used when required. Below, we have created an additional class called 'scroll' which we can include within our R Markdown document:
-
-```{css, eval = FALSE}
-.scroll {
-  max-height: 300px;
-  float: left;
-  width: 910px;
-  overflow-y: auto;
-}
-```
-
-To use this class, we can specify the 'class.output' option within the code chunk header:
-
-````
-```{r, class.output = "scroll"}`r ''`
-print(cars)
-```
-````
-
-### User-specified chunk height
-
-This example is extended further within Section \@ref(hooks-scroll), which uses chunk hooks to allow for user-specified heights.
-
-## Tabbed headings
+## Put content in tabs {#html-tabs}
 
 <!--https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings-->
+
+One natural way of organizing parallel sections in an HTML report is to use tabsets. This allows readers to view the content of different sections by clicking the tab titles instead of scrolling back and forth on the page.
+
+To turn sections into tabs, you can add a class attribute `.tabset` to the upper-level section header. Below is a full example:
+
+`r import_example('html-tabs.Rmd')`
+
+The output is shown in Figure \@ref(fig:html-tabs). Note that you can only see one tab at a time in reality. In this figure, we actually concatenated two screenshots for you to see both tabs.
+
+```{r html-tabs, echo=FALSE, fig.cap="Turn sections into tabs."}
+knitr::include_graphics("images/html-tabs.png", dpi = NA)
+```
+
+You can add another attribute `.tabset-pills` to the upper-level section header to add a "pill" effect to the tab, and the tab will have a dark blue background.
+
+```md
+## Results {.tabset .tabset-pills}
+```
+
+To end the tabset, you need to start a new section header of the upper level. The new section header can be empty, e.g.,
+
+```md
+## Results {.tabset}
+
+### Tab One
+
+### Tab Two
+
+## {-}
+
+With the above unnumbered (`{-}`) and empty section header,
+we can end the tabset and continue to write more paragraphs.
+```
 
 ## Embed the Rmd source file in the HTML output file {#embed-rmd}
 
@@ -166,7 +172,7 @@ For multiple files, they are first compressed to a zip file, and the zip file wi
 
 You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.name/en/2018/07/embed-file/.
 
-## Hardcore HTML users {#html-hardcore}
+## For hardcore HTML users {#html-hardcore}
 
 In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.
 

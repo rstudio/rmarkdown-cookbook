@@ -1,0 +1,21 @@
+---
+title: Change the chunk style
+output: html_document
+---
+
+When you subset a data frame, it does not necessarily return
+a data frame. For example, if you subset two columns, you get
+a data frame, but when you try to subset one column, you get
+a vector:
+
+```{r class.source="bg-danger", class.output="bg-warning"}
+mtcars[1:5, "mpg"]
+```
+
+To make sure that we always get a data frame, we have to use
+the argument `drop = FALSE`. Now we use the chunk option
+`class.source = "bg-success"`.
+
+```{r df-drop-ok, class.source="bg-success"}
+mtcars[1:5, "mpg", drop = FALSE]
+```
