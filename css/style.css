@@ -21,9 +21,13 @@
   background-image: url("../images/warning.png");
 }
 
+.figure {
+  text-align: center;
+}
 p.caption {
   color: #777;
   margin-top: 10px;
+  text-align: left;
 }
 p code {
   white-space: inherit;
