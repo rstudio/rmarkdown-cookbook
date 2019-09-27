@@ -2,21 +2,51 @@
 
 As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** is one of the two major components of R Markdown (the other being Pandoc). In this chapter, we show some recipes related to **knitr**.
 
-## Using knitr options
+## Chunk options {#chunk-options}
 
-There are more than 40 different chunk options which can be used to fine-tune the behaviour of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of @xie2018 provides a subset of these, while the full list is available at <https://yihui.name/knitr/options/>.
+There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of the R Markdown Definitive Guide [@xie2018] provides a subset of these options, while the full list is available at <https://yihui.name/knitr/options/>.
 
-This section aims to highlight some useful **knitr** chunk options that may not be widely known. In the following recipes, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
+In the following sections, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
 
 ````md
 ```{r, include=FALSE}`r ''`
-knitr::opts_chunk$set(comment = "", echo = FALSE)
+knitr::opts_chunk$set(
+  comment = "#>", echo = FALSE, fig.width = 6
+)
 ```
 ````
 
-### Hide code and all outputs
+## Hide code, text output, messages, or plots {#hide-one}
 
-We often wish to setup our R Markdown documents by loading a series of packages. Instead of using separate commands to R source code (`echo=FALSE`), hide text output (`results='hide'`), hide warnings (`warnings=FALSE`), hide messages (`messages=FALSE`), and so on, we can suppress the output of the entire code chunk using the single option `include=FALSE` as shown below:
+By default, **knitr** displays all possible output from a code chunk, including the source code, text output, messages, warnings, and plots. You can hide them individually using the corresponding chunk options.
+
+`r import_example('knitr-hide.Rmd')`
+
+One frequently asked question about **knitr** is how to hide package loading messages. For example, when you `library(tidyverse)` or `library(ggplot2)`, you may see some loading messages. Such messages can also be suppressed by the chunk option `message = FALSE`.
+
+You can also selectively show or hide these elements by indexing them. In the following example, we only show the fourth and fifth expressions of the R source code (note that a comment counts as one expression), the first two messages, and the second and third warnings:
+
+````md
+```{r, echo=c(4, 5), message=c(1, 2), warning=2:3}`r ''`
+# one way to generate random N(0, 1) numbers
+x <- qnorm(runif(10))
+# but we can just use rnorm() in practice
+x <- rnorm(10)
+x
+
+for (i in 1:5) message('Here is the message ', i)
+
+for (i in 1:5) warning('Here is the warning ', i)
+```
+````
+
+You can use negative indices, too. For example, `echo = -2` means to exclude the second expression of the source code in the output.
+
+Similarly, you can choose which plots to show or hide by using indices for the `fig.keep` option. For example, `fig.keep = 1:2` means to keep the first two plots. There are a few shortcuts for this option: `fig.keep = "first"` will only keep the first plot, `fig.keep = "last"` only keeps the last plot, and `fig.keep = "none"` discards all plots. Note that the two options `fig.keep = "none"` and `fig.show = "hide"` are different: the latter will generate plots but only hide them, and the former will not generate plot files at all.
+
+## Hide everything from a chunk {#hide-all}
+
+Sometimes we may want to execute a code chunk without showing any output at all. Instead of using separate options mentioned in Section \@ref(hide-one), we can suppress the entire output of the code chunk using a single option `include = FALSE`, e.g.,
 
 ````md
 ```{r, include=FALSE}`r ''`
@@ -24,13 +54,13 @@ We often wish to setup our R Markdown documents by loading a series of packages.
 ```
 ````
 
-With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), but the output will be completely suppressed.
+With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), but the output will be completely suppressed---you will not see any code, text output, messages, or plots.
 
-### Remove leading hashes in text output
+## Remove leading hashes in text output {#opts-comment}
 
 <!-- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr -->
 
-By default, R code output will have two hashes `#` inserted in front of the text output. We can alter this behaviour by using the `comment` chunk option, which defaults to a character string of two hashes `"##"`. We can use an empty string if we want to remove the hashes. For example:
+By default, R code output will have two hashes `##` inserted in front of the text output. We can alter this behavior through the `comment` chunk option, which defaults to a character string `"##"`. We can use an empty string if we want to remove the hashes. For example:
 
 ````md
 ```{r, comment=""}`r ''`
@@ -38,7 +68,39 @@ By default, R code output will have two hashes `#` inserted in front of the text
 ```
 ````
 
-## Exit knitting early
+Of course, you can use any other character values, e.g., `comment = "#>"`. Why does the `comment` option default to hashes? That is because `#` indicates comments in R. When the text output is commented out, it will be easier for you to copy all the code from a code chunk in a report and run it by yourself, without worrying about the fact that text output is not R code. For example, in the code chunk below, you can copy all four lines of text and run them safely as R code:
+
+```{r, comment-hash, collapse=TRUE}
+1 + 1
+2 + 2
+```
+
+If you remove the hashes via `comment = ""`, it will not be easy for you to run all the code, because if you copy the four lines, you will have to manually remove the second and fourth line:
+
+```{r, comment-hash, comment="", collapse=TRUE}
+```
+
+One argument in favor of `comment = ""` is that it makes the text output look familiar to R console users. In the R console, you do not see hashes in the beginning of lines of text output. If you want to truly mimic the behavior of the R console, you can actually use `comment = ""` in conjunction with `prompt = TRUE`, e.g.,
+
+````md
+```{r, comment="", prompt=TRUE}`r ''`
+1 + 1
+if (TRUE) {
+  2 + 2
+}
+```
+````
+
+The output should look fairly familiar to you if you have ever typed and run code in the R console, since the source code contains the prompt character `>` and the continuation character `+`:
+
+```{r, comment="", prompt=TRUE, collapse=TRUE}
+1 + 1
+if (TRUE) {
+  2 + 2
+}
+```
+
+## Exit knitting early {#knit-exit}
 
 Sometimes we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom that is not yet complete. In these situations, we could consider using the `knit_exit()` function, which will end the knitting process at that location.
 
@@ -59,7 +121,7 @@ Sys.sleep(100)
 
 Normally you have to wait for 100 seconds, but since we have called `knit_exit()`, the rest of the document will be ignored.
 
-## Generate a plot and display it elsewhere
+## Generate a plot and display it elsewhere {#fig-chunk}
 
 Normally plots generated in a code chunk are displayed beneath the code chunk, but you can choose to show them elsewhere and (optionally) hide them in the code chunk. Below is an example:
 
@@ -77,7 +139,7 @@ After another paragraph, we introduce the plot:
 
 In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot temporarily. Then in another paragraph, we called the function `knitr::fig_chunk()` to retrieve the path of the plot file, which is usually like `test_files/figure-html/cars-plot-1.png`. You need to pass the chunk label and the graphical device name to `fig_chunk()` for it to calculate the plot file path. You may see https://stackoverflow.com/a/46305297/559676 for an application of `fig_chunk()` to **blogdown** websites.
 
-## Allow duplicate labels in code chunks
+## Allow duplicate labels in code chunks {#duplicate-label}
 
 <!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
 
