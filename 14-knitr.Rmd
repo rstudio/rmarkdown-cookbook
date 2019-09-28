@@ -102,7 +102,7 @@ if (TRUE) {
 
 ## Exit knitting early {#knit-exit}
 
-Sometimes we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom that is not yet complete. In these situations, we could consider using the `knit_exit()` function, which will end the knitting process at that location.
+Sometimes we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom that is not yet complete. In these situations, we could consider using the `knit_exit()` function in a code chunk, which will end the knitting process after that chunk.
 
 Below is a simple example, where we have a very simple chunk followed by a more time-consuming one:
 
@@ -112,7 +112,7 @@ Below is a simple example, where we have a very simple chunk followed by a more 
 knitr::knit_exit()
 ```
 
-Okay, you will not see me in the output.
+You will only see the above content in the output.
 
 ```{r}`r ''`
 Sys.sleep(100)
@@ -154,20 +154,20 @@ Calls: <Anonymous> ... process_file -> split_file -> lapply ->
 Execution halted
 ```
 
-However, there are scenarios where we may wish to allow duplicate labels. For example, if we have one master document `parent.Rmd` in which we knit the child document multiple times, it will fail:
+However, there are scenarios where we may wish to allow duplicate labels. For example, if we have one parent document `parent.Rmd` in which we knit the child document multiple times, it will fail:
 
 ```{r, eval = FALSE}
 # settings
 settings = list(...)
 
 # run once
-knit_child('useful_analysis.rmd')
+knit_child('useful_analysis.Rmd')
 
 # new settings
 settings = list(...)
 
 # run again
-knit_child('useful_analysis.rmd')
+knit_child('useful_analysis.Rmd')
 ```
 
 In this scenario, we can allow duplicate labels by setting this global option in R before the child document is knitted:
