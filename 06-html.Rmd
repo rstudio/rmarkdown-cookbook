@@ -32,6 +32,36 @@ p {
 
 The chunk option `echo = FALSE` means the CSS code will not be displayed verbatim in the output, but a `<style>` tag containing the CSS code will be generated to the HTML output file.
 
+## Use a custom HTML template {#html-template}
+
+We mentioned LaTeX templates in Section \@ref(latex-template). You can also specify a custom HTML template for Pandoc to convert Markdown to HTML. Below is a brief example template:
+
+```html
+<html>
+  <head>
+    <title>$title$</title>
+    $for(css)$
+    <link rel="stylesheet" href="$css$" type="text/css" />
+    $endfor$
+  </head>
+  <body>
+  $body$
+  </body>
+</html>
+```
+
+You can see that the template contains a few variables such as `$title$` and `$body$`. You can find the full list of Pandoc variables and their meanings at https://pandoc.org/MANUAL.html#templates.
+
+The template gives you the ultimate power to customize the HTML output. For example, you can include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. To apply a template to an Rmd document, you can save the template to a file, and pass the file path to the `template` option of `html_document`, e.g.,
+
+```yaml
+output:
+  html_output:
+    template: my-template.html
+```
+
+The **rmarkdown** package uses a custom HTML template shipped with the package, which is different from Pandoc's default template. To use the latter, you can specify `template: null`.
+
 ## Style code blocks and text output {#chunk-styling}
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->

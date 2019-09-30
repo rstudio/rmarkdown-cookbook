@@ -132,6 +132,8 @@ output:
 
 If you want to use Pandoc's own LaTeX template, set `template: null`. The default LaTeX template in the **rmarkdown** package is a customized version of Pandoc's LaTeX template.
 
+For the full list of Pandoc variables and their meanings, see Pandoc's manual at https://pandoc.org/MANUAL.html#templates.
+
 ## Control the placement of figures {#figure-placement}
 
 <!-- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 -->
