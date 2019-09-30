@@ -111,7 +111,7 @@ There is an extensive community for LaTeX, and there are over 4,000 packages ava
 
 ## Use a custom Pandoc LaTeX template {#latex-template}
 
-Pandoc converts Markdown to LaTeX through a template. The template is a LaTeX file containing Pandoc variables, and Pandoc will replace these variables with their values. Below is a simple template taht only contains a single variable `$body$`:
+Pandoc converts Markdown to LaTeX through a template. The template is a LaTeX file containing Pandoc variables, and Pandoc will replace these variables with their values. Below is a simple template that only contains a single variable `$body$`:
 
 ```tex
 \documentclass{article}
@@ -260,7 +260,7 @@ For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on t
 - `\thechapter`: the number of the current chapter.
 - `\thesection`: the number of the current section.
 - `\chaptername`: the the word "Chapter" in English, or its equivalent in the current language, or the text that the author specified by redefining this command.
-- `\leftmark`: thes name and number of the current top-level structure in uppercase letters.
+- `\leftmark`: the name and number of the current top-level structure in uppercase letters.
 - `\rightmark`: the name and number of the current next to top-level structure in uppercase letters.
 
 Below is some example LaTeX code that you can add to the preamble using the methods introduced in Section \@ref(latex-preamble):
