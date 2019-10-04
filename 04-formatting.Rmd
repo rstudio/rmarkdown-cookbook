@@ -23,7 +23,7 @@ If you need a reminder in the basics of the Markdown language, the R Markdown ch
 
 The Markdown syntax has no built-in method for changing text colors. We can use HTML and LaTeX syntax to change the formatting of words:
 
-- For HTML, we can wrap the text in the `<font>` tag, e.g., `<font color="red">text</font>`.
+- For HTML, we can wrap the text in the `<span>` tag and set color with CSS, e.g., `<span style="color: red;">text</span>`.
 
 - For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the extra LaTeX package **xcolor**.
 
@@ -46,7 +46,7 @@ colorize = function(x, color){
   if (knitr::is_latex_output()) {
     sprintf("\\textcolor{%s}{%s}", color, x)
   } else if (knitr::is_html_output()) {
-    sprintf("<font color='%s'>%s</font>", color, x)
+    sprintf("<span style='color: %s;'>%s</span>", color, x)
   } else x
 }
 ```
