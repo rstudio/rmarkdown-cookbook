@@ -1,4 +1,4 @@
-# Knitr Hooks
+# Output Hooks {#output-hooks}
 
 Hooks offer a useful tool for extending the functionality of **knitr**. 
 

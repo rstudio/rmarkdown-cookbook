@@ -1,4 +1,4 @@
-# Multiple output formats {#multi-formats}
+# Multiple Output Formats {#multi-formats}
 
 One main benefit of R Markdown is that it can create multiple output formats from a single source format, which could be one or multiple Rmd documents. For example, this book was written in R Markdown and compiled to three formats: PDF, ePub, and HTML.
 

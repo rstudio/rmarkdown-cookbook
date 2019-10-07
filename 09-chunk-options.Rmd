@@ -1,8 +1,6 @@
-# Knitr
+# Chunk Options {#chunk-options}
 
 As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** is one of the two major components of R Markdown (the other being Pandoc). In this chapter, we show some recipes related to **knitr**.
-
-## Chunk options {#chunk-options}
 
 There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of the R Markdown Definitive Guide [@xie2018] provides a subset of these options, while the full list is available at <https://yihui.name/knitr/options/>.
 
@@ -100,80 +98,5 @@ if (TRUE) {
 }
 ```
 
-## Exit knitting early {#knit-exit}
 
-Sometimes we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom that is not yet complete. In these situations, we could consider using the `knit_exit()` function in a code chunk, which will end the knitting process after that chunk.
-
-Below is a simple example, where we have a very simple chunk followed by a more time-consuming one:
-
-````md
-```{r}`r ''`
-1 + 1
-knitr::knit_exit()
-```
-
-You will only see the above content in the output.
-
-```{r}`r ''`
-Sys.sleep(100)
-```
-````
-
-Normally you have to wait for 100 seconds, but since we have called `knit_exit()`, the rest of the document will be ignored.
-
-## Generate a plot and display it elsewhere {#fig-chunk}
-
-Normally plots generated in a code chunk are displayed beneath the code chunk, but you can choose to show them elsewhere and (optionally) hide them in the code chunk. Below is an example:
-
-````md
-We generate a plot in this code chunk but do not show it:
-
-```{r cars-plot, dev='png', fig.show='hide'}`r ''`
-plot(cars)
-```
-
-After another paragraph, we introduce the plot:
-
-![A nice plot.](`r knitr::inline_expr("knitr::fig_chunk('cars-plot', 'png')")`)
-````
-
-In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot temporarily. Then in another paragraph, we called the function `knitr::fig_chunk()` to retrieve the path of the plot file, which is usually like `test_files/figure-html/cars-plot-1.png`. You need to pass the chunk label and the graphical device name to `fig_chunk()` for it to calculate the plot file path. You may see https://stackoverflow.com/a/46305297/559676 for an application of `fig_chunk()` to **blogdown** websites.
-
-## Allow duplicate labels in code chunks {#duplicate-label}
-
-<!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
-
-By default, **knitr** does not allow duplicate code chunk labels in the document. Duplicate labels will result in an error when the document is knitted. This occurs most frequently when a code chunk is copied and pasted within a document. You may have seen an error message like this:
-
-```text
-processing file: myfile.Rmd
-Error in parse_block(g[-1], g[1], params.src) :
-  duplicate label 'cars'
-Calls: <Anonymous> ... process_file -> split_file -> lapply ->
-  FUN -> parse_block
-Execution halted
-```
-
-However, there are scenarios where we may wish to allow duplicate labels. For example, if we have one parent document `parent.Rmd` in which we knit the child document multiple times, it will fail:
-
-```{r, eval = FALSE}
-# settings
-settings = list(...)
-
-# run once
-knit_child('useful_analysis.Rmd')
-
-# new settings
-settings = list(...)
-
-# run again
-knit_child('useful_analysis.Rmd')
-```
-
-In this scenario, we can allow duplicate labels by setting this global option in R before the child document is knitted:
-
-```{r, eval = FALSE}
-options(knitr.duplicate.label = 'allow')
-```
-
-You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross-references. For example, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without an error or warning message), because the filenames of plots are determined by the chunk labels.
+## Option hooks
