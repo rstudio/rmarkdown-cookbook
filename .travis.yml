@@ -6,6 +6,7 @@ addons:
   apt:
     packages:
     - cargo
+    - libpoppler-cpp-dev
 
 script:
   - make gitbook
