@@ -1,6 +1,6 @@
 # Chunk Options {#chunk-options}
 
-As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** is one of the two major components of R Markdown (the other being Pandoc). In this chapter, we show some recipes related to **knitr**.
+As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** is one of the two major components of R Markdown (the other being Pandoc). In this chapter and the next three chapters, we show some recipes related to **knitr**.
 
 There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of the R Markdown Definitive Guide [@xie2018] provides a subset of these options, while the full list is available at <https://yihui.name/knitr/options/>.
 
@@ -98,5 +98,132 @@ if (TRUE) {
 }
 ```
 
+## Post-process plots {#fig-process}
+
+After a plot is generated from a code chunk, you can post-process the plot file via the chunk option `fig.process`, which should be a function that takes the file path as the input argument and returns a path to the processed plot file. This function can have an optional second argument `options`, which is a list of the current chunk options.
+
+Below we show an example of adding an R logo to a plot using the extremely powerful **magick** package [@R-magick]. If you are not familiar with this package, we recommend that you read its online documentation or package vignette, which contains lots of examples. First, we define a function `add_logo()`:
+
+```{r}
+add_logo = function(path, options) {
+  # the plot created from the code chunk
+  img = magick::image_read(path)
+  # the R logo
+  logo = file.path(R.home("doc"), "html", "logo.jpg")
+  logo = magick::image_read(logo)
+  # the default gravity is northwest, and users can change it via the chunk
+  # option magick.gravity
+  if (is.null(g <- options$magick.gravity)) g = 'northwest'
+  # add the logo to the plot
+  img = magick::image_composite(img, logo, gravity = g)
+  # write out the new image 
+  magick::image_write(img, path)
+  path
+}
+```
+
+Basically the function takes the path of an R plot, adds an R logo to it, and saves the new plot to the original path. By default, the logo is added to the upper-left corner (northwest) of the plot, but users can customize the location via the custom chunk option `magick.gravity` (this option name can be arbitrary).
+
+Now we apply the above processing function to the code chunk below with chunk options `fig.process = add_logo` and `magick.gravity = "northeast"`, so the logo is added to the upper-right corner. See Figure \@ref(fig:magick-logo) for the actual output.
+
+```{r, magick-logo, dev='png', fig.retina=1, fig.process=add_logo, magick.gravity = 'northeast', fig.cap='Add the R logo to a plot via the chunk option fig.process.'}
+par(mar = c(4, 4, .1, .1))
+hist(faithful$eruptions, breaks = 30, main = '', col = 'gray', border = 'white')
+```
+
+After you get more familiar with the **magick** package, you may come up with more creative and useful ideas to post-process your R plots.
+
+Last we show one more application of the `fig.process` option. The `pdf2png()` function below convert a PDF image to PNG. In Section \@ref(graphical-device), we have an example of using the `tikz` graphical device to generate plots. The problem is that this device generates PDF plots, which will not work for non-LaTeX output documents. With the chunk options `dev = "tikz"` and `fig.process = pdf2png`, we can show the PNG version of the plot in Figure \@ref(fig:dev-tikz).
+
+```{r}
+pdf2png = function(path) {
+  # only do the conversion for non-LaTeX output
+  if (knitr::is_latex_output()) return(path)
+  path2 = xfun::with_ext(path, "png")
+  img = magick::image_read_pdf(path)
+  magick::image_write(img, path2, format = "png")
+  path2
+}
+```
+
+## High-quality graphics {#graphical-device}
+
+The **rmarkdown** package has set reasonable default graphical devices for different output formats. For example, HTML output formats use the `png()` device, so **knitr** will generate PNG plot files, and PDF output formats use the `pdf()` device, etc. If you are not satisfied by the quality of the default graphical devices, you can change them via the chunk option `dev`. All possible devices supported by **knitr** are: `r knitr::combine_words(names(knitr:::auto_exts), before = '\x60"', after = '"\x60')`.
+
+Usually a graphical device name is also a function name. If you want to know more about a device, you can read the R help page. For example, you can type `?svg` in the R console to know the details about the `svg` device, which is included in base R. Note that the `quartz_*` devices are based on the `quartz()` function, and they are only available on macOS. The `CairoXXX` devices are from the add-on R package **Cairo**, the `Cairo_xxx` devices are from the **cairoDevice** package, the `svglite` device is from the **svglite** package, and `tikz` is a device in the **tikzDevice** package. If you want to use devices from an add-on package, you have to install the package first.
+
+Usually vector graphics have higher quality than raster graphics, and you can scale vector graphics without loss of quality. For HTML output, you may consider using `dev = "svg"` or `dev = "svglite"` for SVG plots. Note that SVG is a vector graphics format, and the default `png` device produces a raster graphics format.
+
+For PDF output, if you are really picky about the typeface in your plots, you may use `dev = "tikz"`, because it offers native support for LaTeX, which means all elements in a plot, including text and symbols, are rendered in high quality through LaTeX. Figure \@ref(fig:dev-tikz) shows an example of writing LaTeX math expressions in an R plot rendered with the chunk option `dev = "tikz"`.
+
+```{r, dev-tikz, dev='tikz', tidy=FALSE, fig.cap='A plot rendered via the tikz device.', fig.dim=c(6, 4), fig.align='center', fig.process=pdf2png, cache=TRUE}
+par(mar = c(4, 4, 2, .1))
+curve(dnorm, -3, 3, xlab = '$x$', ylab = '$\\phi(x)$',
+      main = 'The density function of $N(0, 1)$')
+text(-1, .2, cex = 3, col = 'blue',
+  '$\\phi(x)=\\frac{1}{\\sqrt{2\\pi}}e^{\\frac{-x^2}{2}}$')
+```
+
+Note that base R actually supports math expressions, but they are not rendered via LaTeX (see `?plotmath` for details). There are several advanced options to tune the typesetting details of the `tikz` device. You may see `?tikzDevice::tikz` for the possibilities. For example, if your plot contains multibyte characters, you may want to set the option:
+
+```{r, eval=FALSE}
+options(tikzDefaultEngine = 'xetex')
+```
+
+That is because `xetex` is usually better than the default engine `pdftex` in processing multibyte characters in LaTeX documents.
+
+There are two major disadvantages of the `tikz` device. First, it requires a LaTeX installation, but this may not be too bad (see Section \@ref(install-latex)). Second, it is often significantly slower to render the plots, because this device generates a LaTeX file and has to compile it to PDF. If you feel the code chunk is time-consuming, you may enable caching by the chunk option `cache = TRUE`.
+
+For Figure \@ref(fig:dev-tikz), we also used the chunk option `fig.process = pdf2png`, where the function `pdf2png` is defined in Section \@ref(fig-process) to convert the PDF plot to PNG when the output format is not LaTeX. Without the conversion, you may not be able to view the PDF plot in the online version of this book in the web browser.
 
 ## Option hooks
+
+Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options, and you may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
+
+```{r, eval=FALSE}
+knitr::opts_hooks$set(fig.width = function(options) {
+  if (options$fig.width < options$fig.height) {
+    options$fig.width = options$fig.height
+  }
+  options
+})
+```
+
+Because `fig.width` will never be `NULL`, this hook function is always executed before a code chunk to update its chunk options. For the code chunk below, the actual value of `fig.width` will be 6 instead of the initial 5 if the above option hook has been set up:
+
+````md
+```{r fig.width = 5, fig.height = 6}`r ''`
+plot(1:10)
+```
+````
+
+As another example, we rewrite the last example in Section \@ref(opts-comment) so we can use a single chunk option `console = TRUE` to imply `comment = ""` and `prompt = TRUE`. Note that `console` is not a built-in **knitr** chunk option but a custom and arbitrary option name instead. Its default value will be `NULL`. Below is a full example:
+
+````md
+```{r, include=FALSE}`r ''`
+knitr::opts_hooks$set(console = function(options) {
+  if (isTRUE(options$console)) {
+    options$comment <- ''; options$prompt <- TRUE
+  }
+  options
+})
+```
+
+Default output:
+
+```{r}`r ''`
+1 + 1
+if (TRUE) {
+  2 + 2
+}
+```
+
+Output with `console = TRUE`:
+
+```{r, console=TRUE}`r ''`
+1 + 1
+if (TRUE) {
+  2 + 2
+}
+```
+````

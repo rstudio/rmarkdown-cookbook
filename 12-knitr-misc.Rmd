@@ -1,5 +1,84 @@
 # Miscellaneous knitr Tricks {#knitr-misc}
 
+Besides chunk options, output hooks, and chunk hooks, there are other useful functions and tricks in **knitr**, which we will introduce in this chapter.
+
+## Use an object before it is created {#load-cache}
+
+All code in a **knitr** document, including the code in code chunks and inline R expressions, is executed in the linear order from beginning to end. In theory, you cannot use a variable before it is assigned a value. However, in certain cases, we may want to mention the value of a variable earlier in the document. For example, it is common to present a result in the abstract of an article, but the result is actually computed later in the document. Below is an example that illustrates the idea but will not compile:
+
+````md
+---
+title: An important report
+abstract: >
+  In this analysis, the average value of
+  `x` is `r knitr::inline_expr('mx')`.
+---
+
+We create the object `mx` in the following chunk:
+
+```{r}`r ''`
+x <- 1:100
+mx <- mean(x)
+```
+````
+
+To solve this problem, the value of the object has to be saved somewhere and loaded the next time when the document is compiled. Please note that this means the document has to be compiled at least twice. Below is one possible solution using the `saveRDS()` function:
+
+````md
+```{r, include=FALSE}`r ''`
+mx <- if (file.exists('mean.rds')) {
+  readRDS('mean.rds')
+} else {
+  "The value of `mx` is not available yet"
+}
+```
+
+---
+title: An important report
+abstract: >
+  In this analysis, the average value of
+  `x` is `r knitr::inline_expr('mx')`.
+---
+
+We create the object `mx` in the following chunk:
+
+```{r}`r ''`
+x <- 1:100
+mx <- mean(x)
+saveRDS(mx, 'mean.rds')
+```
+````
+
+The first time when you compile this document, you will see the phrase "The value of `mx` is not available yet" in the abstract. Later when you compile it again, you will see the actual value of `mx`.
+
+The function `knitr::load_cache()` is an alternative solution, which allows you to load the value of an object from a specific code chunk after the chunk has been cached. The idea is similar to the above example, but it will save you the effort of manually saving and loading an object, because the object is automatically saved to the cache database, and you only need to load it via `load_cache()`. Below is the simplified example:
+
+````md
+---
+title: An important report
+abstract: >
+  In this analysis, the average value of
+  `x` is `r knitr::inline_expr("knitr::load_cache('mean-x', 'mx')")`.
+---
+
+We create the object `mx` in the following chunk:
+
+```{r mean-x, cache=TRUE}`r ''`
+x <- 1:100
+mx <- mean(x)
+```
+````
+
+In this example, we added a chunk label `mean-x` to the R code chunk (which is passed to the `load_cache()` function), and cached it using the chunk option `cache = TRUE`. All objects in this code chunk will be saved to the cache database. Again, you will have to compile this document at least twice, so the object `mx` can be correctly loaded from the cache database. If the value of `mx` is not going to be changed in the future, you do not need to compile the document one more time.
+
+If you do not have to specify the object name in `load_cache()` in the second argument, the whole cache database will be loaded as a list, and you can use any objects available in the list before these objects are created later in the document, e.g.,
+
+```{r, eval=FALSE}
+res <- knitr::load_cache('mean-x')
+res$x   # the object `x`
+res$mx  # the obejct `mx`
+```
+
 ## Exit knitting early {#knit-exit}
 
 Sometimes we may want to exit knitting early and not at the end of the document. For example, we may be working on some analysis and only wish to share the first half of the results, or we may still be working on code at the bottom that is not yet complete. In these situations, we could consider using the `knit_exit()` function in a code chunk, which will end the knitting process after that chunk.
