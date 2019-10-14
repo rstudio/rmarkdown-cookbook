@@ -14,6 +14,39 @@ knitr::opts_chunk$set(
 ```
 ````
 
+## Cache time-consuming code chunks {#cache}
+
+When a code chunk is time-consuming to run, you may consider caching it via the chunk option `cache = TRUE`. When the cache is turned on, **knitr** will skip the execution of this code chunk if it has been executed before and nothing in the code chunk has changed since then. When you modify the code chunk (e.g., revise the code or the chunk options), the previous cache will be automatically invalidated, and **knitr** will cache the chunk again.
+
+For a cached code chunk, its output and objects will be automatically loaded from the previous run, as if the chunk were executed again. Caching is often helpful when loading results is much faster than computing the results. However, there is no free lunch. Depending on your use case, you may need to learn more about how caching (especially [cache invalidation](https://yihui.name/en/2018/06/cache-invalidation/)) works, so you can take the full advantage of it without confusing yourself why sometimes **knitr** invalidates your cache too often and sometimes there is not enough invalidation.
+
+The most appropriate use case of caching is to save and reload R objects that take too long to compute in a code chunk, and the code does not have any side-effects, such as changing global R options via `options()` (such changes will not be cached). If a code chunk has side-effects, we recommend that you do not cache it.
+
+As we briefly mentioned earlier, the cache depends on chunk options. If you change any chunk options (except the option `include`), the cache will be invalidated. This feature can be used to solve a common problem. That is, when you read an external data file, you may want to invalidate the cache when the data file is updated. Simply using `cache = TRUE` is not enough:
+
+````md
+```{r import-data, cache=TRUE}`r ''`
+d <- read.csv('my-precious.csv')
+```
+````
+
+You have to let **knitr** know if the data file has been changed. One way to do it is to add another chunk option `cache.extra = file.size('my-precious.csv')` or more rigorously, `cache.extra = tools::md5sum('my-precious.csv')`. Note that `cache.extra` is not a built-in **knitr** chunk option. You can use any other name for this option, as long as it does not conflict with built-in option names.
+
+Similarly, you can associate the cache with other information such as the R version (`cache.extra = getRversion()`), the date (`cache.extra = Sys.Date()`), or your operating system (`cache.extra = Sys.info()[['sysname']]`), so the cache can be properly invalidated when these conditions change.
+
+If you are not happy with **knitr**'s design for caching, you can certainly cache objects by yourself. Below is a quick example:
+
+```{r, eval=FALSE}
+if (file.exists('results.rds')) {
+  res = readRDS('results.rds')
+} else {
+  res = compute_it()  # a time-consuming function
+  saveRDS(res, 'results.rds')
+}
+```
+
+In this case, the only way to invalidate the cache is to delete the file `results.rds`.
+
 ## Hide code, text output, messages, or plots {#hide-one}
 
 By default, **knitr** displays all possible output from a code chunk, including the source code, text output, messages, warnings, and plots. You can hide them individually using the corresponding chunk options.

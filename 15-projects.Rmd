@@ -16,13 +16,6 @@ A benefit of using R Markdown is that it is easy
 source("yourScript.R")
 ```
 
-
-## Caching
-
-- Caching
-- Ways it can be tailored to suit analysis. This cache invalidation is a great example: https://stackoverflow.com/questions/18376008/invalidate-a-chunks-cache-when-uncached-chunk-changes
-
-
 ## Notifications
 
 - Can link R Markdown with notifications if have long analysis
