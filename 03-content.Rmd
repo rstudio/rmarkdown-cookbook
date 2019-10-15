@@ -74,7 +74,7 @@ This will force all items to be displayed in the bibliography.
 ### Include appendix after bibliography
 
 <!-- https://stackoverflow.com/questions/41532707/include-rmd-appendix-after-references/42258998#42258998 -->
-<!-- https://stackoverflow.com/questions/16427637/pandoc-insert-appendix-after-bibliography?noredirect=1&lq=1 -->
+<!-- https://stackoverflow.com/questions/16427637/pandoc-insert-appendix-after-bibliography -->
 
 By default, the bibliography appears at the very end of the document. However, there can be cases in which we want to place additional text after the references, most typically if we wish to include appendices in the document. We can force the position of the references by using `<div id="refs"></div>`, as shown below:
 
@@ -101,6 +101,46 @@ We can improve this further by using the **bookdown** package, which offers a [s
 ```
 
 The numbering style of appendices will be automatically changed in LaTeX/PDF and HTML output (usually in the form A, A.1, A.2, B, B.1, and so on).
+
+## Generate R package citations {#write-bib}
+
+To cite an R package, you can use the function `citation()` from base R. If you want to generate a citation entry for BibTeX, you can pass the returned object of `citation()` to `toBibtex()`, e.g.,
+
+```{r, comment='', class.output='bibtex'}
+toBibtex(citation('xaringan'))
+```
+
+To use citation entries generated from `toBibtex()`, you have to copy the output to a `.bib` file, and add citation keys (e.g., `@Manual{R-xaringan,`). This can be automated via the function `knitr::write_bib()`, which generates citation entries to a file and adds keys automatically, e.g.,
+
+```{r eval=FALSE}
+knitr::write_bib(c(
+  .packages(), 'bookdown'
+), 'packages.bib')
+```
+
+The first argument should be a character vector of package names, and the second argument is the path to the `.bib` file. In the above example, `.packages()` returns the names of all packages loaded in the current R session. This makes sure all packages being used will have their citation entries written to the `.bib` file. When any of these packages are updated (e.g., the author, title, or year, or version of a package is changed), `write_bib()` can automatically update the `.bib` file.
+
+There are two possible types of citation entries. One type is those generated from the package's `DESCRIPTION` file, and the other type is generated from the package's `CITATION` file if provided. For the former type, the citation keys are of the form `R-pkgname`, where `pkgname` is the package name (e.g., `R-knitr`). For the latter type, the keys are created by concatenating the package name and the publication year (e.g., `knitr2015`). If there are multiple entries in the same year, a letter suffix will be added, e.g., `knitr2015a` and `knitr2015b`. The former type is often used to cite the package itself (i.e., the software), and the latter type often consists of publications related to the package, such as journal papers or books.
+
+```{r, warning=FALSE, comment='', class.output='bibtex'}
+knitr::write_bib(c('knitr', 'rmarkdown'), width = 60)
+```
+
+Without the file path argument, `knitr::write_bib()` writes the citation entries to the R console, as you can see from the above example.
+
+Note that `write_bib()` is designed to overwrite the existing bibliography file. If you want to manually add any other entries to the bibliography, it is recommended that you create a second `.bib` file and refer to it in the YAML field `bibliography`, e.g.,
+
+````md
+---
+bibliography: [packages.bib. references.bib]
+---
+
+```{r, include=FALSE}`r ''`
+knitr::write_bib(file = 'packages.bib')
+```
+````
+
+In the above example, `packages.bib` is automatically generated, and you should not manually change it. All other citation entries can be manually written to `references.bib`.
 
 ## Cross-referencing within documents {#cross-ref}
 
