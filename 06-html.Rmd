@@ -4,7 +4,7 @@ Compared to LaTeX, HTML may be a little weak in typesetting for paged output, bu
 
 ## Apply custom CSS {#html-css}
 
-We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. The [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [@xie2017] contains short tutorials on HTML, CSS, and JavaScript.
+We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. The [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [blogdown2017] contains short tutorials on HTML, CSS, and JavaScript.
 
 For beginners, it is extremely important to understand selectors and precedence of rules in CSS, otherwise you may be confused why your custom CSS rules do not work as expected (they may not have enough precedence).
 

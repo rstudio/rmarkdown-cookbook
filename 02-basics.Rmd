@@ -2,7 +2,7 @@
 
 This book by no means intends to be a comprehensive guide to R Markdown. However, it is important to provide an overview of the R Markdown ecosystem before we drill down to specific examples and recipes. This chapter aims to provide the basic concepts required for the book.
 
-For those seeking the background, we recommend that readers refer to the R Markdown definitive guide [@xie2018], which provides a comprehensive overview of the R Markdown components.
+For those seeking the background, we recommend that readers refer to the R Markdown definitive guide [@rmarkdown2018], which provides a comprehensive overview of the R Markdown components.
 
 ## R Markdown components
 

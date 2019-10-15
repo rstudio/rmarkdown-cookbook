@@ -30,4 +30,4 @@ Please note that "**tinytex**" refers to the R package, and "TinyTeX" refers to 
 
 1. When R Markdown is converted to PDF, Pandoc converts Markdown to an intermediate LaTeX document first. The R package **tinytex** has provided helper functions to compile LaTeX documents to PDF (the main function is `tinytex::latexmk()`). If you use TinyTeX and certain LaTeX packages are required but not installed, **tinytex** will try to automatically install them for you. It will also try to compile the LaTeX file for a sufficient number of times to make sure all cross-references are resolved.
 
-If you are interested in the technical details, you may check out the article @tug-tinytex and the FAQ page at https://yihui.name/tinytex/faq/.
+If you are interested in the technical details, you may check out the article @tinytex2019 and the FAQ page at https://yihui.name/tinytex/faq/.

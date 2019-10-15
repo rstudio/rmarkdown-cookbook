@@ -6,13 +6,9 @@
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
-bib = knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', "blogdown", "kableExtra", "tinytex", 'stargazer', 'gt', 'flextable', 'magick'
-), file = NULL)
-bib = unlist(bib)
-# remove the ugly single quotes required by CRAN policy
-bib = gsub("'(Htmlwidgets|iframes|TeX Live|LaTeX)'", '\\1', bib)
-xfun::write_utf8(bib, 'packages.bib')
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', 'blogdown', 'kableExtra', 'tinytex', 'stargazer', 'gt', 'flextable', 'magick'
+), file = 'packages.bib')
 
 # embed fonts
 if (knitr::is_latex_output()) {

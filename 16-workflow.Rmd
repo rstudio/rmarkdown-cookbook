@@ -82,7 +82,7 @@ This is chapter 2.
 
 When the file is built, **bookdown** merges the results of the separate files into a single output document. This will automatically be done in alphabetical order, so it makes sense to precede your file name with a numeric index as above.
 
-For a comprehensive overview of the package, readers may refer to the [*Bookdown Book*]() [@xie2016] or [Chapter 18](https://bookdown.org/yihui/rmarkdown/) of the *R Markdown Definitive Guide* [@xie2018].
+For a comprehensive overview of the package, readers may refer to the [*Bookdown Book*]() [@bookdown2016] or [Chapter 18](https://bookdown.org/yihui/rmarkdown/) of the *R Markdown Definitive Guide* [@rmarkdown2018].
 
 ### Which method should you use?
 
@@ -325,7 +325,7 @@ import_example("generate-css-cat-engine.Rmd")
 
 This could also be used to generate any file that can be given to pandoc, like
 an `in_header` tex file for a `pdf_document` output.^[Those yaml options for
-pandoc can be found in *R Markdown Definitive Guide* [@xie2018]]
+pandoc can be found in *R Markdown Definitive Guide* [@rmarkdown2018]]
 
 ```{r, echo = FALSE, comment=""}
 import_example("generate-latex-header-with-cat-engine.Rmd")
