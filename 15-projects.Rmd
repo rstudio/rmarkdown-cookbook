@@ -134,3 +134,79 @@ Note that you need to change the vignette title in both the `title` field and th
 The vignette output format does not have to be HTML. It can also be PDF, so you can use `output: pdf_document`, too. Any other output formats that create HTML or PDF are also okay, such as `beamer_presentation` and `tufte::tufte_html`. However, currently R only recognizes HTML and PDF vignettes.
 
 ## Child documents {#child-document}
+
+When you feel an R Markdown document is too long, you may consider splitting it into shorter documents, and include them as child documents of the main document via the chunk option `child`. The `child` option takes a character vector of paths to the child documents, e.g.,
+
+````md
+```{r, child=c('one.Rmd', 'two.Rmd')}`r ''`
+```
+````
+
+Since **knitr** chunk options can take values from arbitrary R expressions, one application of the `child` option is the conditional inclusion of a document. For example, if your report has an appendix containing technical details that your boss may not be interested in, you may use a variable to control whether this appendix is included in the report:
+
+````md
+Change `BOSS_MODE` to `TRUE` if this report is to be read
+by the boss:
+
+```{r, include=FALSE}`r ''`
+BOSS_MODE <- FALSE
+```
+
+Conditionally include the appendix:
+
+```{r, child=if (!BOSS_MODE) 'appendix.Rmd'}`r ''`
+```
+````
+
+Or if you are writing a news report on a football game that has not taken place yet, you may include different child documents depending on the outcome, e.g., `child = if (winner == 'brazil') 'brazil.Rmd' else 'germany.Rmd'`. Then as soon as the game (between Germany and Brazil) is finished, you can publish your report.
+
+Another way to compile child documents is the function `knitr::knit_child()`. You can call this function in an R code chunk or an inline R expression, e.g.,
+
+````md
+```{r, echo=FALSE, results='asis'}`r ''`
+res <- knitr::knit_child('child.Rmd', quiet = TRUE)
+cat(res, sep = '\n')
+```
+````
+
+The function `knit_child()` returns a character vector of the knitted output, which we can write back to the main document with `cat()` and the chunk option `results = 'asis'`.
+
+You can even use a child document as a template, and call `knit_child()` on it repeatedly with different parameters. In the example below, we run a regression using `mpg` as the response variable and each of the rest of variables in the `mtcars` data as the explanatory variable.
+
+````md
+```{r, echo=FALSE, results='asis'}`r ''`
+res <- lapply(names(mtcars)[-1], function(x) {
+  knitr::knit_child(text = c(
+    '## Regression on "`r knitr::inline_expr('x')`"',
+    '',
+    '```{r}',
+    'lm(mpg ~ ., data = mtcars[, c("mpg", x)])',
+    '```',
+    ''
+  ), envir = environment(), quiet = TRUE)
+})
+cat(unlist(res), sep = '\n')
+```
+````
+
+To make the above example self-contained, we used the `text` argument of `knit_child()` instead of a file input to pass the R Markdown content to be knitted. You can certainly write the content to a file, and pass a path to `knit_child()` instead. For example, you can save the content below to a file named `template.Rmd`:
+
+
+````md
+## Regression on "`r knitr::inline_expr('x')`"
+
+```{r}`r ''`
+lm(mpg ~ ., data = mtcars[, c("mpg", x)])
+```
+````
+
+And knit the file instead:
+
+```{r, eval=FALSE, tidy=FALSE}
+res <- lapply(names(mtcars)[-1], function(x) {
+  knitr::knit_child(
+    'template.Rmd', envir = environment(), quiet = TRUE
+  )
+})
+cat(unlist(res), sep = '\n')
+```
