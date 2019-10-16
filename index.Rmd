@@ -40,7 +40,7 @@ remote_pkgs = c(gt = 'rstudio', equatiomatic = 'datalorax')
 
 lapply(c(
   'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
-  'equatiomatic', 'gifski', 'magick', 'pdftools', 'tikzDevice'
+  'equatiomatic', 'gifski', 'magick', 'pdftools', 'tikzDevice', 'xaringan'
   ), function(pkg) {
     if (system.file(package = pkg) != '') return()
     repo = remote_pkgs[pkg]
