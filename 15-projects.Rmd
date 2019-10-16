@@ -1,16 +1,106 @@
 # Managing Projects
 
-- Practical tips on how a big project should be managed
-- `source` is particularly useful for loading external scripts so that the R Markdown project isn't too bloated with code.
+When you work on larger projects or reports, you may not want to put all text and code in a single R Markdown document, but organize them in smaller units instead. In this chapter, we introduce tips on how to organize multiple files related to R Markdown.
 
+## Source external R scripts {#source-script}
 
-## Sourcing R scripts
+If your R Markdown document has a large amount of code, you may consider putting some code in external R scripts, and run these scripts via `source()` or `sys.source()`, e.g.,
 
-A benefit of using R Markdown is that it is easy 
-
-
+````md
+```{r, include=FALSE}`r ''`
+source("your-script.R", envir = knitr::knit_global())
+# or sys.source("your-script.R", envir = knitr::knit_global())
 ```
-source("yourScript.R")
+````
+
+Next in the R Markdown document, you can use objects created in these scripts (e.g., data objects or functions). This way will not only make your R Markdown document cleaner, but also make it more convenient for you to develop R code (e.g., debugging R code is often easier with pure R scripts than R Markdown).
+
+Note that we used `include = FALSE` in the above example because we only want to execute the script without showing any output. If you do want output, you may remove this chunk option, or use the options in Section \@ref(hide-one) to selectively hide or show different types of output.
+
+## Read external scripts into a chunk {#option-code}
+
+There is a disadvantage of the `source()` method in Section \@ref(source-script). That is, you will not be able to see the source code by default. You can use `source(..., echo = TRUE)`, but the source code will not be properly syntax highlighted. In this section, we introduce an alternative method that does not have this drawback.
+
+Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples:
+
+````md
+The `code` option can take a character vector of source code.
+For example:
+
+```{r, code=c('1 + 1', 'if (TRUE) plot(cars)')}`r ''`
 ```
 
-## Child documents
+You can also read an external file:
+
+```{r, code=readLines('your-script.R')}`r ''`
+```
+
+You can read as many scripts as you want:
+
+```{r, include=FALSE}`r ''`
+read_files <- function(files) {
+  unlist(lapply(files, readLines))
+}
+```
+
+```{r, code=read_files(c('one.R', 'two.R'))}`r ''`
+```
+````
+
+You can read scripts of other languages, too. See Chapter \@ref(other-languages) for how to use other languages in R Markdown. Here are a few more examples on non-R code:
+
+````md
+Read a Python script:
+
+```{python, code=readLines('script.py')}`r ''`
+```
+
+Read a C++ file:
+
+```{Rcpp, code=readLines('file.cpp')}`r ''`
+```
+````
+
+With the `code` option, you can develop complicated code in your favorite editor, and read it into a code chunk of an R Markdown document.
+
+## Read multiple code chunks from an external script {#read-chunk}
+
+In Section \@ref(option-code), we introduced a way to read code into a single code chunk. In this section, we introduce one method to read multiple code chunks from an external script. The key is that you need to label the code in the script, and you can use the same labels in the code chunks in your R Markdown document, so the code in the external script can be mapped to the code chunks via the function `knitr::read_chunk()`. To label a block of code in a script, you write the label after `## ----` (optionally, you can add a series of dashes to the end of this line). One script can contain multiple labeled code blocks, e.g.,
+
+```r
+## ---- test-a --------
+1 + 1
+
+## ---- test-b --------
+if (TRUE) {
+  plot(cars)
+}
+```
+
+We assume that the filename of the above script is `test.R`. In the R Markdown document, we can read it via `knitr::read_chunk()`, and use the code in code chunks with the labels, e.g.,
+
+````md
+Read an external script:
+
+```{r, include=FALSE, cache=FALSE}`r ''`
+knitr::read_chunk('test.R')
+```
+
+Now we can use the code, e.g.,
+
+```{r, test-a, echo=FALSE}`r ''`
+```
+
+```{r, test-b, fig.height=4}`r ''`
+```
+````
+
+Note that we use `knitr::read_chunk()` mainly for its side-effect, so please make sure the code chunk in which we call this function is not cached (see Section \@ref(cache) for the explanation).
+
+Like methods introduced in Section \@ref(source-script) and Section \@ref(option-code), this method also gives you the flexibility of developing code in a separate environment.
+
+## R package vignettes {#package-vignette}
+
+
+
+## Child documents {#child-document}
