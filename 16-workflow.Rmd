@@ -80,7 +80,82 @@ You may read the help page `?rmarkdown::render` to know other possible arguments
 
 ## Parameterized reports {#parameterized-reports}
 
+In Section \@ref(rmarkdown-render), we mentioned one way to render a series of reports in a `for`-loop. In fact, `rmarkdown::render()` has an argument named `params` specifically designed for this task. You can parameterize your report through this argument. When you specify parameters for a report, you can use the variable `params` in your report. For example, if you call:
 
+```{r, eval=FALSE, tidy=FALSE}
+for (state in state.name) {
+  rmarkdown::render('input.Rmd', params = list(state = state))
+}
+```
+
+Then in `input.Rmd`, the object `params` will be a list that contains the `state` variable:
+
+````md
+---
+title: "A report for `r knitr::inline_expr('params$state')`"
+output: html_document
+---
+
+The area of `r knitr::inline_expr('params$state')` is
+`r knitr::inline_expr('state.area[state.name == params$state]')`
+square miles.
+````
+
+Another way to specify parameters for a report is to use the YAML field `params`, e.g.,
+
+```yaml
+---
+title: Parameterized reports
+output: html_document
+params:
+  state: Nebraska
+  year: 2019
+  midwest: true
+---
+```
+
+Note that you can include as many parameters in the `params` YAML field or the `params` argument of `rmarkdown::render()`. If both the YAML field and the argument are present, the parameter values in the argument will override the corresponding parameters in YAML. For example, when we call `rmarkdown::render(..., params = list(state = 'Iowa', year = 2018)` on the previous example that has the `params` field, `params$state` will become `Iowa` (instead of `Nebraska`) and `params$year` will become `2018` (instead of `2019`) in the R Markdown document.
+
+When rendering the same R Markdown document to a series of reports, you need to adjust the `output_file` argument of `rmarkdown::render()`, to make sure each report has its unique filename, so you will not accidentally override certain report files. For example, you can write a function to generate a report for each state and each year:
+
+```{r, eval=FALSE, tidy=FALSE}
+render_one <- function(state, year) {
+  # assuming the output format of input.Rmd is PDF
+  rmarkdown::render(
+    'input.Rmd',
+    output_file = paste0(state, '-', year, '.pdf'),
+    params = list(state = state, year = year)
+  )
+}
+```
+
+Then you can use nested `for`-loops to generate all reports:
+
+```{r, eval=FALSE}
+for (state in state.name) {
+  for (year in 2000:2020) {
+    render_one(state, year)
+  }
+}
+```
+
+At the end, you will get a series of report files like `Alabama-2000.pdf`, `Alabama-2001.pdf`, ..., `Wyoming-2019.pdf`, and `Wyoming-2020.pdf`.
+
+For parameterized reports, you can also input parameters interactively through a graphical user interface (GUI) created from Shiny. This requires you to provide a `params` field in YAML, and **rmarkdown** will automatically create the GUI using the appropriate input widgets for each parameter (e.g., a checkbox will be provided for a boolean parameter).
+
+To start the GUI, you can call `rmarkdown::render()` with `params = 'ask'` if you do not use RStudio:
+
+```{r, eval=FALSE}
+rmarkdown::render('input.Rmd', params = 'ask')
+```
+
+If you use RStudio, you can click the menu `Knit with Parameters` behind the `Knit` button. Figure \@ref(fig:params-shiny) shows an example GUI for parameters.
+
+```{r, params-shiny, echo=FALSE, fig.cap='Knit an R Markdown document with parameters that you can input from a GUI.'}
+knitr::include_graphics('images/params-shiny.png', dpi = NA)
+```
+
+For more information on parameterized reports, you may read [Chapter 15](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) of the R Markdown book [@rmarkdown2018].
 
 ## Customize the `Knit` button {#custom-knit}
 
