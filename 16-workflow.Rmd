@@ -159,54 +159,53 @@ For more information on parameterized reports, you may read [Chapter 15](https:/
 
 ## Customize the `Knit` button {#custom-knit}
 
-When you click the `Knit` button in RStudio, it will call the `rmarkdown::render()` function in a new R session and output a file of the same base name as the input file in the same directory. For example, running `example.Rmd` with the output format `html_document` will create an output file `example.html`.
+When you click the `Knit` button in RStudio, it will call the `rmarkdown::render()` function in a new R session and output a file of the same base name as the input file in the same directory. For example, knitting `example.Rmd` with the output format `html_document` will create an output file `example.html`.
 
-There may be situations in which we want to customize how the document is rendered. For example, perhaps we would like the rendered document to contain the current date, or would like to output the compiled report into a different directory. Although we can customize the `render` function using external scripts (See section \@ref(rmarkdown-render)), it can be inconvenient to have to rely on external scripts to compile your report.
+There may be situations in which we want to customize how the document is rendered. For example, perhaps we would like the rendered document to contain the current date, or would like to output the compiled report into a different directory. Although we can achieve these goals by calling `rmarkdown::render()` (see Section \@ref(rmarkdown-render)) with the appropriate `output_file` argument, it can be inconvenient to have to rely on a custom call to `rmarkdown::render() to compile your report.
 
-It is possible to control the behavior of the knit button by using the `knit` argument within the YAML of your document. This requires a function to be specified with the arguments `inputFile`, and `encoding`.  There are two techniques that we can use to customize the behavior of the knit function:
+It is possible to control the behavior of the `Knit` button by providing the `knit` field within the YAML frontmatter of your document. The field takes a function with the arguments `inputFile` and `encoding`. You can either write the source code of the function directly in the `knit` field, or put the function elsewhere (e.g., in an R package) and call the function in the `knit` field. If you routinely need the custom `knit` function, we would recommend that you put it in a package, instead of repeating its source code in every single R Markdown document.
 
-1. Embed the custom function directly within the YAML
-2. Create a custom function and save it in a package
-
-The easiest way of creating a function is to store the code directly within the YAML. We must wrap the entire function in brackets, and any linebreaks in the YAML must start with 4 spaces.  For example, if we want the output filename to include the date it was rendered, we could use the following YAML code:
+If you store the code directly within YAML, you must wrap the entire function in parentheses. If the source code has multiple lines, you have to indent all lines (except the first line) by at least two spaces. For example, if we want the output filename to include the date on which it is rendered, we could use the following YAML code:
 
 ```yaml
 ---
-knit: (function(inputFile, encoding)
-    {rmarkdown::render(input = inputFile,
-    encoding = encoding,
-    output_file = paste0(tools::file_path_sans_ext(basename(inputFile)),
-                                         '-',
-                                         format(Sys.Date(), "%Y%m%d"),
-                                         '.html'))})
+knit: (function(inputFile, encoding) {
+    rmarkdown::render(input = inputFile,
+      encoding = encoding,
+      output_file = paste0(
+        xfun::sans_ext(inputFile), '-', Sys.Date(), '.html'
+      )
+    )
+  })
 ---
 ``` 
 
-For example, we if knitted `example.Rmd` on `r format(Sys.Date(), '%Y/%m/%d')`, the output file name would be `r paste0("example", '-', format(Sys.Date(), '%Y%m%d'), ".html")`.
+For example, if we knit `example.Rmd` on 2019-07-29, the output filename will be `example-2019-07-29.html`.
 
-While the above approach does benefit from simplicity, it may get more complicated if we wish to do more advanced behavior (perhaps creating a directory, setting some other environment variables). Embedding longer functions directly in your YAML may become difficult to manage. It may therefore be worth creating a function which could be used in a package. Taking our example above, we have created an example `knit_with_date` as defined below:
+While the above approach looks simple and straightforward enough, embedding a function directly in your YAML may make it difficult for you to maintain it, unless the function is only to be used once with a single R Markdown document. In general, we would recommend using an R package to maintain such a function, e.g., you may create a function `knit_with_date()` in a package:
 
-```r
+```{r, eval=FALSE, tidy=FALSE}
 #' Custom Knit function for RStudio
 #'
 #' @export
 knit_with_date <- function(inputFile, encoding) {
-
-  rmarkdown::render(inputFile,
-                    encoding = encoding,
-                    output_file = paste0(dirname(inputFile),'/', tools::file_path_sans_ext(basename(inputFile)),
-                                         '-',
-                                         format(Sys.Date(), '%Y%m%d'),
-                                         '.html'))
-  }
+  rmarkdown::render(
+    inputFile,
+    encoding = encoding,
+    output_file = paste0(
+        xfun::sans_ext(inputFile), '-', Sys.Date(), '.',
+        xfun::file_ext(inputFile)
+    )
+  )
+}
 ```
 
-If we were to add this to the package `myPackage`, you will then be able to refer to your custom Knit function using the following YAML argument:
+If you add the above code to a package named **myPackage**, you will be able to refer to your custom `knit` function using the following YAML setting:
   
 ```yaml
 ---
 knit: myPackage::knit_with_date
 ---
 ```
-                                    
-Readers may wish to refer to Section \@ref(rmarkdown-render) to find out more ideas on how they could customize the control of their render function.
+
+You may refer to the help page `?rmarkdown::render` to find out more ideas on how you could customize your `knit` function behind the `Knit` button in RStudio.
