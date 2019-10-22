@@ -1,8 +1,95 @@
 # Output Hooks {#output-hooks}
 
-Hooks offer a useful tool for extending the functionality of **knitr**. 
+With **knitr**, you have control over every piece of output from your code chunks, such as source code, text output, messages, and plots. The control is achieved through "output hooks", which are a series of functions that take a piece of output as the input (typically a character vector), and return a character vector to be written to the output document. This may not be easy to understand for now, but hopefully you can see the idea more clearly with a small example below explaining how the output of a simple code chunk is rendered through **knitr**'s output hooks.
 
-Many of the examples included within this chapter have been integrated into the **knitrhooks** package, avaialable at [https://github.com/nathaneastwood/knitrhook](https://github.com/nathaneastwood/knitrhooks).
+Consider this code chunk with one line of code:
+
+````md
+```{r}`r ''`
+1 + 1
+```
+````
+
+After **knitr** evaluates the code chunk, it gets two output elements, and both are stored as character strings: the source code `"1 + 1"`, and the text output `"[1] 2"`. These character strings will be further processed by chunk hooks for the desired output format. For example, for Markdown documents, **knitr** will wrap the source code in a fenced code block with a language name. This is done through the `source` hook, which more or less looks like this function:
+
+```{r, eval=FALSE}
+# for the above case, `x` is a character string "1 + 1"
+function(x, options) {
+  # the little "r" here indicates the language name
+  paste(c('```r', x, '```'), collapse = '\n')
+}
+```
+
+Similar, the text output is processed by the `output` hook that looks like this function:
+
+```{r, eval=FALSE}
+function(x, options) {
+  paste(c('```', x, '```'), collapse = '\n')
+}
+```
+
+So the final output of the above code chunk is:
+
+````md
+```r
+1 + 1
+```
+
+```
+[1] 2
+```
+````
+
+The actual hooks are more complicated than the two functions above, but the idea is the same. You may obtain the actual hooks from the object `knit_hooks` via the `get()` method, e.g.,
+
+```{r, eval=FALSE}
+knitr::knit_hooks$get('source')
+knitr::knit_hooks$get('output')
+# or knitr::knit_hooks$get(c('source', 'output'))
+```
+
+Unless you are truly interested in making contributions to the **knitr** package, we do not recommend that you read the source code of these built-in hooks, which can be found in the scripts named in the form `hooks-*.R` at https://github.com/yihui/knitr/tree/master/R (e.g., `hooks-md.R` contains hooks for R Markdown documents). As a **knitr** user, it usually suffices if you know how to create custom output hooks by taking advantage of the built-in hooks. You will learn that in several examples in this chapter, and we show the basic idea below.
+
+A custom output hook is registered through the `set()` method on `knit_hooks`. Because this method will override the existing default hook, we recommend that you save a copy of existing hook, process the output elements in your own way, and pass the results to the default hook. The usual syntax is:
+
+```{r, eval=FALSE}
+# using local() is optional here (we just want to avoid creating unnecessary global variables like `hook_old`)
+local({
+  hook_old = knitr::knit_hooks$get('NAME')  # save the old hook
+  knitr::knit_hooks$set(NAME = function(x, options) {
+    # now do whatever you want to do with x, and pass the
+    # new x to the old hook
+    hook_old(x, options)
+  })
+})
+```
+
+Here `NAME` is the name of the hook, which can be one of the following values:
+
+- `source`: processing the source code.
+
+- `output`: processing text output.
+
+- `warning`: processing warnings (usually from `warning()`).
+
+- `message`: processing messages (usually from `message()`).
+
+- `error`: processing error messages (usually from `stop()`).
+
+- `plot`: processing plot file paths.
+
+- `inline`: processing output from inline R expressions.
+
+- `chunk`: processing output from the whole chunk.
+
+- `document`: processing the whole document.
+
+The meaning of the argument `x` in the hook functions is explained in the above list. For the `options` argument of a hook, it denotes the chunk options (as a list) for the current code chunk. For example, if you set `foo = TRUE` on a chunk, you can obtain its value via `options$foo` in the hook. The `options` argument is not available to the `inline` and `document` hooks.
+
+Output hooks give you the ultimate control over every single piece of your chunk and document output. Compared with chunk options, which often have predefined purposes, output hooks can be much more powerful since they are user-defined functions, and you can do anything you want in functions.
+
+## Hide certain lines of source code {#hook-hide}
+
 
 
 ## Scrollable code chunks {#hooks-scroll}
