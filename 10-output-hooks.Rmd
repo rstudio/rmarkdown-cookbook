@@ -88,9 +88,78 @@ The meaning of the argument `x` in the hook functions is explained in the above 
 
 Output hooks give you the ultimate control over every single piece of your chunk and document output. Compared with chunk options, which often have predefined purposes, output hooks can be much more powerful since they are user-defined functions, and you can do anything you want in functions.
 
-## Hide certain lines of source code {#hook-hide}
+## Redact source code {#hook-hide}
+
+Sometimes we may not want to fully display our source code in the report. For example, you may a password in a certain line of code. We mentioned in Section \@ref(hide-one) that you can use the chunk option `eval` to select which expressions in the R code to display (e.g., show the second expression via `echo = 2`). In this section, we provide a more flexible method that does not require you to specify the indices of expressions.
+
+The basic idea is that you add a special comment to the code (e.g., `# SECRET!!`). When this comment is detected in a line of code, you omit that line. Below is a full example using the `source` hook:
+
+`r import_example('hook-secret.Rmd')`
+
+The key part in the above `source` hook is this line, which matches the trailing comment `# SECRET!!` in the source code vector `x` via `grepl()` and exclude the matches:
+
+```{r, eval=FALSE}
+x <- x[!grepl('# SECRET!!$', x)]
+```
+
+Precisely speaking, the above hook will exclude whole _expressions_ containing the trailing comment `# SECRET!!`, instead of individual lines, because `x` is actually a vector of R expressions. For example, for the code chunk below:
+
+```{r, source-hook-x, eval=FALSE}
+1 + 1
+if (TRUE) {
+  1:10
+}
+```
+
+The value of `x` in the `source` hook is:
+
+```{r, eval=FALSE}
+c("1 + 1", "if (TRUE) {\n  1:10\n}")
+```
 
 
+If you want to hide lines instead of expressions of R code, you will have to split `x` into individual lines. You may consider using the function `knitr:::split_lines()`. The body of the hook function will be:
+
+```{r, eval=FALSE}
+x <- knitr:::split_lines(x)  # split into individual lines
+x <- x[!grepl('# SECRET!!$', x)]
+x <- paste(x, collapse = '\n')  # combine into a single string
+hook_source(x, options)
+```
+
+This example shows you how to manipulate the source code string, and `grepl()` is certainly not the only choice of string manipulation. In Section \@ref(hook-number), we will show another example.
+
+## Add line numbers to source code {#hook-number}
+
+In this section, we show an example of defining a `source` hook to add line numbers as comments to the source code. For example, for this code chunk:
+
+````md
+```{r}`r ''`
+if (TRUE) {
+  x <- 1:10
+  x + 1
+}
+```
+````
+
+We want the output to be:
+
+```{r, eval=FALSE, tidy=FALSE}
+if (TRUE) {    # 1
+  x <- 1:10    # 2
+  x + 1        # 3
+}              # 4
+```
+
+The full example is below:
+
+`r import_example('hook-number.Rmd')`
+
+The main trick in the above example is to determine the number of spaces needed before the comment on each line, so the comments can align to the right. The number depends on the widths of each line of code. We leave it to readers to digest the code in the hook function. Note that an internal function `knitr:::v_spaces()` is used to generate spaces of specified lengths, e.g.,
+
+```{r}
+knitr:::v_spaces(c(1, 3, 6, 0))
+```
 
 ## Scrollable code chunks {#hooks-scroll}
 

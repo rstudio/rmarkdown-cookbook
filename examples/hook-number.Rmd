@@ -1,0 +1,31 @@
+---
+title: Add line numbers to source code
+---
+
+We set up a `source` hook to add line numbers to the source
+code. The numbers appear in comments at the end of each line.
+
+```{r, include=FALSE}
+local({
+  hook_source <- knitr::knit_hooks$get('source')
+  knitr::knit_hooks$set(source = function(x, options) {
+    x <- knitr:::split_lines(x)
+    n <- nchar(x, 'width')
+    i <- seq_along(x)  # line numbers
+    n <- n + nchar(i)
+    s <- knitr:::v_spaces(max(n) - n)
+    x <- paste(x, s, '  # ', i, sep = '', collapse = '\n')
+    hook_source(x, options)
+  })
+})
+```
+
+Now we can test the new hook. When you knit this document, you
+will see line numbers in trailing comments.
+
+```{r}
+if (TRUE) {
+  x <- 1:10
+  x + 1
+}
+```
