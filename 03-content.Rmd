@@ -338,7 +338,6 @@ If you use the RStudio IDE, you can select the text in which you want to preserv
 
 ```md
 Like Barley Bending
-　by Sara Teasdale
 
 Like barley bending
 　In low fields by the sea,
@@ -354,12 +353,13 @@ So would I softly,
 　Day long, night long,
 Change my sorrow
 　Into song.
+
+--- Sara Teasdale
 ```
 
 After we select the above poem and click the RStudio addin "Quote Poem", the output will be:
 
 > Like Barley Bending  
-　by Sara Teasdale
 >
 > Like barley bending  
 　In low fields by the sea,  
@@ -375,6 +375,8 @@ So would I, unbroken,
 　Day long, night long,  
 Change my sorrow  
 　Into song.
+>
+> --- Sara Teasdale
 
 Some users may ask, "Since the fenced code block preserves whitespaces, why not putting poems in code blocks?" Code could be poetic, but poems are not code. Do not be too addicted to coding.
 
