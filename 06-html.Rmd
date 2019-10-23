@@ -117,7 +117,7 @@ In the above example, we defined a global maximum height of 300px for all code b
 
 The height of the text output from the second R code chunk is also 100px. That is because we assigned a custom class name `scroll-100` to the output, and defined the maximum height to be 100px.
 
-If you want to specify different maximum heights for individual code blocks, you may see the example in Section \@ref(hooks-scroll).
+If you want to specify different maximum heights for individual code blocks, you may see the example in Section \@ref(hook-scroll).
 
 ## Put content in tabs {#html-tabs}
 

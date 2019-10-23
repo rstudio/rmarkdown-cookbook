@@ -97,6 +97,10 @@ The output is:
 
 You can see that the linebreak after "School of Ninja" was ignored.
 
+## Add line numbers to code blocks {#number-lines}
+
+
+
 ## Verbatim code chunks
 
 Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
