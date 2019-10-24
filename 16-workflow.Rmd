@@ -76,7 +76,7 @@ The area of `r knitr::inline_expr('state')` is `r knitr::inline_expr('state.area
 square miles.
 ````
 
-You may read the help page `?rmarkdown::render` to know other possible arguments. Here we just want to mention one of them, i.e., the `clean` argument. This one is particularly helpful for debugging when anything goes wrong with the Pandoc conversion. If you call `rmarkdown::render(..., clean = FALSE)`, all intermediate files will be preserved, including the intermediate `.md` file knitted from the `.Rmd` file. If Pandoc signals an error, you may start debugging from this `.md` file.
+You may read the help page `?rmarkdown::render` to know other possible arguments. Here we just want to mention two of them, i.e., the `clean` and `envir` arguments. The former (`clean`) is particularly helpful for debugging when anything goes wrong with the Pandoc conversion. If you call `rmarkdown::render(..., clean = FALSE)`, all intermediate files will be preserved, including the intermediate `.md` file knitted from the `.Rmd` file. If Pandoc signals an error, you may start debugging from this `.md` file. The latter (`envir`) offers a way to render a document with the guarantee of an empty new environment when you call `rmarkdown::render(..., envir = new.env())`.
 
 ## Parameterized reports {#parameterized-reports}
 
