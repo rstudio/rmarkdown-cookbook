@@ -218,6 +218,58 @@ knitr::include_graphics('images/hook-scroll.png', dpi = NA)
 
 You can use the similar trick in the `source` hook to limit the height of source code blocks.
 
+## Truncate text output {#hook-truncate}
+
+When the text output from a code chunk is lengthy, you may want to only show the first few lines. For example, when printing a data frame of a few thousand rows, it may not be helpful to show the full data, and the first few lines may be enough. Below we redefine the `output` hook so that we can control the maximum number of lines via a custom chunk option `out.lines`:
+
+```{r}
+# save the build-in output hook
+hook_output = knitr::knit_hooks$get("output")
+
+# set a new output hook to truncate text output
+knitr::knit_hooks$set(output = function(x, options) {
+  if (!is.null(n <- options$out.lines)) {
+    x = knitr:::split_lines(x)
+    if (length(x) > n) {
+      # truncate the output
+      x = c(head(x, n), '....\n')
+    }
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+```
+
+The basic idea of the above hook function is that if the number of lines of the text output is greater than the threshold set in the chunk option `out.lines` (stored in the variable `n` in the function body), we only keep the first `n` lines and add `....` to indicate the output is truncated.
+
+Now we can test the new `output` hook by setting the chunk option `out.lines = 4` on the chunk below:
+
+```{r, out.lines=4}
+print(cars)
+```
+
+And you see four lines of output as expected. Since we have stored the original `output` hook in `hook_output`, we can restore it by calling the `set()` method again:
+
+```{r}
+knitr::knit_hooks$set(output = hook_output)
+```
+
+As an exercise to readers, you may try to truncate the output in a different way: given the chunk option `out.lines` to determine the maximum number of lines, can you truncate the output in the middle instead of the end? For example, if `out.lines = 10`, you extract the first and last five lines, and add `....` in the middle like this:
+
+```text
+##    speed dist
+## 1      4    2
+## 2      4   10
+## 3      7    4
+## 4      7   22
+....
+## 46    24   70
+## 47    24   92
+## 48    24   93
+## 49    24  120
+## 50    25   85
+```
+
 ## Output figures in the HTML5 format {#hook-html5}
 
 By default, plots in R Markdown are included in the tag `<img src="..." />` in a `<p>` or `<div>` tag in the HTML output. This example below shows how to use the HTML5 `<figure>` tag to display plots.
@@ -240,32 +292,3 @@ This example shows you what you can possibly do with the plot file path `x` in t
 ```
 
 So you can just define css rules for `div.figure` and `p.caption`.
-
-## Truncate text output
-
-```{r eval = FALSE}
-library(knitr)
-hook_output <- knit_hooks$get("output")
-knit_hooks$set(output = function(x, options) {
-   lines <- options$output.lines
-   if (is.null(lines)) {
-     return(hook_output(x, options))  # pass to default hook
-   }
-   x <- unlist(strsplit(x, "\n"))
-   more <- "..."
-   if (length(lines)==1) {        # first n lines
-     if (length(x) > lines) {
-       # truncate the output, but add ....
-       x <- c(head(x, lines), more)
-     }
-   } else {
-     x <- c(if (abs(lines[1])>1) more else NULL, 
-            x[lines], 
-            if (length(x)>lines[abs(length(lines))]) more else NULL
-           )
-   }
-   # paste these lines together
-   x <- paste(c(x, ""), collapse = "\n")
-   hook_output(x, options)
- })
-```
