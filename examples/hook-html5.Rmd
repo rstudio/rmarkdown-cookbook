@@ -1,0 +1,57 @@
+---
+title: Output figures in `<figure>` tags
+output: html_document
+---
+
+Given a plot file path `x` and a figure caption in the chunk
+option `options$fig.cap`, we want to write the plot in the
+HTML5 tag in this form:
+
+```html
+<figure>
+  <img src="PATH" alt="CAPTION" />
+  <figcaption>CAPTION</figcaption>
+</figure>
+```
+
+Now we redefine the `plot` hook (only when the output format
+is HTML):
+
+```{r}
+if (knitr::is_html_output()) knitr::knit_hooks$set(
+  plot = function(x, options) {
+    cap  <- options$fig.cap  # figure caption
+    tags <- htmltools::tags
+    as.character(tags$figure(
+      tags$img(src = x, alt = cap),
+      tags$figcaption(cap)
+    ))
+  }
+)
+```
+
+The plot from the code chunk below will be placed in the
+`<figure>` tag:
+
+```{r, fig.cap='A scatterplot for the cars data.'}
+par(mar = c(4.5, 4.5, .2, .2))
+plot(cars, pch = 19, col = 'red')
+```
+
+We add some CSS styles to "see" the `<figure>` and
+`<figcaption>` tags better (the `figure` has a dashed
+border, and the caption has a light pink background):
+
+```{css, echo=FALSE}
+figure {
+  border: 2px dashed red;
+  margin: 1em 0;
+}
+figcaption {
+  padding: .5em;
+  background: lightpink;
+  font-size: 1.3em;
+  font-variant: small-caps;
+}
+```
+

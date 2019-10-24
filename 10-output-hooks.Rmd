@@ -218,45 +218,30 @@ knitr::include_graphics('images/hook-scroll.png', dpi = NA)
 
 You can use the similar trick in the `source` hook to limit the height of source code blocks.
 
-## Output figures in HTML5 format
+## Output figures in the HTML5 format {#hook-html5}
 
-By default, images in R Markdown are translated to `<img src='...' alt='...'>` in the HTML output. This demo shows how to use the HTML5 `<figure>` tag to display images in R Markdown. Firstly we must define the custom hook as follows:
+By default, plots in R Markdown are included in the tag `<img src="..." />` in a `<p>` or `<div>` tag in the HTML output. This example below shows how to use the HTML5 `<figure>` tag to display plots.
 
-```{r, eval=FALSE}
-# Reconfigure the plot hook
-library(knitr)
-knit_hooks$set(plot = function(x, options) {
-  paste('<figure><img src="',
-        opts_knit$get('base.url'), paste(x, collapse = '.'),
-        '"><figcaption>', options$fig.cap, '</figcaption></figure>',
-        sep = '')
-})
+`r import_example('hook-html5.Rmd')`
+
+The figure output is shown in Figure \@ref(fig:hook-html5). Note that we actually overrode the default `plot` hook in this example, while most other examples in this chapter build custom hooks on top of the default hooks. You should completely override default hooks only when you are sure you want to ignore some built-in features of the default hooks. For example, the `plot` hook function in this case did not consider possible chunk options like `out.width = '100%'` or `fig.show = 'animate'`.
+
+```{r hook-html5, echo=FALSE, fig.cap="A figure in the HTML5 figure tag."}
+knitr::include_graphics("images/hook-html5.png", dpi = NA)
 ```
 
-One motivation for this is that we could use CSS to customize the output using the HTML5 specification, and readers may want to check out this [website](https://www.w3.org/Style/Examples/007/figures.en.html) for some ideas. For example, we could add a border to the plot and then change the background color of the figure caption text:
+This example shows you what you can possibly do with the plot file path `x` in the `plot` hook. If all you need is to customize the style of figures, you do not have to use the HTML5 tags. Usually the default `plot` hook will output images in the HTML code like this:
 
-```{css}
-figure {
-  border: thin silver solid;
-  padding-top: 0;
-}
-figcaption {
-  padding: 0.5em;
-  border: thin silver solid;
-  background: #D2F0F7;
-}
+```html
+<div class="figure">
+  <img src="PATH" />
+  <p class="caption">CAPTION</p>
+</div>
 ```
 
-Having specified the custom hook and CSS, the output of an example figure is shown in Figure \@ref(fig:hookHTML5). A full reproducible example is provided in the examples [online](https://github.com/dr-harper/rmarkdown-cookbook/blob/master/examples/hook-html5-figures.Rmd).
+So you can just define css rules for `div.figure` and `p.caption`.
 
-```{r hookHTML5, fig.cap = "Customised Figure Output styled by HTML5 CSS"}
-knitr::include_graphics("images/hookHtml5Images.png", dpi = NA)
-```
-
-
-
-
-
+## Truncate text output
 
 ```{r eval = FALSE}
 library(knitr)
@@ -284,6 +269,3 @@ knit_hooks$set(output = function(x, options) {
    hook_output(x, options)
  })
 ```
-
-
-
