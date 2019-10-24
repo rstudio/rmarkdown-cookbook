@@ -188,11 +188,15 @@ This will show a verbatim inline R expression `` `r
 
 The trick works due to two reasons (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression. In the output document, you should see:
 
-```
-This will show a verbatim inline R expression `r 1+1` in the output.
-```
+> This will show a verbatim inline R expression `` `r
+1+1` `` in the output.
 
-You can read more about this behavior [here](https://yihui.name/en/2017/11/knitr-verbatim-code-chunk/).
+Another way to show a verbatim inline R expression is to wrap the R code in `knitr::inline_expr()`, e.g.,
+
+```md
+This will show a verbatim inline R expression
+`` `r knitr::inline_expr('knitr::inline_expr("1+1")')` `` in the output.
+```
 
 ## Multi-column layout
 
