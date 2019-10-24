@@ -48,6 +48,9 @@ blockquote > p:last-child {
 blockquote > p:first-child {
   text-align: inherit;
 }
+pre.numberSource a.sourceLine {
+  left: -3em;
+}
 .header-section-number {
   padding-right: .2em;
   font-weight: 500;

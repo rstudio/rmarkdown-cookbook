@@ -97,9 +97,54 @@ The output is:
 
 You can see that the linebreak after "School of Ninja" was ignored.
 
-## Add line numbers to code blocks {#number-lines}
+## Line numbers for code blocks {#number-lines}
 
+You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"`, e.g.,
 
+````md
+```{r, attr.source='.numberLines'}`r ''`
+if (TRUE) {
+  1:10
+}
+```
+````
+
+The output is:
+
+```{r, attr.source='.numberLines', eval=FALSE}
+if (TRUE) {
+  x <- 1:10
+  x + 1
+}
+```
+
+Note that for HTML output, you have to choose a syntax highlighting theme provided by Pandoc, which means the `highlight` option of the output format should not be `default` or `textmate`. You can use other values for this option listed on the help page `?rmarkdown::html_document`, e.g.,
+
+```yaml
+output:
+  html_document:
+    highlight: tango
+```
+
+For **bookdown**'s `gitbook` output format, you may need to adjust the CSS a little bit for the line numbers to be displayed properly on the left side of the code. Below is what we used for this book (if you find the line numbers too close to the left margin, increase the `left` value to, say, `-2em`):
+
+```css
+pre.numberSource a.sourceLine {
+  left: -3em;
+}
+```
+
+See Section \@ref(html-css) if you do not know how to apply custom CSS styles to HTML output.
+
+You can also specify the starting number via the `startFrom` attribute, e.g.,
+
+````md
+```{r, attr.source='.numberLines startFrom="5"'}`r ''`
+if (TRUE) {
+  1:10
+}
+```
+````
 
 ## Verbatim code chunks
 
