@@ -143,7 +143,7 @@ d = coef(summary(m))
 knitr::kable(d)
 # add a few math expressions to row and column names
 rownames(d) = c('$\\beta_0$', '$\\beta_1$')
-colnames(d)[4] = '$P(T > t)$'
+colnames(d)[4] = '$P(T > |t|)$'
 knitr::kable(d, escape = FALSE)
 ```
 
