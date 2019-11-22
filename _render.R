@@ -1,5 +1,6 @@
 quiet = "--quiet" %in% commandArgs(FALSE)
 formats = commandArgs(TRUE)
+travis = !is.na(Sys.getenv('CI', NA))
 
 # provide default formats if necessary
 if (length(formats) == 0) formats = c('bookdown::pdf_book', 'bookdown::gitbook')
@@ -10,6 +11,15 @@ for (fmt in formats) {
   if (res != 0) stop('Failed to compile the book to ', fmt)
 }
 unlink('rmarkdown-cookbook.log')
+
+r = '<body onload="window.location = \'https://bookdown.org/yihui\'+location.pathname">'
+if (travis) for (f in list.files('_book', '[.]html$', full.names = TRUE)) {
+  x = readLines(f)
+  if (length(i <- grep('^\\s*<body>\\s*$', x)) == 0) next
+  # patch HTML files in gh-pages if built on Travis, to redirect to bookdown.org
+  x[i[1]] = r
+  writeLines(x, f)
+}
 
 if (length(formats) > 1 && Sys.getenv('USER') == 'yihui') {
   bookdown::publish_book(account = 'yihui', server = 'bookdown.org')
