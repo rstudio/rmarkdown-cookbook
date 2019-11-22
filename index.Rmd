@@ -17,7 +17,7 @@ mainfont: Palatino
 monofont: "Source Code Pro"
 monofontoptions: "Scale=0.8"
 site: bookdown::bookdown_site
-github-repo: dr-harper/rmarkdown-cookbook
+github-repo: yihui/rmarkdown-cookbook
 ---
 
 ```{r setup, include=FALSE}
@@ -86,7 +86,7 @@ options(bookdown.post.latex = function(x) {
 # Preface {-}
 
 ::: {.infobox .caution data-latex="{caution}"}
-This book is in a **very** early stage of development. If you have any suggestions on what should be included within this book, please get in touch via [GitHub](https://github.com/dr-harper/rmarkdown-cookbook/issues/new).
+This book is in a **very** early stage of development. If you have any suggestions on what should be included within this book, please get in touch via [GitHub](https://github.com/yihui/rmarkdown-cookbook/issues/new).
 :::
 
 R Markdown is a powerful tool for combining analysis and reporting into the same document. Since the development of the **rmarkdown** package [@R-rmarkdown], it has grown to become a diverse ecosystem of code, and reports, books and websites can all easily be generated directly from R code.
@@ -99,7 +99,7 @@ This book is designed to provide a range of examples of how to extend the functi
 
 ## How to read this book  {-}
 
-The book is designed to highlight the many ways in which your R Markdown documents can be customized. Users are encouraged to try using the concepts within their own documents. The code detailed in the book should be sufficient, but the full source code and examples are provided on [GitHub](https://github.com/mikey-harper/rmarkdown-cookbook).
+The book is designed to highlight the many ways in which your R Markdown documents can be customized. Users are encouraged to try using the concepts within their own documents. The code detailed in the book should be sufficient, but the full source code and examples are provided on [GitHub](https://github.com/yihui/rmarkdown-cookbook).
 
 It is recommended that readers have a basic understanding of R Markdown. [Chapter 2](https://bookdown.org/yihui/rmarkdown/basics.html) of [*R Markdown: The Definitive Guide*](https://bookdown.org/yihui/rmarkdown/) [@rmarkdown2018] provides an overview of the basics of R Markdown and is recommended background reading for any new users of R Markdown.
 

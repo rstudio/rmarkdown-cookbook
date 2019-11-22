@@ -3,7 +3,7 @@
 
 ## Write the chunk content to a file via the `cat` engine {#eng-cat}
 
-<!-- https://github.com/dr-harper/rmarkdown-cookbook/issues/140 -->
+<!-- https://github.com/yihui/rmarkdown-cookbook/issues/140 -->
 
 Sometimes it could be useful to write to some files from inside the Rmd. If this
 could be achieved using pure R code in a r code chunk, `knitr` as a little
@@ -111,7 +111,7 @@ unlink(c(fs::path_temp('demo.yml'), fs::path_temp('script.R')))
 
 ### Generate a template file from inside the rmarkdown
 
-<!-- https://github.com/dr-harper/rmarkdown-cookbook/issues/149 -->
+<!-- https://github.com/yihui/rmarkdown-cookbook/issues/149 -->
 
 As detailed in section \@ref(chunk-styling), `css` chunk can directly be used to
 apply custom style. However, it is also possible to provide a custom css file to

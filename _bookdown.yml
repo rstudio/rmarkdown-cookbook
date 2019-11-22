@@ -1,5 +1,5 @@
 book_filename: "rmarkdown-cookbook"
-repo: https://github.com/dr-harper/rmarkdown-cookbook
+repo: https://github.com/yihui/rmarkdown-cookbook
 delete_merged_file: true
 clean: [packages.bib]
 language:
@@ -8,5 +8,5 @@ language:
     tab: "TABLE "
   ui:
     chapter_name: "Chapter "
-edit: "https://github.com/dr-harper/rmarkdown-cookbook/edit/master/%s"
+edit: "https://github.com/yihui/rmarkdown-cookbook/edit/master/%s"
 
