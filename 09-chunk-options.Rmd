@@ -30,7 +30,7 @@ d <- read.csv('my-precious.csv')
 ```
 ````
 
-You have to let **knitr** know if the data file has been changed. One way to do it is to add another chunk option `cache.extra = file.size('my-precious.csv')` or more rigorously, `cache.extra = tools::md5sum('my-precious.csv')`. Note that `cache.extra` is not a built-in **knitr** chunk option. You can use any other name for this option, as long as it does not conflict with built-in option names.
+You have to let **knitr** know if the data file has been changed. One way to do it is to add another chunk option `cache.extra = file.mtime('my-precious.csv')` or more rigorously, `cache.extra = tools::md5sum('my-precious.csv')`. The former means if the modification time of the file has been changed, we need to invalidate the cache. The latter means if the content of the file has been modified, we update the cache. Note that `cache.extra` is not a built-in **knitr** chunk option. You can use any other name for this option, as long as it does not conflict with built-in option names.
 
 Similarly, you can associate the cache with other information such as the R version (`cache.extra = getRversion()`), the date (`cache.extra = Sys.Date()`), or your operating system (`cache.extra = Sys.info()[['sysname']]`), so the cache can be properly invalidated when these conditions change.
 
@@ -45,7 +45,22 @@ if (file.exists('results.rds')) {
 }
 ```
 
-In this case, the only way to invalidate the cache is to delete the file `results.rds`.
+In this case, the only (and also simple) way to invalidate the cache is to delete the file `results.rds`.
+
+## Cache a code chunk for multiple output formats {#cache-path}
+
+When caching is turned on via the chunk option `cache = TRUE`, **knitr** will write R objects generated in a code chunk to a cache database, so they can be reloaded the next time. The path to the cache database is determined by the chunk option `cache.path`. By default, R Markdown uses different cache paths for different output formats, which means a time-consuming code chunk will be fully executed for each output format. This may be inconvenient, but there is a reason for this default behavior: the output of a code chunk can be dependent on the specific output format. For example, when you generate a plot, the output for the plot could be Markdown code like `![text](path/to/image.png)` when the output format is `word_document`, or HTML code like `<img src="path/to/image.png" />` when the output format is `html_document`.
+
+When a code chunk does not have any side-effects (such as plots), it is safe to use the same cache database for all output formats, which can save you time. For example, when you read a large data object or run a time-consuming model, the result does not depend on the output format, so you can use the same cache database. You can specify the path to the database via the chunk option `cache.path` on a code chunk, e.g.,
+
+````md
+```{r important-computing, cache=TRUE, cache.path="cache/"}`r ''`
+```
+````
+
+By default, `cache.path = "INPUT_cache/FORMAT/"` in R Markdown, where `INPUT` is the input filename, and `FORMAT` is the output format name (e.g., `html`, `latex`, or `docx`).
+
+We do not recommend that you set `cache = TRUE` or `cache.path` globally in a document. Caching can be quite tricky. Instead, we recommend that you set these options only on individual code chunks that are surely time-consuming and do not have side-effects.
 
 ## Hide code, text output, messages, or plots {#hide-one}
 
