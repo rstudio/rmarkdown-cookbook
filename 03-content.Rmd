@@ -425,7 +425,7 @@ The chunk option `ref.label` has provided a very flexible way of reorganizing co
 
 The function `knitr::all_labels()` returns a vector of all chunk labels in the document, so `ref.label = knitr::all_labels()` means retrieving all source code chunks to this code chunk. With the chunk options `echo = TRUE` (display the code) and `eval = FALSE` (do not evaluate this particular code chunk because all code has been executed before), you can show a copy of all your source code in one code chunk.
 
-Since `ref.label` can be a character vector of arbitrary chunk labels, you can certainly filter the labels to decide a subset of code chunks to display in the code appendix. Below is an example (credits to [Ariel Muldoon](https://yihui.name/en/2018/09/code-appendix/)) of excluding the labels `setup` and `get-labels`:
+Since `ref.label` can be a character vector of arbitrary chunk labels, you can certainly filter the labels to decide a subset of code chunks to display in the code appendix. Below is an example (credits to [Ariel Muldoon](https://yihui.org/en/2018/09/code-appendix/)) of excluding the labels `setup` and `get-labels`:
 
 ````md
 ```{r get-labels, echo = FALSE}`r ''`

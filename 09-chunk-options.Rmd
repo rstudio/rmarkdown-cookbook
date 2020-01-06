@@ -2,7 +2,7 @@
 
 As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** is one of the two major components of R Markdown (the other being Pandoc). In this chapter and the next three chapters, we show some recipes related to **knitr**.
 
-There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of the R Markdown Definitive Guide [@rmarkdown2018] provides a subset of these options, while the full list is available at <https://yihui.name/knitr/options/>.
+There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of the R Markdown Definitive Guide [@rmarkdown2018] provides a subset of these options, while the full list is available at <https://yihui.org/knitr/options/>.
 
 In the following sections, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 When a code chunk is time-consuming to run, you may consider caching it via the chunk option `cache = TRUE`. When the cache is turned on, **knitr** will skip the execution of this code chunk if it has been executed before and nothing in the code chunk has changed since then. When you modify the code chunk (e.g., revise the code or the chunk options), the previous cache will be automatically invalidated, and **knitr** will cache the chunk again.
 
-For a cached code chunk, its output and objects will be automatically loaded from the previous run, as if the chunk were executed again. Caching is often helpful when loading results is much faster than computing the results. However, there is no free lunch. Depending on your use case, you may need to learn more about how caching (especially [cache invalidation](https://yihui.name/en/2018/06/cache-invalidation/)) works, so you can take the full advantage of it without confusing yourself why sometimes **knitr** invalidates your cache too often and sometimes there is not enough invalidation.
+For a cached code chunk, its output and objects will be automatically loaded from the previous run, as if the chunk were executed again. Caching is often helpful when loading results is much faster than computing the results. However, there is no free lunch. Depending on your use case, you may need to learn more about how caching (especially [cache invalidation](https://yihui.org/en/2018/06/cache-invalidation/)) works, so you can take the full advantage of it without confusing yourself why sometimes **knitr** invalidates your cache too often and sometimes there is not enough invalidation.
 
 The most appropriate use case of caching is to save and reload R objects that take too long to compute in a code chunk, and the code does not have any side-effects, such as changing global R options via `options()` (such changes will not be cached). If a code chunk has side-effects, we recommend that you do not cache it.
 

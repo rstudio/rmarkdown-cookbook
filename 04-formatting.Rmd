@@ -58,7 +58,7 @@ We can then use the code as an inline R expression `colorize("some words in red"
 <!-- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 -->
 <!-- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks -->
 
-As mentioned in Section \@ref(linebreaks), whitespaces are often meaningless in Markdown. Markdown will also ignore spaces used for indentation by default. However, we may want to keep the indentation in certain cases, e.g., in verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The linebreaks and any leading spaces will be preserved in the output. For example:^[This is a limerick written by Claus Ekstrøm: https://yihui.name/en/2018/06/xaringan-math-limerick/.]
+As mentioned in Section \@ref(linebreaks), whitespaces are often meaningless in Markdown. Markdown will also ignore spaces used for indentation by default. However, we may want to keep the indentation in certain cases, e.g., in verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The linebreaks and any leading spaces will be preserved in the output. For example:^[This is a limerick written by Claus Ekstrøm: https://yihui.org/en/2018/06/xaringan-math-limerick/.]
 
 ```md
 | When dollars appear it's a sign
