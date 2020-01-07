@@ -46,7 +46,7 @@ knitr::include_graphics('images/word-template-2.png', dpi = NA)
 
 After you finish modifying the styles, you can save the document (with a filename that will not be accidentally overwritten), and use it as the template for future Word documents. When Pandoc renders a new Word document with a reference document (template), it will read the styles in the template and apply them to the new document.
 
-You may watch a short video at https://vimeo.com/110804387, or read the article at https://rmarkdown.rstudio.com/articles_docx.html for more detailed instructions on how to create a Word template with custom styles.
+You may watch a short video at https://vimeo.com/110804387, or read the article at https://rmarkdown.rstudio.com/articles_docx.html for more detailed instructions on how to create a Word template with custom styles. You may also check out the Stack Overflow post at https://stackoverflow.com/q/37671868/559676 on how to change the style of tables (the method is the same, and the key is that you need to find the correct style name).
 
 ## The two-way workflow between R Markdown and Word {#word-redoc}
 
