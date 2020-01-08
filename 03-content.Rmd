@@ -492,3 +492,13 @@ It is useful to comment out text in the source document, which will not be displ
 
 Comments can span either a single line or multiple lines. This may be useful for you to write draft content.
 <!-- , and it also allows us to comment out code chunks (and prevent them from being run in knitr). -->
+
+## Omit a heading in the table of contents {#toc-unlisted}
+
+If you do not want certain section headings to be included in the table of contents, you can add two classes to the heading: `unlisted` and `unnumbered`. For example:
+
+```md
+# Section heading {.unlisted .unnumbered}
+```
+
+Note that this feature requires at least Pandoc 2.8. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.8, you may install a newer version by following the instructions at https://pandoc.org/installing.html.
