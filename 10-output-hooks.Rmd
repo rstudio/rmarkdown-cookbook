@@ -118,10 +118,10 @@ c("1 + 1", "if (TRUE) {\n  1:10\n}")
 ```
 
 
-If you want to hide lines instead of expressions of R code, you will have to split `x` into individual lines. You may consider using the function `knitr:::split_lines()`. The body of the hook function will be:
+If you want to hide lines instead of expressions of R code, you will have to split `x` into individual lines. You may consider using the function `xfun::split_lines()`. The body of the hook function will be:
 
 ```{r, eval=FALSE}
-x <- knitr:::split_lines(x)  # split into individual lines
+x <- xfun::split_lines(x)  # split into individual lines
 x <- x[!grepl('# SECRET!!$', x)]
 x <- paste(x, collapse = '\n')  # combine into a single string
 hook_source(x, options)
@@ -223,13 +223,13 @@ You can use the similar trick in the `source` hook to limit the height of source
 When the text output from a code chunk is lengthy, you may want to only show the first few lines. For example, when printing a data frame of a few thousand rows, it may not be helpful to show the full data, and the first few lines may be enough. Below we redefine the `output` hook so that we can control the maximum number of lines via a custom chunk option `out.lines`:
 
 ```{r}
-# save the build-in output hook
+# save the built-in output hook
 hook_output = knitr::knit_hooks$get("output")
 
 # set a new output hook to truncate text output
 knitr::knit_hooks$set(output = function(x, options) {
   if (!is.null(n <- options$out.lines)) {
-    x = knitr:::split_lines(x)
+    x = xfun::split_lines(x)
     if (length(x) > n) {
       # truncate the output
       x = c(head(x, n), '....\n')

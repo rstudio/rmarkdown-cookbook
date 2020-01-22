@@ -9,7 +9,7 @@ code. The numbers appear in comments at the end of each line.
 local({
   hook_source <- knitr::knit_hooks$get('source')
   knitr::knit_hooks$set(source = function(x, options) {
-    x <- knitr:::split_lines(x)
+    x <- xfun::split_lines(x)
     n <- nchar(x, 'width')
     i <- seq_along(x)  # line numbers
     n <- n + nchar(i)
