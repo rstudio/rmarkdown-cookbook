@@ -51,7 +51,7 @@ colorize = function(x, color){
 }
 ```
 
-We can then use the code as an inline R expression `colorize("some words in red", "red")` which will create `r colorize("some words in red", "red")` (you may not see the red color if you are reading this book printed in black and white).
+We can then use the code in an inline R expression `` `r knitr::inline_expr('colorize("some words in red", "red")')` ``, which will create `r colorize("some words in red", "red")` (you may not see the red color if you are reading this book printed in black and white).
 
 ## Indent text
 
