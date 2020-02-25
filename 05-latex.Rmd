@@ -326,6 +326,20 @@ The output is shown in Figure \@ref(fig:latex-subfig). For the sake of simplicit
 knitr::include_graphics("images/latex-subfig.png", dpi = NA)
 ```
 
+## Generate a LaTeX fragment {#latex-fragment}
+
+If you work with pure LaTeX documents primarily, you may still find R Markdown useful, because sometimes it may be more convenient to write in R Markdown and convert the document to a LaTeX fragment, which can be included into other LaTeX documents.
+
+When you render an Rmd document to LaTeX, it generates a full LaTeX document that includes the `\documentclass{}`, `\begin{body}`, and `\end{body}`. A LaTeX fragment is basically the body of a full LaTeX document. To render a LaTeX fragment, you may use the `latex_fragment` output format, e.g.,
+
+```yaml
+---
+output: latex_fragment
+---
+```
+
+This will render a `.tex` file, e.g., `foo.Rmd` will render `foo.tex`, and you can use `\input{foo.tex}` to include this fragment into another LaTeX document.
+
 ## For hardcore LaTeX users {#latex-hardcore}
 
 R Markdown is certainly not the best possible document format for authoring or typesetting documents. Simplicity is both its advantage and disadvantage. LaTeX is much more powerful than Markdown in terms of typesetting at the price of more commands to be typed. If typesetting is of much higher priority to you and you are comfortable with using all kinds of LaTeX commands and environments, you can just use pure LaTeX code instead of Markdown to write the whole document.
