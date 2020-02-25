@@ -59,7 +59,7 @@ title: |
   Adding a Logo to LaTeX Title
 ```
 
-In this case, you will not need the `header-includes` field in the YAML frontmatter in the first example. Please note that although you cannot see them, there are two trailing spaces after `![](logo.jpg){width=1in}`, which means a linebreak in Markdown (see Section \@ref(linebreaks)). Without the linebreak, the image and the title would be on the same line, which may not be what you desire.
+In this case, you will not need the `header-includes` field in the YAML frontmatter in the first example. Please note that although you cannot see them, there are two trailing spaces after `![](logo.jpg){width=1in}`, which means a line break in Markdown (see Section \@ref(linebreaks)). Without the line break, the image and the title would be on the same line, which may not be what you desire.
 
 ## Include additional LaTeX packages {#latex-extra}
 
