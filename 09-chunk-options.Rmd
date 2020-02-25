@@ -14,6 +14,46 @@ knitr::opts_chunk$set(
 ```
 ````
 
+## Use variables in chunk options {#chunk-variable}
+
+Usually chunk options take constant values (e.g., `fig.width = 6`), but they can actually take values from arbitrary R expressions, no matter how simple or complicated the expressions are. A special case is a variable passed to a chunk option (note that a variable is also an R expression). For example, you can define a figure width in a variable in the beginning of a document, and use it later in other code chunks, so you will be able to easily change the width in the future:
+
+````md
+```{r}`r ''`
+my_width <- 7
+```
+
+```{r, fig.width=my_width}`r ''`
+plot(cars)
+```
+````
+
+Below is another example of using an `if-else` statement in a chunk option:
+
+````md
+```{r}`r ''`
+fig_small <- FALSE  # change to TRUE for larger figures
+width_small <- 4
+width_large <- 8
+```
+
+```{r, fig.width=if (fig_small) width_small else width_large}`r ''`
+plot(cars)
+```
+````
+
+## Multiple graphical output formats for the same plot {#dev-vector}
+
+In most cases, you may want one image format for one plot, such as `png` or `pdf`. The image format is controlled by the chunk option `dev` (i.e., the graphical device to render the plots). This option can take a vector of device names, e.g.,
+
+````md
+```{r, dev=c('png', 'pdf', 'svg', 'tiff')}`r ''`
+plot(cars)
+```
+````
+
+Only the first format is used in the output document, but the images corresponding to the rest of formats are also generated. This can be useful when you are required to submit figures of different formats additionally (e.g., you have shown a `png` figure in the report but the `tiff` format of the same figure is also required).
+
 ## Cache time-consuming code chunks {#cache}
 
 When a code chunk is time-consuming to run, you may consider caching it via the chunk option `cache = TRUE`. When the cache is turned on, **knitr** will skip the execution of this code chunk if it has been executed before and nothing in the code chunk has changed since then. When you modify the code chunk (e.g., revise the code or the chunk options), the previous cache will be automatically invalidated, and **knitr** will cache the chunk again.
