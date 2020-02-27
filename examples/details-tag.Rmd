@@ -1,0 +1,35 @@
+---
+title: Use the `<details>` disclosure element
+output: html_document
+---
+
+We show text output inside the `<details>` tags in this
+example. We used JavaScript to wrap text output blocks
+in `<details></details>`. The JavaScript code needs to
+be executed at the end of this document, so it is placed
+at the end. Below is a testing code chunk:
+
+```{r}
+1:100
+```
+
+The actual JavaScript code is below.
+
+```{js, echo=FALSE}
+(function() {
+  var codes = document.querySelectorAll('pre:not([class])');
+  var code, i, d, s, p;
+  for (i = 0; i < codes.length; i++) {
+    code = codes[i];
+    p = code.parentNode;
+    d = document.createElement('details');
+    s = document.createElement('summary');
+    s.innerText = 'Details';
+    // <details><summary>Details</summary></details>
+    d.appendChild(s);
+    // move the code into <details>
+    p.replaceChild(d, code);
+    d.appendChild(code);
+  }
+})();
+```

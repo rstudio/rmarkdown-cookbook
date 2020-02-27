@@ -202,6 +202,51 @@ For multiple files, they are first compressed to a zip file, and the zip file wi
 
 You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/.
 
+## Use the `<details>` disclosure element {#details-tag}
+
+As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_fold: true` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important, so we fold it initially. If the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
+
+```{r, details-tag, echo=FALSE, fig.show='hold', fig.cap='Wrap text output in the details element.'}
+knitr::include_graphics(c('images/details-closed.png', 'images/details-open.png'), dpi = NA)
+```
+
+If you are viewing the HTML version of this book, you can actually see it in action below. If you are reading the PDF or printed version, such an interaction (clicking the "Details" button) is certainly not possible.
+
+```{r}
+1:100
+```
+
+Below is the full source Rmd document that includes the JavaScript code to find output blocks, and wrap them into the `<details>` tags.
+
+```{js, echo=FALSE, include=knitr::is_html_output()}
+(function() {
+  var codes = document.querySelectorAll('pre:not([class])');
+  var code, i, d, s, p;
+  for (i = 0; i < codes.length; i++) {
+    code = codes[i];
+    p = code.parentNode;
+    d = document.createElement('details');
+    s = document.createElement('summary');
+    s.innerText = 'Details';
+    // <details><summary>Details</summary></details>
+    d.appendChild(s);
+    // move the code into <details>
+    p.replaceChild(d, code);
+    d.appendChild(code);
+  }
+})();
+```
+
+`r import_example('details-tag.Rmd')`
+
+You may try to adapt the JavaScript code above to your own need. The key is to find out the elements to be wrapped into `<details>`:
+
+```js
+document.querySelectorAll('pre:not([class])');
+```
+
+The CSS selector `pre:not([class])` means all `<pre>` elements without the `class` attribute. You can also select other types of elements. For more about CSS selectors, see https://www.w3schools.com/css/css_selectors.asp. For more about the HTML tags `<details>` and `<summary>`, see https://www.w3schools.com/tags/tag_details.asp.
+
 ## For hardcore HTML users {#html-hardcore}
 
 In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.
