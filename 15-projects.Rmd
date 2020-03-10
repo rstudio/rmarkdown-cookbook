@@ -99,6 +99,34 @@ Note that we use `knitr::read_chunk()` mainly for its side-effect, so please mak
 
 Like methods introduced in Section \@ref(source-script) and Section \@ref(option-code), this method also gives you the flexibility of developing code in a separate environment.
 
+## Keep the plot files {#keep-files}
+
+Most R Markdown output formats use the option `self_contained = TRUE` by default, which means R plots will be embedded in the output documents, so we do not need the intermediate plot files when viewing the output documents, and the plot folder (which typically has a suffix `_files`) will be deleted after the Rmd document is rendered.
+
+Sometimes you may want to keep the plot files. For example, some academic journals require authors to submit figures files separately. For R Markdown, there are three ways to avoid the automatic deletion of these files:
+
+1. Use the option `self_contained = FALSE` if the output format supports this option, e.g.,
+
+    ```yaml
+    output:
+      html_document:
+        self_contained: false
+    ```
+
+    However, this means the plot files will not be embedded in the output document. If this is not what you want, you may consider the next two methods.
+ 
+1. Enable caching for at least one code chunk (see Section \@ref(cache)). When caching is enabled, R Markdown will not delete the plot folder.
+
+1. Use the option `keep_md = TRUE` if the output format supports this option, e.g.,
+
+    ```yaml
+    output:
+      word_document:
+        keep_md: true
+    ```
+
+    When you ask R Markdown to preserve the intermediate Markdown output file, it will also preserve the plot folder.
+
 ## R package vignettes {#package-vignette}
 
 If you have experience in developing R packages, or your project requires clear documentation and rigorous tests for custom functions written in the project, you may consider organizing the project as an R package. If you do not know how to create an R package, you can easily get started in the RStudio IDE by clicking the menu `File -> New Project`, and selecting the project type to be an R package.
