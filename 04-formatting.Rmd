@@ -134,6 +134,14 @@ pre.numberSource a.sourceLine {
 }
 ```
 
+For **revealjs**'s `revealjs_presentation` output format, you may also need to adjust the CSS.
+
+```css
+.reveal pre code {
+  overflow: visible
+}
+```
+
 See Section \@ref(html-css) if you do not know how to apply custom CSS styles to HTML output.
 
 You can also specify the starting number via the `startFrom` attribute, e.g.,
