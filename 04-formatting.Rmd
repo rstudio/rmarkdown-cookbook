@@ -126,11 +126,11 @@ output:
     highlight: tango
 ```
 
-For **bookdown**'s `gitbook` output format, you may need to adjust the CSS a little bit for the line numbers to be displayed properly on the left side of the code. Below is what we used for this book (if you find the line numbers too close to the left margin, increase the `left` value to, say, `-2em`):
+For **bookdown**'s `gitbook` output format, you may need to adjust the CSS a little bit for the line numbers to be displayed properly on the left side of the code. Below is what we used for this book (if you find the line numbers too close to the left margin, increase the `left` value to, say, `-0.2em`):
 
 ```css
-pre.numberSource a.sourceLine {
-  left: -3em;
+pre.numberSource code > span > a:first-child::before {
+  left: -0.3em;
 }
 ```
 
