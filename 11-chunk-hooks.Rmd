@@ -1,1 +1,111 @@
 # Chunk Hooks {#chunk-hooks}
+
+A chunk hook is a function that is triggered by a chunk option when the value of this chunk option is not `NULL`. Chunk hooks provide a way for you to execute additional tasks beyond running the code in a chunk.
+
+You can use chunk hooks purely for their side-effects (e.g., only printing out certain information to the console), or for their returned values, which will be written to the output document if the value is a character value.
+
+Like output hooks (see Chapter \@ref(output-hooks)), chunk hooks are also registered via the object `knitr::knit_hooks`. Please note that the names of output hooks are reserved by **knitr**, so you must not use these names for your custom chunk hooks:
+
+```{r}
+names(knitr:::.default.hooks)
+```
+
+A chunk hook is associated with a chunk option of the same name. For example, you can register a chunk hook with the name `greet`:
+
+```{r}
+knitr::knit_hooks$set(greet = function(before) {
+  if (before) "Hello!" else "Bye!"
+})
+```
+
+We will explain the arguments of the hook function in a moment. Now we set the chunk option `greet = TRUE` for the chunk below: 
+
+````md
+```{r, greet=TRUE}`r ''`
+1 + 1
+```
+````
+
+And you will see that "Hello!" appears before the chunk, and "Bye!" appears after the chunk in the output below (which is because they are character values):
+
+::: {.infobox .tip data-latex="{tip}"}
+```{r, greet=TRUE}
+1 + 1
+```
+:::
+
+A chunk hook function can possibly take four arguments: `before`, `options`, `envir`, and `name`. In other words, it can be of this form:
+
+```r
+function(before, options, envir, name) {
+
+}
+```
+
+All four arguments are optional. You can have four, three, two, one, or even no arguments. In the above example, we used one argument (i.e., `before`). The meanings of these arguments are:
+
+- `before`: Whether the chunk hook is executed before or after the code chunk itself is executed. Note that a chunk hook is executed twice for every code chunk (once before with `hook(before = TRUE)` and once after with `hook(before = FALSE`).
+
+- `options`: The list of chunk options for the current code chunk, e.g., `list(fig.width = 5, echo = FALSE, ...)`.
+
+- `envir`: The environment in which the chunk hook is evaluated.
+
+- `name`: The name of the chunk option that triggered the chunk hook.
+
+As we mentioned in the beginning of this chapter, non-character values returned by chunk hooks are silently ignored, and character values are written to the output document.
+
+## Report how much time each chunk takes to run {#time-chunk}
+
+By default, **knitr** provides a text-based progress bar to show you the knitting progress. If you want more precise timing information about the chunks, you may register a custom chunk hook to record the time for each chunk. Here is an example hook:
+
+```{r, eval=FALSE}
+knitr::knit_hooks$set(time_it = local({
+  now = NULL
+  function(before, options) {
+    if (before) {
+      # record the current time before each chunk
+      now <<- Sys.time()
+    } else {
+      # calculate the time difference after a chunk
+      res <- difftime(Sys.time(), now)
+      # return a character string to show the time
+      paste('Time for this code chunk to run:', res)
+    }
+  }})
+)
+```
+
+Then you can time a chunk with the chunk option `time_it`, e.g.,
+
+````
+```{r, time_it = TRUE}`r ''`
+Sys.sleep(2)
+```
+````
+
+If you want to time all code chunks, you can certainly set the option globally: `knitr::opts_chunk$set(time_it = TRUE)`.
+
+In the above hook function, you can also output more information from the chunk options (i.e., the `options` argument of the function). For example, you may print out the chunk label in the returned value:
+
+```{r, eval=FALSE}
+paste('Time for the chunk', options$label, 'to run:', res)
+```
+
+Or you may record the time without printing it out in the hook:
+
+```{r, eval=FALSE}
+all_times <- list()  # store the time for each chunk
+knitr::knit_hooks$set(time_it = local({
+  now = NULL
+  function(before, options) {
+    if (before) {
+      now <<- Sys.time()
+    } else {
+      res <- difftime(Sys.time(), now)
+      all_times[[options$label]] <<- res
+    }
+  }})
+)
+```
+
+Then you can access all the time information in the object `all_times`, which is a named list with the names being chunk labels, and element values being the execution time for each chunk.
