@@ -163,15 +163,15 @@ When you click the `Knit` button in RStudio, it will call the `rmarkdown::render
 
 There may be situations in which we want to customize how the document is rendered. For example, perhaps we would like the rendered document to contain the current date, or would like to output the compiled report into a different directory. Although we can achieve these goals by calling `rmarkdown::render()` (see Section \@ref(rmarkdown-render)) with the appropriate `output_file` argument, it can be inconvenient to have to rely on a custom call to `rmarkdown::render() to compile your report.
 
-It is possible to control the behavior of the `Knit` button by providing the `knit` field within the YAML frontmatter of your document. The field takes a function with the arguments `inputFile` and `encoding`. You can either write the source code of the function directly in the `knit` field, or put the function elsewhere (e.g., in an R package) and call the function in the `knit` field. If you routinely need the custom `knit` function, we would recommend that you put it in a package, instead of repeating its source code in every single R Markdown document.
+It is possible to control the behavior of the `Knit` button by providing the `knit` field within the YAML frontmatter of your document. The field takes a function with the main argument `input` (the path to the input Rmd document) and other arguments that are currently ignored. You can either write the source code of the function directly in the `knit` field, or put the function elsewhere (e.g., in an R package) and call the function in the `knit` field. If you routinely need the custom `knit` function, we would recommend that you put it in a package, instead of repeating its source code in every single R Markdown document.
 
 If you store the code directly within YAML, you must wrap the entire function in parentheses. If the source code has multiple lines, you have to indent all lines (except the first line) by at least two spaces. For example, if we want the output filename to include the date on which it is rendered, we could use the following YAML code:
 
 ```yaml
 ---
-knit: (function(inputFile, encoding) {
-    rmarkdown::render(input = inputFile,
-      encoding = encoding,
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
       output_file = paste0(
         xfun::sans_ext(inputFile), '-', Sys.Date(), '.html'
       )
@@ -188,10 +188,9 @@ While the above approach looks simple and straightforward enough, embedding a fu
 #' Custom Knit function for RStudio
 #'
 #' @export
-knit_with_date <- function(inputFile, encoding) {
+knit_with_date <- function(input, ...) {
   rmarkdown::render(
-    inputFile,
-    encoding = encoding,
+    input,
     output_file = paste0(
         xfun::sans_ext(inputFile), '-', Sys.Date(), '.',
         xfun::file_ext(inputFile)
