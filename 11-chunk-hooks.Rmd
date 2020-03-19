@@ -54,6 +54,35 @@ All four arguments are optional. You can have four, three, two, one, or even no 
 
 As we mentioned in the beginning of this chapter, non-character values returned by chunk hooks are silently ignored, and character values are written to the output document.
 
+## Crop plots {#crop-plot}
+
+The chunk hook `knitr::hook_pdfcrop()` can be used to crop PDF and other types of plot files, i.e., remove the extra margins in plots. To enable it, set this hook via `knit_hooks$set()` in a code chunk, and turn on the corresponding chunk option, e.g.,
+
+```{r}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+```
+
+Then you can use the chunk option `crop = TRUE` to crop plots in a code chunk.
+
+The hook `hook_pdfcrop()` calls the external program `pdfcrop` to crop PDF files. This program often comes with a LaTeX distribution (e.g., TeX Live or MiKTeX). You can check if it is available in your system via:
+
+```{r}
+# if the returned value is not empty, it is available
+Sys.which('pdfcrop')
+```
+
+If you are using the LaTeX distribution TinyTeX (see Section \@ref(install-latex)), and `pdfcrop` is not available in your system, you may install it via `tinytex::tlmgr_install('pdfcrop')`.
+
+For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** to crop them. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
+
+```{r, crop-no, crop=NULL, echo=FALSE, fig.cap='A plot that is not cropped.'}
+par(bg = 'gray', fg = 'yellow')
+plot(cars)
+```
+
+```{r, crop-yes, crop=TRUE, echo=FALSE, fig.cap='A plot that is cropped.', ref.label='crop-no'}
+```
+
 ## Report how much time each chunk takes to run {#time-chunk}
 
 By default, **knitr** provides a text-based progress bar to show you the knitting progress. If you want more precise timing information about the chunks, you may register a custom chunk hook to record the time for each chunk. Here is an example hook:
