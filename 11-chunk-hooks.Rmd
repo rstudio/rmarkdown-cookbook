@@ -83,6 +83,18 @@ plot(cars)
 ```{r, crop-yes, crop=TRUE, echo=FALSE, fig.cap='A plot that is cropped.', ref.label='crop-no'}
 ```
 
+## Optimize PNG plots {#optipng}
+
+If you have installed the program OptiPNG (http://optipng.sourceforge.net), you may use the hook `knitr::hook_optipng()` to optimize PNG plot files to a smaller size without losing the image quality.
+
+```{r, eval=FALSE}
+knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+```
+
+After you set up this hook, you can use the chunk option `optipng` to pass command-line arguments to OptiPNG, e.g., `optipng = '-o7'`. These command-line arguments are optional, which means you can just use `optipng = ''` to enable the hook for a code chunk. Please see the user manual on the website of OptiPNG to know the possible arguments.
+
+Note that macOS users can easily install OptiPNG with Homebrew (https://brew.sh): `brew install optipng`.
+
 ## Report how much time each chunk takes to run {#time-chunk}
 
 By default, **knitr** provides a text-based progress bar to show you the knitting progress. If you want more precise timing information about the chunks, you may register a custom chunk hook to record the time for each chunk. Here is an example hook:
