@@ -90,7 +90,7 @@ Output hooks give you the ultimate control over every single piece of your chunk
 
 ## Redact source code {#hook-hide}
 
-Sometimes we may not want to fully display our source code in the report. For example, you may a password in a certain line of code. We mentioned in Section \@ref(hide-one) that you can use the chunk option `eval` to select which expressions in the R code to display (e.g., show the second expression via `echo = 2`). In this section, we provide a more flexible method that does not require you to specify the indices of expressions.
+Sometimes we may not want to fully display our source code in the report. For example, you may have a password in a certain line of code. We mentioned in Section \@ref(hide-one) that you can use the chunk option `eval` to select which expressions in the R code to display (e.g., show the second expression via `echo = 2`). In this section, we provide a more flexible method that does not require you to specify the indices of expressions.
 
 The basic idea is that you add a special comment to the code (e.g., `# SECRET!!`). When this comment is detected in a line of code, you omit that line. Below is a full example using the `source` hook:
 
