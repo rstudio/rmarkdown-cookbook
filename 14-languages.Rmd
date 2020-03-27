@@ -1,5 +1,97 @@
 # Other Languages {#other-languages}
 
+Besides the R language, many other languages are supported in R Markdown through the **knitr** package. The language name is indicated by the first word in the curly braces after the three opening backticks. For example, the little `r` in ```` ```{r}```` indicates that the code chunk contains R code, and ```` ```{python}```` is a Python code chunk.
+
+In **knitr**, each language is supported through a language engine. Language engines are essentially functions that takes the source code and options of a chunk as the input, and returns a character string as the output. They are managed through the object `knitr::knit_engines`. You may check the existing engines via:
+
+```{r}
+names(knitr::knit_engines$get())
+```
+
+[Section 2.7](https://bookdown.org/yihui/rmarkdown/language-engines.html) of the R Markdown Definitive Guide [@rmarkdown2018] has shown examples of using Python, Shell, SQL, Rcpp, Stan, JavaScript, CSS, Julia, C, and Fortran code in R Markdown. In this chapter, we will show more language engines. First, let's reveal how a language engine works by registering a custom language engine.
+
+## Register a custom language engine {#custom-engine}
+
+You can register a custom language engine via the `knitr::knit_engines$set()` method, which accepts a function as its input, e.g.,
+
+```{r, eval=FALSE}
+knitr::knit_engines$set(foo = function(options) {
+  # the source code is in options$code;
+  # just do whatever you want with it
+})
+```
+
+This registers the `foo` engine, and you will be able to use a code chunk that starts with ```` ```{foo}````.
+
+The engine function has one argument `options`, which is a list of chunk options of the code chunk, among which you can access the source code of the chunk as a character vector in `options$code`. For example, for the code chunk:
+
+````md
+```{foo}`r ''`
+1 + 1
+2 + 2
+```
+````
+
+The `code` element of `options` would be a character vector `c('1 + 1', '2 + 2')`.
+
+Language engines do not really have to deal with computer languages, but can process any text in a code chunk. First, we show a simple example of an engine that converts the content of a code chunk to uppercase:
+
+```{r}
+knitr::knit_engines$set(upper = function(options) {
+  code <- paste(options$code, collapse = '\n')
+  if (options$eval) toupper(code) else code
+})
+```
+
+The key is that we apply the function `toupper` to the "code", and return the result as a single character string (by concatenating all lines of code by `\n`). Note that `toupper()` is applied only when the chunk option `eval = TRUE`, otherwise the original string is returned. This shows you how to make use of chunk options like `eval` inside the engine function. Similarly, you may consider adding `if (options$results == 'hide') return()` to the function body to hide the output when the chunk option `results = 'hide'`. Below is an example chunk that uses the `upper` engine, with its output:
+
+::: {.infobox .tip data-latex="{tip}"}
+````md
+```{upper}`r ''`
+Hello, **knitr** engines!
+```
+````
+
+```{upper}
+Hello, **knitr** engines!
+```
+:::
+
+Next we show an example of an alternative Python engine named `py` and implemented by simply calling the `python` command via `system2()`:
+
+```{r}
+knitr::knit_engines$set(py = function(options) {
+  code <- paste(options$code, collapse = '\n')
+  out  <- system2(
+    'python', c('-c', shQuote(code)), stdout = TRUE
+  )
+  knitr::engine_output(options, code, out)
+})
+```
+
+To fully understand the above engine function, you need to know that:
+
+1. Given Python code as a character string (`code` in the above function), we can execute the code via a command-line call `python -c 'code'`. That is what `system2()` does. We collect the (text) output by specifying `stdout = TRUE` in `system2()`.
+
+1. You can pass the chunk options, source code, and text output to the function `knitr::engine_output()` to generate the final output. This function deals with common chunk options like `echo = FALSE` and `results = 'hide'`, so you do not need to take care of these cases.
+
+A lot of language engines in **knitr** are defined in this way (i.e., using `system2()` to execute commands corresponding to languages). If you are curious about the technical details, you may check out the source code of most language engines in the R source code here: https://github.com/yihui/knitr/blob/master/R/engine.R.
+
+Now we can use the new engine `py`, e.g.,
+
+::: {.infobox .tip data-latex="{tip}"}
+````md
+```{py}`r ''`
+print(1 + 1)
+```
+````
+
+```{py, echo=FALSE}
+print(1 + 1)
+```
+:::
+
+You can even override existing language engines via `knitr::knit_engines$set()`, if you are sure that your versions are necessary or better than the existing ones. Usually we do not recommend that you do this because it may surprise users who are familiar with existing engines, but we want to make you aware of this possibility anyway.
 
 ## Write the chunk content to a file via the `cat` engine {#eng-cat}
 
