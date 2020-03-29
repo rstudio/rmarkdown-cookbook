@@ -1,0 +1,17 @@
+---
+title: "Create a CSS file from a code chunk"
+output: 
+  html_document:
+    css: custom.css
+---
+
+The chunk below will be written to `custom.css`, which
+will be used during the Pandoc conversion.
+
+```{cat, engine.opts = list(file = "my_custom.css")}
+h2 {
+  color: blue;
+}
+```
+
+## And this title will blue

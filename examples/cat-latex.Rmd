@@ -1,0 +1,30 @@
+---
+title: "Create a .tex file from a chunk"
+author: "Jane Doe"
+classoption: twoside
+output: 
+  pdf_document:
+    includes:
+      in_header: preamble.tex
+---
+
+# How it works
+
+Write a code chunk to a file `preamble.tex` to define
+the header and footer of the PDF output document:
+
+```{cat, engine.opts=list(file = 'preamble.tex')}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\pagestyle{fancy}
+\fancyhead[CO,CE]{This is fancy header}
+\fancyfoot[CO,CE]{And this is a fancy footer}
+\fancyfoot[LE,RO]{\thepage}
+\fancypagestyle{plain}{\pagestyle{fancy}}
+```
+
+\lipsum[1-15]
+
+# More random content
+
+\lipsum[16-30]
