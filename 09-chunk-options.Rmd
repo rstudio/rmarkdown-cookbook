@@ -28,7 +28,7 @@ plot(cars)
 ```
 ````
 
-Below is another example of using an `if-else` statement in a chunk option:
+Below is an example of using an `if-else` statement in a chunk option:
 
 ````md
 ```{r}`r ''`
@@ -41,6 +41,17 @@ width_large <- 8
 plot(cars)
 ```
 ````
+
+And we have one more example below in which we evaluate (i.e., execute) a code chunk only if a required package is available:
+
+````md
+```{r, eval=require('leaflet')}`r ''`
+library(leaflet)
+leaflet() %>% addTiles()
+```
+````
+
+In case you do not know it, `require('package')` returns `TRUE` if the package is available (and `FALSE` if not).
 
 ## Multiple graphical output formats for the same plot {#dev-vector}
 
