@@ -93,6 +93,25 @@ print(1 + 1)
 
 You can even override existing language engines via `knitr::knit_engines$set()`, if you are sure that your versions are necessary or better than the existing ones. Usually we do not recommend that you do this because it may surprise users who are familiar with existing engines, but we want to make you aware of this possibility anyway.
 
+## Conditional content via the `asis` engine {#eng-asis}
+
+As its name indicates, the `asis` engine writes out the chunk content as is. The advantage of using this engine is that you can include some content conditionally---the display of the chunk content is decided by the chunk option `echo`. When `echo = FALSE`, the chunk will be hidden. Below is a simple example:
+
+````md
+```{r}`r ''`
+getRandomNumber <- function() {
+  sample(1:6, 1)
+}
+```
+
+```{asis, echo = getRandomNumber() == 4}`r ''`
+According to https://xkcd.com/221/, we just generated
+a **true** random number!
+```
+````
+
+The text in the `asis` chunk will be displayed only if the condition `getRandomNumber() == 4` is true.
+
 ## Write the chunk content to a file via the `cat` engine {#eng-cat}
 
 Sometimes it could be useful to write the content of a code chunk to an external file, and use this file later in other code chunks. Of course, you may do this via the R functions like `writeLines()`, but the problem is that when the content is relatively long, or contains special characters, the character string that you would pass to `writeLines()` may look awkward. Below is an example of writing a long character string to a file `my-file.txt`:
