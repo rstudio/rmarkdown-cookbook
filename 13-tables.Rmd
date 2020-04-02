@@ -204,7 +204,7 @@ for (i in 1:3) {
 ```
 ````
 
-In general, when you generate output from a `for`-loop, we recommend that you add a few linebreaks (`\n`) or an HTML comment (`<!-- -->`) after each output element to clearly separate all output elements, e.g.,
+In general, when you generate output from a `for`-loop, we recommend that you add a few line breaks (`\n`) or an HTML comment (`<!-- -->`) after each output element to clearly separate all output elements, e.g.,
 
 ````md
 ```{r, results='asis'}`r ''`
@@ -349,51 +349,81 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
 knitr::include_graphics('images/striped-table.png', dpi = NA)
 ```
 
-## kableExtra
+## The **kableExtra** package {#kableextra}
 
-The **kableExtra** package [@R-kableExtra] is designed to extend the basic functionality of tables produced using `kable`. As explained by the package author, the intention with using **kableExtra** is that you can:
+The **kableExtra** package [@R-kableExtra] is designed to extend the basic functionality of tables produced using `knitr::kable()` (see Section \@ref(kable)). Since `knitr::kable()` is simple by design (please feel free to read this as "Yihui is lazy"), it definitely has a lot of missing features that are commonly seen in other packages, and **kableExtra** has filled the gap perfectly. The most amazing thing about **kableExtra** is that most of its table features work for both HTML and PDF formats (e.g., making striped tables like the one in Figure \@ref(fig:striped-table)).
 
-- Use default base `kable()` for all simple tables
-- Use `kable()` with **kableExtra** to generate 90 % of complex/advanced/self-customized/beautiful tables in either HTML or LaTeX
-- Only have to mess with raw HTML/LaTeX in the last 10% cases where kableExtra cannot solve the problem
+This package can be installed from CRAN as usual, or you may try the development version on GitHub (https://github.com/haozhu233/kableExtra):
 
-This section aims to provide a quick overview of some of the main principles of **kableExtra**, and provides some examples of how you may wish to integrate it into your document. For extensive documentation, readers are recommended to check the [documentation online](https://haozhu233.github.io/kableExtra/), which provides full details on how the outputs can be customized for both [HTML](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) and [LaTeX](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf) outputs.
-
-### Setup
-
-**kableExtra** is available to download through CRAN: 
-
-```{r kableExtra, echo=TRUE, eval=FALSE}
-
-# Install from CRAN
+```{r, eval=FALSE}
+# install from CRAN
 install.packages("kableExtra")
 
 # install the development version
-devtools::install_github("haozhu233/kableExtra")
+remotes::install_github("haozhu233/kableExtra")
 ```
 
-### Customizing HTML
+It has extensive documentation at https://haozhu233.github.io/kableExtra/, which provides a lot of examples on how the `kable()` output can be customized for either HTML or LaTeX output. We recommend that you read its documentation by yourself, and will only present a handful of examples in this section.
 
-  - Width and position
-  - column and row spec
-  - bootstrap styling
-  - Scroll box
+The **kableExtra** package features the pipe operator, `%>%`. You can pipe the `kable()` output to the styling functions of **kableExtra**, e.g.,
 
-### Customizing PDF
-
-  - Width and position
-  - column and row spec
-  - Styling
-  - Landscape page
-
-You can scale the width of the table using the function `kable_styling(latex_options = "scale_down")`. This will force the table to the width of the page.
-
-```{r, eval=FALSE, echo=TRUE}
- kable(iris[1:5,],
-          format = "latex", booktabs = TRUE) %>%
-          kable_styling(latex_options = "scale_down")
+```{r, results='hide', tidy=FALSE}
+library(knitr)
+library(kableExtra)
+kable(iris) %>%
+  kable_styling(latex_options = "striped")
 ```
 
+### Set the font size
+
+The function `kable_styling()` in **kableExtra** allows you to style the whole table. For example, you can specify the alignment of the table on the page, the width, and the font size of the table. Below is an example of using a smaller font size:
+
+```{r, tidy=FALSE}
+kable(head(iris, 5), booktabs = TRUE) %>%
+  kable_styling(font_size = 8)
+```
+
+### Style specific rows/columns
+
+The functions `row_spec()` and `column_spec()` can be used to style individual rows and columns, respectively. In the example below, we make the first row bold and italic, add a black background to the second and third rows while changing the font color to white, underline the fourth row and change its typeface, rotate the fifth row, and strike out the fifth column:
+
+```{r, tidy=FALSE}
+kable(head(iris, 5), align = 'c', booktabs = TRUE) %>%
+  row_spec(1, bold = TRUE, italic = TRUE) %>% 
+  row_spec(2:3, color = 'white', background = 'black') %>%
+  row_spec(4, underline = TRUE, monospace = TRUE) %>% 
+  row_spec(5, angle = 45) %>% 
+  column_spec(5, strikeout = TRUE)
+```
+
+Similarly, you can style individual cells with the `cell_spec()` function.
+
+### Group rows/columns
+
+Rows and columns can be grouped via the functions `pack_rows()` and `add_header_above()`, respectively. You can also collapse rows via `collapse_rows()`, so one cell can span multiple rows. Below is an example that shows a custom table header:
+
+```{r, tidy=FALSE}
+iris2 <- iris[1:5, c(1, 3, 2, 4, 5)]
+names(iris2) <- gsub('[.].+', '', names(iris2))
+kable(iris2, booktabs = TRUE) %>%
+  add_header_above(c("Length" = 2, "Width" = 2, " " = 1)) %>% 
+  add_header_above(c("Measurements" = 4, "More attributes" = 1))
+```
+
+For the named vector in `add_header_above()`, the names are the text to be shown in the table header, and the integer values of the vector indicate how many columns a name should span, e.g., `"Length" = 2` means `Length` should span two columns.
+
+### Scaling down wide tables in LaTeX
+
+There are a few features that are specific to the HTML or LaTeX output format. For example, landscape pages only make sense in LaTeX, so the `landscape()` function in **kableExtra** only works for LaTeX output. Below we show an example to scale down a table to fit the page (otherwise it would be too wide):
+
+```{r, tidy=FALSE}
+tab <- kable(tail(mtcars, 5), booktabs = TRUE)
+tab  # original table (too wide)
+tab %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+You will not see any differences in the above two tables if you are viewing the HTML version.
 
 ## Extension packages {#table-ext}
 
