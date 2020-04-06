@@ -6,7 +6,7 @@ Tables are one of the primary ways in which we can communicate results in a repo
 
 - Highlight more advanced customization of tables using the the **kableExtra** package.
 
-- Provide examples of other packages that can be used to produce tables.
+- Provide a list of other packages that can be used to produce tables.
 
 ## The function `knitr::kable()` {#kable}
 
