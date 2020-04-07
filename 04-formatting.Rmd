@@ -25,21 +25,23 @@ The Markdown syntax has no built-in method for changing text colors. We can use 
 
 - For HTML, we can wrap the text in the `<span>` tag and set color with CSS, e.g., `<span style="color: red;">text</span>`.
 
-- For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the extra LaTeX package **xcolor**.
+- For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the extra LaTeX package **xcolor**, which is included in Pandoc's default LaTeX template.
 
 As an example of changing the color in PDF text:
 
 ```text
 ---
-output:
-  pdf_document:
-    extra_dependencies: ["xcolor"]
+output: pdf_document
 ---
 
 Roses are \textcolor{red}{red}, violets are \textcolor{blue}{blue}.
 ```
 
-If you want to design an R Markdown document for multiple output formats, you should not embed raw HTML or LaTeX code in your document, because they will be ignored in the other output formats (e.g., LaTeX code will be ignored in HTML output). We can write a custom function to insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output()` functions in **knitr** as follows:
+If you want to design an R Markdown document for multiple output formats, you should not embed raw HTML or LaTeX code in your document, because they will be ignored in the other output formats (e.g., LaTeX code will be ignored in HTML output). Next, we provide two possible methods to deal with this issue.
+
+### Using an R function to write raw HTML or LaTeX code
+
+We can write a custom R function to insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output()` functions in **knitr** as follows:
 
 ```{r}
 colorize = function(x, color){
@@ -52,6 +54,16 @@ colorize = function(x, color){
 ```
 
 We can then use the code in an inline R expression `` `r knitr::inline_expr('colorize("some words in red", "red")')` ``, which will create `r colorize("some words in red", "red")` (you may not see the red color if you are reading this book printed in black and white).
+
+### Using a Pandoc Lua filter
+
+This method may be a little advanced for R users because it involves another programming language, Lua, but it is extremely powerful---you can programmatically modify Markdown elements via [Pandoc's Lua filters.](https://pandoc.org/lua-filters.html) Below is a full example:
+
+`r import_example('font-color.Rmd')`
+
+In this example, we implicitly used a Pandoc Markdown extension named `bracketed_spans`, which allows us to write text with attributes, e.g., `[text]{.class attribute="value"}`. The Lua filter defined in the `cat` code chunk^[If you are not familiar with `cat` code chunks, please see Section \@ref(eng-cat).] puts text in `<span style="color: ..."></span>` if the output format is HTML, and in `\textcolor{...}{}` if the output format is LaTeX. The Lua filter is written to a file `color-text.lua`, and enabled through the command-line option `--lua-filter` passed to Pandoc via the `pandoc_args` option of the output formats.
+
+Compared to the previous method, the advantage of using the Lua filter is that you can still use Markdown syntax inside the brackets, whereas using the R function `colorize()` in the previous section does not allow Markdown syntax.
 
 ## Indent text
 
