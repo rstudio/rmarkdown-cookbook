@@ -17,20 +17,20 @@ and right Divs.
 
 :::::: {.columns}
 
-::: {.column width="55%"}
+::: {.column width="55%" data-latex="{0.55\textwidth}"}
 ```{r, echo=FALSE, fig.width=5, fig.height=4}
 par(mar = c(4, 4, .2, .1))
 plot(cars, pch = 19)
 ```
 :::
 
-::: {.column width="5%"}
+::: {.column width="5%" data-latex="{0.05\textwidth}"}
 \ 
-<!-- an empty Div (with a whitespace), serving as
+<!-- an empty Div (with a white space), serving as
 a column separator -->
 :::
 
-::: {.column width="40%"}
+::: {.column width="40%" data-latex="{0.4\textwidth}"}
 The figure on the left-hand side shows the `cars` data.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
