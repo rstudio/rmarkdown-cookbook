@@ -54,7 +54,7 @@ Besides, you can press `F7` to spellcheck your document. You can also restart th
 
 ## Render R Markdown with `rmarkdown::render()` {#rmarkdown-render}
 
-If you do not use RStudio or any other IDEs, you need to know this fact: R Markdown documents are rendered through the function `rmarkdown::render()`. This means you can programmatically render an R Markdown document in any R script. For example, you could render a series of reports in a `for`-loop for each state of a coutry:
+If you do not use RStudio or any other IDEs, you need to know this fact: R Markdown documents are rendered through the function `rmarkdown::render()`. This means you can programmatically render an R Markdown document in any R script. For example, you could render a series of reports in a `for`-loop for each state of a country:
 
 ```{r, eval=FALSE, tidy=FALSE}
 for (state in state.name) {
@@ -208,3 +208,19 @@ knit: myPackage::knit_with_date
 ```
 
 You may refer to the help page `?rmarkdown::render` to find out more ideas on how you could customize your `knit` function behind the `Knit` button in RStudio.
+
+## Collaborative editing of Rmd documents through Google Drive {#google-drive}
+
+Based on the **googledrive*** package, Emily Kothe provided a few wrapper functions in the **rmdrive** package, which is currently available only on GitHub at https://github.com/ekothe/rmdrive. At the time of writing, it still lacks rich documentation, so I recommend that you try Janosch Linkersdörfer's fork instead: https://github.com/januz/rmdrive (which is based on Ben Marwick's fork---if you still have not learned GIT, you may be motivated by these examples of freely forking and improving other people's GIT repositories).
+
+The workflow with **rmdrive** is outlined below:
+
+1. We assume there is a main author or contributor of the project, who is capable of using version control tools like GIT. The main author writes the initial version of the Rmd document, and upload it to Google Drive via the `upload_rmd()` function.
+
+1. The Rmd document in Google Drive is shared with other collaborators, who can make or suggest changes in Google Document.
+
+1. The main author can accept suggested changes and download the Rmd document via `download_rmd()`, or render the changed document via `render_rmd()`. Other collaborators can also do this by themselves if they have modified code chunks and want to see the new results.
+
+1. If satisfied, the main author can commit changes to the GIT repository, otherwise the Rmd document can be further revised locally, and updated in Google Drive via `update_rmd()`.
+
+Please note that the collaborative editing can only be synchronous, i.e., only one person can update the document at a time. The main author has to coordinate the efforts of all collaborators, to avoid the situation of more than one person editing the document. If this constraint is not practical, you may have to consider tools for asynchronous collaboration instead, such as GIT. Using Google Drive only gives people who do not know GIT a chance to edit documents in a more user-friendly environment.
