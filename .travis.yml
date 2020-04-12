@@ -8,6 +8,7 @@ addons:
     - cargo
     - libpoppler-cpp-dev
     - libmagick++-dev
+    - asymptote
 
 script:
   - make gitbook
