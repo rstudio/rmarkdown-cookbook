@@ -14,5 +14,5 @@ services:
   - xvfb
 
 script:
-  - xvfb-run make gitbook
+  - xvfb-run -a make gitbook
   - ./_deploy.sh
