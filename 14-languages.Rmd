@@ -8,7 +8,9 @@ In **knitr**, each language is supported through a language engine. Language eng
 names(knitr::knit_engines$get())
 ```
 
-[Section 2.7](https://bookdown.org/yihui/rmarkdown/language-engines.html) of the R Markdown Definitive Guide [@rmarkdown2018] has shown examples of using Python, Shell, SQL, Rcpp, Stan, JavaScript, CSS, Julia, C, and Fortran code in R Markdown. In this chapter, we will show more language engines. First, let's reveal how a language engine works by registering a custom language engine.
+[Section 2.7](https://bookdown.org/yihui/rmarkdown/language-engines.html) of the R Markdown Definitive Guide [@rmarkdown2018] has shown examples of using Python, Shell, SQL, Rcpp, Stan, JavaScript, CSS, Julia, C, and Fortran code in R Markdown. In this chapter, we will show more language engines, and you may find more examples in the repository at https://github.com/yihui/knitr-examples (look for filenames that contain the word "engine").
+
+First, let's reveal how a language engine works by registering a custom language engine.
 
 ## Register a custom language engine {#custom-engine}
 
@@ -210,3 +212,137 @@ str(yaml::read_yaml('demo.yml'))
 ```{r, include=FALSE}
 unlink('demo.yml')
 ```
+
+## Run SAS code {#eng-sas}
+
+You may run SAS (https://www.sas.com) code using the `sas` engine. You need to either make sure the SAS executable is in your environment variable `PATH`, or (if you do not know what `PATH` means) provide the full path to the SAS executable via the chunk option `engine.path`, e.g., `engine.path = "C:\\Program Files\\SASHome\\x86\\SASFoundation\\9.3\\sas.exe"`. Below is an example to print out "Hello World":
+
+````md
+```{sas}`r ''`
+data _null_;
+put 'Hello, world!';
+run;
+```
+````
+
+## Run Stata code {#eng-stata}
+
+You can run Stata (https://www.stata.com) code with the `stata` engine if you have installed Stata. Unless the `stata` executable can be found via the environment variable `PATH`, you need to specify the full path to the executable via the chunk option `engine.path`, e.g., `engine.path = "C:/Program Files (x86)/Stata15/StataSE-64.exe"`. Below is a quick example:
+
+````md
+```{stata}`r ''`
+sysuse auto
+summarize
+```
+````
+
+The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially extended it in the **Statamarkdown** package, which is available on GitHub at https://github.com/Hemken/Statamarkdown. You may find tutorials about this package by searching online for "Stata R Markdown".
+
+## Create graphics with Asymptote {#eng-asy}
+
+Asymptote (https://asymptote.sourceforge.io) is a powerful language for vector graphics. You may write and run Asymptote code in R Markdown with the `asy` engine if you have installed Asymptote (see its website for instructions on the installation). Below is an example copied from the repository https://github.com/vectorgraphics/asymptote, and its output is shown in Figure \@ref(fig:elevation):
+
+```{asy, elevation, fig.cap='A 3D graph made with Asymptote.', cache=TRUE, fig.retina=1}
+import graph3;
+import grid3;
+import palette;
+settings.prc = false;
+
+currentprojection=orthographic(0.8,1,2);
+size(500,400,IgnoreAspect);
+
+real f(pair z) {return cos(2*pi*z.x)*sin(2*pi*z.y);}
+
+surface s=surface(f,(-1/2,-1/2),(1/2,1/2),50,Spline);
+
+surface S=planeproject(unitsquare3)*s;
+S.colors(palette(s.map(zpart),Rainbow()));
+draw(S,nolight);
+draw(s,lightgray+opacity(0.7));
+
+grid3(XYZgrid);
+```
+
+Note that for PDF output, you may need some additional LaTeX packages, otherwise you may get an error that looks like this:
+
+```
+! LaTeX Error: File `ocgbase.sty' not found.
+```
+
+If such an error occurs, please see Section \@ref(install-latex-pkgs) for how to install the missing LaTeX packages.
+
+In the `asy` chunk above, we used the setting `settings.prc = false`. Without this setting, Asymptote generates an interactive 3D graph when the output format is PDF. However, the interactive graph can only be viewed in Acrobat Reader. If you use Acrobat Reader, you can interact with the graph. For example, you can rotate the 3D surface in Figure \@ref(fig:elevation) with your mouse.
+
+### Generate data in R and read it in Asymptote
+
+Now we show an example in which we first save data generated in R to a CSV file (below is an R code chunk):
+
+```{r}
+x = seq(0, 5, l = 100)
+y = sin(x)
+writeLines(paste(x, y, sep = ','), 'sine.csv')
+```
+
+Then read it in Asymptote, and draw a graph based on the data as shown in Figure \@ref(fig:sine-curve) (below is an `asy` code chunk):
+
+```{asy, sine-curve, fig.cap='Pass data from R to Asymptote to draw a graph.', cache=TRUE, fig.retina=1}
+import graph;
+size(400,300,IgnoreAspect);
+settings.prc = false;
+
+// import data from csv file
+file in=input("sine.csv").line().csv();
+real[][] a=in.dimension(0,0);
+a=transpose(a);
+
+// generate a path
+path rpath = graph(a[0],a[1]);
+path lpath = (1,0)--(5,1);
+
+// find intersection
+pair pA=intersectionpoint(rpath,lpath);
+
+// draw all
+draw(rpath,red);
+draw(lpath,dashed + blue);
+dot("$\delta$",pA,NE);
+xaxis("$x$",BottomTop,LeftTicks);
+yaxis("$y$",LeftRight,RightTicks);
+```
+
+```{r, include=FALSE}
+unlink('sine.csv')
+```
+
+## Style HTML pages with Sass/SCSS {#eng-sass}
+
+Sass (https://sass-lang.com) is a CSS extension language that allows you to create CSS rules in much more flexible ways than you'd do with plain CSS. Please see its official documentation if you are interested in learning it.
+
+The R package **sass** [@R-sass] can be used to compile Sass to CSS. Based on the **sass** package, **knitr** has provided two language engines, `sass` and `scss` (corresponding to the Sass and SCSS syntax, respectively), to compile code chunks to CSS. Below is a `scss` code chunk, with the chunk header ```` ```{scss}````:
+
+```{scss}
+$font-stack: "Comic Sans MS", cursive, sans-serif;
+$primary-color: #00FF00;
+
+.book.font-family-1 {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+```
+
+You can also use the `sass` engine, and the Sass syntax is slightly different with the SCSS syntax, e.g.,
+
+````md
+```{sass}`r ''`
+$font-stack: "Comic Sans MS", cursive, sans-serif
+$primary-color: #00FF00
+
+.book.font-family-1
+  font: 100% $font-stack
+  color: $primary-color
+```
+````
+
+If you are reading [the HTML version of this section,](https://bookdown.org/yihui/rmarkdown-cookbook/eng-sass.html) you will notice that the font for this page has been changed to Comic Sans.
+
+The `sass`/`scss` code chunks are compiled through the `sass::sass()` function. Currently you can customize the output style for the CSS code via the chunk option `engine.opts`, e.g., `engine.opts = list(style = "expanded")`. The default style is "compressed". If you are not sure what this means, please refer to the help page `?sass::sass_options` and look for the `output_style` argument.
