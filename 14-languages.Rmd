@@ -110,7 +110,31 @@ a **true** random number!
 ```
 ````
 
-The text in the `asis` chunk will be displayed only if the condition `getRandomNumber() == 4` is true.
+The text in the `asis` chunk will be displayed only if the condition `getRandomNumber() == 4` is (randomly) true.
+
+## Execute Shell scripts {#eng-bash}
+
+You can run Shell scripts via the `bash` or `sh` or `zsh` engine, depending on which shell you prefer. Below is a `bash` example, with the chunk header ```` ```{bash}````:
+
+```{bash}
+ls *.Rmd | head -n 5
+```
+
+Please note that `bash` is invoked with the R function `system2()`, and it will ignore profile files like `~/.bash_profile` and `~/.bash_login`, in which you may have defined command aliases or modified environment variables like the `PATH` variable. If you want these profile files to be executed just like when you use the terminal, you may pass the argument `-l` to `bash` via `engine.opts`, e.g.,
+
+````md
+```{bash, engine.opts='-l'}`r ''`
+echo $PATH
+```
+````
+
+If you want to enable the `-l` argument globally for all `bash` chunks, you may set it in the global chunk option in the beginning of your document:
+
+```{r, eval=FALSE}
+knitr::opts_chunk$set(engine.opts = list(bash = '-l'))
+```
+
+You can also pass other arguments to `bash` by providing them as a character vector to the chunk option `engine.opts`.
 
 ## Write the chunk content to a file via the `cat` engine {#eng-cat}
 
