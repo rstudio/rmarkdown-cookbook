@@ -31,3 +31,45 @@ Please note that "**tinytex**" refers to the R package, and "TinyTeX" refers to 
 1. When R Markdown is converted to PDF, Pandoc converts Markdown to an intermediate LaTeX document first. The R package **tinytex** has provided helper functions to compile LaTeX documents to PDF (the main function is `tinytex::latexmk()`). If you use TinyTeX and certain LaTeX packages are required but not installed, **tinytex** will try to automatically install them for you. It will also try to compile the LaTeX file for a sufficient number of times to make sure all cross-references are resolved.
 
 If you are interested in the technical details, you may check out the article @tinytex2019 and the FAQ page at https://yihui.org/tinytex/faq/.
+
+## Install missing LaTeX packages {#install-latex-pkgs}
+
+When you compile a document to PDF through LaTeX, you may run into errors like these:
+
+```latex
+! LaTeX Error: File `ocgbase.sty' not found.
+
+!pdfTeX error: pdflatex (file 8r.enc):
+  cannot open encoding file for reading
+
+!pdfTeX error: /usr/local/bin/pdflatex (file tcrm0700):
+  Font tcrm0700 at 600 not found
+```
+
+If you are using TinyTeX as introduced in Section \@ref(install-latex), usually you do not need to deal with such errors since **tinytex** will automatically deal with them, but if you run into such errors anyway, it is still easy to install the missing LaTeX package(s) via `tinytex::parse_install()`. This function takes the path of the LaTeX log file as the input, tries to figure out the missing packages automatically, and install them if they are found on CTAN (the Comprehensive TEX Archive Network, https://ctan.org). The LaTeX log file typically has the same base name as your input document, and has an extension `.log`. If you cannot find this log file, you can pass the error message to the `text` argument of this function. Both ways should work:
+
+```{r, tidy=FALSE, eval=FALSE}
+# if the log file is filename.log
+tinytex::parse_install("filename.log")
+
+# or use the `text` argument
+tinytex::parse_install(
+  text = "! LaTeX Error: File `ocgbase.sty' not found."
+)
+# it will install the "ocgx2" package
+```
+
+If you do not use TinyTeX, the R package **tinytex** can still help you figure out the LaTeX package names from the error log---use the function `tinytex::parse_packages()`, e.g.,
+
+```{r, tidy=FALSE, eval=FALSE}
+# if the log file is filename.log
+tinytex::parse_packages("filename.log")
+
+# or use the `text` argument
+tinytex::parse_packages(
+  text = "! LaTeX Error: File `ocgbase.sty' not found."
+)
+# it should return "ocgx2"
+```
+
+Once you know the package names, you can install them with the package manager of your LaTeX distribution.
