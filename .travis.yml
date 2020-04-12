@@ -10,6 +10,9 @@ addons:
     - libmagick++-dev
     - asymptote
 
+services:
+  - xvfb
+
 script:
-  - make gitbook
+  - xvfb-run make gitbook
   - ./_deploy.sh
