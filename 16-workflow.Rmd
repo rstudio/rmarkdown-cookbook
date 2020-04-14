@@ -211,7 +211,7 @@ You may refer to the help page `?rmarkdown::render` to find out more ideas on ho
 
 ## Collaborative editing of Rmd documents through Google Drive {#google-drive}
 
-Based on the **googledrive*** package, Emily Kothe provided a few wrapper functions in the **rmdrive** package, which is currently available only on GitHub at https://github.com/ekothe/rmdrive. At the time of writing, it still lacks rich documentation, so I recommend that you try Janosch Linkersdörfer's fork instead: https://github.com/januz/rmdrive (which is based on Ben Marwick's fork---if you still have not learned GIT, you may be motivated by these examples of freely forking and improving other people's GIT repositories).
+Based on the **googledrive** package, Emily Kothe provided a few wrapper functions in the **rmdrive** package, which is currently available only on GitHub at https://github.com/ekothe/rmdrive. At the time of writing, it still lacks rich documentation, so I recommend that you try Janosch Linkersdörfer's fork instead: https://github.com/januz/rmdrive (which is based on Ben Marwick's fork---if you still have not learned GIT, you may be motivated by these examples of freely forking and improving other people's GIT repositories).
 
 The workflow with **rmdrive** is outlined below:
 
