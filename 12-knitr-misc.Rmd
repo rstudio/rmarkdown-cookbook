@@ -76,7 +76,7 @@ If you do not have to specify the object name in `load_cache()` in the second ar
 ```{r, eval=FALSE}
 res <- knitr::load_cache('mean-x')
 res$x   # the object `x`
-res$mx  # the obejct `mx`
+res$mx  # the object `mx`
 ```
 
 ## Exit knitting early {#knit-exit}
@@ -117,6 +117,181 @@ After another paragraph, we introduce the plot:
 ````
 
 In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot temporarily. Then in another paragraph, we called the function `knitr::fig_chunk()` to retrieve the path of the plot file, which is usually like `test_files/figure-html/cars-plot-1.png`. You need to pass the chunk label and the graphical device name to `fig_chunk()` for it to calculate the plot file path. You may see https://stackoverflow.com/a/46305297/559676 for an application of `fig_chunk()` to **blogdown** websites.
+
+## A more transparent caching mechanism {#cache-rds}
+
+If you feel the caching mechanism of **knitr** introduced in Section \@ref(cache) is too complicated (it is!), you may consider a simpler caching mechanism based on the function `xfun::cache_rds()`, e.g.,
+
+```{r, eval=FALSE}
+xfun::cache_rds({
+  # write your time-consuming code in this expression
+})
+```
+
+The tricky thing about **knitr**'s caching is how it decides when to invalidate the cache. For `xfun::cache_rds()`, it is much clearer: the first time you pass an R expression to this function, it evaluates the expression and save the result to a `.rds` file; the next time you run `cache_rds()` again, it reads the `.rds` file and returns the result immediately without evaluating the expression again. The most obvious way to invalidate the cache is to delete the `.rds` file. If you do not want to manually delete it, you may call `xfun::cache_rds()` with the argument `rerun = TRUE`.
+
+When `xfun::cache_rds()` is called inside a code chunk in a **knitr** source document, the path of the `.rds` file is determined by the chunk option `cache.path` and the chunk label. For example, for a code chunk with the chunk label `foo` in the Rmd document `input.Rmd`:
+
+````md
+```{r, foo}`r ''`
+res <- xfun::cache_rds({
+  Sys.sleep(3)
+  1:10
+})
+```
+````
+
+The path of the `.rds` file will be of the form `input_cache/FORMAT/foo_HASH.rds`, where `FORMAT` is the Pandoc output format name (e.g., `html` or `latex`), and `HASH` is a MD5 hash that contains 32 hexadecimal digits (consisting a-z and 0-9), e.g., `input_cache/html/foo_7a3f22c4309d400eff95de0e8bddac71.rds`.
+
+As documented on the help page `?xfun::cache_rds`, there are two common cases in which you may want to invalidate the cache: 1) the code in the expression to be evaluated has changed; 2) the code uses an external variable, and the value of that variable has changed. Next we will explain how these two ways of cache invalidation work, as well as how to keep multiple copies of the cache corresponding to different versions of the code.
+
+### Invalidate the cache by changing code in the expression
+
+When you change the code in `cache_rds()` (e.g., from `cache_rds({x + 1})` to `cache_rds({x + 2})`), the cache will be automatically invalidated and the expression will be re-evaluated. However, please note that changes in white spaces or comments do not matter. Or generally speaking, as long as the change does not affect the parsed expression, the cache will not be invalidated. For example, the two expressions passed to `cache_rds()` below are essentially identical:
+
+```r
+res <- xfun::cache_rds({
+  Sys.sleep(3  );
+  x<-1:10;  # semi-colons won't matter
+  x+1;
+})
+
+res <- xfun::cache_rds({
+  Sys.sleep(3)
+  x <- 1:10  # a comment
+  x +
+    1  # feel free to make any changes in white spaces
+})
+```
+
+Hence if you have executed `cache_rds()` on the first expression, the second expression will be able to take advantage of the cache. This feature is helpful because it allows you make cosmetic changes in your code without invalidating the cache.
+
+If you are not sure if two versions of code are equivalent, you may try the `parse_code()` below:
+
+```{r, tidy=FALSE}
+parse_code <- function(expr) {
+  deparse(substitute(expr))
+}
+# white spaces and semi-colons do not matter
+parse_code({x+1})
+parse_code({ x   +    1; })
+# left arrow and right arrow are equivalent
+identical(parse_code({x <- 1}), parse_code({1 -> x}))
+```
+
+### Invalidate the cache by changes in global variables
+
+There are two types of variables in an expression: global variables and local variables. Global variables are those created outside the expression, and local variables are those created inside the expression. If the value of a global variable in the expression has changed. For example, in the expression below, if `y` has changed, you are most likely to want to invalidate the cache and rerun the expression, otherwise you still get the result from the old value of `y`:
+
+```r
+y <- 2
+
+res <- xfun::cache_rds({
+  x <- 1:10
+  x + y
+})
+```
+
+To invalidate the cache when `y` has changed, you may let `cache_rds()` know through the `hash` argument that `y` needs to be considered when deciding if the cache should be invalidated:
+
+```r
+res <- xfun::cache_rds({
+  x <- 1:10
+  x + y
+}, hash = list(y))
+```
+
+When the value of the `hash` argument is changed, the 32-digit hash in the cache filename (as mentioned earlier) will change accordingly, therefore the cache will be invalidated. This provides a way to specify the cache's dependency on other R objects. For example, if you want the cache to be dependent on the version of R, you may specify the dependency like this:
+
+```r
+res <- xfun::cache_rds({
+  x <- 1:10
+  x + y
+}, hash = list(y, getRversion()))
+```
+
+Or if you want the cache to depend on when a data file was last modified:
+
+```r
+res <- xfun::cache_rds({
+  x <- read.csv("data.csv")
+  x[[1]] + y
+}, hash = list(y, file.mtime("data.csv")))
+```
+
+If you do not want to provide this list of global variables to the `hash` argument, you may try `hash = "auto"` instead, which tells `cache_rds()` to try to figure out all global variables automatically and use a list of their values as the value for the `hash` argument, e.g.,
+
+```r
+res <- xfun::cache_rds({
+  x <- 1:10
+  x + y + z  # y and z are global variables
+}, hash = "auto")
+```
+
+This is equivalent to:
+
+```r
+res <- xfun::cache_rds({
+  x <- 1:10
+  x + y + z  # y and z are global variables
+}, hash = list(y = y, z = z))
+```
+
+The global variables are identified by `codetools::findGlobals()` when `hash = "auto"`, which may not be completely reliable. You know your own code the best, so we recommend that you specify the list of values explicitly in the `hash` argument if you want to be completely sure which variables can invalidate the cache.
+
+### Keep multiple copies of the cache
+
+Since cache is typically used for time-consuming code, perhaps you should invalidate it conservatively. You might regret invalidating the cache too soon or aggressively, because in case you should need an older version of the cache again, you would have to wait for a long time for the computing to be redone.
+
+The `clean` argument of `cache_rds()` allows you to keep older copies of the cache if you set it to `FALSE`. You can also set the global R option `options(xfun.cache_rds.clean = FALSE)` if you want this to be the default behavior throughout the entire R session. By default, `clean = TRUE` and `cache_rds()` will try to delete the older cache every time. Setting `clean = FALSE` can be useful if you are still experimenting with the code. For example, you can cache two versions of a linear model:
+
+```{r, eval=FALSE}
+model <- xfun::cache_rds({
+  lm(dist ~ speed, data = cars)
+}, clean = FALSE)
+
+model <- xfun::cache_rds({
+  lm(dist ~ speed + I(speed^2), data = cars)
+}, clean = FALSE)
+```
+
+After you decide which model to use, you can set `clean = TRUE` again, or delete this argument (so the default `TRUE` is used).
+
+### Comparison with **knitr**'s caching
+
+You may wonder when to use **knitr**'s caching (i.e., set the chunk option `cache = TRUE`), and when to use `xfun::cache_rds()` in a **knitr** source document. The biggest disadvantage of `xfun::cache_rds()` is that it does not cache side-effects (but only the value of the expression), whereas **knitr** does. Some side-effects may be useful, such as printed output or plots. For example, the text output and the plot will be lost when `cache_rds()` loads the cache the next time, and only the value `1:10` will be returned:
+
+```{r, eval=FALSE}
+xfun::cache_rds({
+  print("Hello world!")
+  plot(cars)
+  1:10
+})
+```
+
+By comparison, for a code chunk with the option `cache = TRUE`, everything will be cached:
+
+````md
+```{r, cache=TRUE}`r ''`
+print("Hello world!")
+plot(cars)
+1:10
+```
+````
+
+The biggest disadvantage of **knitr**'s caching (and also what users complain most frequently about) is that your cache might be inadvertently invalidated, because the cache is determined by too many factors. For example, any changes in chunk options can invalidate the cache,^[This is the default behavior, and you can change it. See https://yihui.org/knitr/demo/cache/ for how you can make the cache more granular, so not all chunk options affect the cache.] but some chunk options may not be relevant to the computing. In the code chunk below, changing the chunk option `fig.width = 6` to `fig.width = 10` should not invalidate the cache, but it will:
+
+````md
+```{r, cache=TRUE, fig.width=6}`r ''`
+# there are no plots in this chunk
+x <- rnorm(1000)
+mean(x)
+```
+````
+
+Actually **knitr** caching is quite powerful and flexible, and its behavior can be tweaked in many ways. As its author, I often doubt if it is worth introducing these lesser-known features, because you may end up spending much more time on learning and understanding how the cache works than the time the actual computing takes.
+
+In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere (not necessarily inside **knitr** documents). Apparently **knitr**'s caching only works in **knitr** documents.
 
 ## Allow duplicate labels in code chunks {#duplicate-label}
 

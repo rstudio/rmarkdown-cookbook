@@ -96,7 +96,7 @@ if (file.exists('results.rds')) {
 }
 ```
 
-In this case, the only (and also simple) way to invalidate the cache is to delete the file `results.rds`.
+In this case, the only (and also simple) way to invalidate the cache is to delete the file `results.rds`. If you like this simple caching mechanism, you may use the function `xfun::cache_rds()` introduced in Section \@ref(cache-rds).
 
 ## Cache a code chunk for multiple output formats {#cache-path}
 
