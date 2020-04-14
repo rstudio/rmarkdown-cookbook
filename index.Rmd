@@ -1,6 +1,6 @@
 --- 
 title: "R Markdown Cookbook"
-author: "Yihui Xie"
+author: "Yihui Xie and Christophe Dervieux"
 date: "`r Sys.Date()`"
 bibliography:
   - packages.bib
