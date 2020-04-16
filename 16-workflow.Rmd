@@ -219,8 +219,10 @@ The workflow with **rmdrive** is outlined below:
 
 1. The Rmd document in Google Drive is shared with other collaborators, who can make or suggest changes in Google Document.
 
-1. The main author can accept suggested changes and download the Rmd document via `download_rmd()`, or render the changed document via `render_rmd()`. Other collaborators can also do this by themselves if they have modified code chunks and want to see the new results.
+1. The main author can accept suggested changes, and download/preview the Rmd document locally via `render_rmd()`. Other collaborators can also do this by themselves if they have modified code chunks and want to see the new results.
 
-1. If satisfied, the main author can commit changes to the GIT repository, otherwise the Rmd document can be further revised locally, and updated in Google Drive via `update_rmd()`.
+1. If satisfied, the main author can commit changes to the GIT repository.
 
-Please note that the collaborative editing can only be synchronous, i.e., only one person can update the document at a time. The main author has to coordinate the efforts of all collaborators, to avoid the situation of more than one person editing the document. If this constraint is not practical, you may have to consider tools for asynchronous collaboration instead, such as GIT. Using Google Drive only gives people who do not know GIT a chance to edit documents in a more user-friendly environment.
+The collaborative editing can be either synchronous or asynchronous in Google Drive. Multiple people can edit the same document at the same time, or wait for other people to finish their editing first.
+
+There is also a function `udpate_rmd()` in the package, which allows you to edit the Rmd document locally, and upload the local Rmd document to Google Drive. You probably should never want to run this function, because it will completely overwrite the document in Google Drive. The main author may want to warn collaborators about this in advance. Ideally, all collaborators should only edit the document in Google Drive and not locally. It is okay to preview the edited document locally via `render_rmd()`, though (note that `render_rmd()` automatically downloads the document before rendering it).
