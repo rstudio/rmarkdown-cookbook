@@ -113,6 +113,32 @@ By default, `cache.path = "INPUT_cache/FORMAT/"` in R Markdown, where `INPUT` is
 
 We do not recommend that you set `cache = TRUE` or `cache.path` globally in a document. Caching can be quite tricky. Instead, we recommend that you set these options only on individual code chunks that are surely time-consuming and do not have side-effects.
 
+## Lazy-loading cached objects {#cache-lazy}
+
+When the chunk option `cache = TRUE`, cached objects will be lazy-loaded into the R session, which means an object will not be read from the cache database until it is actually used in the code. This can save you some memory when not all objects are used later in the document. For example, you may have read a large data but only used a subset in the subsequent analysis, and the original data object will not be loaded from the cache database:
+
+````md
+```{r, read-data, cache=TRUE}`r ''`
+full <- read.csv("HUGE.csv")
+rows <- subset(full, price > 100)
+# next we only use `rows`
+```
+
+```{r}`r ''`
+plot(rows)
+```
+````
+
+However, when an object is too large, you may run into an error like this:
+
+```r
+Error in lazyLoadDBinsertVariable(vars[i], ... 
+  long vectors not supported yet: ...
+Execution halted
+```
+
+If this problem occurs, you can try to turn off the lazy-loading via the chunk option `cache.lazy = FALSE`. All objects in this chunk will be immediately loaded into memory.
+
 ## Hide code, text output, messages, or plots {#hide-one}
 
 By default, **knitr** displays all possible output from a code chunk, including the source code, text output, messages, warnings, and plots. You can hide them individually using the corresponding chunk options.
