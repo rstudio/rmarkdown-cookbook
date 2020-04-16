@@ -318,7 +318,7 @@ unlink('sine.csv')
 
 Sass (https://sass-lang.com) is a CSS extension language that allows you to create CSS rules in much more flexible ways than you'd do with plain CSS. Please see its official documentation if you are interested in learning it.
 
-The R package **sass** [@R-sass] can be used to compile Sass to CSS. Based on the **sass** package, **knitr** has provided two language engines, `sass` and `scss` (corresponding to the Sass and SCSS syntax, respectively), to compile code chunks to CSS. Below is a `scss` code chunk, with the chunk header ```` ```{scss}````:
+The R package **sass** [@R-sass] can be used to compile Sass to CSS. Based on the **sass** package, [Emily Riederer contributed](https://github.com/yihui/knitr/pull/1666) two language engines to **knitr**, `sass` and `scss` (corresponding to the Sass and SCSS syntax, respectively), to compile code chunks to CSS. Below is a `scss` code chunk, with the chunk header ```` ```{scss}````:
 
 ```{scss}
 $font-stack: "Comic Sans MS", cursive, sans-serif;
