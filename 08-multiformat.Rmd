@@ -73,6 +73,26 @@ webshot::install_phantomjs()
 
 Then if you knit an Rmd document with HTML widgets to a non-HTML format, the HTML widgets will be displayed as static screenshots. The screenshots are automatically taken in **knitr**. [Section 2.10](https://bookdown.org/yihui/bookdown/html-widgets.html) of the **bookdown** book contains more information on finer control over the screenshots.
 
+## Write raw content {#raw-content}
+
+The technique introduced in Section \@ref(raw-latex) is actually a general technique. You can protect any complex raw content in Markdown by specifying the content as "raw". For example, if you want to write raw HTML content, you can use the attribute `=html`:
+
+````md
+```{=html}
+Any <strong>raw</strong> HTML content.
+```
+````
+
+The attribute name is the Pandoc output format name. If you want to know the output format name, you may check the output of the code chunk below inside an Rmd document:
+
+````md
+```{r}`r ''`
+knitr:::pandoc_to()
+```
+````
+
+Please note that raw content is only visible to a specific output format. For example, raw LaTeX content will be ignored when the output format is HTML.
+
 ## Multiple figures side-by-side {#figures-side}
 
 You can place multiple figures side-by-side using the `fig.hold='hold'` along with the `out.width` option. In the example below, we have set `out.width="50%"`:
