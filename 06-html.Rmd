@@ -119,6 +119,28 @@ The height of the text output from the second R code chunk is also 100px. That i
 
 If you want to specify different maximum heights for individual code blocks, you may see the example in Section \@ref(hook-scroll).
 
+## Fold all code blocks but show some initially {#fold-show}
+
+If code blocks in the output document are potentially distracting to readers, you may choose to fold them initially, and readers can choose to display them by clicking the fold buttons:
+
+```yaml
+output:
+  html_document:
+    code_fold: hide
+```
+
+You can also choose to unfold all code blocks initially (so readers can choose to fold them later):
+
+```yaml
+output:
+  html_document:
+    code_fold: show
+```
+
+If you fold all code blocks initially, you can specify certain blocks to be unfolded initially with the chunk option `class.source = "fold-show"`, e.g.,
+
+`r import_example('fold-show.Rmd')`
+
 ## Put content in tabs {#html-tabs}
 
 <!--https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings-->

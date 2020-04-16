@@ -1,0 +1,18 @@
+---
+title: Hide all code blocks and show some initially
+output:
+  html_document:
+    code_folding: hide
+---
+
+```{r}
+1  # code is hidden initially
+```
+
+```{r class.source = 'fold-show'}
+2  # code is shown initially
+```
+
+```{r}
+3  # also hidden
+```
