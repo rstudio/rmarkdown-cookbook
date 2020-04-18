@@ -297,7 +297,13 @@ options(tikzDefaultEngine = 'xetex')
 
 That is because `xetex` is usually better than the default engine `pdftex` in processing multibyte characters in LaTeX documents.
 
-There are two major disadvantages of the `tikz` device. First, it requires a LaTeX installation, but this may not be too bad (see Section \@ref(install-latex)). Second, it is often significantly slower to render the plots, because this device generates a LaTeX file and has to compile it to PDF. If you feel the code chunk is time-consuming, you may enable caching by the chunk option `cache = TRUE`.
+There are two major disadvantages of the `tikz` device. First, it requires a LaTeX installation, but this may not be too bad (see Section \@ref(install-latex)). You also need a few LaTeX packages, which can be easily installed if you are using TinyTeX:
+
+```{r, tikz-packages, cache=TRUE, message=FALSE}
+tinytex::tlmgr_install(c('pgf', 'preview', 'xcolor'))
+```
+
+Second, it is often significantly slower to render the plots, because this device generates a LaTeX file and has to compile it to PDF. If you feel the code chunk is time-consuming, you may enable caching by the chunk option `cache = TRUE` (see Section \@ref(cache)).
 
 For Figure \@ref(fig:dev-tikz), we also used the chunk option `fig.process = pdf2png`, where the function `pdf2png` is defined in Section \@ref(fig-process) to convert the PDF plot to PNG when the output format is not LaTeX. Without the conversion, you may not be able to view the PDF plot in the online version of this book in the web browser.
 
