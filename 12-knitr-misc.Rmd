@@ -118,6 +118,18 @@ After another paragraph, we introduce the plot:
 
 In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot temporarily. Then in another paragraph, we called the function `knitr::fig_chunk()` to retrieve the path of the plot file, which is usually like `test_files/figure-html/cars-plot-1.png`. You need to pass the chunk label and the graphical device name to `fig_chunk()` for it to calculate the plot file path. You may see https://stackoverflow.com/a/46305297/559676 for an application of `fig_chunk()` to **blogdown** websites.
 
+## Modify a plot in a previous code chunk {#global-device}
+
+By default, **knitr** opens a new graphical device to record plots for each new code chunk. This brings a problem: you cannot easily modify a plot from a previous code chunk, because the previous graphical device has been closed. This is usually problematic for base R graphics (not so for grid graphics such as those created from **ggplot2** because plots can be saved to R objects). For example, if we draw a plot in one code chunk, and add a line to the plot in a later chunk, R will signal an error saying that a high-level plot has not been created, so it could not add the line.
+
+If you want the graphical device to remain open for all code chunks, you may set a **knitr** package option in the beginning of your document:
+
+```{r, eval=FALSE}
+knitr::opts_knit$set(global.device = TRUE)
+```
+
+Please note that it is `opts_knit` instead of the more frequently used `opts_chunk`. You may see the Stack Overflow post https://stackoverflow.com/q/17502050 for an example.
+
 ## A more transparent caching mechanism {#cache-rds}
 
 If you feel the caching mechanism of **knitr** introduced in Section \@ref(cache) is too complicated (it is!), you may consider a simpler caching mechanism based on the function `xfun::cache_rds()`, e.g.,
