@@ -307,7 +307,24 @@ Second, it is often significantly slower to render the plots, because this devic
 
 For Figure \@ref(fig:dev-tikz), we also used the chunk option `fig.process = pdf2png`, where the function `pdf2png` is defined in Section \@ref(fig-process) to convert the PDF plot to PNG when the output format is not LaTeX. Without the conversion, you may not be able to view the PDF plot in the online version of this book in the web browser.
 
-## Option hooks
+## Step-by-step plots with low-level plotting functions {#low-plots}
+
+For R graphics, there are two types of plotting functions: high-level plotting functions create new plots, and low-level functions add elements to existing plots. You may see Chapter 12 (Graphical procedures) of the R manual ["An Introduction to R"](https://cran.r-project.org/doc/manuals/r-release/R-intro.html) for more information.
+
+By default, **knitr** does not show the intermediate plots when a series of low-level plotting functions are used to modify a previous plot. Only the last plot on which all low-level plotting changes have been made is shown.
+
+It can be useful to show the intermediate plots, especially for teaching purposes. You can set the chunk option `fig.keep = 'low'` to keep low-level plotting changes. For example, Figure \@ref(fig:low-plots-1) and Figure \@ref(fig:low-plots-2) are from a single code chunk with the chunk option `fig.keep = 'low'`, although they appear to be from two code chunks. We also assigned different figure captions to them with the chunk option `fig.cap = c('A scatterplot ...', 'Adding a regression line...')`.
+
+```{r, low-plots, fig.cap=c('A scatterplot of the cars data.', 'Adding a regression line to an existing scatterplot.'), fig.keep='low'}
+par(mar = c(4, 4, .1, .1))
+plot(cars)
+fit = lm(dist ~ speed, data = cars)
+abline(fit)
+```
+
+If you want to keep modifying a plot in a _different_ code chunk, please see Section \@ref(global-device).
+
+## Option hooks {#option-hooks}
 
 Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options, and you may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
 
