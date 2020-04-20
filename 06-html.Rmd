@@ -141,6 +141,24 @@ If you fold all code blocks initially, you can specify certain blocks to be unfo
 
 `r import_example('fold-show.Rmd')`
 
+You can also do it the other way around, i.e., show all code blocks but hide some of them initially. For example:
+
+````md
+---
+output:
+  html_document:
+    code_folding: show
+---
+
+```{r}`r ''`
+1  # code is shown initially
+```
+
+```{r class.source = 'fold-hide'}`r ''`
+2  # code is hidden initially
+```
+````
+
 ## Put content in tabs {#html-tabs}
 
 <!--https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings-->
