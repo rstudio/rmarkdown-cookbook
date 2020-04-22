@@ -36,12 +36,12 @@ if (knitr::is_html_output()) {
 }
 
 # packages only available on Github
-remote_pkgs = c(gt = 'rstudio', equatiomatic = 'datalorax')
+remote_pkgs = c(equatiomatic = 'datalorax')
 
 lapply(c(
-  'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
+  'remotes', 'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
   'equatiomatic', 'gifski', 'magick', 'pdftools', 'tikzDevice', 'xaringan',
-  'kableExtra'
+  'kableExtra', 'blogdown'
   ), function(pkg) {
     if (system.file(package = pkg) != '') return()
     repo = remote_pkgs[pkg]
