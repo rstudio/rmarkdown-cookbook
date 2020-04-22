@@ -1,0 +1,35 @@
+---
+title: "Using a global graphical device to record plots"
+---
+
+First, turn on a global graphical device:
+
+```{r, include=FALSE}
+knitr::opts_knit$set(global.device = TRUE)
+```
+
+Draw a plot:
+
+```{r}
+par(mar = c(4, 4, 0.1, 0.1))
+plot(cars)
+```
+
+Add a line to the plot in the previous code chunk:
+
+```{r}
+fit <- lm(dist ~ speed, data = cars)
+abline(fit)
+```
+
+No longer use the global device:
+
+```{r, include=FALSE}
+knitr::opts_knit$set(global.device = FALSE)
+```
+
+Draw another plot:
+
+```{r}
+plot(pressure, type = 'b')
+```

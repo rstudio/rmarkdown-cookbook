@@ -130,6 +130,10 @@ knitr::opts_knit$set(global.device = TRUE)
 
 Please note that it is `opts_knit` instead of the more frequently used `opts_chunk`. You may see the Stack Overflow post https://stackoverflow.com/q/17502050 for an example.
 
+When you no longer need this global graphical device, you can set the option to `FALSE`. Here is a full example:
+
+`r import_example('global-device.Rmd')`
+
 ## A more transparent caching mechanism {#cache-rds}
 
 If you feel the caching mechanism of **knitr** introduced in Section \@ref(cache) is too complicated (it is!), you may consider a simpler caching mechanism based on the function `xfun::cache_rds()`, e.g.,
