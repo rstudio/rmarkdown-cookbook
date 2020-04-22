@@ -37,6 +37,22 @@ output:
 
 Another way to add code to the preamble is to use the `header-includes` field in the YAML frontmatter. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
 
+## Pandoc options for LaTeX output {#latex-variables}
+
+If you are using the default Pandoc template for LaTeX output, there are several options that you may set to adjust the appearance of the PDF output document. We list a few example options below, and you may see https://pandoc.org/MANUAL.html#variables-for-latex for a full list.
+
+```yaml
+documentclass: book
+classoption:
+  - twocolumn
+  - landscape
+papersize: a5
+linestretch: 1.5
+fontsize: 12pt
+```
+
+The meanings of these options should be clear if you have some knowledge about LaTeX. The `documentclass` option sets the document class, e.g., `article`, `book`, and `report`, etc. The `classoption` is a list of options to be passed to the document class, e.g., you can create a two-column document with the `twocolumn` option. The `papersize` option sets the paper size, e.g., `a4`, `paper`, or `a5`. The `linestretch` option sets the line spacing. The `fontsize` option sets the font size, e.g., `10pt`, `11pt`, or `12pt`.
+
 ## Add logo to title page {#latex-logo}
 
 <!-- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf -->
