@@ -53,6 +53,26 @@ fontsize: 12pt
 
 The meanings of these options should be clear if you have some knowledge about LaTeX. The `documentclass` option sets the document class, e.g., `article`, `book`, and `report`, etc. The `classoption` is a list of options to be passed to the document class, e.g., you can create a two-column document with the `twocolumn` option. The `papersize` option sets the paper size, e.g., `a4`, `paper`, or `a5`. The `linestretch` option sets the line spacing. The `fontsize` option sets the font size, e.g., `10pt`, `11pt`, or `12pt`.
 
+Changing fonts can be a little trickier. It depends on which LaTeX engine you are using. If you are using `pdflatex`, which is usually the default engine for most LaTeX-based output formats, you may use the `fontfamily` option to select a LaTeX font package to be loaded in your document to change the font, e.g.,
+
+```yaml
+fontfamily: accanthis
+output:
+  pdf_document: 
+    latex_engine: pdflatex
+```
+
+Then the document will use the font ["Accanthis"](https://tug.org/FontCatalogue/accanthis/). You may see https://tug.org/FontCatalogue/ for a list of many other LaTeX font packages. If your LaTeX distribution is TinyTeX, the font packages should be automatically installed if they have not been installed (see Section \@ref(install-latex)).
+
+If you use the LaTeX engine `xelatex` or `lualatex`, you will be able to select fonts that are available on your local computer, and do not have to install additional LaTeX packages. YAML options like `mainfont`, `sansfont`, and `monofont` can be used to specify the main font, sans serif font, and typewriter font, respectively, e.g.,
+
+```yaml
+mainfont: Arial
+output:
+  pdf_document: 
+    latex_engine: xelatex
+```
+
 ## Add logo to title page {#latex-logo}
 
 <!-- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf -->
