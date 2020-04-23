@@ -2,6 +2,33 @@
 
 In this chapter, we introduce some tips and tricks that can be used to customize the content of R Markdown documents.
 
+## Insert pagebreaks {#pagebreaks}
+
+When you want to break a page, you can insert the command `\newpage` or `\pagebreak` in the document. These are LaTeX commands, but the **rmarkdown** package is able to recognize them for both LaTeX output formats and a few non-LaTeX output formats including HTML, Word, and ODT. For example:
+
+```md
+---
+title: Breaking pages
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+  odt_document: default
+---
+
+# The first section
+
+\newpage
+
+# The second section
+```
+
+This feature is based on Pandoc's Lua filters. For those who are interested in the technology, you may view this package vignette:
+
+```r
+vignette("lua-filters", package = "rmarkdown")
+```
+
 ## Bibliographies and citations {#bibliography}
 
 <!-- https://stackoverflow.com/questions/32946203/including-bibliography-in-rmarkdown-document-with-use-of-the-knitcitations -->
