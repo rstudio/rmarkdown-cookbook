@@ -546,6 +546,10 @@ DiagrammeR::grViz("
 
 You may also check out these packages for creating diagrams: **nomnoml** (https://github.com/javierluraschi/nomnoml), **diagram** (https://cran.r-project.org/package=diagram), **dagitty** (https://cran.r-project.org/package=dagitty), **ggdag** (https://github.com/malcolmbarrett/ggdag), and **plantuml** (https://github.com/rkrug/plantuml).
 
+## Escape special characters {#special-chars}
+
+Some characters have special meanings in the Markdown syntax. If you want these characters verbatim, you have to escape them. For example, a pair of underscores surrounding text usually make the text italic, and you need to escape the underscores if you want verbatim underscores instead of italic text. The way to escape a special character is to add a backslash before it, e.g., `I do not want \_italic text\_ here`. Similarly, if `#` does not indicate a section heading, you may write `\# This is not a heading`.
+
 ## Comment out text {#comments}
 
 <!-- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown -->
