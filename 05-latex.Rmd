@@ -340,6 +340,33 @@ The output is shown in Figure \@ref(fig:latex-subfig). For the sake of simplicit
 knitr::include_graphics("images/latex-subfig.png", dpi = NA)
 ```
 
+## Render documents containing Unicode characters {#latex-unicode}
+
+If you run into an error like this:
+
+```latex
+! Package inputenc Error:
+  Unicode char \u8: not set up for use with LaTeX.
+```
+
+it probably means that you are using the default LaTeX engine, `pdflatex`, to render the (intermediate `.tex`) document to PDF, which was unable to process certain Unicode characters in your document. If that is the case, you may switch to `xelatex` or `lualatex`, e.g.,
+
+```yaml
+output:
+  pdf_document:
+    latex_engine: xelatex
+```
+
+You may also change the LaTeX engine for other document output formats, especially those based on `pdf_document`, such as `bookdown::pdf_document2` and `tufte::tufte_handout`, e.g.,
+
+```yaml
+output:
+  bookdown::pdf_document2:
+    latex_engine: lualatex
+  tufte::tufte_handout:
+    latex_engine: xelatex
+```
+
 ## Generate a LaTeX fragment {#latex-fragment}
 
 If you work with pure LaTeX documents primarily, you may still find R Markdown useful, because sometimes it may be more convenient to write in R Markdown and convert the document to a LaTeX fragment, which can be included into other LaTeX documents.
