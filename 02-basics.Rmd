@@ -26,6 +26,12 @@ In short, `rmarkdown::render()` = `knitr::knit()` + Pandoc (+ LaTeX for PDF outp
 
 Robin Linacre has written a nice summary of the relationship between R Markdown, **knitr**, and Pandoc at https://stackoverflow.com/q/40563479/559676, which contains more technical details than the above overview.
 
+Note that not all R Markdown documents are eventually compiled through Pandoc. The intermediate `.md` file could be compiled by other Markdown renderers. Below are two examples:
+
+- The **xaringan** package [@R-xaringan] passes the `.md` output to a JavaScript library, which renders the Markdown content in the web browser.
+
+- The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by a site generator named Hugo.
+
 ## Render an R script to a report {#spin}
 
 Even if you are a long-time R Markdown user, you may have missed another possibility. Dean Attali called it ["**knitr**'s best hidden gem"](https://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/). That is, you can render a pure R script to a report directly. If you use the RStudio IDE, the keyboard shortcut to render R scripts is the same as when you knit Rmd documents (`Ctrl / Cmd + Shift + K`).
