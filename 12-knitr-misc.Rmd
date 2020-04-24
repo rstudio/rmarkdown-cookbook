@@ -116,7 +116,9 @@ After another paragraph, we introduce the plot:
 ![A nice plot.](`r knitr::inline_expr("knitr::fig_chunk('cars-plot', 'png')")`)
 ````
 
-In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot temporarily. Then in another paragraph, we called the function `knitr::fig_chunk()` to retrieve the path of the plot file, which is usually like `test_files/figure-html/cars-plot-1.png`. You need to pass the chunk label and the graphical device name to `fig_chunk()` for it to calculate the plot file path. You may see https://stackoverflow.com/a/46305297/559676 for an application of `fig_chunk()` to **blogdown** websites.
+In the code chunk, we used the chunk option `fig.show='hide'` to hide the plot temporarily. Then in another paragraph, we called the function `knitr::fig_chunk()` to retrieve the path of the plot file, which is usually like `test_files/figure-html/cars-plot-1.png`. You need to pass the chunk label and the graphical device name to `fig_chunk()` for it to calculate the plot file path.
+
+You may see https://stackoverflow.com/a/46305297/559676 for an application of `fig_chunk()` to **blogdown** websites. This function works for any R Markdown output formats. It can be particularly helpful for presenting plots on slides, because the screen space is often limited on slide pages. You may present code on a slide, and reveal the plot on a different slide.
 
 ## Modify a plot in a previous code chunk {#global-device}
 
