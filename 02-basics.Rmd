@@ -4,7 +4,7 @@ This book by no means intends to be a comprehensive guide to R Markdown. However
 
 For those seeking the background, we recommend that readers refer to the R Markdown definitive guide [@rmarkdown2018], which provides a comprehensive overview of the R Markdown components.
 
-## R Markdown components
+## The R Markdown process {#rmarkdown-process}
 
 R Markdown combines several different processes together to create documents, and one of the main sources of confusion from R Markdown is how all the components work together. Fortunately, as a user, it is not essential to understand all the inner workings of these processes to be able to create documents. However, as a user who may be seeking to alter the behavior of a document, it is important to understand which component is responsible for what. This makes it a lot easier to seek help as you can target your searches on the correct area.
 
