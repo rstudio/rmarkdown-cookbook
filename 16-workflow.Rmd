@@ -228,3 +228,32 @@ The workflow with **rmdrive** is outlined below:
 The collaborative editing can be either synchronous or asynchronous in Google Drive. Multiple people can edit the same document at the same time, or wait for other people to finish their editing first.
 
 There is also a function `udpate_rmd()` in the package, which allows you to edit the Rmd document locally, and upload the local Rmd document to Google Drive. You probably should never want to run this function, because it will completely overwrite the document in Google Drive. The main author may want to warn collaborators about this in advance. Ideally, all collaborators should only edit the document in Google Drive and not locally. It is okay to preview the edited document locally via `render_rmd()`, though (note that `render_rmd()` automatically downloads the document before rendering it).
+
+## Send Emails based on R Markdown {#blastula-email}
+
+With the **blastula** package (https://github.com/rich-iannone/blastula), you can render an Rmd document to the Email body and send the Email. To render an Rmd document to an Email, the document needs to use the output format `blastula::blastula_email`, e.g.,
+
+````md
+---
+title: Weekly Report
+output: blastula::blastula_email
+--- 
+
+Dear Boss,
+
+Below is an analysis of the `iris` data:
+
+```{r}`r ''`
+summary(iris)
+plot(iris[, -5])
+```
+
+Please let me know if it is not boring enough.
+
+Sincerely,  
+John
+````
+
+This Rmd document should be rendered via the function `blastula::render_email()`, and the output can be passed to `blastula::smtp_send()`, which will send out the Email. Note that `smtp_send()` needs an Email server as well as your credentials.
+
+If you use RStudio Connect, you can find more examples at https://solutions.rstudio.com/examples/blastula-overview/, including automated, conditional, and parameterized emails.
