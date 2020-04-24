@@ -114,3 +114,18 @@ xfun::raw_string(
 Note that code chunks with the option `purl = FALSE` will be excluded in the R script.
 
 Inline R expressions are ignored by default. If you want to include them in the R script, you need to set the global R option `options(knitr.purl.inline = TRUE)` before calling `knitr::purl()`.
+
+## R Markdown Notebooks {#notebook}
+
+As mentioned in [Section 2.2](https://bookdown.org/yihui/rmarkdown/compile.html) of the R Markdown Definitive Guide [@rmarkdown2018], there are several ways to compile an Rmd document. One of them is to use R Markdown Notebooks, with the output format `html_notebook`, e.g.,
+
+```yaml
+---
+title: An R Markdown Notebook
+output: html_notebook
+---
+```
+
+When you use this output format in RStudio, the `Knit` button on the toolbar will become the `Preview` button.
+
+The main advantage of using notebooks is that you can work on Rmd document _iteratively in the same R session_. You can run one code chunk at a time by clicking the green arrow button on each chunk, and you will see the text or plot output in the editor. When you click the `Preview` button on the toolbar, it only renders the Rmd document to an HTML output document containing the output of all code chunks that you have already executed. The `Preview` button does not execute any code chunks. By comparison, when you use other output formats and hit the `Knit` button, RStudio launches a new R session to compile the whole document (hence all code chunks are executed at once), which usually takes more time.
