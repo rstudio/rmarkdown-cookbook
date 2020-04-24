@@ -242,7 +242,7 @@ xfun::embed_files(list.files('.', '[.](Rmd|csv)$'))
 
 For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, which a reader can click on the HTML page to download the embedded file.
 
-You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/.
+You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package (https://github.com/fmmattioni/downloadthis) has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
 
 ## Use the `<details>` disclosure element {#details-tag}
 
