@@ -21,6 +21,15 @@ if (travis) for (f in list.files('_book', '[.]html$', full.names = TRUE)) {
   writeLines(x, f)
 }
 
+redirect = function(from, to) {
+  to = paste0('https://bookdown.org/yihui/rmarkdown-cookbook/', to)
+  writeLines(sprintf(
+    '<html><head><meta http-equiv="refresh" content="0; URL=\'%s\'" /></head><body><script>window.location = "%s";</script></html>', to, to
+  ), paste0('_book/', from))
+}
+
+redirect('r-markdown-components.html', 'rmarkdown-process.html')
+
 if (length(formats) > 1 && Sys.getenv('USER') == 'yihui') {
   bookdown::publish_book(account = 'yihui', server = 'bookdown.org')
 }
