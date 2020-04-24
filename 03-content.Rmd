@@ -29,6 +29,54 @@ This feature is based on Pandoc's Lua filters. For those who are interested in t
 vignette("lua-filters", package = "rmarkdown")
 ```
 
+## Set the document title dynamically {#dynamic-yaml}
+
+You can use inline R code (see Section \@ref(r-code)) anywhere in an Rmd document, including the YAML metadata section. This means some YAML metadata can be dynamically generated with inline R code, such as the document title. For example:
+
+```yaml
+---
+title: "An analysis of `r knitr::inline_expr('nrow(mtcars)')` cars"
+---
+```
+
+If your title depends on an R variable created later in the document, you may add the `title` field in a later YAML section, e.g.,
+
+````md
+---
+author: "Smart Analyst"
+output: pdf_document
+---
+
+I just tried really hard to calculat our market share:
+
+```{r}`r ''`
+share <- runif(1)
+```
+
+---
+title: "Our market share is `r knitr::inline_expr('round(100 * share, 2)')`% now!"
+---
+
+Apparently I feel `r knitr::inline_expr('if(share > 0.8) "happy" else "sad"')` about it.
+````
+
+In the example above, we added the document title after we have created the variable `share`. The title works in this case because Pandoc can read any number of YAML sections in a document (and merge them).
+
+You can also generate titles or any YAML fields dynamically from parameters in parameterized reports (see Section \@ref(parameterized-reports)), e.g.,
+
+```yaml
+---
+title: "`r knitr::inline_expr('params$doc_title')`"
+author: "Smart Analyst"
+params:
+  doc_title: "The Default Title"
+---
+```
+
+With the title being a dynamic parameter, you can easily generate a batch of reports with different titles.
+
+We used the title as the example in this section, but the idea can be applied to any metadata fields in the YAML section.
+
 ## Bibliographies and citations {#bibliography}
 
 <!-- https://stackoverflow.com/questions/32946203/including-bibliography-in-rmarkdown-document-with-use-of-the-knitcitations -->
