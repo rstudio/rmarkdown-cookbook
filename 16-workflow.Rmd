@@ -124,7 +124,8 @@ render_one <- function(state, year) {
   rmarkdown::render(
     'input.Rmd',
     output_file = paste0(state, '-', year, '.pdf'),
-    params = list(state = state, year = year)
+    params = list(state = state, year = year),
+    envir = parent.frame()
   )
 }
 ```
