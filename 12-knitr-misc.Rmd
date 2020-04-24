@@ -2,6 +2,97 @@
 
 Besides chunk options, output hooks, and chunk hooks, there are other useful functions and tricks in **knitr**, which we will introduce in this chapter.
 
+## Reuse code chunks {#reuse-chunks}
+
+You can freely reuse code chunks anywhere in your source document without cut-and-paste. The key is to label your code chunks, so you can refer to them with labels in other places. There are three ways to reuse code chunks.
+
+### Embed one chunk in another chunk {#embed-chunk}
+
+You can embed one code chunk in another code chunk by enclosing its label in `<<>>`, then **knitr** will automatically expand the string `<<label>>` to the actual code. For example, you can create an R function in this way:
+
+````md
+We define a function to convert Fahrenheit to Celsius.
+
+```{r, f2c}`r ''`
+F2C <- function(x) {
+  <<check-arg>>
+  <<convert>>
+}
+```
+
+First, we check if the input value is numeric:
+
+```{r, check-arg, eval=FALSE}`r ''`
+  if (!is.numeric(x)) stop("The input must be numeric!")
+```
+
+Then we do the actual conversion:
+
+```{r, convert, eval=FALSE}`r ''`
+  (x - 32) * 5/ 9
+```
+````
+
+This is based on one of the main ideas of [Literate Programming,](https://en.wikipedia.org/wiki/Literate_programming) which was brought forward by Donald Knuth. The advantage of this technique is that you can split (complex) code into smaller parts, write each part in a separate code chunk, and explain them with narratives. All parts can be composed into the main code chunk to be executed.
+
+You can embed an arbitrary number of other code chunks in one code chunk. The embedding can also be recursive, i.e., you may embed chunk A into chunk B, and chunk B into chunk C, which will also include code from chunk A.
+
+### Use the same chunk label in another chunk {#same-label}
+
+If you want to use exactly the same code chunk twice or more times, you may define the chunk with a label, and create more code chunks with the same label but leave the chunk content empty, e.g.,
+
+````md
+Here is a code chunk that is not evaluated:
+
+```{r, chunk-one, eval=FALSE}`r ''`
+1 + 1
+2 + 2
+```
+
+Now we actually evaluate it:
+
+```{r, chunk-one, eval=TRUE}`r ''`
+```
+````
+
+We used the chunk label "chunk-one" twice in the above example, and the second chunk just reuses code from the first chunk.
+
+We recommend that you do not use this method to run a code chunk more than once to generate plots (or other files), because plot files created from a latter chunk may overwrite files from a previous chunk. It is okay if only one of such chunks uses the chunk option `eval = TRUE`, and all other chunks use `eval = FALSE`.
+
+### Use reference labels {#ref-label}
+
+The chunk option `ref.label` takes a vector of chunk labels to retrieve the content of these chunks. For example, the code chunk with the label `chunk-a` is the combination of `chunk-c` and `chunk-b` below:
+
+````md
+```{r chunk-a, ref.label=c('chunk-c', 'chunk-b')}`r ''`
+```
+
+```{r chunk-b}`r ''`
+# this is the chunk b
+1 + 1
+```
+
+```{r chunk-c}`r ''`
+# this is the chunk c
+2 + 2
+```
+````
+
+In other words, `chunk-a` is essentially this:
+
+````md
+```{r chunk-a}`r ''`
+# this is the chunk c
+2 + 2
+# this is the chunk b
+1 + 1
+```
+````
+
+The chunk option `ref.label` has provided a very flexible way of reorganizing code chunks in a document without resorting to cut-and-paste. It does not matter if the code chunks referenced are before or after the code chunk that uses `ref.label`. An early code chunk can reference a later chunk.
+
+There is an application of this chunk option in Section \@ref(code-appendix).
+
 ## Use an object before it is created {#load-cache}
 
 All code in a **knitr** document, including the code in code chunks and inline R expressions, is executed in the linear order from beginning to end. In theory, you cannot use a variable before it is assigned a value. However, in certain cases, we may want to mention the value of a variable earlier in the document. For example, it is common to present a result in the abstract of an article, but the result is actually computed later in the document. Below is an example that illustrates the idea but will not compile:
