@@ -32,6 +32,23 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 - The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by a site generator named Hugo.
 
+## Code chunks and inline R code {#r-code}
+
+There are two types of code in an Rmd document: code chunks, and inline R code. Below is a quick example:
+
+````md
+```{r}`r ''`
+x <- 5  # radius of a circle
+```
+
+For a circle with the radius `r knitr::inline_expr('x')`,
+its area is `r knitr::inline_expr('pi * x^2')`.
+````
+
+A code chunk usually starts with ```` ```{}```` and ends with ```` ``` ````. You can write any number of lines of code in it. Inline R code is embedded in the narratives of the document. In the above example, we defined a variable `x` in a code chunk, which is the radius of a circle, and calculated its area in the next paragraph.
+
+You can customize the behavior and output of code chunks through chunk options (provided inside the curly brackets `{}`). You will find several examples in Chapter \@ref(chunk-options). You may write code of other languages in code chunks, too (see Chapter \@ref(other-languages)).
+
 ## Render an R script to a report {#spin}
 
 Even if you are a long-time R Markdown user, you may have missed another possibility. Dean Attali called it ["**knitr**'s best hidden gem"](https://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/). That is, you can render a pure R script to a report directly. If you use the RStudio IDE, the keyboard shortcut to render R scripts is the same as when you knit Rmd documents (`Ctrl / Cmd + Shift + K`).
