@@ -109,6 +109,58 @@ The output is:
 
 You can see that the linebreak after "School of Ninja" was ignored.
 
+## Control the width of text output {#text-width}
+
+Sometimes the text output printed from R code may be too wide. If the output document has a fixed page width (e.g., PDF documents), the text output may exceed the page margin.
+
+The R global option `width` can be used to control the width of printed text output from some R functions, and you may try a smaller value if the default is too large. This option typically indicates a rough number of characters per line (except East Asian languages). For example:
+
+````md
+The output is too wide in this chunk:
+
+```{r}`r ''`
+options(width = 300)
+matrix(runif(100), ncol = 20)
+```
+
+The output of this chunk looks better:
+
+```{r}`r ''`
+options(width = 60)
+matrix(runif(100), ncol = 20)
+```
+````
+
+Note all R functions respect the `width` option. If this option does not work, your only choice may be to wrap the long lines of text. This is actually the default behavior of the `html_document` output format. If the HTML output format that you are using does not wrap the long lines, you may apply the CSS code below (see Section \@ref(html-css) for how):
+
+```css
+pre code {
+  white-space: pre-wrap;
+}
+```
+
+For PDF output, it is trickier to wrap the lines. One solution is to use the LaTeX package **listings**, which can be enabled via the Pandoc argument `--listings`. Then you have to set an option for this package, and the setup code can be included from an external LaTeX file (see Section \@ref(latex-preamble) for how), e.g.,
+
+```yaml
+---
+output:
+  pdf_document:
+    pandoc_args: --listings
+    includes:
+      in_header: preamble.tex
+---
+```
+
+In `preamble.tex`, we set an option of the **listings** package:
+
+```latex
+\lstset{
+  breaklines=true
+}
+```
+
+If you do not like the appearance of code blocks with **listings**, you can set up other **listings** options in `\lstset{}`, e.g., you may change the font family with `basicstyle=\ttfamily`. You can find more information about this package in its documentation: https://ctan.org/pkg/listings.
+
 ## Control the size of plots/images {#figure-size}
 
 For plots drawn by R code, their size can be controlled by the chunk option `fig.width` and `fig.height` (in inches). Equivalently, you can use the `fig.dim` option to specify the width and height in a numeric vector of length 2, e.g., `fig.dim = c(8, 6)` means `fig.width = 8` and `fig.height = 6`. These options set the physical size of plots, and you can choose to display a different size in the output using chunk options `out.width` and `out.height`, e.g., `out.width = "50%"`.
