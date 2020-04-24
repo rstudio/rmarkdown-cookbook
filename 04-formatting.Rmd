@@ -109,6 +109,32 @@ The output is:
 
 You can see that the linebreak after "School of Ninja" was ignored.
 
+## Control the size of plots/images {#figure-size}
+
+For plots drawn by R code, their size can be controlled by the chunk option `fig.width` and `fig.height` (in inches). Equivalently, you can use the `fig.dim` option to specify the width and height in a numeric vector of length 2, e.g., `fig.dim = c(8, 6)` means `fig.width = 8` and `fig.height = 6`. These options set the physical size of plots, and you can choose to display a different size in the output using chunk options `out.width` and `out.height`, e.g., `out.width = "50%"`.
+
+If a plot or an image is not generated from an R code chunk, you can include it in two ways:
+
+- Use the Markdown syntax `![caption](path/to/image)`. In this case, you can set the size of the image using the `width` and/or `height` attributes, e.g.,
+
+  ```md
+  We include an image in the next paragraph:
+  
+  ![A nice image.](foo/bar.png){width=50%}
+  ```
+
+- Use the **knitr** function `knitr::include_graphics()` in a code chunk. You can use chunk options such as `out.width` and `out.height` for this chunk, e.g.,
+
+  ````md
+  We include an external image with the R function:
+  
+  ```{r, echo=FALSE, out.width="50%", fig.cap="A nice image."}`r ''`
+  knitr::include_graphics("foo/bar.png")
+  ```
+  ````
+
+We used the width `50%` in the above examples, which means half of the width of the image container (if the image is directly contained by a page instead of a child element of the page, that means half of the page width). If you know that you only want to generate the image for a specific output format, you can use a specific unit. For example, you may use `300px` if the output format is HTML.
+
 ## Line numbers for code blocks {#number-lines}
 
 You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"`, e.g.,
