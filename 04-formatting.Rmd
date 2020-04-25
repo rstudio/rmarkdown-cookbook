@@ -194,7 +194,8 @@ You can add line numbers to either source code blocks via the chunk option `attr
 ````md
 ```{r, attr.source='.numberLines'}`r ''`
 if (TRUE) {
-  1:10
+  x <- 1:10
+  x + 1
 }
 ```
 ````
