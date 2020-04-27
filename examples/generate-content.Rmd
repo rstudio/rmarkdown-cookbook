@@ -1,0 +1,22 @@
+---
+title: Generate content programmatically
+---
+
+With the chunk option `results = 'asis'`, you can
+write out text as raw Markdown content, which can
+also be mixed with plots.
+
+```{r, mtcars-plots, results='asis'}
+for (i in names(mtcars)) {
+  cat('\n\n# Summary of the variable `', i, '`\n\n')
+  x <- mtcars[, i]
+  if (length(unique(x)) <= 6) {
+    cat('`', i, '` is a categorical variable.\n\n')
+    plot(table(x), xlab = i, ylab = 'Frequency', lwd = 10)
+  } else {
+    cat('Histogram for the continuous variable `', i, '`.\n\n')
+    hist(x, xlab = i, main = '')
+  }
+}
+```
+
