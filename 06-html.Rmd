@@ -52,7 +52,42 @@ We mentioned LaTeX templates in Section \@ref(latex-template). You can also spec
 
 You can see that the template contains a few variables such as `$title$` and `$body$`. You can find the full list of Pandoc variables and their meanings at https://pandoc.org/MANUAL.html#templates.
 
-The template gives you the ultimate power to customize the HTML output. For example, you can include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. To apply a template to an Rmd document, you can save the template to a file, and pass the file path to the `template` option of `html_document`, e.g.,
+The template gives you the ultimate power to customize the HTML output. For example, you can include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. For example, we could use a Boolean variable `draft` to indicate whether the document is a draft or a final version:
+
+```html
+<head>
+<style type="text/css">
+.logo {
+  float: right;
+}
+</style>
+</head>
+
+<body>
+<div class="logo">
+$if(draft)$
+<!-- use draft.png to show that this is a draft -->
+<img src="images/draft.png" alt="Draft mode" />
+$else$
+<!-- insert the formal logo if this is final -->
+<img src="images/logo.png" alt="Final version" />
+$endif$
+</div>
+
+$body$
+</body>
+```
+
+Then we can set the variable `draft` to `true` or `false` in the YAML metadata of the Rmd document, e.g.,
+
+```yaml
+---
+title: "An Important Report"
+draft: true
+---
+```
+
+To apply a template to an Rmd document, you can save the template to a file, and pass the file path to the `template` option of `html_document`, e.g.,
 
 ```yaml
 output:
