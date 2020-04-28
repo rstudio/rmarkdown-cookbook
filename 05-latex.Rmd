@@ -18,7 +18,7 @@ The general structure of a LaTeX document is like this:
 
 That is, you declare the document class in `\documentclass{}`, load certain LaTeX packages and set certain options if necessary in the preamble, and start writing the body of your document after `\begin{document}`. A Markdown document is mostly the body of the document. If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
 
-For example, below is a trick that turns the URLs in hyperlinks into footnotes. This trick is useful because (by default) readers do not know the actual URL when they see the text in PDF generated from `\href{URL}{text}`. This trick displays both the text and URL.
+For example, below is a trick that turns hyperlinks on text into footnotes. This trick is useful when the PDF output document is printed on paper, because readers will not be able to click the links (generated from `\href{URL}{text}`) on paper but can see the URLs in footnotes. This trick displays both the text and URL.
 
 ```tex
 % you may want to save a copy of \href before redefining it
@@ -35,6 +35,8 @@ output:
       in_header: "preamble.tex"
 ```
 
+For this particular trick, you do not really have to implement it by yourself, but can simply set the YAML option `links-as-notes` to `true` because it is a built-in feature of Pandoc's default LaTeX template (see Section \@ref(latex-variables)).
+
 Another way to add code to the preamble is to use the `header-includes` field in the YAML frontmatter. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
 
 ## Pandoc options for LaTeX output {#latex-variables}
@@ -49,9 +51,10 @@ classoption:
 papersize: a5
 linestretch: 1.5
 fontsize: 12pt
+links-as-notes: true
 ```
 
-The meanings of these options should be clear if you have some knowledge about LaTeX. The `documentclass` option sets the document class, e.g., `article`, `book`, and `report`, etc. The `classoption` is a list of options to be passed to the document class, e.g., you can create a two-column document with the `twocolumn` option,^[This option changes the layout of the whole document, but if you want to switch back to the one-column mode from a certain point, you may insert a command `\onecolumn` at that point. If you want to continue the two-column mode, insert `\twocolumn`.] or the landscape layout with the `landscape` option (the default is the portrait layout). The `papersize` option sets the paper size, e.g., `a4`, `paper`, or `a5`. The `linestretch` option sets the line spacing. The `fontsize` option sets the font size, e.g., `10pt`, `11pt`, or `12pt`.
+The meanings of these options should be clear if you have some knowledge about LaTeX. The `documentclass` option sets the document class, e.g., `article`, `book`, and `report`, etc. The `classoption` is a list of options to be passed to the document class, e.g., you can create a two-column document with the `twocolumn` option,^[This option changes the layout of the whole document, but if you want to switch back to the one-column mode from a certain point, you may insert a command `\onecolumn` at that point. If you want to continue the two-column mode, insert `\twocolumn`.] or the landscape layout with the `landscape` option (the default is the portrait layout). The `papersize` option sets the paper size, e.g., `a4`, `paper`, or `a5`. The `linestretch` option sets the line spacing. The `fontsize` option sets the font size, e.g., `10pt`, `11pt`, or `12pt`. The `links-as-notes` option turns links on text to footnotes, which is useful when the PDF is printed on paper, because readers will not be able to click the links on paper but can see the URLs in footnotes.
 
 Changing fonts can be a little trickier. It depends on which LaTeX engine you are using. If you are using `pdflatex`, which is usually the default engine for most LaTeX-based output formats, you may use the `fontfamily` option to select a LaTeX font package to be loaded in your document to change the font, e.g.,
 
