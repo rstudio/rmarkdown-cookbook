@@ -2,7 +2,7 @@
 
 In this chapter, we introduce some tips and tricks that can be used to customize the content of R Markdown documents.
 
-## Insert pagebreaks {#pagebreaks}
+## Insert page breaks {#pagebreaks}
 
 When you want to break a page, you can insert the command `\newpage` or `\pagebreak` in the document. These are LaTeX commands, but the **rmarkdown** package is able to recognize them for both LaTeX output formats and a few non-LaTeX output formats including HTML, Word, and ODT. For example:
 
