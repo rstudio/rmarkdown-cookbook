@@ -187,6 +187,10 @@ If a plot or an image is not generated from an R code chunk, you can include it 
 
 We used the width `50%` in the above examples, which means half of the width of the image container (if the image is directly contained by a page instead of a child element of the page, that means half of the page width). If you know that you only want to generate the image for a specific output format, you can use a specific unit. For example, you may use `300px` if the output format is HTML.
 
+## Figure alignment {#fig-align}
+
+The chunk option `fig.align` specifies the alignment of figures. For example, you can center images with `fig.align = 'center'`, or right-align images with `fig.align = 'right'`. This option works for both HTML and LaTeX output, but may not work for other output formats. It works for both plots drawn from R code chunks and external images included via `knitr::include_graphics()`.
+
 ## Line numbers for code blocks {#number-lines}
 
 You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"`, e.g.,
