@@ -52,6 +52,12 @@ knitr::kable(keyboard_table, caption = "RStudio keyboard shortcuts related to R 
 
 Besides, you can press `F7` to spellcheck your document. You can also restart the R session by `Ctrl + Alt + F10` (or `Command + Option + F10` on macOS), which can be helpful for reproducibility, because results are more likely to be reproducible if they are computed from a new R session. This can also be done through the dropdown menu "Restart R and Run All Chunks" behind the "Run" button on the toolbar.
 
+## Spell check R Markdown {#spell-check}
+
+If you use the RStudio IDE, you can press the key `F7` or click the menu `Edit -> Check Spelling` to spell check an Rmd document. Real-time spell checking has become available in RStudio v1.3, so you no longer need to manually trigger spell checking with this version or a greater version of RStudio.
+
+If you do not use RStudio, the **spelling** package (https://github.com/ropensci/spelling) has a function `spell_check_files()`, which can check the spelling of common document formats, including R Markdown. When spell checking Rmd documents, it will skip code chunks and only check ordinary text.
+
 ## Render R Markdown with `rmarkdown::render()` {#rmarkdown-render}
 
 If you do not use RStudio or any other IDEs, you need to know this fact: R Markdown documents are rendered through the function `rmarkdown::render()`. This means you can programmatically render an R Markdown document in any R script. For example, you could render a series of reports in a `for`-loop for each state of a country:
