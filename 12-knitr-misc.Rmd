@@ -431,6 +431,8 @@ plot(cars)
 ```
 ````
 
+You can save an arbitrary number of grouped options, e.g.,  `knitr::opts_template$set(group1 = list(...), group2 = list(...))`.
+
 ## Allow duplicate labels in code chunks {#duplicate-label}
 
 <!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
