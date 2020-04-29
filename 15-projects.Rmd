@@ -127,6 +127,31 @@ Sometimes you may want to keep the plot files. For example, some academic journa
 
     When you ask R Markdown to preserve the intermediate Markdown output file, it will also preserve the plot folder.
 
+## The working directory for R code chunks {#working-directory}
+
+By default, the working directory for R code chunks is the directory that contains the Rmd document. For example, if the path of an Rmd file is `~/Downloads/foo.Rmd`, the working directory under which R code chunks are evaluated is `~/Downloads/`. This means when you refer to external files with relative paths in code chunks, you need to know that these paths are relative to the directory of the Rmd file. With the aforementioned Rmd example file, `read.csv("data/iris.csv")` in a code chunk means reading the CSV file `~/Downloads/data/iris.csv`.
+
+When in doubt, you can add `getwd()` to a code chunk, compile the document, and check the output from `getwd()`.
+
+Sometimes you may want to use another directory as the working directory. The usual way to change the working directory is `setwd()`, but please note that `setwd()` is not persistent in R Markdown (or other types of **knitr** source documents), which means `setwd()` only works for the current code chunk, and the working directory will be restored after this code chunk has been evaluated.
+
+If you want to change the working directory for all code chunks, you may set it via a `setup` code chunk in the beginning of your document:
+
+````md
+```{setup, include=FALSE}`r ''`
+knitr::opts_knit$set(root.dir = '/tmp')
+```
+````
+
+This will change the working directory of all subsequent code chunks.
+
+If you use RStudio, you can also choose the working directory from the menu `Tools -> Global Options -> R Markdown` (see Figure \@ref(fig:rmd-wd)).
+
+```{r, rmd-wd, echo=FALSE, fig.cap='Change the default working directory for R Markdown documents in RStudio.', fig.align='center'}
+knitr::include_graphics('images/rmd-wd.png', dpi = NA)
+```
+
+
 ## R package vignettes {#package-vignette}
 
 If you have experience in developing R packages, or your project requires clear documentation and rigorous tests for custom functions written in the project, you may consider organizing the project as an R package. If you do not know how to create an R package, you can easily get started in the RStudio IDE by clicking the menu `File -> New Project`, and selecting the project type to be an R package.
