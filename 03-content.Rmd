@@ -533,6 +533,18 @@ The time interval between image frames in the animation can be set by the chunk 
 
 The R package **animation** (https://github.com/yihui/animation) contains several animation examples to illustrate methods and ideas in statistical computing. The **gganimate** package (https://github.com/thomasp85/gganimate) allows us to create smooth animations based on **ggplot2**. Both packages work with R Markdown.
 
+## Embed an interactive 3D plot with rgl {#rgl-3d}
+
+The **rgl** package can be used to generate interactive 3D plots. These plots can still be interactive if they are saved to the WebGL format, which can be done through a hook function `rgl::hook_webgl()`. You may see Chapter \@ref(chunk-hooks) for more information on hook functions, but you are not required to understand this concept here. Below is an example that shows you how to set up **rgl** and **knitr** so 3D plots can be saved while preserving the interactivity:
+
+`r import_example('rgl-3d.Rmd')`
+
+You should get an interactive 3D scatterplot like Figure \@ref(fig:rgl-3d) after you compile this example. Note that the interactive plots only work when the output format is HTML.
+
+```{r, rgl-3d, echo=FALSE, fig.cap='A 3D scatterplot generated from the rgl package.', fig.align='center'}
+knitr::include_graphics('images/rgl-3d.png', dpi = NA)
+```
+
 ## Create diagrams {#diagrams}
 
 There are many separate programs (e.g., Graphviz) that can be used to produce diagrams and flowcharts, but it can be easier to manage them directly inside R code chunks in Rmd documents. 

@@ -1,0 +1,21 @@
+---
+title: Embed 3D plots with rgl
+output: html_document
+---
+
+Set up a hook to save **rgl** plots:
+
+```{r, setup}
+library(rgl)
+knitr::knit_hooks$set(webgl = hook_webgl)
+```
+
+See if it works for this 3D plot after we enable the hook
+via the chunk option `webgl = TRUE`:
+
+```{r, test-rgl, webgl=TRUE}
+x <- sort(rnorm(1000))
+y <- rnorm(1000)
+z <- rnorm(1000) + atan2(x,y)
+plot3d(x, y, z, col = rainbow(1000))
+```
