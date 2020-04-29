@@ -133,3 +133,10 @@ output: html_notebook
 When you use this output format in RStudio, the `Knit` button on the toolbar will become the `Preview` button.
 
 The main advantage of using notebooks is that you can work on Rmd document _iteratively in the same R session_. You can run one code chunk at a time by clicking the green arrow button on each chunk, and you will see the text or plot output in the editor. When you click the `Preview` button on the toolbar, it only renders the Rmd document to an HTML output document containing the output of all code chunks that you have already executed. The `Preview` button does not execute any code chunks. By comparison, when you use other output formats and hit the `Knit` button, RStudio launches a new R session to compile the whole document (hence all code chunks are executed at once), which usually takes more time.
+
+If you do not like RStudio's default behavior of showing output of code chunks inline when you run them individually, you can uncheck the option "Show output inline for all R Markdown documents" from the menu `Tools -> Global Options -> R Markdown`. After that, when you run a code chunk, the output will be shown in the R console instead of inside the source editor. You can also set this option for an individual Rmd document in its YAML metadata:
+
+```yaml
+editor_options:
+  chunk_output_type: console
+```
