@@ -404,6 +404,33 @@ Actually **knitr** caching is quite powerful and flexible, and its behavior can 
 
 In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere (not necessarily inside **knitr** documents). Apparently **knitr**'s caching only works in **knitr** documents.
 
+## Save a group of chunk options and reused them {#opts-template}
+
+If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`, and then you can use the chunk option `opts.label` to refer to the group name. For example:
+
+````md
+```{r, setup, include=FALSE}`r ''`
+knitr::opts_template$set(fullwidth = list(
+  fig.width = 10, fig.height = 6,
+  fig.retina = 2, out.width = '100%'
+))
+```
+
+```{r, opts.label='fullwidth'}`r ''`
+plot(cars)
+```
+````
+
+With `opts.label = 'fullwidth'`, **knitr** will read chunk options from `knitr::opts_template`, and apply them to the current chunk. This can save you some typing effort. If a chunk option is to be used globally in a document, you should consider setting it globally (see Chapter \@ref(chunk-options)).
+
+You can override options read from `opts.label`, e.g., if you set `fig.height = 7` in the chunk below, the actual `fig.height` will be `7` instead of `6`.
+
+````md
+```{r, opts.label='fullwidth', fig.height=7}`r ''`
+plot(cars)
+```
+````
+
 ## Allow duplicate labels in code chunks {#duplicate-label}
 
 <!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
