@@ -81,6 +81,26 @@ We used the title as the example in this section, but the idea can be applied to
 
 When a Rmd document is compiled, all of its metadata in the YAML section will be stored in the list object `rmarkdown::metadata`. You can use this object in your R code. For example, `rmarkdown::metadata$title` gives you the title of the document.
 
+## Unnumbered sections {#unnumbered-sections}
+
+Most output formats support an option `number_sections`, which can be used to enable numbering sections if set to `true`, e.g.,
+
+```yaml
+output:
+  html_document:
+    number_sections: true
+  pdf_document:
+    number_sections: true
+```
+
+If you want a certain section to be unnumbered when the option `number_sections` is `true`, you may add `{-}` after the section heading, e.g.,
+
+```md
+# This section is unnumbered {-}
+```
+
+Equivalently, you may also use `{.unnumbered}`. You can also add other attributes to the heading, e.g., `{.unnumbered #section-id}`. Please see https://pandoc.org/MANUAL.html#extension-header_attributes for more information.
+
 ## Bibliographies and citations {#bibliography}
 
 <!-- https://stackoverflow.com/questions/32946203/including-bibliography-in-rmarkdown-document-with-use-of-the-knitcitations -->
