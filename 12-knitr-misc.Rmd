@@ -37,6 +37,8 @@ This is based on one of the main ideas of [Literate Programming,](https://en.wik
 
 You can embed an arbitrary number of other code chunks in one code chunk. The embedding can also be recursive, i.e., you may embed chunk A into chunk B, and chunk B into chunk C, which will also include code from chunk A.
 
+The marker `<<label>>` does not have to be on a separate line. It can be embedded anywhere in a code chunk.
+
 ### Use the same chunk label in another chunk {#same-label}
 
 If you want to use exactly the same code chunk twice or more times, you may define the chunk with a label, and create more code chunks with the same label but leave the chunk content empty, e.g.,
