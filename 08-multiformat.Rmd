@@ -79,7 +79,13 @@ The technique introduced in Section \@ref(raw-latex) is actually a general techn
 
 ````md
 ```{=html}
-Any <strong>raw</strong> HTML content.
+<p>Any <strong>raw</strong> HTML content works here.
+For example, here is a Youtube video:</p>
+
+<iframe width="100%" height="400"
+  src="https://www.youtube.com/embed/s3JldKoA0zw?rel=0"
+  frameborder="0" allow="autoplay; encrypted-media"
+  allowfullscreen></iframe>
 ```
 ````
 
