@@ -76,6 +76,15 @@ output:
     latex_engine: xelatex
 ```
 
+You can also use some of those LaTeX options when you generate Beamer slides, because a Beamer document is a LaTeX document, too. In addition, Pandoc has provided a few more options for Beamer slides, which can be found at https://pandoc.org/MANUAL.html#variables-for-beamer-slides. For example, you can specify the author affiliation via the `institute` option:
+
+```yaml
+---
+output: beamer_presentation
+institute: "University of Hackers"
+---
+```
+
 ## Add logo to title page {#latex-logo}
 
 <!-- https://stackoverflow.com/questions/29389149/add-image-in-title-page-of-rmarkdown-pdf -->
