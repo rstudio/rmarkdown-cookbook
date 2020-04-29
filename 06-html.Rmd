@@ -293,6 +293,65 @@ For multiple files, they are first compressed to a zip file, and the zip file wi
 
 You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package (https://github.com/fmmattioni/downloadthis) has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
 
+## Include the content of an existing HTML file {#include-html}
+
+With the `includes` option of the `html_document` format (or any other formats that support this option), you can include the content of an existing HTML file into the HTML output document in three possible places: the `<head>` area, the beginning of `<body>`, and the end of `</body>`.
+
+```yaml
+output:
+  html_document:
+    includes:
+      in_header: header.html
+      before_body: before.html
+      after_body: after.html
+```
+
+If you are not familiar with HTML, Section \@ref(html-template) may help you better understand these options.
+
+With the `in_header` option, you can inject CSS and JavaScript code into the `<head>` tag. With `before_body`, you may include a header that shows a banner or logo. With `after_body`, you can include a footer, e.g.,
+
+```html
+<div class="footer">Copyright &copy; John Doe 2020</div>
+```
+
+Sometimes you may want to include the content of an external HTML file in an arbitrary place of the body, which can be done with `htmltools::includeHTML()`. You pass the path of the HTML file to this function. It will read the file, and write its content to the output document. You may also use the technique in Section \@ref(raw-content), e.g.,
+
+`````md
+````{=html}
+```{r, echo=FALSE, results='asis'}`r ''`
+xfun::file_string('file.html')
+```
+````
+`````
+
+Please note that you must not include the content of a full HTML file into another HTML file, but can only include an HTML fragment. A full HTML file contains the `<html>` tag, which cannot be embedded in another `<html>` tag. Below is an invalid HTML document when a full HTML document is included in another HTML document:
+
+```html
+<html>
+  <head>  </head>
+
+  <body>
+  Parent HTML file.
+  
+  <!-- htmltools::includeHTML() below -->
+    <html>
+      <head>  </head>
+      <body>
+      Child HTML file.
+      </body>
+    </html>
+  <!-- included above -->
+
+  </body>
+</html>
+```
+
+If you run into problems when including an HTML file in an HTML output document, you may check if the HTML file contains the `<html>` tag.
+
+There is an output format `html_fragment` in the **rmarkdown** package, which generates an HTML fragment instead of a full HTML document. If you want to include the compiled results of an Rmd document in another Rmd document, the former Rmd document may use the `html_fragment` format instead of the usual `html_document`.
+
+If you want to include an Rmd or Markdown document instead of an HTML file, you may use child documents introduced in Section \@ref(child-document).
+
 ## Use the `<details>` disclosure element {#details-tag}
 
 As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_fold: true` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important, so we fold it initially. If the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
