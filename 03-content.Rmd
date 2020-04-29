@@ -217,6 +217,8 @@ knitr::write_bib(file = 'packages.bib')
 
 In the above example, `packages.bib` is automatically generated, and you should not manually change it. All other citation entries can be manually written to `references.bib`.
 
+We only introduced one way to generate R package citations above. To dynamically generate citations for other types of literature, you may check out the **knitcitations** package at https://github.com/cboettig/knitcitations.
+
 ## Cross-referencing within documents {#cross-ref}
 
 <!--https://stackoverflow.com/questions/38861041/knitr-rmarkdown-latex-how-to-cross-reference-figures-and-tables-->
