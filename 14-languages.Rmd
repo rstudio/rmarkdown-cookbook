@@ -152,6 +152,8 @@ about how many backslashes you need, e.g., is it
 con = "my-file.txt")
 ```
 
+This problem has been greatly alleviated since R 4.0.0, because R started to support raw strings in `r"( )"` (see the help page `?Quotes`), and you do not need to remember all the rules about special characters. Even with raw strings, it can still be a little distracting for readers to see a long string written to a file explicitly in a code chunk.
+
 The `cat` engine in **knitr** has provided a way for you to present text content in a code chunk and/or write it to an external file, without thinking about all the rules about R's character strings (e.g., you need double backslashes when you need a literal backslash).
 
 To write the chunk content to a file, specify the file path in the chunk option `engine.opts`, e.g., `engine.opts = list(file = 'path/to/file')`. Under the hood, the list of values specified in `engine.opts` will be passed to the function `base::cat()`, and `file` is one of the arguments of `base::cat()`.
