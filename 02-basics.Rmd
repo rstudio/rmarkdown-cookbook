@@ -49,6 +49,10 @@ A code chunk usually starts with ```` ```{}```` and ends with ```` ``` ````. You
 
 You can customize the behavior and output of code chunks through chunk options (provided inside the curly brackets `{}`). You will find several examples in Chapter \@ref(chunk-options). You may write code of other languages in code chunks, too (see Chapter \@ref(other-languages)).
 
+## Writing Markdown with the remedy package {#remedy}
+
+If you are not very familiar with Markdown yet, we recommend that you try the **remedy** package (https://github.com/ThinkR-open/remedy), which has provided a series of RStudio addins to help you write Markdown content by clicking the addins. A GIF animation is worth a thousand words. Please check out its homepage for many GIFs that quickly shows you what this package can do.
+
 ## Render an R script to a report {#spin}
 
 Even if you are a long-time R Markdown user, you may have missed another possibility. Dean Attali called it ["**knitr**'s best hidden gem"](https://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/). That is, you can render a pure R script to a report directly. If you use the RStudio IDE, the keyboard shortcut to render R scripts is the same as when you knit Rmd documents (`Ctrl / Cmd + Shift + K`).
