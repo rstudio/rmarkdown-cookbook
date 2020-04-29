@@ -77,6 +77,10 @@ With the title being a dynamic parameter, you can easily generate a batch of rep
 
 We used the title as the example in this section, but the idea can be applied to any metadata fields in the YAML section.
 
+## Access the document metadata in R code {#document-metadata}
+
+When a Rmd document is compiled, all of its metadata in the YAML section will be stored in the list object `rmarkdown::metadata`. You can use this object in your R code. For example, `rmarkdown::metadata$title` gives you the title of the document.
+
 ## Bibliographies and citations {#bibliography}
 
 <!-- https://stackoverflow.com/questions/32946203/including-bibliography-in-rmarkdown-document-with-use-of-the-knitcitations -->
