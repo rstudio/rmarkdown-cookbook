@@ -53,6 +53,24 @@ leaflet() %>% addTiles()
 
 In case you do not know it, `require('package')` returns `TRUE` if the package is available (and `FALSE` if not).
 
+## Do not stop on error {#opts-error}
+
+Sometimes you may want to show errors on purpose (e.g., in an R tutorial). By default, errors in the code chunks of an Rmd document will halt R. If you want to show the errors without stopping R, you may use the chunk option `error = TRUE`, e.g.,
+
+````md
+```{r, error=TRUE}`r ''`
+1 + "a"
+```
+````
+
+And you will see the error message in the output document after you compile the Rmd document:
+
+```{r, error=TRUE, echo=FALSE, comment=''}
+1 + "a"
+```
+
+In R Markdown, `error = FALSE` is the default, which means R should stop on error when running the code chunks.
+
 ## Multiple graphical output formats for the same plot {#dev-vector}
 
 In most cases, you may want one image format for one plot, such as `png` or `pdf`. The image format is controlled by the chunk option `dev` (i.e., the graphical device to render the plots). This option can take a vector of device names, e.g.,
