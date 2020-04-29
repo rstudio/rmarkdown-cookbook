@@ -32,6 +32,18 @@ p {
 
 The chunk option `echo = FALSE` means the CSS code will not be displayed verbatim in the output, but a `<style>` tag containing the CSS code will be generated to the HTML output file.
 
+## Center section headings {#center-heading}
+
+As an application of the methods mentioned in Section \@ref(html-css), we can use CSS to adjust the alignment of headings. For example, you may center section headings of level 1, 2, and 3 with the CSS code below:
+
+```css
+h1, h2, h3 {
+  text-align: center;
+}
+```
+
+Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
+
 ## Use a custom HTML template {#html-template}
 
 We mentioned LaTeX templates in Section \@ref(latex-template). You can also specify a custom HTML template for Pandoc to convert Markdown to HTML. Below is a brief example template:
