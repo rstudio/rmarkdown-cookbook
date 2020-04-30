@@ -206,10 +206,31 @@ If you feel there is too much spacing between text output blocks and source code
 1:10
 ```
 
-Below is a chunk that does not have the option `collapse = TRUE` (the default is `FALSE`):
+Below is the same chunk but it does not have the option `collapse = TRUE` (the default is `FALSE`):
 
 ```{r, test-collapse}
 ```
+
+## Reformat R source code {#opts-tidy}
+
+When you set the chunk option `tidy = TRUE`, the R source code will be reformatted by the `tidy_source()` function in the **formatR** package [@R-formatR]. The `tidy_source()` can reformat the code in several aspects, such as adding spaces around most operators, indenting the code properly, and replacing the assignment operator `=` with `<-`. The chunk option `tidy.opts` can be a list of arguments to be passed to `formatR::tidy_source()`, e.g.,
+
+````md
+```{r, tidy=TRUE, tidy.opts=list(arrow=TRUE, indent=2)}`r ''`
+# messy R code...
+1+            1
+x=1:10#some users prefer '<-' as the assignment operator
+if(TRUE){
+print('Hello world!') # indent by 2 spaces
+}
+```
+````
+
+Please read the help page `?formatR::tidy_source` to know the possible arguments, and also see https://yihui.org/formatR/ for examples and limitations of this function.
+
+Alternatively, you may use the **styler** package (https://styler.r-lib.org) to reformat your R code if you set the chunk option `tidy = 'styler'`. The R code will be formatted with the function `styler::style_text()`. The **styler** package has richer features than **formatR**. For example, it can align function arguments and works with the pipe operator `%>%`. The chunk option `tidy.opts` can also be used to pass additional arguments to `styler::style_text()`.
+
+By default, `tidy = FALSE` and your R code will not be reformatted.
 
 ## Programmatically generate content inside R Markdown {#results-asis}
 
