@@ -1,0 +1,44 @@
+---
+title: Show chunk headers in the output
+---
+
+Set up a chunk hook named `wrapper` to wrap the chunk
+output inside the original chunk header and footer.
+
+```{r, setup, include=FALSE}
+knitr::knit_hooks$set(wrapper = function(before, options) {
+  # the original chunk might be indented
+  if (is.null(indent <- options$indent)) indent <- ''
+  
+  # hide the wrapper=TRUE option
+  opts <- gsub(', wrapper=TRUE', '', options$params.src)
+  
+  if (before) {
+    # add the header
+    sprintf('\n\n%s````\n```{r,%s}\n````\n', indent, opts)
+  } else {
+    # add the footer
+    sprintf('\n\n%s````\n```\n````\n', indent)
+  }
+})
+```
+
+Now we apply the hook via the chunk option `wrapper`
+(remember to put `wrapper=TRUE` at the end of the header):
+
+```{r, test-label, collapse=TRUE, wrapper=TRUE}
+1 + 1
+plot(cars)
+```
+
+You should see the original chunk header appear in
+the output. The hook should also work when the chunk
+is indented, e.g.,
+
+- One bullet.
+
+  ```{r, eval=FALSE, wrapper=TRUE}
+  2 + 2
+  ```
+
+- Another bullet.

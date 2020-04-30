@@ -150,3 +150,13 @@ knitr::knit_hooks$set(time_it = local({
 ```
 
 Then you can access all the time information in the object `all_times`, which is a named list with the names being chunk labels, and element values being the execution time for each chunk.
+
+## Show the chunk header in the output {#show-header}
+
+Sometimes you may want to show the original code chunk header to your readers. For example, when you write an R Markdown tutorial, you may want to show both the chunk output and the chunk options that you used to generate the output, so your readers can learn how to do it by themselves.
+
+The original chunk options are actually stored as a character string in the chunk option `params.src`. After you know this, you may write a chunk hook to add `params.src` to the output. Below is a full example:
+
+`r import_example('chunk-wrapper.Rmd')`
+
+Basically, we restored the chunk header from `options$params.src` by putting this string inside ```` ```{r, }````. Then we wrapped this line in a pair of four backticks, so it can be displayed verbatim in the output. Note that the original code chunk might be indented (e.g., when it is nested in a list item), so we also need to add the proper indentation, which is stored in the chunk option `options$indent`.
