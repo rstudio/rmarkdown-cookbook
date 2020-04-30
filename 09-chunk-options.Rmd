@@ -404,6 +404,42 @@ abline(fit)
 
 If you want to keep modifying a plot in a _different_ code chunk, please see Section \@ref(global-device).
 
+## Customize the printing of objects in chunks {#opts-render}
+
+By default, objects in code chunks are printed through the `knitr::knit_print()` function, which is by and large just `print()` in base R. The `knit_print()` function is an S3 generic function, which means you can extend it by yourself by registering S3 methods on it. Below is an example that shows how to automatically print data frames as tables via `knitr::kable()`:
+
+`r import_example('print-method.Rmd')`
+
+You can learn more about the `knit_print()` function in the **knitr** package vignette:
+
+```{r, eval=FALSE}
+vignette('knit_print', package = 'knitr')
+```
+
+The **printr** package [@R-printr] has provided a few S3 methods to automatically print R objects as tables if possible. All you need is `library(printr)` in an R code chunk, and all methods will be automatically registered.
+
+If you find this technique too advanced for you, some R Markdown output formats such as `html_document` and `pdf_document` also provide an option `df_print`, which allows you to customize the printing behavior of data frames. For example, if you want to print data frames as tables via `knitr::kable()`, you may set the option:
+
+```yaml
+---
+output:
+  html_document:
+    df_print: kable
+---
+```
+
+Please see the help pages of the output format functions for the possible values for the option `df_print`.
+
+In fact, you can completely replace the printing function `knit_print()` through the chunk option `render`, which can take any function to print objects. For example, if you want to print objects using the **pander** package, you may set the chunk option `render` to the function `pander::pander()`:
+
+````md
+```{r, render=pander::pander}`r ''`
+iris
+```
+````
+
+The `render` option gives you complete freedom on how to print your R objects.
+
 ## Option hooks {#option-hooks}
 
 Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options, and you may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:

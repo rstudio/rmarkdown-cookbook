@@ -7,7 +7,7 @@
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', 'blogdown', 'kableExtra', 'tinytex', 'stargazer', 'gt', 'flextable', 'magick', 'sass', 'xaringan'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', 'blogdown', 'kableExtra', 'tinytex', 'stargazer', 'gt', 'flextable', 'magick', 'sass', 'xaringan', 'printr'
 ), file = 'packages.bib')
 
 # embed fonts
