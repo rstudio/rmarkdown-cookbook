@@ -1,0 +1,25 @@
+---
+title: Generate a chart with D3
+output: html_document
+---
+
+First, load the package **r2d3** to set up the `d3` engine
+for **knitr** automatically:
+
+```{r setup}
+library(r2d3)
+```
+
+Now we can generate data in R, pass it to D3, and draw
+the chart:
+
+```{d3, data=runif(30), options=list(color='steelblue')}
+svg.selectAll('rect')
+  .data(data)
+  .enter()
+    .append('rect')
+      .attr('width', function(d) { return d * 672; })
+      .attr('height', '10px')
+      .attr('y', function(d, i) { return i * 16; })
+      .attr('fill', options.color);
+```
