@@ -17,3 +17,11 @@ He usually reads Twitter messages once a week (https://twitter.com/xieyihui), an
 He has four hobbies: reading, writing, cooking, and playing badminton. He is actually more interested in cooking than eating, but he really loves spicy food. When being asked "how spicy you want your food to be" in the restaurant, he usually answers "as spicy as your chef can make it to be."
 
 ## Christophe Dervieux {-}
+
+Christophe Dervieux is a French active member of the R community. With a Master's degree in Energy and Economics, he started working with R as an analyst doing economic studies about market designs, before becoming a developer advocate and R admin, promoting and supporting R users where he works.
+
+Interested in helping others get the most from R, you can find him wandering in RStudio Community, where he is a sustainer, or on several Github issue boards for various R packages. In both places, you may better know him by his shorter handle "cderv". 
+
+As an R developer, he is a contributor in several R packages, such as **bookdown**, **rmarkdown** and **knitr**, and he also has co-authored the **crrri** package. His own projects can be found on Github (https://github.com/cderv) and sometimes he shares part of his ideas on Twitter (https://twitter.com/chrisderv).
+
+He does not like spicy food but he enjoys playing badminton every week.
