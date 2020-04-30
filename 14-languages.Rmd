@@ -59,9 +59,9 @@ Hello, **knitr** engines!
 ```
 :::
 
-Next we show an example of an alternative Python engine named `py` and implemented by simply calling the `python` command via `system2()`:
+Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better.] named `py` and implemented by simply calling the `python` command via `system2()`:
 
-```{r}
+```{r, tidy=FALSE}
 knitr::knit_engines$set(py = function(options) {
   code <- paste(options$code, collapse = '\n')
   out  <- system2(
