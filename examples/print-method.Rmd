@@ -1,0 +1,29 @@
+---
+title: Use a custom `knit_print` method to print data frames
+---
+
+First, we define a `knit_print` method, and register it:
+
+```{r}
+knit_print.data.frame = function(x, ...) {
+  res = paste(c("", "", knitr::kable(x)), collapse = "\n")
+  knitr::asis_output(res)
+}
+
+registerS3method(
+  "knit_print", "data.frame", knit_print.data.frame,
+  envir = asNamespace("knitr")
+)
+```
+
+Now we can test this custom printing method on data frames.
+Note that you no longer need to call `knitr::kable()`
+explicitly.
+
+```{r}
+head(iris)
+```
+
+```{r}
+head(mtcars)
+```
