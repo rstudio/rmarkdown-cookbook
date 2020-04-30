@@ -197,6 +197,20 @@ Sometimes we may want to execute a code chunk without showing any output at all.
 
 With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), but the output will be completely suppressed---you will not see any code, text output, messages, or plots.
 
+## Collapse text output blocks into source blocks {#opts-collapse}
+
+If you feel there is too much spacing between text output blocks and source code blocks in the output, you may consider collapsing the text output into the source blocks with the chunk option `collapse = TRUE`. This what the output looks like when `collapse = TRUE`:
+
+```{r, test-collapse, collapse=TRUE}
+1 + 1
+1:10
+```
+
+Below is a chunk that does not have the option `collapse = TRUE` (the default is `FALSE`):
+
+```{r, test-collapse}
+```
+
 ## Programmatically generate content inside R Markdown {#results-asis}
 
 By default, text output from code chunks will be written out verbatim with two leading hashes (see Section \@ref(opts-comment)). The text is verbatim because **knitr** puts it in fenced code blocks. For example, the raw output of the code `1:5` from **knitr** is:
