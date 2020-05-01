@@ -77,9 +77,14 @@ Then if you knit an Rmd document with HTML widgets to a non-HTML format, the HTM
 
 If you have **webshot** and PhantomJS installed (see Section \@ref(html-widgets)), you can embed any web page in the output document through `knitr::include_url()`. When you pass a URL of a web page to this function in a code chunk, it will generate an `<iframe>` (inline frame) if the output format is HTML, and a screenshot of the web page for other output formats. You can view the actual page in the inline frame. For example, Figure \@ref(fig:include-url) should show you my homepage if you are reading the online version of this book, otherwise you will see a static screenshot instead.
 
-```{r, include-url, out.width='100%', fig.cap="Embed Yihui's homepage as an iframe or screenshot.", cache=TRUE}
+\let\ooldhref\href
+\let\href\oldhref
+
+```{r, include-url, out.width='100%', fig.cap="Embed Yihui's homepage as an iframe or screenshot.", dev='png', cache=TRUE, screenshot.opts=list(vwidth=992)}
 knitr::include_url('https://yihui.org')
 ```
+
+\let\href\ooldhref
 
 Most chunk options related to figures also work for `knitr::include_url()`, such as `out.width` and `fig.cap`.
 
