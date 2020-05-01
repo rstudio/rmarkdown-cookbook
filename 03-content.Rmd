@@ -23,7 +23,7 @@ output:
 # The second section
 ```
 
-This feature is based on Pandoc's Lua filters. For those who are interested in the technology, you may view this package vignette:
+This feature is based on Pandoc's Lua filters (see Section \@ref(lua-filters)). For those who are interested in the technology, you may view this package vignette:
 
 ```r
 vignette("lua-filters", package = "rmarkdown")
@@ -652,5 +652,84 @@ If you do not want certain section headings to be included in the table of conte
 # Section heading {.unlisted .unnumbered}
 ```
 
-Note that this feature requires at least Pandoc 2.8. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.8, you may install a newer version by following the instructions at https://pandoc.org/installing.html.
+Note that this feature requires at least Pandoc 2.8. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.8, you may install a newer version (see Section \@ref(install-pandoc)).
 
+## The abstract syntax tree of Markdown and Pandoc Lua filters {#lua-filters}
+
+Technically, this section may be a little advanced, but once you learn the Pandoc abstract syntax tree (AST), you will have the power of manipulating any Markdown elements with the programming language called Lua.
+
+Basically, when Pandoc reads a Markdown file, the content will be parsed into an AST. Pandoc allows you to modify this AST with Lua scripts. We use the following simple Markdown file (named `ast.md`) to show what the AST means:
+
+```{cat, engine.opts=list(file='ast.md', lang='md')}
+## Section One
+
+Hello world!
+```
+
+The file contains a header and a paragraph. It may be easier for R users to understand the AST if we convert the file to the JSON format:
+
+```{sh}
+pandoc -f markdown -t json -o ast.json ast.md
+```
+
+Then read the JSON file into R, and print out the data structure:
+
+```{r, comment=''}
+str(jsonlite::fromJSON('ast.json', simplifyVector = FALSE))
+```
+
+You can see that the Markdown content is represented in a recursive list. The label `t` stands for "type", and `c` stands for "content." Take the header for example. Its type is "Header", and its content has three sub-elements: the header level (`2`), the attributes (e.g., the ID is `section-one`), and the text content.
+
+After you are aware of the AST, you can modify it with the Lua programming language. Pandoc has a built-in Lua interpreter, so you do not need to install additional tools. The Lua scripts are called "Lua filters" for Pandoc. Next we give a quick example of raising the levels of headers by one, e.g., convert level-3 headers to level-2 headers. This may be useful when the top-level headers of your document are level-2 headers, but you want to start with level-1 headers instead.
+
+First, we create a Lua script file named `raise-header.lua`, which contains a function named `Header` (meaning that we want to modify header elements):
+
+```{cat, engine.opts=list(file='raise-header.lua', lang='lua')}
+function Header(el)
+  if (el.level <= 1) then
+    error("I don't know how to raise the level of h1")
+  end
+  el.level = el.level - 1
+  return el
+end
+```
+
+Then we can pass this script to Pandoc via the argument `--lua-filter`, e.g.,
+
+```{sh, comment=''}
+pandoc -t markdown --atx-headers \
+  --lua-filter=raise-header.lua ast.md
+```
+
+You can see that we have successfully converted `## Section One` to `# Section One`. You may feel this example is trivial, and wonder why not simply replacing `##` with `#` with a regular expression like:
+
+```{r, eval=FALSE}
+gsub('^##', '#', readLines('ast.md'))
+```
+
+Usually it is not robust to manipulate a structured document with regular expressions, because there are almost always exceptions, e.g., what if `##` means a comment in R code? The AST gives you the structured data, so you know for sure that you are modifying the expected elements.
+
+Pandoc has extensive documentation on Lua filters at https://pandoc.org/lua-filters.html, where you can find a large number of examples. You can also find some filters written by the community in the GitHub repository at https://github.com/pandoc/lua-filters.
+
+In the R Markdown world, below is an incomplete list of packages that have made use of Lua filters (usually they are in the `inst/` directory):
+
+- The **rmarkdown** package (https://github.com/rstudio/rmarkdown) contains filters that insert page breaks (see Section \@ref(pagebreaks)) and generate custom blocks (see Section \@ref(custom-blocks)).
+
+- The **pagedown** package (https://github.com/rstudio/pagedown) contains filters that help implement footnotes and the list of figures on HTML pages.
+
+- The **govdown** package (https://github.com/ukgovdatascience/govdown) contains filters to convert Pandoc's fenced `Div`s to appropriate HTML tags.
+
+For R Markdown users who do not want to create R packages to ship the Lua filters (like the above packages), you may store these Lua scripts anywhere on your computer, and apply them through the `pandoc_args` option of an R Markdown output format, e.g.,
+
+```yaml
+---
+output:
+  html_document:
+    pandoc_args:
+      - --lua-filter=raise-header.lua
+---
+```
+
+```{r, include=FALSE}
+unlink(c('ast.md', 'ast.json', 'raise-header.lua'))
+```

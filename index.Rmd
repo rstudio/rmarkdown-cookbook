@@ -41,7 +41,7 @@ remote_pkgs = c(equatiomatic = 'datalorax')
 lapply(c(
   'remotes', 'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
   'equatiomatic', 'gifski', 'magick', 'pdftools', 'tikzDevice', 'xaringan',
-  'kableExtra', 'blogdown'
+  'kableExtra', 'blogdown', 'jsonlite'
   ), function(pkg) {
     if (system.file(package = pkg) != '') return()
     repo = remote_pkgs[pkg]
