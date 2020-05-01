@@ -652,7 +652,7 @@ If you do not want certain section headings to be included in the table of conte
 # Section heading {.unlisted .unnumbered}
 ```
 
-Note that this feature requires at least Pandoc 2.8. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.8, you may install a newer version (see Section \@ref(install-pandoc)).
+Note that this feature requires at least Pandoc 2.9. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.9, you may install a newer version (see Section \@ref(install-pandoc)).
 
 ## The abstract syntax tree of Markdown and Pandoc Lua filters {#lua-filters}
 
