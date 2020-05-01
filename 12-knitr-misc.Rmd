@@ -433,6 +433,42 @@ plot(cars)
 
 You can save an arbitrary number of grouped options, e.g.,  `knitr::opts_template$set(group1 = list(...), group2 = list(...))`.
 
+## Use `knitr::knit_expand()` to generate Rmd source {#knit-expand}
+
+The function `knitr::knit_expand()` "expands" an expression in `{{ }}` (by default) to its value, e.g.,
+
+```{r, tidy=FALSE, collapse=TRUE}
+knitr::knit_expand(text = "The value of `pi` is {{pi}}.")
+knitr::knit_expand(
+  text = "The value of `a` is {{a}}, so `a + 1` is {{a+1}}.",
+  a = round(rnorm(1), 4)
+)
+```
+
+This means if have an Rmd document that contains some dynamic parts in `{{ }}`, you may apply `knit_expand()` on the document, and then call `knit()` to compile it. For example, here is a template document named `template.Rmd`:
+
+````md
+# Regression on {{i}}
+
+```{r lm-{{i}}}`r ''`
+lm(mpg ~ {{i}}, data = mtcars)
+```
+````
+
+We can build linear regression models using `mpg` against all other variables one by one in the `mtcars` dataset:
+
+````md
+```{r, echo=FALSE, results='asis'}`r ''`
+src = lapply(setdiff(names(mtcars), 'mpg'), function(i) {
+  knitr::knit_expand('template.Rmd')
+})
+res = knitr::knit_child(text = unlist(src))
+cat(res, sep = '\n')
+```
+````
+
+If you find it difficult to understand this example, please see Section \@ref(results-asis) for the meaning of the chunk option `results = 'asis'`, and Section \@ref(child-document) for the usage of `knitr::knit_child()`.
+
 ## Allow duplicate labels in code chunks {#duplicate-label}
 
 <!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->

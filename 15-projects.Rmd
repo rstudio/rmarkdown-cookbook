@@ -228,7 +228,7 @@ You can even use a child document as a template, and call `knit_child()` on it r
 
 ````md
 ```{r, echo=FALSE, results='asis'}`r ''`
-res <- lapply(names(mtcars)[-1], function(x) {
+res <- lapply(setdiff(names(mtcars), 'mpg'), function(x) {
   knitr::knit_child(text = c(
     '## Regression on "`r knitr::inline_expr('x')`"',
     '',
@@ -256,7 +256,7 @@ lm(mpg ~ ., data = mtcars[, c("mpg", x)])
 And knit the file instead:
 
 ```{r, eval=FALSE, tidy=FALSE}
-res <- lapply(names(mtcars)[-1], function(x) {
+res <- lapply(setdiff(names(mtcars), 'mpg'), function(x) {
   knitr::knit_child(
     'template.Rmd', envir = environment(), quiet = TRUE
   )
