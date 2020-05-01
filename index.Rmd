@@ -108,13 +108,13 @@ We do not intend to provide a full technical reference for R Markdown in this co
 
 - Part V ("Communicate") of *R for Data Science* [@wickham2016]. This part is less technical than the above "Definitive Guide", hence may be a gentler introduction to R Markdown
 
-- *Dynamic Documents with R and knitr* [@knitr2015] provides a thorough introduction to the **knitr** package [@R-knitr] (note that R Markdown is only one of the document formats that **knitr** supports).
+- *Dynamic Documents with R and knitr* [@knitr2015] provides a thorough introduction to the **knitr** package [@R-knitr] (note that R Markdown is only one of the document formats that **knitr** supports). If you want to read a shorter version, you may find Karl Broman's minimal tutorial ["knitr in a knutshell"](https://kbroman.org/knitr_knutshell/) helpful.
 
 - *bookdown: Authoring Books and Technical Documents with R Markdown* [@bookdown2016]: a short book as the official documentation of the **bookdown** package [@R-bookdown], which is designed to simplify the creation of long-format documents in R Markdown.
 
 - *blogdown: Creating Websites with R Markdown* [@blogdown2017] introduces how to create websites in R Markdown with the **blogdown** package [@R-blogdown] package.
 
-Where relevant, this book provides references to these existing resources. By the way, the R Markdown website also contains a lot of resources that you may find helpful: https://rmarkdown.rstudio.com.
+Where relevant, this book provides references to these existing resources. By the way, the official R Markdown website also contains a lot of resources that you may find helpful: https://rmarkdown.rstudio.com.
 
 You do not need to read this book in a particular order. Later chapters are not necessarily more challenging than previous chapters. It may be most efficient to read this book when you have some specific tasks in mind that you want to do with R Markdown, otherwise you can thumb through the table of contents and see if you are interested in any particular parts. We have tried to make each section and example as self-contained as possible, so you do not have to go back and forth among different parts of this book. In some cases, cross-referencing is unavoidable, and we will refer you to the background knowledge required to understand a certain example.
 
@@ -146,7 +146,9 @@ As usual, first I want to thank my employer RStudio for giving me the freedom to
 
 I came up with the idea of writing this cookbook after I published the *R Markdown Definitive Guide*, but ideas are often cheap. It is the execution that is hard and expensive. If it were not for [Michael Harper's](http://mikeyharper.uk) initial pushing, I would never start working on it seriously. Christophe Dervieux has always been around whenever I need help. He used his R and R Markdown skills to build a dashboard (with the **flexdashboard** package) to guide me to the potentially interesting and useful topics to write on. Meanwhile, he has also helped me in numerous other GitHub issues, so I could have more time for writing the book, instead of spending whole days on wrestling with bug reports that did not have minimal reproducible examples attached. Similarly, several people have been helping with answering R Markdown questions on Stack Overflow, including Martin Schmelzer, Marcel Schilling, and Ralf Stubner, etc. Perhaps their intention is not to save me time, but their effort did save me a lot of time. Recently Johannes Friedrich also came to my attention on Stack Overflow, after a few times when I opened a new Stack Overflow question only to find it already answered by him.
 
-David Keyes saved my life in Section \@ref(table-other), since he had written [a wonder blog post](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) to introduce several R packages to create tables, with which I was not very familiar. 
+David Keyes saved my life in Section \@ref(table-other), since he had written [a wonderful blog post](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) to introduce several R packages to create tables, with which I was not very familiar. Other online materials that have helped me a lot include: Holtz Yan's [post on some R Markdown tips,](https://holtzy.github.io/Pimp-my-rmd/) Nicholas Tierney's book ["R Markdown for Scientists",](https://rmd4sci.njtierney.com) Maëlle Salmon's [R Markdown course,](https://github.com/maelle/rmd_course_isglobal) Jennifer Thompson's [R Markdown course,](https://github.com/jenniferthompson/RepResearchRMarkdown) Emi Tanaka's [R Markdown workshop](https://github.com/emitanaka/combine2019) Alison Hill's [R Markdown workshop](https://arm.rbind.io) (co-taught with me), and Alison Hill and Emi Tanaka's [R Markdown workshop.](https://ysc-rmarkdown.netlify.app)
+
+Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Xiangyun Huang, Florian Kohrt, Romain Lesur, Song Li, Ulrik Lyngs, Jake Stephen, Atsushi Yasumoto, and John Zobolas.
 
 ```{block2, type='flushright', html.tag='p'}
 Yihui Xie  
