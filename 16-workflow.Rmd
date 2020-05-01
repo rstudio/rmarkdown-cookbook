@@ -236,6 +236,10 @@ The collaborative editing can be either synchronous or asynchronous in Google Dr
 
 There is also a function `udpate_rmd()` in the package, which allows you to edit the Rmd document locally, and upload the local Rmd document to Google Drive. You probably should never want to run this function, because it will completely overwrite the document in Google Drive. The main author may want to warn collaborators about this in advance. Ideally, all collaborators should only edit the document in Google Drive and not locally. It is okay to preview the edited document locally via `render_rmd()`, though (note that `render_rmd()` automatically downloads the document before rendering it).
 
+## Organize an R Markdown project into a research website with **workflowr** {#workflowr}
+
+The **workflowr** package (https://github.com/jdblischak/workflowr) can help you organize a (data analysis) project with a project template and the version control tool GIT. Every time you make a change to the project, you can log the change, and **workflowr** can build a website corresponding to that particular version of your project. This means that you will be able to view the full history of your analysis results. Although this package uses GIT as the backend for version control, you do not really have to be familiar with GIT, because it has provided R functions that do the GIT operations under the hood, and you only need to call these R functions. Please see the package documentation for how to get started and more information.
+
 ## Send Emails based on R Markdown {#blastula-email}
 
 With the **blastula** package (https://github.com/rich-iannone/blastula), you can render an Rmd document to the Email body and send the Email. To render an Rmd document to an Email, the document needs to use the output format `blastula::blastula_email`, e.g.,
