@@ -1,6 +1,6 @@
 # Workflow
 
-In this chapter, we introduce some tips on working with individual R Markdown documents as well as running your R Markdown projects.
+In this chapter, we introduce some tips on working with individual R Markdown documents as well as running your R Markdown projects. You may also check out [Chapter 30](https://r4ds.had.co.nz/r-markdown-workflow.html) of the book "R for Data Science" [@wickham2016], which briefly introduced some tips on using analysis notebooks (including R Markdown documents).
 
 ## RStudio keyboard shortcuts {#rstudio-shortcuts}
 
@@ -239,6 +239,8 @@ There is also a function `udpate_rmd()` in the package, which allows you to edit
 ## Organize an R Markdown project into a research website with **workflowr** {#workflowr}
 
 The **workflowr** package (https://github.com/jdblischak/workflowr) can help you organize a (data analysis) project with a project template and the version control tool GIT. Every time you make a change to the project, you can log the change, and **workflowr** can build a website corresponding to that particular version of your project. This means that you will be able to view the full history of your analysis results. Although this package uses GIT as the backend for version control, you do not really have to be familiar with GIT, because it has provided R functions that do the GIT operations under the hood, and you only need to call these R functions. Please see the package documentation for how to get started and more information.
+
+The main author of **workflowr**, John Blischak, has also put together a non-exhaustive list of R packages and guides related to the workflow of R projects, which can be found in this GitHub repo: https://github.com/jdblischak/r-project-workflows.
 
 ## Send Emails based on R Markdown {#blastula-email}
 
