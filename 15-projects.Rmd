@@ -322,3 +322,11 @@ The next two Rmd files are two chapters:
 To render these Rmd files, you should call `bookdown::render_book('index.Rmd')` instead of `rmarkdown::render()`. Under the hood, **bookdown** merges all Rmd files into a single Rmd by default and compile it. Files are merged in the alphabetical order. That is why we added numeric prefixes to filenames in the above example.
 
 There are a lot of settings that you can customize for a **bookdown** project. For a more comprehensive overview of **bookdown**, you may see Chapter 18 the **rmarkdown** book [@rmarkdown2018]. For the full documentation, see the **bookdown** book [@bookdown2016].
+
+## Build websites with **blogdown** {#blogdown}
+
+If you want build a website based on R Markdown, you may consider using the **blogdown** package. The easiest way to get started is to use the RStudio menu  `File -> New Project -> New Directory -> Website using blogdown`, as you can see from Figure \@ref(fig:bookdown-project). If you have never used **blogdown** before, you may use the default settings in the dialog box, otherwise you can customize things like the website theme. If you do not use RStudio, you may call the function `blogdown::new_site()` under an empty directory to create a new website.
+
+A website project may contain any number of Rmd documents. They could either be normal pages or blog posts. R Markdown makes it easier for you to maintain your website because the results on your website are automatically and dynamically generated.
+
+We recommend that you read [Chapter 1](https://bookdown.org/yihui/blogdown/get-started.html) of the **blogdown** book [@blogdown2017] for an overview of this package as well as the basic workflow of maintaining a website.
