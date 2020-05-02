@@ -87,7 +87,7 @@ options(bookdown.post.latex = function(x) {
 # Preface {-}
 
 ::: {.infobox .caution data-latex="{caution}"}
-This book is in an early stage of development. If you have any suggestions on what should be included within this book, please feel free to [file an issue on GitHub](https://github.com/yihui/rmarkdown-cookbook/issues/new). Thank you!
+This book is currently a draft. We plan to publish it around August 2020 with Chapman & Hall/CRC. If you have any feedback, please feel free to [file an issue on GitHub](https://github.com/yihui/rmarkdown-cookbook/issues/new). Thank you!
 :::
 
 R Markdown is a powerful tool for combining analysis and reporting into the same document. Since the birth of the **rmarkdown** package [@R-rmarkdown] in early 2014, R Markdown has grown substantially from a package that supports a few output formats, to an extensive and diverse ecosystem that supports the creation of books, blogs, scientific articles, websites, and even resumes.
