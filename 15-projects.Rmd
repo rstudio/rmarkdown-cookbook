@@ -264,16 +264,15 @@ res <- lapply(setdiff(names(mtcars), 'mpg'), function(x) {
 cat(unlist(res), sep = '\n')
 ```
 
-## Using bookdown {#bookdown}
+## Write books and long-form reports with **bookdown** {#bookdown}
 
 The **bookdown** package [@R-bookdown] is designed for creating long-form documents with multiple R Markdown documents. For example, if you want to write a book, you can put each chapter in its own Rmd file.
 
-For RStudio users, the easiest way to get started is to create a **bookdown** project from `File -> New Project -> New Directory -> Book Project using bookdown`, as you can see from Figure \@ref(fig:bookdown-project).
+For RStudio users, the easiest way to get started is to create a **bookdown** project from `File -> New Project -> New Directory -> Book Project using bookdown`, as you can see from Figure \@ref(fig:bookdown-project). If you do not use RStudio, you may call the function `bookdown:::bookdown_skeleton('your-book-dir')`.
 
 ```{r, bookdown-project, echo=FALSE, fig.cap='Create a bookdown project in RStudio.'}
 knitr::include_graphics('images/bookdown-project.png', dpi = NA)
 ```
-
 
 To demonstrate the usage, we provide a minimal example consisting of three files within the same directory:
 
@@ -288,17 +287,17 @@ Below we show the content of each file and explain their roles.
 
 - **index.Rmd**:
 
-````md
----
-title: "A Minimal bookdown Project"
-site: bookdown::bookdown_site
-output: bookdown::gitbook
----
-
-# Preface {-}
-
-Some content
-````
+  ````md
+  ---
+  title: "A Minimal bookdown Project"
+  site: bookdown::bookdown_site
+  output: bookdown::gitbook
+  ---
+  
+  # Preface {-}
+  
+  Some content
+  ````
 
 The first file is typically called `index.Rmd`. It should be the only Rmd file in which you provide the YAML frontmatter. It should also include a special YAML field `site: bookdown::bookdown_site`, so that **rmarkdown** knows to use **bookdown** to build all Rmd files, instead of rendering a single Rmd file. You can use any **bookdown** output formats, such as `bookdown::gitbook`, `bookdown::pdf_book`, `bookdown::word_document2`, and `bookdown::epub_book`.
 
@@ -306,19 +305,19 @@ The next two Rmd files are two chapters:
 
 - **01-intro.Rmd:**
 
-````md
-# Chapter 1
-
-This is chapter 1.
-````
+  ````md
+  # Chapter 1
+  
+  This is chapter 1.
+  ````
 
 - **02-analysis.Rmd**:
 
-```md
-# Chapter 2
-
-This is chapter 2.
-```
+  ```md
+  # Chapter 2
+  
+  This is chapter 2.
+  ```
 
 To render these Rmd files, you should call `bookdown::render_book('index.Rmd')` instead of `rmarkdown::render()`. Under the hood, **bookdown** merges all Rmd files into a single Rmd by default and compile it. Files are merged in the alphabetical order. That is why we added numeric prefixes to filenames in the above example.
 
