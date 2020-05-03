@@ -1,12 +1,12 @@
 # Basics
 
-This book by no means intends to be a comprehensive guide to R Markdown. However, it is important to provide an overview of the R Markdown ecosystem before we drill down to specific examples and recipes. This chapter aims to provide the basic concepts required for the book.
+In this chapter, we present some high-level concepts about R Markdown. First, we present the big picture of how R Markdown works (**knitr** and Pandoc). Then we introduce the basic components of an R Markdown document: the prose and code. Lastly, we show how to convert R Markdown documents to R scripts, and vice versa.
 
-For those seeking the background, we recommend that readers refer to the R Markdown definitive guide [@rmarkdown2018], which provides a comprehensive overview of the R Markdown components.
+For those seeking lower-level basics, please read Chapter 2 of the R Markdown Definitive Guide [@rmarkdown2018].
 
 ## The R Markdown process {#rmarkdown-process}
 
-R Markdown combines several different processes together to create documents, and one of the main sources of confusion from R Markdown is how all the components work together. Fortunately, as a user, it is not essential to understand all the inner workings of these processes to be able to create documents. However, as a user who may be seeking to alter the behavior of a document, it is important to understand which component is responsible for what. This makes it a lot easier to seek help as you can target your searches on the correct area.
+R Markdown combines several different processes together to create documents, and one of the main sources of confusion from R Markdown is how all the components work together.^[Allison Horst has created an amusing artwork that describes the R Markdown process as wizardry: https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rmarkdown_wizards.png.] Fortunately, as a user, it is not essential to understand all the inner workings of these processes to be able to create documents. However, as a user who may be seeking to alter the behavior of a document, it is important to understand which component is responsible for what. This makes it a lot easier to seek help as you can target your searches on the correct area.
 
 The basic workflow structure for an R Markdown document is shown in Figure \@ref(fig:rmdworkflow), highlighting the steps (arrows) and the intermediate files that are created before producing the output. The whole process is implemented via the function `rmarkdown::render()`. Each stage is explained in further detail below.
 
@@ -34,7 +34,7 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 ## Code chunks and inline R code {#r-code}
 
-There are two types of code in an Rmd document: code chunks, and inline R code. Below is a quick example:
+An R Markdown document consists of intermingled prose (narratives) and code. There are two types of code in an Rmd document: code chunks, and inline R code. Below is a quick example:
 
 ````md
 ```{r}`r ''`
@@ -45,7 +45,7 @@ For a circle with the radius `r knitr::inline_expr('x')`,
 its area is `r knitr::inline_expr('pi * x^2')`.
 ````
 
-A code chunk usually starts with ```` ```{}```` and ends with ```` ``` ````. You can write any number of lines of code in it. Inline R code is embedded in the narratives of the document. In the above example, we defined a variable `x` in a code chunk, which is the radius of a circle, and calculated its area in the next paragraph.
+A code chunk usually starts with ```` ```{}```` and ends with ```` ``` ````. You can write any number of lines of code in it. Inline R code is embedded in the narratives of the document using the syntax `` `r ` ``. In the above example, we defined a variable `x` in a code chunk, which is the radius of a circle, and calculated its area in the next paragraph.
 
 You can customize the behavior and output of code chunks through chunk options (provided inside the curly brackets `{}`). You will find several examples in Chapter \@ref(chunk-options). You may write code of other languages in code chunks, too (see Chapter \@ref(other-languages)).
 

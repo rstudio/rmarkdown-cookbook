@@ -1,6 +1,6 @@
 # Tables
 
-Tables are one of the primary ways in which we can communicate results in a report, and you may often desire to tweak their appearance to suit your particular needs. In this chapter, we will highlight several techniques that can be used to customize tables. This chapter aims to:
+Tables are one of the primary ways in which we can communicate results in a report. You may often desire to tweak their appearance to suit your particular needs. In this chapter, we will introduce techniques that can be used to customize tables. This chapter aims to:
 
 - Show all features of the table-generating function `knitr::kable()`.
 

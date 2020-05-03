@@ -1,6 +1,6 @@
 # Chunk Options {#chunk-options}
 
-As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** is one of the two major components of R Markdown (the other being Pandoc). In this chapter and the next three chapters, we show some recipes related to **knitr**.
+As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** plays a critical role in R Markdown. In this chapter and the next three chapters, we show some recipes related to **knitr**.
 
 There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of the R Markdown Definitive Guide [@rmarkdown2018] provides a subset of these options, while the full list is available at <https://yihui.org/knitr/options/>.
 
