@@ -148,7 +148,7 @@ I came up with the idea of writing this cookbook after I published the *R Markdo
 
 David Keyes saved my life in Section \@ref(table-other), since he had written [a wonderful blog post](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) to introduce several R packages to create tables, with which I was not very familiar. Other online materials that have helped me a lot include: Holtz Yan's [post on some R Markdown tips,](https://holtzy.github.io/Pimp-my-rmd/) Nicholas Tierney's book ["R Markdown for Scientists",](https://rmd4sci.njtierney.com) Maëlle Salmon's [R Markdown course,](https://github.com/maelle/rmd_course_isglobal) Jennifer Thompson's [R Markdown course,](https://github.com/jenniferthompson/RepResearchRMarkdown) Emi Tanaka's [R Markdown workshop](https://github.com/emitanaka/combine2019) Alison Hill's [R Markdown workshop](https://arm.rbind.io) (co-taught with me), and Alison Hill and Emi Tanaka's [R Markdown workshop.](https://ysc-rmarkdown.netlify.app)
 
-Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Xiangyun Huang, Florian Kohrt, Romain Lesur, Song Li, Ulrik Lyngs, Jake Stephen, Atsushi Yasumoto, and John Zobolas.
+Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Xiangyun Huang, Florian Kohrt, Romain Lesur, Jiaxiang Li, Song Li, Ulrik Lyngs, Emily Riederer, Matt Small, Jake Stephen, Atsushi Yasumoto, Hao Zhu, and John Zobolas.
 
 ```{block2, type='flushright', html.tag='p'}
 Yihui Xie  
