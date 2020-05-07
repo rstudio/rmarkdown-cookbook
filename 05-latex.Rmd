@@ -149,7 +149,7 @@ For those familiar with LaTeX, this is equivalent to the following LaTeX code:
 
 ### Example packages
 
-There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprohensive TeX Archive Network](https://ctan.org) (CTAN). As some examples of LaTeX packages you could consider using within your report:
+There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprehensive TeX Archive Network](https://ctan.org) (CTAN). As some examples of LaTeX packages you could consider using within your report:
 
 - [pdfpages](https://ctan.org/pkg/pdfpages): include full PDF pages from an external PDF document within your document.
 - [caption](https://ctan.org/pkg/caption): change the appearance of caption subtitles. For example, you can make the figure title italic or bold.
