@@ -161,7 +161,7 @@ will be converted to the HTML code below:
 </div>
 ```
 
-For LaTeX output, the first class name will be used as the LaTeX environment name, and you must provide an attribute named `data-latex` in the `Div` block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
+For LaTeX output, the first class name will be used as the LaTeX environment name, and you can provide an optional attribute named `data-latex` in the `Div` block, which will be the arguments of the environment. This attribute can be either missing or an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
 
 ````md
 ::: {.verbatim data-latex=""}
@@ -181,11 +181,11 @@ When the block is converted to HTML, the HTML code will be:
 
 ```html
 <div class="verbatim">
-  We show some <em>verbatim</em> text here.
+We show some <em>verbatim</em> text here.
 </div>
 ```
 
-The second example uses the `center` and `minipage` environments to display some text in a centered box of half-width of the page width.
+The second example uses the `center` and `minipage` environments to display some text in a centered box of half of the page width.
 
 ```md
 :::: {.center data-latex=""}
@@ -198,7 +198,7 @@ its width is 50% of the width of its parent element.
 ::::
 ```
 
-Note that we nest the `minipage` block in the `center` block. You need more colons for a parent block to include a child block. In the above example, we used four colons (you can use five or more) for the `center` block. The two blocks will be converted to LaTeX code below:
+Note that we nested the `minipage` block in the `center` block. You need more colons for a parent block to include a child block. In the above example, we used four colons (you can use five or more) for the `center` block. The two blocks will be converted to LaTeX code below:
 
 ```tex
 \begin{center}
