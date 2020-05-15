@@ -190,7 +190,7 @@ The second example uses the `center` and `minipage` environments to display some
 ```md
 :::: {.center data-latex=""}
 
-::: {.minipage data-latex="{width=.5\linewidth}"}
+::: {.minipage data-latex="{.5\linewidth}"}
 This paragraph will be centered on the page, and
 its width is 50% of the width of its parent element.
 :::
@@ -202,7 +202,7 @@ Note that we nested the `minipage` block in the `center` block. You need more co
 
 ```tex
 \begin{center}
-\begin{minipage}{width=.5\linewidth}
+\begin{minipage}{.5\linewidth}
 This paragraph will be centered on the page, and
 its width is 50\% of the width of its parent element.
 \end{minipage}
