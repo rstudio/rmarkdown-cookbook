@@ -131,7 +131,7 @@ matrix(runif(100), ncol = 20)
 ```
 ````
 
-Note all R functions respect the `width` option. If this option does not work, your only choice may be to wrap the long lines of text. This is actually the default behavior of the `html_document` output format. If the HTML output format that you are using does not wrap the long lines, you may apply the CSS code below (see Section \@ref(html-css) for how):
+Not all R functions respect the `width` option. If this option does not work, your only choice may be to wrap the long lines of text. This is actually the default behavior of the `html_document` output format. If the HTML output format that you are using does not wrap the long lines, you may apply the CSS code below (see Section \@ref(html-css) for how):
 
 ```css
 pre code {
