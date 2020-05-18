@@ -226,6 +226,16 @@ print('Hello world!') # indent by 2 spaces
 ```
 ````
 
+In Section \@ref(text-width), we mentioned how to control the width of text output. If you want to control the width of the source code, you may try the `width.cutoff` argument when `tidy = TRUE`, e.g.,
+
+````md
+```{r, tidy=TRUE, tidy.opts=list(width.cutoff=50)}`r ''`
+# a long expression
+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+
+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1
+```
+````
+
 Please read the help page `?formatR::tidy_source` to know the possible arguments, and also see https://yihui.org/formatR/ for examples and limitations of this function.
 
 Alternatively, you may use the **styler** package (https://styler.r-lib.org) to reformat your R code if you set the chunk option `tidy = 'styler'`. The R code will be formatted with the function `styler::style_text()`. The **styler** package has richer features than **formatR**. For example, it can align function arguments and works with the pipe operator `%>%`. The chunk option `tidy.opts` can also be used to pass additional arguments to `styler::style_text()`.
