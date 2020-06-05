@@ -44,7 +44,7 @@ rmarkdown::find_pandoc(version = '2.9.1')
 ```
 ````
 
-## Install LaTeX for PDF reports {#install-latex}
+## Install LaTeX (TinyTeX) for PDF reports {#install-latex}
 
 If you would like to create PDF documents from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, we recommend that R Markdown users install [TinyTeX](https://yihui.org/tinytex/).
 

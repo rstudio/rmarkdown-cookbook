@@ -1,0 +1,33 @@
+---
+title: Wrap wide lines in code chunks and output
+geometry: margin=2in
+fontsize: 12pt
+output:
+  pdf_document:
+    pandoc_args: --listings
+    includes:
+      in_header: listings-settings.tex
+---
+
+```{cat, engine.opts=list(file='listings-settings.tex')}
+\lstset{
+  breaklines=true,
+  basicstyle=\ttfamily
+}
+```
+
+You can use the **listings** package to wrap very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text.
+
+Wrap source code:
+
+```{r}
+x <- 'This is a very very very very very very very very very very very very long string.'
+```
+
+Wrap text output:
+
+```{r}
+options(width = 200)
+1:100
+```
+

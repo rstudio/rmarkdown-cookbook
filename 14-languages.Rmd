@@ -8,6 +8,8 @@ In **knitr**, each language is supported through a language engine. Language eng
 names(knitr::knit_engines$get())
 ```
 
+At the moment, most code chunks of non-R languages are executed independently. For example, all `bash` code chunks in the same document are executed separately in their own sessions, so a later `bash` code chunk cannot use variables created in a previous `bash` chunk, and the changed working directory (via `cd`) will not be persistent across different `bash` chunks. Only R, Python, and Julia code chunks are executed in the same session, but please note that all R code chunks are executed in the same R session, and all Python code chunks are executed in the same Python session, etc. The R session and the Python session are two different sessions, but it is possible to access or manipulate objects of one session from another session (see Section \@ref(eng-python)).
+
 [Section 2.7](https://bookdown.org/yihui/rmarkdown/language-engines.html) of the R Markdown Definitive Guide [@rmarkdown2018] has shown examples of using Python, Shell, SQL, Rcpp, Stan, JavaScript, CSS, Julia, C, and Fortran code in R Markdown. In this chapter, we will show more language engines, and you may find more examples in the repository at https://github.com/yihui/knitr-examples (look for filenames that contain the word "engine").
 
 First, let's reveal how a language engine works by registering a custom language engine.
@@ -59,7 +61,7 @@ Hello, **knitr** engines!
 ```
 :::
 
-Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better.] named `py` and implemented by simply calling the `python` command via `system2()`:
+Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
 
 ```{r, tidy=FALSE}
 knitr::knit_engines$set(py = function(options) {
@@ -94,6 +96,10 @@ print(1 + 1)
 :::
 
 You can even override existing language engines via `knitr::knit_engines$set()`, if you are sure that your versions are necessary or better than the existing ones. Usually we do not recommend that you do this because it may surprise users who are familiar with existing engines, but we want to make you aware of this possibility anyway.
+
+## Run Python code and interact with Python {#eng-python}
+
+TODO
 
 ## Conditional content via the `asis` engine {#eng-asis}
 

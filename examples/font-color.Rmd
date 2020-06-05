@@ -12,36 +12,36 @@ First, we define a Lua filter and write it to
 the file `color-text.lua`.
 
 ```{cat, engine.opts = list(file = "color-text.lua")}
-Span = function(span)
-  color = span.attributes['color']
+Span = function(el)
+  color = el.attributes['color']
   -- if no color attribute, return unchange
-  if color == nil then return span end
+  if color == nil then return el end
   
   -- tranform to <span style="color: red;"></span>
   if FORMAT:match 'html' then
     -- remove color attributes
-    span.attributes['color'] = nil
+    el.attributes['color'] = nil
     -- use style attribute instead
-    span.attributes['style'] = 'color: ' .. color .. ';'
+    el.attributes['style'] = 'color: ' .. color .. ';'
     -- return full span element
-    return span
+    return el
   elseif FORMAT:match 'latex' then
     -- remove color attributes
-    span.attributes['color'] = nil
+    el.attributes['color'] = nil
     -- encapsulate in latex code
     table.insert(
-      span.content, 1,
+      el.content, 1,
       pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
     )
     table.insert(
-      span.content,
+      el.content,
       pandoc.RawInline('latex', '}')
     )
     -- returns only span content
-    return span.content
+    return el.content
   else
     -- for other format return unchanged
-    return span
+    return el
   end
 end
 ```

@@ -99,93 +99,6 @@ Note that we use `knitr::read_chunk()` mainly for its side-effect, so please mak
 
 Like methods introduced in Section \@ref(source-script) and Section \@ref(option-code), this method also gives you the flexibility of developing code in a separate environment.
 
-## Keep the plot files {#keep-files}
-
-Most R Markdown output formats use the option `self_contained = TRUE` by default, which means R plots will be embedded in the output documents, so we do not need the intermediate plot files when viewing the output documents, and the plot folder (which typically has a suffix `_files`) will be deleted after the Rmd document is rendered.
-
-Sometimes you may want to keep the plot files. For example, some academic journals require authors to submit figures files separately. For R Markdown, there are three ways to avoid the automatic deletion of these files:
-
-1. Use the option `self_contained = FALSE` if the output format supports this option, e.g.,
-
-    ```yaml
-    output:
-      html_document:
-        self_contained: false
-    ```
-
-    However, this means the plot files will not be embedded in the output document. If this is not what you want, you may consider the next two methods.
- 
-1. Enable caching for at least one code chunk (see Section \@ref(cache)). When caching is enabled, R Markdown will not delete the plot folder.
-
-1. Use the option `keep_md = TRUE` if the output format supports this option, e.g.,
-
-    ```yaml
-    output:
-      word_document:
-        keep_md: true
-    ```
-
-    When you ask R Markdown to preserve the intermediate Markdown output file, it will also preserve the plot folder.
-
-## The working directory for R code chunks {#working-directory}
-
-By default, the working directory for R code chunks is the directory that contains the Rmd document. For example, if the path of an Rmd file is `~/Downloads/foo.Rmd`, the working directory under which R code chunks are evaluated is `~/Downloads/`. This means when you refer to external files with relative paths in code chunks, you need to know that these paths are relative to the directory of the Rmd file. With the aforementioned Rmd example file, `read.csv("data/iris.csv")` in a code chunk means reading the CSV file `~/Downloads/data/iris.csv`.
-
-When in doubt, you can add `getwd()` to a code chunk, compile the document, and check the output from `getwd()`.
-
-Sometimes you may want to use another directory as the working directory. The usual way to change the working directory is `setwd()`, but please note that `setwd()` is not persistent in R Markdown (or other types of **knitr** source documents), which means `setwd()` only works for the current code chunk, and the working directory will be restored after this code chunk has been evaluated.
-
-If you want to change the working directory for all code chunks, you may set it via a `setup` code chunk in the beginning of your document:
-
-````md
-```{setup, include=FALSE}`r ''`
-knitr::opts_knit$set(root.dir = '/tmp')
-```
-````
-
-This will change the working directory of all subsequent code chunks.
-
-If you use RStudio, you can also choose the working directory from the menu `Tools -> Global Options -> R Markdown` (see Figure \@ref(fig:rmd-wd)).
-
-```{r, rmd-wd, echo=FALSE, fig.cap='Change the default working directory for R Markdown documents in RStudio.', fig.align='center'}
-knitr::include_graphics('images/rmd-wd.png', dpi = NA)
-```
-
-
-## R package vignettes {#package-vignette}
-
-If you have experience in developing R packages, or your project requires clear documentation and rigorous tests for custom functions written in the project, you may consider organizing the project as an R package. If you do not know how to create an R package, you can easily get started in the RStudio IDE by clicking the menu `File -> New Project`, and selecting the project type to be an R package.
-
-There are a lot of benefits of using an R package to manage a project. For example, you can place datasets in the `data/` folder, write R code under `R/`, generate documentation (e.g., using **roxygen2**) to `man/`, and add unit tests to `test/`. When it comes to the R Markdown reports, you can write them as package vignettes under `vignettes/`. In the vignettes, you can load datasets and call functions in the package. When you build the package (via the command `R CMD build` or RStudio), vignettes will be automatically compiled.
-
-To create a package vignette in R Markdown, the easiest way is through the RStudio menu `File -> New File -> R Markdown -> From Template` (see Figure \@ref(fig:package-vignette)). Then you select "Package Vignette" from the **rmarkdown** package, and you will get a vignette template. After changing the title, author, and other metadata of the template, you can start writing the content of your report.
-
-```{r, package-vignette, echo=FALSE, fig.cap='Create a package vignette in RStudio.'}
-knitr::include_graphics('images/package-vignette.png', dpi = NA)
-```
-
-If you do not use RStudio, below is what the YAML frontmatter typically looks like:
-
-```yaml
----
-title: "Vignette Title"
-author: "Vignette Author"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-```
-
-Note that you need to change the vignette title in both the `title` field and the `\VignetteIndexEntry{}` command. Besides the above information in the vignette, you also need to do two more things in your package `DESCRIPTION` file:
-
-1. Specify `VignetteBuilder: knitr` in the `DESCRIPTION` file.
-
-1. Add `Suggests: knitr, rmarkdown` in `DESCRIPTION`.
-
-The vignette output format does not have to be HTML. It can also be PDF, so you can use `output: pdf_document`, too. Any other output formats that create HTML or PDF are also okay, such as `beamer_presentation` and `tufte::tufte_html`. However, currently R only recognizes HTML and PDF vignettes.
-
 ## Child documents {#child-document}
 
 When you feel an R Markdown document is too long, you may consider splitting it into shorter documents, and include them as child documents of the main document via the chunk option `child`. The `child` option takes a character vector of paths to the child documents, e.g.,
@@ -263,6 +176,92 @@ res <- lapply(setdiff(names(mtcars), 'mpg'), function(x) {
 })
 cat(unlist(res), sep = '\n')
 ```
+
+## Keep the plot files {#keep-files}
+
+Most R Markdown output formats use the option `self_contained = TRUE` by default, which means R plots will be embedded in the output documents, so we do not need the intermediate plot files when viewing the output documents, and the plot folder (which typically has a suffix `_files`) will be deleted after the Rmd document is rendered.
+
+Sometimes you may want to keep the plot files. For example, some academic journals require authors to submit figures files separately. For R Markdown, there are three ways to avoid the automatic deletion of these files:
+
+1. Use the option `self_contained = FALSE` if the output format supports this option, e.g.,
+
+    ```yaml
+    output:
+      html_document:
+        self_contained: false
+    ```
+
+    However, this means the plot files will not be embedded in the output document. If this is not what you want, you may consider the next two methods.
+ 
+1. Enable caching for at least one code chunk (see Section \@ref(cache)). When caching is enabled, R Markdown will not delete the plot folder.
+
+1. Use the option `keep_md = TRUE` if the output format supports this option, e.g.,
+
+    ```yaml
+    output:
+      word_document:
+        keep_md: true
+    ```
+
+    When you ask R Markdown to preserve the intermediate Markdown output file, it will also preserve the plot folder.
+
+## The working directory for R code chunks {#working-directory}
+
+By default, the working directory for R code chunks is the directory that contains the Rmd document. For example, if the path of an Rmd file is `~/Downloads/foo.Rmd`, the working directory under which R code chunks are evaluated is `~/Downloads/`. This means when you refer to external files with relative paths in code chunks, you need to know that these paths are relative to the directory of the Rmd file. With the aforementioned Rmd example file, `read.csv("data/iris.csv")` in a code chunk means reading the CSV file `~/Downloads/data/iris.csv`.
+
+When in doubt, you can add `getwd()` to a code chunk, compile the document, and check the output from `getwd()`.
+
+Sometimes you may want to use another directory as the working directory. The usual way to change the working directory is `setwd()`, but please note that `setwd()` is not persistent in R Markdown (or other types of **knitr** source documents), which means `setwd()` only works for the current code chunk, and the working directory will be restored after this code chunk has been evaluated.
+
+If you want to change the working directory for all code chunks, you may set it via a `setup` code chunk in the beginning of your document:
+
+````md
+```{setup, include=FALSE}`r ''`
+knitr::opts_knit$set(root.dir = '/tmp')
+```
+````
+
+This will change the working directory of all subsequent code chunks.
+
+If you use RStudio, you can also choose the working directory from the menu `Tools -> Global Options -> R Markdown` (see Figure \@ref(fig:rmd-wd)).
+
+```{r, rmd-wd, echo=FALSE, fig.cap='Change the default working directory for R Markdown documents in RStudio.', fig.align='center'}
+knitr::include_graphics('images/rmd-wd.png', dpi = NA)
+```
+
+## R package vignettes {#package-vignette}
+
+If you have experience in developing R packages, or your project requires clear documentation and rigorous tests for custom functions written in the project, you may consider organizing the project as an R package. If you do not know how to create an R package, you can easily get started in the RStudio IDE by clicking the menu `File -> New Project`, and selecting the project type to be an R package.
+
+There are a lot of benefits of using an R package to manage a project. For example, you can place datasets in the `data/` folder, write R code under `R/`, generate documentation (e.g., using **roxygen2**) to `man/`, and add unit tests to `test/`. When it comes to the R Markdown reports, you can write them as package vignettes under `vignettes/`. In the vignettes, you can load datasets and call functions in the package. When you build the package (via the command `R CMD build` or RStudio), vignettes will be automatically compiled.
+
+To create a package vignette in R Markdown, the easiest way is through the RStudio menu `File -> New File -> R Markdown -> From Template` (see Figure \@ref(fig:package-vignette)). Then you select "Package Vignette" from the **rmarkdown** package, and you will get a vignette template. After changing the title, author, and other metadata of the template, you can start writing the content of your report.
+
+```{r, package-vignette, echo=FALSE, fig.cap='Create a package vignette in RStudio.'}
+knitr::include_graphics('images/package-vignette.png', dpi = NA)
+```
+
+Alternatively, you can install the package **usethis** and use its function `usethis::use_vignette()` to create a vignette skeleton. Below is what the YAML frontmatter of a package vignette typically looks like:
+
+```yaml
+---
+title: "Vignette Title"
+author: "Vignette Author"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```
+
+Note that you need to change the vignette title in both the `title` field and the `\VignetteIndexEntry{}` command. Besides the above information in the vignette, you also need to do two more things in your package `DESCRIPTION` file:
+
+1. Specify `VignetteBuilder: knitr` in the `DESCRIPTION` file.
+
+1. Add `Suggests: knitr, rmarkdown` in `DESCRIPTION`.
+
+The vignette output format does not have to be HTML. It can also be PDF, so you can use `output: pdf_document`, too. Any other output formats that create HTML or PDF are also okay, such as `beamer_presentation` and `tufte::tufte_html`. However, currently R only recognizes HTML and PDF vignettes.
 
 ## Write books and long-form reports with **bookdown** {#bookdown}
 

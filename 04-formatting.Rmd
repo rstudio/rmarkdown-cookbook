@@ -53,17 +53,17 @@ colorize = function(x, color){
 }
 ```
 
-We can then use the code in an inline R expression `` `r knitr::inline_expr('colorize("some words in red", "red")')` ``, which will create `r colorize("some words in red", "red")` (you may not see the red color if you are reading this book printed in black and white).
+We can then use the code in an inline R expression `` `r knitr::inline_expr('colorize("some words in red", "red")')` ``, which will create `r colorize("some words in red", "red")` (you will not see the red color if you are reading this book printed in black and white).
 
-### Using a Pandoc Lua filter
+### Using a Pandoc Lua filter {#lua-color}
 
-This method may be a little advanced for R users because it involves another programming language, Lua, but it is extremely powerful---you can programmatically modify Markdown elements via [Pandoc's Lua filters.](https://pandoc.org/lua-filters.html) Below is a full example:
+This method may be a little advanced for R users because it involves another programming language, Lua, but it is extremely powerful---you can programmatically modify Markdown elements via Pandoc's Lua filters (see Section \@ref(lua-filters)). Below is a full example:
 
 `r import_example('font-color.Rmd')`
 
-In this example, we implicitly used a Pandoc Markdown extension named `bracketed_spans`, which allows us to write text with attributes, e.g., `[text]{.class attribute="value"}`. The Lua filter defined in the `cat` code chunk^[If you are not familiar with `cat` code chunks, please see Section \@ref(eng-cat).] puts text in `<span style="color: ..."></span>` if the output format is HTML, and in `\textcolor{...}{}` if the output format is LaTeX. The Lua filter is written to a file `color-text.lua`, and enabled through the command-line option `--lua-filter` passed to Pandoc via the `pandoc_args` option of the output formats.
+In this example, we implicitly used a Pandoc Markdown extension named `bracketed_spans`, which allows us to write text with attributes, e.g., `[text]{.class attribute="value"}`. The Lua filter defined in the `cat` code chunk^[If you are not familiar with `cat` code chunks, please see Section \@ref(eng-cat). We used this engine here to conveniently write out a chunk to a `.lua` file, so we do not have to manage the Lua script in a separate file `color-text.lua`. You do not want to use the `cat` engine, you can definitely copy the Lua code and save it to a separate file.] puts text in `<span style="color: ..."></span>` if the output format is HTML, and in `\textcolor{...}{}` if the output format is LaTeX. The Lua filter is written to a file `color-text.lua`, and enabled through the command-line option `--lua-filter` passed to Pandoc via the `pandoc_args` option of the output formats.
 
-Compared to the previous method, the advantage of using the Lua filter is that you can still use Markdown syntax inside the brackets, whereas using the R function `colorize()` in the previous section does not allow Markdown syntax.
+Compared to the previous method, the advantage of using the Lua filter is that you can still use Markdown syntax inside the brackets, whereas using the R function `colorize()` in the previous section does not allow Markdown syntax (e.g., `colorize('**bold**')` will not be bold).
 
 ## Indent text
 
@@ -111,7 +111,7 @@ You can see that the linebreak after "School of Ninja" was ignored.
 
 ## Control the width of text output {#text-width}
 
-Sometimes the text output printed from R code may be too wide. If the output document has a fixed page width (e.g., PDF documents), the text output may exceed the page margin.
+Sometimes the text output printed from R code may be too wide. If the output document has a fixed page width (e.g., PDF documents), the text output may exceed the page margin. See Figure \@ref(fig:wrap-text-1) for an example.
 
 The R global option `width` can be used to control the width of printed text output from some R functions, and you may try a smaller value if the default is too large. This option typically indicates a rough number of characters per line (except East Asian languages). For example:
 
@@ -160,6 +160,12 @@ In `preamble.tex`, we set an option of the **listings** package:
 ```
 
 If you do not like the appearance of code blocks with **listings**, you can set up other **listings** options in `\lstset{}`, e.g., you may change the font family with `basicstyle=\ttfamily`. You can find more information about this package in its documentation: https://ctan.org/pkg/listings.
+
+Figure \@ref(fig:wrap-text-1) shows the default `pdf_document` output that contains wide text, which exceeds the page margin. Figure \@ref(fig:wrap-text-2) shows the PDF output when we use the **listings** package to wrap the text.
+
+```{r, wrap-text, echo=FALSE, fig.cap=c('Normal text output that is too wide.', 'Text output wrapped with the listings package.')}
+knitr::include_graphics(c('images/wrap-none.png', 'images/wrap-listings.png'), dpi = NA)
+```
 
 ## Control the size of plots/images {#figure-size}
 

@@ -7,8 +7,9 @@ _book/*
 _bookdown_files/*
 packages.bib
 *-tikzDictionary
-css/customBlock.css
-latex/customBlock.tex
+css/box.css
+latex/blackbox.tex
+latex/infobox.tex
 
 # OS generated files #
 ######################
@@ -20,3 +21,4 @@ examples/*.pdf
 examples/*.html
 examples/*/*.pdf
 examples/*/*.html
+examples/listings-settings.tex
