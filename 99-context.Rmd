@@ -1,6 +1,6 @@
 # RMarkdown Conceptual Overview {#conceptual-overview}
 
-The goal of this text is to showcase many tips and tracks for getting the most value from RMarkdown. The following chapters demonstrate techniques to write more efficient and succinct code and to customize your output. Before we begin, it may be helpful to understand just a bit more about how RMarkdown works to help you to understand, remember, apply, and 'remix' these tricks. In this section, we provide a brief overview of the process of knitting a document and the key "levers to pull" to change the output. This material is not necessary to understand the subsequent chapters (so feel free to skip ahead!), but it may help you understand how all the pieces fit together.
+The goal of this text is to showcase many tips and tracks for getting the most value from RMarkdown. The following chapters demonstrate techniques to write more efficient and succinct code and to customize your output. Before we begin, it may be helpful to understand just a bit more about how RMarkdown works to help you to understand, remember, apply, and 'remix' these tricks. In this section, we provide a brief overview of the process of knitting a document and the key "levers to pull" to change the output. This material is not necessary to understand the subsequent chapters (so feel free to skip ahead!), but it may help you to build a richer mental model for how all the pieces fit together.
 
 ## What happens when we render? {#when-we-render}
 
@@ -8,7 +8,7 @@ The goal of this text is to showcase many tips and tracks for getting the most v
 
 ## RMarkdown Anatomy {#rmd-anatomy}
 
-We can dig one level deeper by considering the different components of an RMarkdown and specifically when and how these are altered during the rendering workflow. 
+We can dig one level deeper by considering the different components of an RMarkdown. Specifically, let's look at when and how these are altered during the rendering workflow. 
 
 ### YAML Header
 
@@ -37,7 +37,18 @@ output:
 
 is the equivalent of telling `render` to apply the `rmarkdown::html_document()` with the arguments to `toc` and `toc_float` set to `TRUE`. (To find out what these do and to learn about other parameter options, you may run `?rmarkdown::html_document` in your console.)
 
-The YAML header can also influence our content and code itself if we chose to use code parameters, as described in Section \@ref(parameterized-reports).
+The YAML header can also influence our content and code itself if we chose to use code parameters, as described in Section \@ref(parameterized-reports). In short, we can include variables and R expressions in this header that can be referenced throughout our RMarkdown. For example, the following header defines `start_date` and `end_date` parameters. `knitr` will use this information to create a list called `params`. Thus, if we want to use these values in our R code, we can access them via `params$x` and `params$y`.
+
+````md
+```
+title: My RMarkdown
+author: Yihui Xie
+output: html_document
+params:
+  start_date: '2020-01-01'
+  end_date: '2020-06-01'
+```
+````
 
 ### Narrative
 
@@ -63,7 +74,7 @@ For example, we might write:
 ## Second-level header {#introduction .colorful-text}
 ```
 
-We can them access this section with many of the tools you'll learn by referencing it by name or by applying options to all sections that are tagged with the same class. For example, in Section \@ref(html-tabs), you'll learn about the `.tabset` class to help reorganize subheaders.
+We can them access this section with many of the tools you'll learn by referencing it by name or by applying options to all sections that are tagged with the same class. As examples, Section \@ref(cross-ref) demonstrates how to use section names to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subheaders.
 
 The third and final interesting type of content that we might find in the textual part of our RMarkdown is raw code written in our desired output format (e.g. HTML, LaTeX). This is ignored by both `knitr` and `rmarkdown` and can 'flow through' to be correctly interpreted in the final output.
 
@@ -155,7 +166,7 @@ Rendering an output from RMarkdown consists of converting `.Rmd` to `.md` with `
 
 The `.Rmd` to `.md` step handles the execution and "translation" of all code within our report, so most changes to *content* involve editing the `.Rmd` with code for `knitr` to translate. Some tools we have to control these steps are chunk options and hooks.
 
-Our `.md` is a plaintext file with no formatting. This is where `pandoc` comes in to convert to HTML, PDF, or Word. Along the way, we add structure and style. A wide range of tools help us in this process including style sheets, raw LaTeX or HTML code, pandoc templates, and Lua filters.  By understanding the nested structure of an RMarkdown and by thoughtfully using identifiers and classes, we can apply some of these tools selectively to targetted parts of our output.
+Our `.md` is a plain text file with no formatting. This is where `pandoc` comes in to convert to HTML, PDF, or Word. Along the way, we add structure and style. A wide range of tools help us in this process including style sheets, raw LaTeX or HTML code, pandoc templates, and Lua filters.  By understanding the nested structure of an RMarkdown and by thoughtfully using identifiers and classes, we can apply some of these tools selectively to targetted parts of our output.
 
 Finally, our YAML header may help us toggle any of these steps. Changing parameters can change how our code runs, changing metadata alters the text content, and changing output options provides the render function with a different set of instructions.
 
