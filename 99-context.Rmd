@@ -170,5 +170,7 @@ Our `.md` is a plain text file with no formatting. This is where `pandoc` comes 
 
 Finally, our YAML header may help us toggle any of these steps. Changing parameters can change how our code runs, changing metadata alters the text content, and changing output options provides the render function with a different set of instructions.
 
+Of course, these are all rough heuristics and should not be taken as absolute fact. Ultimately, there is not a completely clear division of labor. Throughout this book, you will see that there are often multiple valid paths to achieving many of the outcomes described in this book, and these may enter different stages of the pipeline. For example, for the simple task of inserting in image in your document, you may use the R code  `knitr::include_graphics()` which would execute in the `.Rmd` to `.md` stage or you could directly use markdown syntax (`![]()`). This may seem confusing, and sometimes different approaches will have different advantages. However, do not be concerned; if anything, this means you often means there are many valid ways to solve your problem and you can follow whichever approach makes the most sense to you.
+
 And that's that! In the rest of the book, you can now color in this rough sketch with many more concrete examples of ways to modify all of the components we've discussed to get the most value out of RMarkdown.
   
