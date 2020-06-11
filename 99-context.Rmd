@@ -12,7 +12,9 @@ We can dig one level deeper by considering the different components of an RMarkd
 
 ### YAML Header
 
-The YAML header exercises a wide range of impact on the final document we produce. It can contain many types of information including aspect that effect the code, content, and the rendering process. A typical YAML header might look something like this:
+The YAML header is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information is contains can effect the code, content, and the rendering process. 
+
+A typical YAML header might look something like this, containing basic metadata and rendering instructions:
 
 ````md
 ```
@@ -22,9 +24,9 @@ output: html_document
 ```
 ````
 
-In this case, the `title` and `author` fields will be added to the beginning of the report using the default templates, and the `output` field tells **rmarkdown** to apply the function `rmarkdown::html_document()` when rendering.
+In this case, the `title` and `author` fields are processed by Pandoc to set the values of template variables. Using the default template, the title and author information will appears at the beginning of the resulting document. More details on how Pandoc uses information from the header are explained on the [R Markdown website's introduction to Pandoc Markdown](https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#Metadata_blocks). 
 
-We can further influence the rendering processes by passing arguments to the rendering function we are specifying in `output`. For example, writing:
+In contrast, the `output` field is used by **rmarkdown** to apply the function `rmarkdown::html_document()` when rendering. We can further influence the rendering processes by passing arguments to the rendering function we are specifying in `output`. For example, writing:
 
 ````md
 ```
@@ -166,7 +168,7 @@ Rendering an output from R Markdown with **rmarkdown** consists of converting `.
 
 The `.Rmd` to `.md` step handles the execution and "translation" of all code within our report, so most changes to *content* involve editing the `.Rmd` with code for **knitr** to translate. Some tools we have to control these steps are chunk options and hooks.
 
-Our `.md` is a plain text file with no formatting. This is where Pandoc comes in to convert to HTML, PDF, or Word. Along the way, we add structure and style. A wide range of tools help us in this process including style sheets, raw LaTeX or HTML code, pandoc templates, and Lua filters.  By understanding the nested structure of an R Markdown and by thoughtfully using identifiers and classes, we can apply some of these tools selectively to targetted parts of our output.
+Our `.md` is a plain text file with no formatting. This is where Pandoc comes in to convert to HTML, PDF, or Word. Along the way, we add structure and style. A wide range of tools help us in this process including style sheets, raw LaTeX or HTML code, Pandoc templates, and Lua filters.  By understanding the nested structure of an R Markdown and by thoughtfully using identifiers and classes, we can apply some of these tools selectively to targetted parts of our output.
 
 Finally, our YAML header may help us toggle any of these steps. Changing parameters can change how our code runs, changing metadata alters the text content, and changing output options provides the render function with a different set of instructions.
 
