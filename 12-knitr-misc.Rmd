@@ -313,8 +313,8 @@ By default, **knitr** does not allow duplicate code chunk labels in the document
 
 ```text
 processing file: myfile.Rmd
-Error in parse_block(g[-1], g[1], params.src) :
-  duplicate label 'cars'
+Error in parse_block(g[-1], g[1], params.src, markdown_mode) :
+  Duplicate chunk label 'cars'
 Calls: <Anonymous> ... process_file -> split_file -> lapply ->
   FUN -> parse_block
 Execution halted
