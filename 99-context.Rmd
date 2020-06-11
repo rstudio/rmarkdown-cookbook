@@ -4,7 +4,7 @@ The goal of this text is to showcase many tips and tracks for getting the most v
 
 ## What happens when we render? {#when-we-render}
 
-**TODO: Could we put Ch2.1 here? Or, if this is Appendix material, we can add a reference to it**
+**TODO: Could we put Ch2.1 here? Or, if this context material ends up in an Appendix, we can reference 2.1**
 
 ## RMarkdown Anatomy {#rmd-anatomy}
 
@@ -154,7 +154,7 @@ Note that in the image about, header of the same level (the same number of `#`'s
 
 This structure has important implications as we attempt to apply some of the formatting and styling options that are described in this text. For example, we will see this nested structure when we learn about how Pandoc represents our document as an abstract syntax tree (Section \@ref(lua-filters)) or when we use CSS selectors (Section \@ref(html-css), among others) to style our HTML output. 
 
-Some options we can chose to apply to containers of similar types (e.g. code section) and others we can chose to apply to all containers that exist inside of another container (e.g. everything under 'Section y'). Additionally, we explain more below, we can designate some sections as being more or less similar by adding attributes to them denoting common properties or intent. 
+Some options we can chose to apply to containers of similar types (e.g. code section) and others we can chose to apply to all containers that exist inside of another container (e.g. everything under 'Section y'). Additionally, as explained above, we can use classes designate some sections as being more or less similar by adding attributes to denote their common properties or intent. 
 
 As you read through this cookbook, it may be useful to quiz yourself and think about what sort of container the specific 'recipe' is acting upon.
 
