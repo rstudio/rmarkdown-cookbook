@@ -94,25 +94,24 @@ When you want to extract all R code from an R Markdown document, you can call th
 If we call `knitr::purl("purl.Rmd")`, it generates the following R script (with the filename `purl.R` by default):
 
 ```{r, class.output='r', comment='', echo=FALSE}
-xfun::raw_string(
-  knitr::purl(text = xfun::read_utf8('examples/purl.Rmd'), quiet = TRUE)
-)
+purl2 = function(file, ...) {
+  xfun::raw_string(xfun::Rscript_call(
+    knitr::purl, list(text = xfun::read_utf8(file), quiet = TRUE, ...)
+  ))
+}
+purl2('examples/purl.Rmd')
 ```
 
 The above R script contains the chunk options in a comment. If you want pure R code, you may call `knitr::purl()` with the argument `documentation = 0`, which will generate the R script below:
 
 ```{r, class.output='r', comment='', echo=FALSE}
-xfun::raw_string(
-  knitr::purl(text = xfun::read_utf8('examples/purl.Rmd'), quiet = TRUE, documentation = 0)
-)
+purl2('examples/purl.Rmd', documentation = 0)
 ```
 
 If you want to retain all the text, you may use the argument `documentation = 2`, which generates the R script below:
 
 ```{r, class.output='r', comment='', echo=FALSE}
-xfun::raw_string(
-  knitr::purl(text = xfun::read_utf8('examples/purl.Rmd'), quiet = TRUE, documentation = 2)
-)
+purl2('examples/purl.Rmd', documentation = 2)
 ```
 
 Note that code chunks with the option `purl = FALSE` will be excluded in the R script.
