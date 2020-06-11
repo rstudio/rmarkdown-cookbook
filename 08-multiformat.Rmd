@@ -118,12 +118,11 @@ Please note that raw content is only visible to a specific output format. For ex
 
 ## Multiple figures side-by-side {#figures-side}
 
-You can place multiple figures side-by-side using the `fig.show="hold"` along with the `out.width` option. In the example below, we have set `out.width="50%"`:
+You can place multiple figures side-by-side using the `fig.show="hold"` along with the `out.width` option. In the example below, we have set `out.width="50%"` (see Figure \@ref(fig:figures-side) for the output):
 
-```{r figures-side, fig.show="hold", out.width="50%", fig.dim=c(5, 4), fig.cap="Side-by-side figures."}
-par(mar = c(4, 4, .1, .1))
-plot(cars)
-plot(mpg ~ hp, data = mtcars, pch = 19)
+`r import_example('figures-side.Rmd')`
+
+```{r, child='examples/figures-side.Rmd', echo=FALSE, fig.dim=c(5, 4), fig.cap="Side-by-side figures."}
 ```
 
 This simple approach works for both PDF and HTML output.

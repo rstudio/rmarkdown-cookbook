@@ -219,26 +219,21 @@ Below is the same chunk but it does not have the option `collapse = TRUE` (the d
 
 When you set the chunk option `tidy = TRUE`, the R source code will be reformatted by the `tidy_source()` function in the **formatR** package [@R-formatR]. The `tidy_source()` can reformat the code in several aspects, such as adding spaces around most operators, indenting the code properly, and replacing the assignment operator `=` with `<-`. The chunk option `tidy.opts` can be a list of arguments to be passed to `formatR::tidy_source()`, e.g.,
 
-````md
-```{r, tidy=TRUE, tidy.opts=list(arrow=TRUE, indent=2)}`r ''`
-# messy R code...
-1+            1
-x=1:10#some users prefer '<-' as the assignment operator
-if(TRUE){
-print('Hello world!') # indent by 2 spaces
-}
+`r import_example('tidy-opts.Rmd')`
+
+The output:
+
+```{r, child='examples/tidy-opts.Rmd', results='hide'}
 ```
-````
 
 In Section \@ref(text-width), we mentioned how to control the width of text output. If you want to control the width of the source code, you may try the `width.cutoff` argument when `tidy = TRUE`, e.g.,
 
-````md
-```{r, tidy=TRUE, tidy.opts=list(width.cutoff=50)}`r ''`
-# a long expression
-1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+
-1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1
+`r import_example('tidy-width.Rmd')`
+
+The output:
+
+```{r, child='examples/tidy-width.Rmd', results='hide'}
 ```
-````
 
 Please read the help page `?formatR::tidy_source` to know the possible arguments, and also see https://yihui.org/formatR/ for examples and limitations of this function.
 

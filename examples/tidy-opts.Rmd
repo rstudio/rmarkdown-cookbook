@@ -1,0 +1,8 @@
+```{r, tidy=TRUE, tidy.opts=list(arrow=TRUE, indent=2)}
+# messy R code...
+1+            1
+x=1:10#some users prefer '<-' as the assignment operator
+if(TRUE){
+print('Hello world!') # indent by 2 spaces
+}
+```

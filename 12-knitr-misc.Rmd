@@ -35,7 +35,18 @@ Then we do the actual conversion:
 
 This is based on one of the main ideas of [Literate Programming,](https://en.wikipedia.org/wiki/Literate_programming) which was brought forward by Donald Knuth. The advantage of this technique is that you can split (complex) code into smaller parts, write each part in a separate code chunk, and explain them with narratives. All parts can be composed into the main code chunk to be executed.
 
-You can embed an arbitrary number of other code chunks in one code chunk. The embedding can also be recursive, i.e., you may embed chunk A into chunk B, and chunk B into chunk C, which will also include code from chunk A.
+For the above example, the first code chunk (with the label `f2c`) will become:
+
+````md
+```{r, f2c}`r ''`
+F2C <- function(x) {
+  if (!is.numeric(x)) stop("The input must be numeric!")
+  (x - 32) * 5/ 9
+}
+```
+````
+
+You can embed an arbitrary number of other code chunks in one code chunk. The embedding can also be recursive. For example, you may embed chunk A into chunk B, and chunk B into chunk C. Then chunk C will include code from chunk A via chunk B.
 
 The marker `<<label>>` does not have to be on a separate line. It can be embedded anywhere in a code chunk.
 
@@ -229,6 +240,110 @@ When you no longer need this global graphical device, you can set the option to 
 
 `r import_example('global-device.Rmd')`
 
+## Save a group of chunk options and reuse them {#opts-template}
+
+If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`, and then you can use the chunk option `opts.label` to refer to the group name. For example:
+
+````md
+```{r, setup, include=FALSE}`r ''`
+knitr::opts_template$set(fullwidth = list(
+  fig.width = 10, fig.height = 6,
+  fig.retina = 2, out.width = '100%'
+))
+```
+
+```{r, opts.label='fullwidth'}`r ''`
+plot(cars)
+```
+````
+
+With `opts.label = 'fullwidth'`, **knitr** will read chunk options from `knitr::opts_template`, and apply them to the current chunk. This can save you some typing effort. If a chunk option is to be used globally in a document, you should consider setting it globally (see Chapter \@ref(chunk-options)).
+
+You can override options read from `opts.label`, e.g., if you set `fig.height = 7` in the chunk below, the actual `fig.height` will be `7` instead of `6`.
+
+````md
+```{r, opts.label='fullwidth', fig.height=7}`r ''`
+plot(cars)
+```
+````
+
+You can save an arbitrary number of grouped options, e.g.,  `knitr::opts_template$set(group1 = list(...), group2 = list(...))`.
+
+## Use `knitr::knit_expand()` to generate Rmd source {#knit-expand}
+
+The function `knitr::knit_expand()` "expands" an expression in `{{ }}` (by default) to its value, e.g.,
+
+```{r, tidy=FALSE, collapse=TRUE}
+knitr::knit_expand(text = "The value of `pi` is {{pi}}.")
+knitr::knit_expand(
+  text = "The value of `a` is {{a}}, so `a + 1` is {{a+1}}.",
+  a = round(rnorm(1), 4)
+)
+```
+
+This means if have an Rmd document that contains some dynamic parts in `{{ }}`, you may apply `knit_expand()` on the document, and then call `knit()` to compile it. For example, here is a template document named `template.Rmd`:
+
+````md
+# Regression on {{i}}
+
+```{r lm-{{i}}}`r ''`
+lm(mpg ~ {{i}}, data = mtcars)
+```
+````
+
+We can build linear regression models using `mpg` against all other variables one by one in the `mtcars` dataset:
+
+````md
+```{r, echo=FALSE, results='asis'}`r ''`
+src = lapply(setdiff(names(mtcars), 'mpg'), function(i) {
+  knitr::knit_expand('template.Rmd')
+})
+res = knitr::knit_child(text = unlist(src))
+cat(res, sep = '\n')
+```
+````
+
+If you find it difficult to understand this example, please see Section \@ref(results-asis) for the meaning of the chunk option `results = 'asis'`, and Section \@ref(child-document) for the usage of `knitr::knit_child()`.
+
+## Allow duplicate labels in code chunks {#duplicate-label}
+
+<!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
+
+By default, **knitr** does not allow duplicate code chunk labels in the document. Duplicate labels will result in an error when the document is knitted. This occurs most frequently when a code chunk is copied and pasted within a document. You may have seen an error message like this:
+
+```text
+processing file: myfile.Rmd
+Error in parse_block(g[-1], g[1], params.src) :
+  duplicate label 'cars'
+Calls: <Anonymous> ... process_file -> split_file -> lapply ->
+  FUN -> parse_block
+Execution halted
+```
+
+However, there are scenarios where we may wish to allow duplicate labels. For example, if we have one parent document `parent.Rmd` in which we knit the child document multiple times, it will fail:
+
+```{r, eval = FALSE}
+# settings
+settings = list(...)
+
+# run once
+knit_child('useful_analysis.Rmd')
+
+# new settings
+settings = list(...)
+
+# run again
+knit_child('useful_analysis.Rmd')
+```
+
+In this scenario, we can allow duplicate labels by setting this global option in R before the child document is knitted:
+
+```{r, eval = FALSE}
+options(knitr.duplicate.label = 'allow')
+```
+
+You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross-references. For example, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without an error or warning message), because the filenames of plots are determined by the chunk labels.
+
 ## A more transparent caching mechanism {#cache-rds}
 
 If you feel the caching mechanism of **knitr** introduced in Section \@ref(cache) is too complicated (it is!), you may consider a simpler caching mechanism based on the function `xfun::cache_rds()`, e.g.,
@@ -403,107 +518,3 @@ mean(x)
 Actually **knitr** caching is quite powerful and flexible, and its behavior can be tweaked in many ways. As its author, I often doubt if it is worth introducing these lesser-known features, because you may end up spending much more time on learning and understanding how the cache works than the time the actual computing takes.
 
 In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere (not necessarily inside **knitr** documents). Apparently **knitr**'s caching only works in **knitr** documents.
-
-## Save a group of chunk options and reused them {#opts-template}
-
-If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`, and then you can use the chunk option `opts.label` to refer to the group name. For example:
-
-````md
-```{r, setup, include=FALSE}`r ''`
-knitr::opts_template$set(fullwidth = list(
-  fig.width = 10, fig.height = 6,
-  fig.retina = 2, out.width = '100%'
-))
-```
-
-```{r, opts.label='fullwidth'}`r ''`
-plot(cars)
-```
-````
-
-With `opts.label = 'fullwidth'`, **knitr** will read chunk options from `knitr::opts_template`, and apply them to the current chunk. This can save you some typing effort. If a chunk option is to be used globally in a document, you should consider setting it globally (see Chapter \@ref(chunk-options)).
-
-You can override options read from `opts.label`, e.g., if you set `fig.height = 7` in the chunk below, the actual `fig.height` will be `7` instead of `6`.
-
-````md
-```{r, opts.label='fullwidth', fig.height=7}`r ''`
-plot(cars)
-```
-````
-
-You can save an arbitrary number of grouped options, e.g.,  `knitr::opts_template$set(group1 = list(...), group2 = list(...))`.
-
-## Use `knitr::knit_expand()` to generate Rmd source {#knit-expand}
-
-The function `knitr::knit_expand()` "expands" an expression in `{{ }}` (by default) to its value, e.g.,
-
-```{r, tidy=FALSE, collapse=TRUE}
-knitr::knit_expand(text = "The value of `pi` is {{pi}}.")
-knitr::knit_expand(
-  text = "The value of `a` is {{a}}, so `a + 1` is {{a+1}}.",
-  a = round(rnorm(1), 4)
-)
-```
-
-This means if have an Rmd document that contains some dynamic parts in `{{ }}`, you may apply `knit_expand()` on the document, and then call `knit()` to compile it. For example, here is a template document named `template.Rmd`:
-
-````md
-# Regression on {{i}}
-
-```{r lm-{{i}}}`r ''`
-lm(mpg ~ {{i}}, data = mtcars)
-```
-````
-
-We can build linear regression models using `mpg` against all other variables one by one in the `mtcars` dataset:
-
-````md
-```{r, echo=FALSE, results='asis'}`r ''`
-src = lapply(setdiff(names(mtcars), 'mpg'), function(i) {
-  knitr::knit_expand('template.Rmd')
-})
-res = knitr::knit_child(text = unlist(src))
-cat(res, sep = '\n')
-```
-````
-
-If you find it difficult to understand this example, please see Section \@ref(results-asis) for the meaning of the chunk option `results = 'asis'`, and Section \@ref(child-document) for the usage of `knitr::knit_child()`.
-
-## Allow duplicate labels in code chunks {#duplicate-label}
-
-<!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
-
-By default, **knitr** does not allow duplicate code chunk labels in the document. Duplicate labels will result in an error when the document is knitted. This occurs most frequently when a code chunk is copied and pasted within a document. You may have seen an error message like this:
-
-```text
-processing file: myfile.Rmd
-Error in parse_block(g[-1], g[1], params.src) :
-  duplicate label 'cars'
-Calls: <Anonymous> ... process_file -> split_file -> lapply ->
-  FUN -> parse_block
-Execution halted
-```
-
-However, there are scenarios where we may wish to allow duplicate labels. For example, if we have one parent document `parent.Rmd` in which we knit the child document multiple times, it will fail:
-
-```{r, eval = FALSE}
-# settings
-settings = list(...)
-
-# run once
-knit_child('useful_analysis.Rmd')
-
-# new settings
-settings = list(...)
-
-# run again
-knit_child('useful_analysis.Rmd')
-```
-
-In this scenario, we can allow duplicate labels by setting this global option in R before the child document is knitted:
-
-```{r, eval = FALSE}
-options(knitr.duplicate.label = 'allow')
-```
-
-You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross-references. For example, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without an error or warning message), because the filenames of plots are determined by the chunk labels.

@@ -1,0 +1,5 @@
+```{r, figures-side, fig.show="hold", out.width="50%"}
+par(mar = c(4, 4, .1, .1))
+plot(cars)
+plot(mpg ~ hp, data = mtcars, pch = 19)
+```

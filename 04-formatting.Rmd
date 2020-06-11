@@ -25,7 +25,7 @@ The Markdown syntax has no built-in method for changing text colors. We can use 
 
 - For HTML, we can wrap the text in the `<span>` tag and set color with CSS, e.g., `<span style="color: red;">text</span>`.
 
-- For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the extra LaTeX package **xcolor**, which is included in Pandoc's default LaTeX template.
+- For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the LaTeX package **xcolor**, which is included in Pandoc's default LaTeX template.
 
 As an example of changing the color in PDF text:
 
@@ -169,7 +169,7 @@ knitr::include_graphics(c('images/wrap-none.png', 'images/wrap-listings.png'), d
 
 ## Control the size of plots/images {#figure-size}
 
-For plots drawn by R code, their size can be controlled by the chunk option `fig.width` and `fig.height` (in inches). Equivalently, you can use the `fig.dim` option to specify the width and height in a numeric vector of length 2, e.g., `fig.dim = c(8, 6)` means `fig.width = 8` and `fig.height = 6`. These options set the physical size of plots, and you can choose to display a different size in the output using chunk options `out.width` and `out.height`, e.g., `out.width = "50%"`.
+The size of plots made in R can be controlled by the chunk option `fig.width` and `fig.height` (in inches). Equivalently, you can use the `fig.dim` option to specify the width and height in a numeric vector of length 2, e.g., `fig.dim = c(8, 6)` means `fig.width = 8` and `fig.height = 6`. These options set the physical size of plots, and you can choose to display a different size in the output using chunk options `out.width` and `out.height`, e.g., `out.width = "50%"`.
 
 If a plot or an image is not generated from an R code chunk, you can include it in two ways:
 
