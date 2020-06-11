@@ -16,7 +16,7 @@ The YAML header exercises a wide range of impact on the final document we produc
 
 ````md
 ```
-title: My RMarkdown
+title: My R Markdown report
 author: Yihui Xie
 output: html_document
 ```
