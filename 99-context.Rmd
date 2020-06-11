@@ -80,9 +80,9 @@ params:
 
 The narrative textual elements of our R Markdown may be one of the simplest to understand. Typically, this will feel quite a bit like writing in a text editor. However, this markdown content can be more powerful and interesting than simple text -- both in how its content is made and how the document structure is made from it.
 
-While much of our narrative is human-written, many R Markdown documents will likely wish to reference the code and analysis being used. For this reason, Chapter 3 (**TODO: How to reference without label?**) demonstrates the many ways that code can help generate parts of the text. This conversion is handled by `knitr` as we convert from `.Rmd` to `.md`.
+While much of our narrative is human-written, many R Markdown documents will likely wish to reference the code and analysis being used. For this reason, Chapter 3 demonstrates the many ways that code can help generate parts of the text, such as combining words into a list (\@ref(combine-words)) or writing a bibliography (\@ref(bibliography). This conversion is handled by `knitr` as we convert from `.Rmd` to `.md`.
 
-Our markdown text can also provide structure to the document. While we do not have enough space here to review markdown syntax^[Instead, for a review of markdown syntax, please see the [Bookdown book](https://bookdown.org/yihui/bookdown/markdown-syntax.html)] (**TODO: O should we?**), one particularly relevant concept is section headers which are denoted by one or more `#`s (corresponding to different levels).
+Our markdown text can also provide structure to the document. While we do not have enough space here to review markdown syntax^[Instead, for a review of markdown syntax, please see the [Bookdown book](https://bookdown.org/yihui/bookdown/markdown-syntax.html)], one particularly relevant concept is section headers which are denoted by one or more `#`s (corresponding to different levels).
 
 ```
 # First-level header
@@ -176,7 +176,7 @@ nomnoml::nomnoml(
 
 Two key features of this diagram are that every section of text or code is it's own discrete container and that containers can be nested within one another. This nesting is particularly apparent if you are authoring your R Markdown in the RStudio IDE and expand the document outline.
 
-Note that in the image about, header of the same level (the same number of `#`'s) represent containers at the same level of nesting. More minor headers (those with a larger number of `#`'s than the preceding) exist inside of the container of more major headers (those with smaller number of `#`s). In such a case, it is common to call the major sections the 'parent' and the minor sections the 'child'. Beyond the use of headers, you can also create divisions in your code using `:::`, as demonstrated in **!!TODO: can't reference the multicolumn layout section because it doesn't have an ID!!**. 
+Note that in the image about, header of the same level (the same number of `#`'s) represent containers at the same level of nesting. More minor headers (those with a larger number of `#`'s than the preceding) exist inside of the container of more major headers (those with smaller number of `#`s). In such a case, it is common to call the major sections the 'parent' and the minor sections the 'child'. Beyond the use of headers, you can also create divisions in your code using `:::`, as demonstrated in \@ref(multi-column). 
 
 This structure has important implications as we attempt to apply some of the formatting and styling options that are described in this text. For example, we will see this nested structure when we learn about how Pandoc represents our document as an abstract syntax tree (Section \@ref(lua-filters)) or when we use CSS selectors (Section \@ref(html-css), among others) to style our HTML output. 
 
