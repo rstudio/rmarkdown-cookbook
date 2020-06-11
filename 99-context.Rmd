@@ -6,7 +6,7 @@ The goal of this text is to showcase many tips and tracks for getting the most v
 
 **TODO: Could we put Ch2.1 here? Or, if this context material ends up in an Appendix, we can reference 2.1**
 
-## RMarkdown Anatomy {#rmd-anatomy}
+## R Markdown Anatomy {#rmd-anatomy}
 
 We can dig one level deeper by considering the different components of an RMarkdown. Specifically, let's look at when and how these are altered during the rendering workflow. 
 
