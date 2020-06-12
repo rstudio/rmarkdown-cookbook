@@ -177,17 +177,33 @@ knitr:::escape_html(c('<attention>', 'x = "character"', 'a & b'))
 You can pass a list of data frames or matrices to `kable()` to generate multiple tables side by side. For example, Table \@ref(tab:two-tables) contains two tables generated from the code below:
 
 ```{r, two-tables, tidy=FALSE}
+d1 <- head(cars, 3)
+d2 <- head(mtcars[, 1:3], 5)
 knitr::kable(
-  list(
-    head(cars, 3),
-    head(mtcars[, 1:3], 5)
-  ),
+  list(d1, d2),
   caption = 'Two tables placed side by side.',
   booktabs = TRUE, valign = 't'
 )
 ```
 
 Please note that this feature only works for HTML and PDF output.
+
+If you want to be able to customize each table individually when placing them side by side, you may use the `kables()` function (the plural form of `kable()`), and pass a list of `kable()` objects to it. For example, we change the column names in the left table and set the number of decimal places to zero in the right table in Table \@ref(tab:kables):
+
+```{r, kables, tidy=FALSE}
+# data objects d1 and d2 are from the previous code chunk
+knitr::kables(
+  list(
+    # the first kable() to change column names
+    knitr::kable(
+      d1, col.names = c('SPEED', 'DISTANCE'), valign = 't'
+    ),
+    # the second kable() to set the digits option
+    knitr::kable(d2, digits = 0, valign = 't')
+  ),
+  caption = 'Two tables created by knitr::kables().'
+)
+```
 
 ### Generate multiple tables from a `for`-loop
 
