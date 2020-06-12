@@ -163,7 +163,7 @@ If you do not like the appearance of code blocks with **listings**, you can set 
 
 Figure \@ref(fig:wrap-text-1) shows the default `pdf_document` output that contains wide text, which exceeds the page margin. Figure \@ref(fig:wrap-text-2) shows the PDF output when we use the **listings** package to wrap the text.
 
-```{r, wrap-text, echo=FALSE, fig.cap=c('Normal text output that is too wide.', 'Text output wrapped with the listings package.')}
+```{r, wrap-text, echo=FALSE, fig.cap=c('Normal text output that is too wide.', 'Text output wrapped with the listings package.'), out.width='100%'}
 knitr::include_graphics(c('images/wrap-none.png', 'images/wrap-listings.png'), dpi = NA)
 ```
 
