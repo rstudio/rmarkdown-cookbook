@@ -43,6 +43,8 @@ So the final output of the above code chunk is:
 The actual hooks are more complicated than the two functions above, but the idea is the same. You may obtain the actual hooks from the object `knit_hooks` via the `get()` method, e.g.,
 
 ```{r, eval=FALSE}
+# for meaningful output, the code below should be executed
+# *inside* a code chunk of a knitr document
 knitr::knit_hooks$get('source')
 knitr::knit_hooks$get('output')
 # or knitr::knit_hooks$get(c('source', 'output'))
@@ -106,7 +108,7 @@ Precisely speaking, the above hook will exclude whole _expressions_ containing t
 
 ```{r, source-hook-x, eval=FALSE}
 1 + 1
-if (TRUE) {
+if (TRUE) { # SECRET!!
   1:10
 }
 ```
@@ -114,7 +116,7 @@ if (TRUE) {
 The value of `x` in the `source` hook is:
 
 ```{r, eval=FALSE}
-c("1 + 1", "if (TRUE) {\n  1:10\n}")
+c("1 + 1", "if (TRUE) { # SECRET!!\n  1:10\n}")
 ```
 
 
@@ -269,6 +271,8 @@ As an exercise to readers, you may try to truncate the output in a different way
 ## 49    24  120
 ## 50    25   85
 ```
+
+Please note that the last line in the output (i.e., the argument `x` of the hook function) might be an empty line, so you may need something like `c(head(x, n/2), '....', tail(x, n/2 + 1))` (`+ 1` to take the last empty line into account).
 
 ## Output figures in the HTML5 format {#hook-html5}
 

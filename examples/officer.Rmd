@@ -1,0 +1,16 @@
+---
+title: Style text with officedown
+output:
+  officedown::rdocx_document: default
+---
+
+```{r}
+library(officedown)
+library(officer)
+ft <- fp_text(color = 'red', bold = TRUE)
+```
+
+# Test
+
+The **officedown** package is
+`r ftext('awesome', ft)`!

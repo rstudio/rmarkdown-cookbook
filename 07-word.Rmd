@@ -100,19 +100,27 @@ library(officedown)
 ```
 ````
 
-The **officedown** package allows you to style specific elements for the Word output. It has provided two types of syntax, and you can choose to use either one:
+There is an output format `rdocx_document` in the **officedown** package, which is based on `rmarkdown::word_document` by default, and has several other features such as styling tables and plots.
 
-1. You can call functions of this package in inline R expressions, e.g., `` `r knitr::inline_expr('chunk_styled_text("officedown is great", color = "red", bold = TRUE)')` ``.
+The **officedown** package allows you to style specific Word elements via the **officer** package. For example, you can create a style via the function `officer::fp_text()`, and apply the style to a piece of text via `ftext()` an inline R expression:
 
-1. Or you can write the text in special HTML comments, e.g., `<!---CHUNK_TEXT{str: "officedown is great", color: "red", bold: true}--->`.
+`r import_example('officer.Rmd')`
 
-The two ways are equivalent---the latter way essentially calls a corresponding function in **officedown**, e.g., when **officedown** detects the tag `CHUNK_TEXT` in the comment, it calls the function `chunk_styled_text()` with the parameters specified in the curly brackets in the comment. You may see the GitHub repository of **officedown** for the available tags and functions.
+Besides functions in **officer**, **officedown** also allows you to use some special HTML comments to perform **officer** tasks. For example, the function `officer::block_pour_docx()` can be used to import an external Word document into the current document, and alternatively, you can use the HTML comment in R Markdown:
 
-Other things you may do with **officedown** include:
+```html
+<!---BLOCK_POUR_DOCX{file: 'my-file.docx'}--->
+```
+
+That is equivalent to the inline R expression:
+
+```md
+`r knitr::inline_expr("block_pour_docx(file = 'my-file.docx')")`
+```
+
+Other things you may do with **officedown** and **officer** include:
 
 - Insert page breaks.
-
-- Assign style names to text.
 
 - Put content in a multi-column layout.
 
@@ -120,6 +128,6 @@ Other things you may do with **officedown** include:
 
 - Insert a table of contents.
 
-- Embed another Word document in the current document.
-
 - Change the orientation of a section (landscape or portrait).
+
+To learn more about **officedown**, please check out its documentation at https://davidgohel.github.io/officedown/.

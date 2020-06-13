@@ -13,7 +13,7 @@ options(width = 60)
 local({
   hook_output <- knitr::knit_hooks$get('output')
   knitr::knit_hooks$set(output = function(x, options) {
-    options$attr.output <- c(
+    if (!is.null(options$max.height)) options$attr.output <- c(
       options$attr.output,
       sprintf('style="max-height: %s;"', options$max.height)
     )
