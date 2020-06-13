@@ -15,9 +15,9 @@ The `kable()` function in **knitr** is a very simple table generator, and is sim
 ```{r code=formatR::usage(knitr::kable, output=FALSE), eval=FALSE}
 ```
 
-### Possible table formats {#kable-formats}
+### Supported table formats {#kable-formats}
 
-In most cases, `knitr::kable(x)` may be enough if you only need a simple table for the data object `x`. The `format` argument is automatically set according to the **knitr** source document format. Its possible values are `latex`, `html`, `markdown`, `pandoc`, and `rst`. For R Markdown documents, `kable()` uses the `pandoc` format for tables by default, which looks like this:
+In most cases, `knitr::kable(x)` may be enough if you only need a simple table for the data object `x`. The `format` argument is automatically set according to the **knitr** source document format. Its possible values are `pipe` (tables with columns separated by pipes), `simple` (Pandoc's simple tables), `latex` (LaTeX tables), `html` (HTML tables), and `rst` (reStructuredText tables). For R Markdown documents, `kable()` uses the `pipe` format for tables by default, which looks like this:
 
 ```{r, echo=FALSE}
 # print kable() results as text instead of real tables
@@ -28,13 +28,13 @@ kat = function(x, ...) {
 }
 ```
 ```{r comment='', render=kat, class.output='md'}
-knitr::kable(head(mtcars[, 1:4]), 'pandoc')
+knitr::kable(head(mtcars[, 1:4]), 'pipe')
 ```
 
-You can also generate tables in Markdown, HTML, LaTeX, reStructuredText:
+You can also generate simple tables, or tables in HTML, LaTeX, and reStructuredText:
 
 ```{r comment='', render=kat, class.output='md'}
-knitr::kable(head(mtcars[, 1:4]), 'markdown')
+knitr::kable(head(mtcars[, 1:4]), 'simple')
 ```
 ```{r comment='', render=kat, class.output='html'}
 knitr::kable(mtcars[1:2, 1:2], 'html')
@@ -47,7 +47,7 @@ knitr::kable(head(mtcars[, 1:4]), 'latex')
 knitr::kable(head(mtcars[, 1:4]), 'rst')
 ```
 
-Please note that only the formats `pandoc` and `markdown` are portable, i.e., they work for any output document formats. Other table formats only work for specific output formats, e.g., `format = 'latex'` only works for LaTeX output documents. Using a specific table format will give you more control, at the price of sacrificing portability.
+Please note that only the formats `pipe` and `simple` are portable, i.e., they work for any output document formats. Other table formats only work for specific output formats, e.g., `format = 'latex'` only works for LaTeX output documents. Using a specific table format will give you more control, at the price of sacrificing portability.
 
 If you only need one table format that is not the default format for a document, you can set the global R option `knitr.table.format`, e.g.,
 
@@ -59,7 +59,7 @@ This option can also be a function that returns the format string or `NULL`. In 
 
 ```{r, eval=FALSE}
 options(knitr.table.format = function() {
-  if (knitr::is_latex_output()) 'latex' else 'pandoc'
+  if (knitr::is_latex_output()) 'latex' else 'pipe'
 })
 ```
 
@@ -88,6 +88,7 @@ knitr::kable(
 To change the alignment of the table columns, you can use either a vector of values consisting of characters `l` (left), `c` (center), and `r` (right) or a single multi-character string for alignment, so `kable(..., align = c('c', 'l'))` can be shortened to `kable(..., align = 'cl')`. By default, numeric columns are right-aligned, and other columns are left-aligned. Here is an example:
 
 ```{r}
+# left, center, center, right, right
 knitr::kable(iris2, align = 'lccrr')
 ```
 
@@ -168,7 +169,7 @@ If you are not sure how to properly escape special characters, there are two int
 
 ```{r}
 knitr:::escape_latex(c('100%', '# a comment', 'column_name'))
-knitr:::escape_html(c('<attention>', 'x = "character"', 'a & b'))
+knitr:::escape_html(c('<address>', 'x = "character"', 'a & b'))
 ```
 
 
@@ -331,9 +332,11 @@ For `booktabs = TRUE`:
 
 - The table only has horizontal lines for the table header and the bottom row. The default argument values are `toprule = "\\toprule"`, `midrule = "\\midrule"`, and `bottomrule = "\\bottomrule"`. A line space is added to every five rows by default. This is controlled by the argument `linesep`, which defaults to `c("", "", "", "", "\\addlinespace")`. If you want to add a space to every three rows, you can do this:
 
-```{r, render=if (!knitr::is_latex_output()) kat, comment='', class.output='tex'}
-knitr::kable(iris3, format = 'latex', linesep = c('', '', '\\addlinespace'), booktabs = TRUE)
-```
+  ```{r, render=if (!knitr::is_latex_output()) kat, comment='', class.output='tex'}
+  knitr::kable(iris3, format = 'latex', linesep = c('', '', '\\addlinespace'), booktabs = TRUE)
+  ```
+
+  If you want to remove the line spaces altogether, you may use `linesep = ''`.
 
 Sometimes your table may be longer than a page. In this case, you can use the argument `longtable = TRUE`, which uses the LaTeX package [**longtable**](https://ctan.org/pkg/longtable) to span your table to multiple pages.
 
@@ -425,7 +428,7 @@ Similarly, you can style individual cells with the `cell_spec()` function.
 
 ### Group rows/columns
 
-Rows and columns can be grouped via the functions `pack_rows()` and `add_header_above()`, respectively. You can also collapse rows via `collapse_rows()`, so one cell can span multiple rows. Below is an example that shows a custom table header:
+Rows and columns can be grouped via the functions `pack_rows()` and `add_header_above()`, respectively. You can also collapse rows via `collapse_rows()`, so one cell can span multiple rows. Below is an example that shows a custom table header with grouped columns:
 
 ```{r, tidy=FALSE}
 iris2 <- iris[1:5, c(1, 3, 2, 4, 5)]
@@ -436,6 +439,15 @@ kable(iris2, booktabs = TRUE) %>%
 ```
 
 For the named vector in `add_header_above()`, the names are the text to be shown in the table header, and the integer values of the vector indicate how many columns a name should span, e.g., `"Length" = 2` means `Length` should span two columns.
+
+Below is an example of `pack_rows()`. The meaning of its `index` argument is similar to the argument of `add_header_above()` as we just explained before.
+
+```{r, tidy=FALSE}
+iris3 <- iris[c(1:2, 51:54, 101:103), ]
+kable(iris3[, 1:4], booktabs = TRUE) %>% pack_rows(
+  index = c("setosa" = 2, "versicolor" = 4, "virginica" = 3)
+)
+```
 
 ### Scaling down wide tables in LaTeX
 
@@ -456,7 +468,7 @@ There are many other R packages that can be used to generated tables. The main r
 
 - **flextable** and **huxtable**: If you are looking for a table package that supports the widest range of output formats, **flextable** and **huxtable** are probably the two best choices. They all support HTML, LaTeX, and Office formats, and contain most common table features (e.g., conditional formatting). More information about **flextable** can be found at https://davidgohel.github.io/flextable/, and the documentation of **huxtable** is at https://hughjonesd.github.io/huxtable/.
 
-- **gt**: Allows you to compose a table by putting together different parts of the table, such as the table header (title and subtitle), the column labels, the table body, row group labels, and the table footer. Some parts are optional. You can also format numbers and add background shading to cells. Currently **gt** mainly supports HTML output. You can find more information about it at https://gt.rstudio.com.
+- **gt**: Allows you to compose a table by putting together different parts of the table, such as the table header (title and subtitle), the column labels, the table body, row group labels, and the table footer. Some parts are optional. You can also format numbers and add background shading to cells. Currently **gt** mainly supports HTML output.^[If you need the support for other output formats such as LaTeX and Word, the **gtsummary** package has made some extensions based on **gt** that look very promising: https://github.com/ddsjoberg/gtsummary.] You can find more information about it at https://gt.rstudio.com.
 
 - **formattable**: Provides some utility functions to format numbers (e.g., `percent()` and `accounting()`), and also functions to style table columns (e.g., format the text, annotate numbers with background shading or color bars, or add icons in cells). Like **gt**, this package also primarily supports the HTML format. You can find more information about it from its GitHub project at https://github.com/renkun-ken/formattable.
 

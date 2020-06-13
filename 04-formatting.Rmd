@@ -37,7 +37,7 @@ output: pdf_document
 Roses are \textcolor{red}{red}, violets are \textcolor{blue}{blue}.
 ```
 
-If you want to design an R Markdown document for multiple output formats, you should not embed raw HTML or LaTeX code in your document, because they will be ignored in the other output formats (e.g., LaTeX code will be ignored in HTML output). Next, we provide two possible methods to deal with this issue.
+If you want to design an R Markdown document for multiple output formats, you should not embed raw HTML or LaTeX code in your document, because they will be ignored in the other output formats (e.g., LaTeX code will be ignored in HTML output, and HTML tags will be lost in LaTeX output). Next, we provide two possible methods to deal with this issue.
 
 ### Using an R function to write raw HTML or LaTeX code
 
@@ -61,7 +61,7 @@ This method may be a little advanced for R users because it involves another pro
 
 `r import_example('font-color.Rmd')`
 
-In this example, we implicitly used a Pandoc Markdown extension named `bracketed_spans`, which allows us to write text with attributes, e.g., `[text]{.class attribute="value"}`. The Lua filter defined in the `cat` code chunk^[If you are not familiar with `cat` code chunks, please see Section \@ref(eng-cat). We used this engine here to conveniently write out a chunk to a `.lua` file, so we do not have to manage the Lua script in a separate file `color-text.lua`. You do not want to use the `cat` engine, you can definitely copy the Lua code and save it to a separate file.] puts text in `<span style="color: ..."></span>` if the output format is HTML, and in `\textcolor{...}{}` if the output format is LaTeX. The Lua filter is written to a file `color-text.lua`, and enabled through the command-line option `--lua-filter` passed to Pandoc via the `pandoc_args` option of the output formats.
+In this example, we implicitly used a Pandoc Markdown extension named `bracketed_spans`, which allows us to write text with attributes, e.g., `[text]{.class attribute="value"}`. The Lua filter defined in the `cat` code chunk^[If you are not familiar with `cat` code chunks, please see Section \@ref(eng-cat). We used this engine here to conveniently write out a chunk to a `.lua` file, so we do not have to manage the Lua script in a separate file `color-text.lua`. You do not want to use the `cat` engine, you can definitely copy the Lua code and save it to a separate file, instead of embedding the Lua code in a code chunk.] puts text in `<span style="color: ..."></span>` if the output format is HTML, and in `\textcolor{...}{}` if the output format is LaTeX. The Lua filter is written to a file `color-text.lua`, and enabled through the command-line option `--lua-filter` passed to Pandoc via the `pandoc_args` option of the output formats.
 
 Compared to the previous method, the advantage of using the Lua filter is that you can still use Markdown syntax inside the brackets, whereas using the R function `colorize()` in the previous section does not allow Markdown syntax (e.g., `colorize('**bold**')` will not be bold).
 
@@ -195,7 +195,7 @@ We used the width `50%` in the above examples, which means half of the width of 
 
 ## Figure alignment {#fig-align}
 
-The chunk option `fig.align` specifies the alignment of figures. For example, you can center images with `fig.align = 'center'`, or right-align images with `fig.align = 'right'`. This option works for both HTML and LaTeX output, but may not work for other output formats. It works for both plots drawn from R code chunks and external images included via `knitr::include_graphics()`.
+The chunk option `fig.align` specifies the alignment of figures. For example, you can center images with `fig.align = 'center'`, or right-align images with `fig.align = 'right'`. This option works for both HTML and LaTeX output, but may not work for other output formats (such as Word, unfortunately). It works for both plots drawn from R code chunks and external images included via `knitr::include_graphics()`.
 
 ## Line numbers for code blocks {#number-lines}
 
@@ -255,14 +255,16 @@ if (TRUE) {
 ```
 ````
 
+Line numbers are not supported for Word output at the moment.
+
 ## Verbatim code chunks
 
 Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
 
-Unfortunately, we can't wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting  "`` `r ''` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
+Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
 
 ````{r echo = FALSE, comment = NA}
-cat("`r ''````{r, eval=TRUE}
+cat("```{r, eval=TRUE}`r ''`
 1 + 1
 ```")
 ````
@@ -288,7 +290,7 @@ Why four backticks? That is because you have to use at least N+1 backticks to wr
 
 ### Show a verbatim inline expression
 
-There are multiple ways to show a verbatim inline expression. I mentioned this trick for R Markdown documents in the FAQ:
+There are multiple ways to show a verbatim inline expression. The first way is to break the inline expression after `` `r``, e.g.,
 
 ```md
 This will show a verbatim inline R expression `` `r
@@ -306,6 +308,8 @@ Another way to show a verbatim inline R expression is to wrap the R code in `kni
 This will show a verbatim inline R expression
 `` `r knitr::inline_expr('knitr::inline_expr("1+1")')` `` in the output.
 ```
+
+I'd recommend the second way, because the first way is more or less a hack taking advantage of the Markdown syntax and **knitr**'s parser.
 
 ## Multi-column layout
 
