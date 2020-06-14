@@ -175,12 +175,12 @@ mx <- mean(x)
 
 In this example, we added a chunk label `mean-x` to the R code chunk (which is passed to the `load_cache()` function), and cached it using the chunk option `cache = TRUE`. All objects in this code chunk will be saved to the cache database. Again, you will have to compile this document at least twice, so the object `mx` can be correctly loaded from the cache database. If the value of `mx` is not going to be changed in the future, you do not need to compile the document one more time.
 
-If you do not have to specify the object name in `load_cache()` in the second argument, the whole cache database will be loaded as a list, and you can use any objects available in the list before these objects are created later in the document, e.g.,
+If you do not have to specify the object name in `load_cache()` in the second argument, the whole cache database will be loaded into the current environment, and you can use any objects cache database before these objects are created later in the document, e.g.,
 
 ```{r, eval=FALSE}
-res <- knitr::load_cache('mean-x')
-res$x   # the object `x`
-res$mx  # the object `mx`
+knitr::load_cache('mean-x')
+x   # the object `x`
+mx  # the object `mx`
 ```
 
 ## Exit knitting early {#knit-exit}
@@ -298,7 +298,7 @@ We can build linear regression models using `mpg` against all other variables on
 src = lapply(setdiff(names(mtcars), 'mpg'), function(i) {
   knitr::knit_expand('template.Rmd')
 })
-res = knitr::knit_child(text = unlist(src))
+res = knitr::knit_child(text = unlist(src), quiet = TRUE)
 cat(res, sep = '\n')
 ```
 ````
@@ -336,13 +336,27 @@ settings = list(...)
 knit_child('useful_analysis.Rmd')
 ```
 
-In this scenario, we can allow duplicate labels by setting this global option in R before the child document is knitted:
+In this scenario, we can allow duplicate labels by setting this global option in R _before_ the child document is knitted:
 
 ```{r, eval = FALSE}
 options(knitr.duplicate.label = 'allow')
 ```
 
-You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross-references. For example, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without an error or warning message), because the filenames of plots are determined by the chunk labels.
+If you want to allow duplicate labels in the main document instead of the child document, you have to set this option _before_ `knitr::knit()` is called. One possible way to achieve that is to set the option in your `~/.Rprofile` file (see the help page `?Rprofile` for more information).
+
+You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross-references. For example, in theory, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without error or warning messages), because the filenames of plots are determined by the chunk labels. With the option `knitr.duplicate.label = "allow"`, **knitr** will silently change the duplicate labels by adding numeric suffixes. For example, for the two code chunks:
+
+````md
+```{r, test}`r ''`
+plot(1:10)
+```
+
+```{r, test}`r ''`
+plot(10:1)
+```
+````
+
+The second label will be silently changed to `test-1`. This may avoid overwriting the plot from the chunk with the label `test`, but it also makes the chunk label unpredictable, so you may have difficulties in cross-referencing figures (see Section \@ref(cross-ref)), because the cross-references are also based on chunk labels.
 
 ## A more transparent caching mechanism {#cache-rds}
 

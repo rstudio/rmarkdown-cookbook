@@ -147,6 +147,8 @@ For those familiar with LaTeX, this is equivalent to the following LaTeX code:
 \userpackage{lmodern}
 ```
 
+The advantage of using the `extra_dependencies` argument over the `includes` argument introduced in Section \@ref(latex-preamble) is that you do not need to include an external file, so your Rmd document can be self-contained.
+
 ### Example packages
 
 There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprehensive TeX Archive Network](https://ctan.org) (CTAN). As some examples of LaTeX packages you could consider using within your report:
@@ -176,9 +178,18 @@ output:
     template: my-template.tex
 ```
 
-The default LaTeX template of Pandoc can be found at https://github.com/jgm/pandoc/tree/master/data/templates (named `default.latex`).
+The default LaTeX template of Pandoc can be found at https://github.com/jgm/pandoc/tree/master/data/templates (named `default.latex`). If you want to create your own template, you may want to start with this template.
 
-For the full list of Pandoc variables and their meanings, see Pandoc's manual at https://pandoc.org/MANUAL.html#templates.
+For the full list of Pandoc variables and their meanings (such as `$body$` and `$title$`), see Pandoc's manual at https://pandoc.org/MANUAL.html#templates. You can also use arbitrary custom variables, which are typically passed to the template from the YAML metadata. If you want to learn by examples, you may take a look the **MonashEBSTemplates** package (https://github.com/robjhyndman/MonashEBSTemplates), which has provided several custom LaTeX templates. These templates are under the `inst/rmarkdown/templates/*/resources/` directories. For example, the template for the output format `MonashEBSTemplates::memo` allows you to use a variable `branding` in the YAML metadata to control whether to include the brand logo of Monash University. This is achieved by an `if` statement in the template that looks like this:
+
+```latex
+$if(branding)$%
+\includegraphics[height=1.5cm]{monash2}
+\vspace*{-0.6cm}
+$else$
+\vspace*{-1cm}
+$endif$
+```
 
 ## Control the placement of figures {#figure-placement}
 
@@ -359,7 +370,7 @@ output:
 ```
 
 ````md
-```{r fig-sub, fig.cap='All', fig.subcap=c('A', 'B', 'C')}`r ''`
+```{r, fig.cap='Figure 1', fig.subcap=c('(a)', '(b)', '(c)')}`r ''`
 plot(1:10)
 plot(cars, pch = 19)
 boxplot(Sepal.Width ~ Species, data = iris)

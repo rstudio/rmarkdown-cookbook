@@ -23,8 +23,11 @@ knitr::knit_hooks$set(wrapper = function(before, options) {
 })
 ```
 
-Now we apply the hook via the chunk option `wrapper`
-(remember to put `wrapper=TRUE` at the end of the header):
+Now we apply the hook via the chunk option `wrapper=TRUE`.
+Remember to put `wrapper=TRUE` at the end of the header, and
+it has to be `wrapper=TRUE` precisely (e.g., not `wrapper=T`),
+following a comma and a space, unless you adjust the `gsub()`
+call in the above hook.
 
 ```{r, test-label, collapse=TRUE, wrapper=TRUE}
 1 + 1

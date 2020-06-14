@@ -6,7 +6,7 @@ In this chapter, we introduce techniques to enhance your HTML output from R Mark
 
 ## Apply custom CSS {#html-css}
 
-We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. The [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [blogdown2017] contains short tutorials on HTML, CSS, and JavaScript.
+We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. The [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [@blogdown2017] contains short tutorials on HTML, CSS, and JavaScript.
 
 For beginners, it is extremely important to understand selectors and precedence of rules in CSS, otherwise you may be confused why your custom CSS rules do not work as expected (they may not have enough precedence).
 
@@ -138,11 +138,13 @@ The output style is shown in Figure \@ref(fig:chunk-border).
 knitr::include_graphics("images/chunk-border.png", dpi = NA)
 ```
 
-If you want all code chunks in the document to use the custom style, you can set `class.source` in the global **knitr** options, e.g.,
+If you want all code blocks in the document to use the custom style, you can set `class.source` in the global **knitr** options, e.g.,
 
 ```{r, eval=FALSE}
 knitr::opts_chunk$set(class.source='watch-out')
 ```
+
+You can apply multiple classes to the code blocks. For example, with `class.source = c("important", "warning")`, the code block will have two classes, "important" and "warning."
 
 If you want to decorate individual elements in code blocks instead of the whole blocks, you may consider using the **flair** package: https://github.com/kbodwin/flair. With this package, you can highlight different parts of your code (such as fixed strings, function names, and arguments) with custom styles (e.g., color, font size, and/or font weight).
 

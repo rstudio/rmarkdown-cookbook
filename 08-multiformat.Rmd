@@ -127,6 +127,8 @@ You can place multiple figures side-by-side using the `fig.show="hold"` along wi
 
 This simple approach works for both PDF and HTML output.
 
+If you want to use sub-figures when there are multiple plots in a figure, you may see Section \@ref(latex-subfigure), but please note that sub-figures are only supported in LaTeX output.
+
 ## Custom blocks {#custom-blocks}
 <!-- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown -->
 

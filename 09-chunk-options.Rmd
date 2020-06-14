@@ -133,7 +133,7 @@ When a code chunk does not have any side-effects (such as plots), it is safe to 
 
 By default, `cache.path = "INPUT_cache/FORMAT/"` in R Markdown, where `INPUT` is the input filename, and `FORMAT` is the output format name (e.g., `html`, `latex`, or `docx`).
 
-## Lazy-loading cached objects {#cache-lazy}
+## Cache large objects {#cache-lazy}
 
 When the chunk option `cache = TRUE`, cached objects will be lazy-loaded into the R session, which means an object will not be read from the cache database until it is actually used in the code. This can save you some memory when not all objects are used later in the document. For example, you may have read a large data but only used a subset in the subsequent analysis, and the original data object will not be loaded from the cache database:
 
