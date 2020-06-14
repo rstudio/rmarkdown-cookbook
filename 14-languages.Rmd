@@ -49,17 +49,15 @@ knitr::knit_engines$set(upper = function(options) {
 
 The key is that we apply the function `toupper` to the "code", and return the result as a single character string (by concatenating all lines of code by `\n`). Note that `toupper()` is applied only when the chunk option `eval = TRUE`, otherwise the original string is returned. This shows you how to make use of chunk options like `eval` inside the engine function. Similarly, you may consider adding `if (options$results == 'hide') return()` to the function body to hide the output when the chunk option `results = 'hide'`. Below is an example chunk that uses the `upper` engine, with its output:
 
-::: {.infobox .tip data-latex="{tip}"}
-````md
-```{upper}`r ''`
-Hello, **knitr** engines!
-```
-````
-
-```{upper}
-Hello, **knitr** engines!
-```
-:::
+> ````md
+> ```{upper}`r ''`
+> Hello, **knitr** engines!
+> ```
+> ````
+> 
+> ```{upper}
+> Hello, **knitr** engines!
+> ```
 
 Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
 
@@ -83,17 +81,15 @@ A lot of language engines in **knitr** are defined in this way (i.e., using `sys
 
 Now we can use the new engine `py`, e.g.,
 
-::: {.infobox .tip data-latex="{tip}"}
-````md
-```{py}`r ''`
-print(1 + 1)
-```
-````
-
-```{py, echo=FALSE}
-print(1 + 1)
-```
-:::
+> ````md
+> ```{py}`r ''`
+> print(1 + 1)
+> ```
+> ````
+> 
+> ```{py, echo=FALSE}
+> print(1 + 1)
+> ```
 
 You can even override existing language engines via `knitr::knit_engines$set()`, if you are sure that your versions are necessary or better than the existing ones. Usually we do not recommend that you do this because it may surprise users who are familiar with existing engines, but we want to make you aware of this possibility anyway.
 

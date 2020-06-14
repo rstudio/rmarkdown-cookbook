@@ -28,11 +28,9 @@ We will explain the arguments of the hook function in a moment. Now we set the c
 
 And you will see that "Hello!" appears before the chunk, and "Bye!" appears after the chunk in the output below (which is because they are character values):
 
-::: {.infobox .tip data-latex="{tip}"}
-```{r, greet=TRUE}
-1 + 1
-```
-:::
+> ```{r, greet=TRUE}
+> 1 + 1
+> ```
 
 A chunk hook function can possibly take four arguments: `before`, `options`, `envir`, and `name`. In other words, it can be of this form:
 
