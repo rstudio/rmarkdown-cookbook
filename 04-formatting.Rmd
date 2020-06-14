@@ -4,7 +4,9 @@ The greatest strength of the Markdown language is that its simplicity makes it v
 
 > A Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions.
 >
+> ::: {.flushright}
 > --- [John Gruber](http://daringfireball.net/projects/markdown/syntax#philosophy)
+> :::
 
 However, this comes at a cost of customization. Many features of typical word processors are not directly available in Markdown, e.g.,
 

@@ -150,7 +150,7 @@ David Keyes saved my life in Section \@ref(table-other), since he had written [a
 
 Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Xiangyun Huang, Florian Kohrt, Romain Lesur, Jiaxiang Li, Song Li, Ulrik Lyngs, Emily Riederer, Matt Small, Jake Stephen, Atsushi Yasumoto, Hao Zhu, and John Zobolas.
 
-```{block2, type='flushright', html.tag='p'}
+::: {.flushright}
 Yihui Xie  
 Elkhorn, Nebraska
-```
+:::

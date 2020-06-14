@@ -39,14 +39,8 @@ pre {
 pre code {
   white-space: inherit;
 }
-p.flushright {
+.flushright {
   text-align: right;
-}
-blockquote > p:last-child {
-  text-align: right;
-}
-blockquote > p:first-child {
-  text-align: inherit;
 }
 pre.numberSource code > span > a:first-child::before {
   left: -0.3em;

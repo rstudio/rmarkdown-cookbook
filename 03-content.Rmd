@@ -512,7 +512,9 @@ So would I, unbroken,
 Change my sorrow  
 　Into song.
 >
+> ::: {.flushright}
 > --- Sara Teasdale
+> :::
 
 Some users may ask, "Since the fenced code block preserves whitespaces, why not put poems in code blocks?" Code could be poetic, but poems are not code. Please do not be too addicted to coding...
 
