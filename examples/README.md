@@ -1,3 +1,3 @@
-# Examples
+## Examples
 
-This directory contains examples which may be included within the book
+This directory contains examples included in this book.
