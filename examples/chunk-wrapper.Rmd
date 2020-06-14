@@ -40,7 +40,7 @@ is indented, e.g.,
 
 - One bullet.
 
-  ```{r, eval=FALSE, wrapper=TRUE}
+  ```{r, eval=TRUE, wrapper=TRUE}
   2 + 2
   ```
 

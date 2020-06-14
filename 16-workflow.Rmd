@@ -6,7 +6,7 @@ In this chapter, we introduce some tips on working with individual R Markdown do
 
 The R Markdown format can be used with any editor of your choice, as long as R, the **rmarkdown** package, and Pandoc are installed. However, RStudio has a deep integration with R Markdown so you can work with R Markdown smoothly.
 
-Like any IDE, RStudio has keyboard shortcuts. A full list can be found under the menu `Tools -> Keyboard Shortcuts Help.` Some of the most useful shortcuts related to R Markdown are summarized in Table \@ref(tab:shortcuts).
+Like any IDE (Integrated Development Environment), RStudio has keyboard shortcuts. A full list can be found under the menu `Tools -> Keyboard Shortcuts Help`. Some of the most useful shortcuts related to R Markdown are summarized in Table \@ref(tab:shortcuts).
 
 ```{r, include = FALSE}
 ks_win <- function(letters, ctrl = TRUE, alt = TRUE, shift = FALSE, enter = FALSE) {
@@ -82,7 +82,18 @@ The area of `r knitr::inline_expr('state')` is `r knitr::inline_expr('state.area
 square miles.
 ````
 
-You may read the help page `?rmarkdown::render` to know other possible arguments. Here we just want to mention two of them, i.e., the `clean` and `envir` arguments. The former (`clean`) is particularly helpful for debugging when anything goes wrong with the Pandoc conversion. If you call `rmarkdown::render(..., clean = FALSE)`, all intermediate files will be preserved, including the intermediate `.md` file knitted from the `.Rmd` file. If Pandoc signals an error, you may start debugging from this `.md` file. The latter (`envir`) offers a way to render a document with the guarantee of an empty new environment when you call `rmarkdown::render(..., envir = new.env())`.
+You may read the help page `?rmarkdown::render` to know other possible arguments. Here we just want to mention two of them, i.e., the `clean` and `envir` arguments. The former (`clean`) is particularly helpful for debugging when anything goes wrong with the Pandoc conversion. If you call `rmarkdown::render(..., clean = FALSE)`, all intermediate files will be preserved, including the intermediate `.md` file knitted from the `.Rmd` file. If Pandoc signals an error, you may start debugging from this `.md` file. The latter (`envir`) offers a way to render a document with the guarantee of an empty new environment when you call `rmarkdown::render(..., envir = new.env())`, so objects created in your code chunks will stay inside this environment, without polluting your current global environment. On the other hand, if you prefer rendering the Rmd document in a new R session so that objects in your current R session will not pollute your Rmd document, you may call `rmarkdown::render` in `xfun::Rscript_call()`, e.g.,
+
+```{r, eval=FALSE, tidy=FALSE}
+xfun::Rscript_call(
+  rmarkdown::render,
+  list(input = 'my-file.Rmd', output_format = 'pdf_document')
+)
+```
+
+This method is similar to clicking the `Knit` button in RStudio, which also renders the Rmd document in a new R session. In case you need to render an Rmd document inside another Rmd document, we strongly recommend that you used this method instead of directly calling `rmarkdown::render()` in a code chunk, because `rmarkdown::render()` creates and relies on a lot of side-effects internally, which may affect rendering other Rmd documents in the same R session.
+
+The second argument of `xfun::Rscript_call()` takes a list of arguments to be passed to `rmarkdown::render`(). In fact, `xfun::Rscript_call` is a general-purpose function to call any R function (with arguments optionally) in a new R session. Please see its help page if you are interested.
 
 ## Parameterized reports {#parameterized-reports}
 
