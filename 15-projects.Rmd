@@ -13,7 +13,7 @@ source("your-script.R", local = knitr::knit_global())
 ```
 ````
 
-We recommend that you use the argument `local = knitr::knit_global()` explicitly in `source()` or `envir = knitr::knit_global()` explicitly in `sys.source()` to make sure the code is evaluated in the correct environment. The default value for the `local` or `envir` argument respectively of `source()` or `sys.source()` may not be the appropriate environment: you may end up creating variables in the wrong environment, and being surprised that why certain objects are not found in later code chunks.
+We recommend that you use the argument `local` in `source()` or `envir` in `sys.source()` explicitly to make sure the code is evaluated in the correct environment, i.e., `knitr::knit_global()`. The default values for them may not be the appropriate environment: you may end up creating variables in the wrong environment, and being surprised that why certain objects are not found in later code chunks.
 
 Next in the R Markdown document, you can use objects created in these scripts (e.g., data objects or functions). This way will not only make your R Markdown document cleaner, but also make it more convenient for you to develop R code (e.g., debugging R code is often easier with pure R scripts than R Markdown).
 
