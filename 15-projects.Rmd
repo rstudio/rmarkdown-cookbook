@@ -8,12 +8,12 @@ If your R Markdown document has a large amount of code, you may consider putting
 
 ````md
 ```{r, include=FALSE}`r ''`
-source("your-script.R", envir = knitr::knit_global())
+source("your-script.R", local = knitr::knit_global())
 # or sys.source("your-script.R", envir = knitr::knit_global())
 ```
 ````
 
-We recommend that you use the argument `envir = knitr::knit_global()` explicitly in `source()` or `sys.source()` to make sure the code is evaluated in the correct environment. The default value for the `envir` argument of `source()` or `sys.source()` may not be the appropriate environment: you may end up creating variables in the wrong environment, and being surprised that why certain objects are not found in later code chunks.
+We recommend that you use the argument `local` in `source()` or `envir` in `sys.source()` explicitly to make sure the code is evaluated in the correct environment, i.e., `knitr::knit_global()`. The default values for them may not be the appropriate environment: you may end up creating variables in the wrong environment, and being surprised that why certain objects are not found in later code chunks.
 
 Next in the R Markdown document, you can use objects created in these scripts (e.g., data objects or functions). This way will not only make your R Markdown document cleaner, but also make it more convenient for you to develop R code (e.g., debugging R code is often easier with pure R scripts than R Markdown).
 
@@ -21,7 +21,7 @@ Note that we used `include = FALSE` in the above example because we only want to
 
 ## Read external scripts into a chunk {#option-code}
 
-There is a disadvantage of the `source()` method in Section \@ref(source-script). That is, you will not be able to see the source code by default. You can use `source(..., echo = TRUE)`, but the source code will not be properly syntax highlighted. Besides, you need to be careful about the `envir` argument of `source()`, as mentioned in Section \@ref(source-script). In this section, we introduce an alternative method that does not have these problems.
+There is a disadvantage of the `source()` method in Section \@ref(source-script). That is, you will not be able to see the source code by default. You can use `source(..., echo = TRUE)`, but the source code will not be properly syntax highlighted. Besides, you need to be careful about the `local` argument of `source()`, as mentioned in Section \@ref(source-script). In this section, we introduce an alternative method that does not have these problems.
 
 Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples:
 
