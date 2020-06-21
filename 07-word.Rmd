@@ -86,7 +86,7 @@ Continuing his effort on making it easier to work with Office documents in R, Da
 
 ```r
 # install from CRAN
-install.packages("officedown)
+install.packages("officedown")
 
 # or GitHub
 remotes::install_github("davidgohel/officedown")
