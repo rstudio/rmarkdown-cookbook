@@ -80,7 +80,7 @@ The narrative textual elements of R Markdown may be simpler to understand than t
 
 While much of our narrative is human-written, many R Markdown documents will likely wish to reference the code and analysis being used. For this reason, Chapter \@ref(document-elements) demonstrates the many ways that code can help generate parts of the text, such as combining words into a list (Section \@ref(combine-words)) or writing a bibliography (Section \@ref(bibliography)). This conversion is handled by **knitr** as we convert from `.Rmd` to `.md`.
 
-Our Markdown text can also provide structure to the document. While we do not have enough space here to review the Markdown syntax,^[Instead, for a review of the Markdown syntax, please see https://bookdown.org/yihui/bookdown/markdown-syntax.html.] one particularly relevant concept is section headers which are denoted by one or more `#`s (corresponding to different levels).
+Our Markdown text can also provide structure to the document. While we do not have enough space here to review the Markdown syntax,^[Instead, for a review of the Markdown syntax, please see https://bookdown.org/yihui/bookdown/markdown-syntax.html.] one particularly relevant concept is section headers, which are denoted by one or more hashes (`#`) corresponding to different levels, e.g.,
 
 ```md
 # First-level header
