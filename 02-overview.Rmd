@@ -74,7 +74,7 @@ params:
 ---
 ```
 
-### Narrative
+### Narrative {#narrative}
 
 The narrative textual elements of R Markdown may be simpler to understand than the YAML metadata and code chunks. Typically, this will feel quite a bit like writing in a text editor. However, this Markdown content can be more powerful and interesting than simple text---both in how its content is made, and how the document structure is made from it.
 
@@ -129,7 +129,7 @@ We can modify this process by:
 
 For example, in Section \@ref(hook-hide), you will learn how to add a hook to post-process the code output to redact certain lines in the source code.
 
-Code chunks also have analogous concepts to the groups and unique identifiers that we explored for narrative sections. A code chunk can specify an optional name immediately after its language engine, and it can set classes for the code chunk our the output by using the `class.source` and `class.output` code chunk options. For example, the chunk header `{r summary-stats, class.output = 'bigplot'}`
+Code chunks also have analogous concepts to the classes and unique identifiers that we explored for narratives in Section \@ref(narrative). A code chunk can specify an optional identifier (often called the "chunk label") immediately after its language engine. It can set classes for the code chunk our the output by using the `class.source` and `class.output` code chunk options. For example, the chunk header `{r summary-stats, class.output = 'bigplot'}`
  gives this chunk the unique name `summary-stats` and the class of `bigplot`. A chunk can have only one name but can have multiple classes.
 
 ### Document body
