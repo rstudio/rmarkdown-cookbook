@@ -102,7 +102,7 @@ The final interesting type of content that we might find in the textual part of 
 
 ### Code chunks
 
-Code chunks are the beating heart of our R Markdown. The code in these chunks is run by **knitr** and its output is translated to markdown to dynamically keep our reports in-sync with our current scripts and data. Each code chunk consists of a language engine (\@ref(other-languages)), an optional name, chunk options (\@ref(chunk-options)), and code. 
+Code chunks are the beating heart of our R Markdown. The code in these chunks is run by **knitr**, and its output is translated to Markdown to dynamically keep our reports in-sync with our current scripts and data. Each code chunk consists of a language engine (\@ref(other-languages)), an optional name, chunk options (\@ref(chunk-options)), and code.
 
 To understand some of the modifications we can make to code chunks, it is worth understanding the **knitr** process in slightly more detail. For each chunk, a **knitr** language engine receives as input the knitting environment, the code input, a set of chunk options, and returns that environment, a formatted representation of the code, and a formatted representation of the output.
 
