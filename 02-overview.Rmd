@@ -93,7 +93,7 @@ Our Markdown text can also provide structure to the document. While we do not ha
 These headers give structure to our entire document as **rmarkdown** converts the `.md` to our final output format. This structure is useful for referencing and formatting these sections by appending certain attributes to them. To create such references, Pandoc syntax allows us to provide a unique identifier by following the header notation with `{#id}`, or attach one or more classes to a section with `{.class-name}`, e.g.,
 
 ```md
-## Second-level header {#introduction .colorful-text}
+## Second-level header {#introduction .important .large}
 ```
 
 We can them access this section with many of the tools you'll learn by referencing it by name or by applying options to all sections that are tagged with the same class. As examples, Section \@ref(cross-ref) demonstrates how to use section names to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subheaders.
