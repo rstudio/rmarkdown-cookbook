@@ -38,7 +38,7 @@ We can dig one level deeper by considering the different components of an RMarkd
 
 The YAML metadata (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information it contains can effect the code, content, and the rendering process. 
 
-A typical YAML header might look something like this, containing basic metadata and rendering instructions:
+A typical YAML header looks like this, containing basic metadata about the document and rendering instructions:
 
 ````md
 ```
