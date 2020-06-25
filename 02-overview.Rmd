@@ -30,7 +30,7 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 - The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by an external site generator.
 
-## R Markdown anatomy {#rmd-anatomy}
+## R Markdown anatomy {#rmarkdown-anatomy}
 
 We can dig one level deeper by considering the different components of an RMarkdown. Specifically, let's look at when and how these are altered during the rendering workflow. 
 
