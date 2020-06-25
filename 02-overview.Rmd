@@ -127,7 +127,7 @@ We can modify this process by:
 
 - and by using hooks (Chapter \@ref(output-hooks) and Chapter \@ref(chunk-hooks)) to further process the these inputs and outputs.
 
-For example, in Section \@(hook-hide), you'll learn how to add a hook to post-process the code output (the 'source') to redact certain lines.
+For example, in Section \@ref(hook-hide), you will learn how to add a hook to post-process the code output to redact certain lines in the source code.
 
 Code chunks also have analogous concepts to the groups and unique identifiers that we explored for narrative sections. A code chunk can specify an optional name immediately after its language engine, and it can set classes for the code chunk our the output by using the `class.source` and `class.output` code chunk options. For example, the chunk header `{r summary-stats, class.output = 'bigplot'}`
  gives this chunk the unique name `summary-stats` and the class of `bigplot`. A chunk can have only one name but can have multiple classes.
