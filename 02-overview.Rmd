@@ -50,7 +50,7 @@ output: html_document
 
 In this case, the `title` and `author` fields are processed by Pandoc to set the values of template variables. With the default template, the title and author information will appear at the beginning of the resulting document. More details on how Pandoc uses information from the YAML header are included in the Pandoc Manual's section on the [YAML metadata block.](https://pandoc.org/MANUAL.html#extension-yaml_metadata_block)
 
-In contrast, the `output` field is used by **rmarkdown** to apply the function `rmarkdown::html_document()` when rendering. We can further influence the rendering processes by passing arguments to the rendering function we are specifying in `output`. For example, writing:
+In contrast, the `output` field is used by **rmarkdown** to apply the function `rmarkdown::html_document()` in the rendering process. We can further influence the rendering processes by passing arguments to the rendering function we are specifying in `output`. For example, writing:
 
 ```yaml
 output:
