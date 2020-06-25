@@ -96,7 +96,7 @@ These headers give structure to our entire document as **rmarkdown** converts th
 ## Second-level header {#introduction .important .large}
 ```
 
-We can them access this section with many of the tools that you will learn by referencing it by name or by applying options to all sections that are tagged with the same class. As examples, Section \@ref(cross-ref) demonstrates how to use section names to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subheaders.
+We can them access this section with many of the tools that you will learn by referencing it by its ID or class. As examples, Section \@ref(cross-ref) demonstrates how to use section ID to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subsections.
 
 The third and final interesting type of content that we might find in the textual part of our R Markdown is raw code written in our desired output format (e.g. HTML, LaTeX). This is ignored by both **knitr** and **rmarkdown** and can 'flow through' to be correctly interpreted in the final output.
 
