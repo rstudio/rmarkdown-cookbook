@@ -61,7 +61,7 @@ output:
 
 is the equivalent of telling `rmarkdown::render()` to apply the `rmarkdown::html_document()` with the arguments to `toc` and `toc_float` set to `TRUE`. To find out what these options do, and to learn about other possible options, you may run `?rmarkdown::html_document` in your R console and read the help page. Note that `output: html_document` is equivalent to `output: rmarkdown::html_document`. When an output format does not have a qualifier like `rmarkdown::`, it is assumed that it is from the **rmarkdown** package, otherwise it must be prefixed with the R package name, e.g., `bookdown::html_document2`.
 
-The YAML header can also influence our content and code if we choose to use parameters in YAML, as described in Section \@ref(parameterized-reports). In short, we can include variables and R expressions in this header that can be referenced throughout our RMarkdown. For example, the following header defines `start_date` and `end_date` parameters. `knitr` will use this information to create a list called `params`. Thus, if we want to use these values in our R code, we can access them via `params$x` and `params$y`.
+The YAML header can also influence our content and code if we choose to use parameters in YAML, as described in Section \@ref(parameterized-reports). In short, we can include variables and R expressions in this header that can be referenced throughout our R Markdown document. For example, the following header defines `start_date` and `end_date` parameters. `knitr` will use this information to create a list called `params`. Thus, if we want to use these values in our R code, we can access them via `params$x` and `params$y`.
 
 ```yaml
 ---
