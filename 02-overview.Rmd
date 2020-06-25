@@ -106,7 +106,7 @@ Code chunks are the beating heart of our R Markdown. The code in these chunks is
 
 To understand some of the modifications we can make to code chunks, it is worth understanding the **knitr** process in slightly more detail. For each chunk, a **knitr** language engine receives as input the knitting environment, the code input, a set of chunk options, and returns that environment, a formatted representation of the code, and a formatted representation of the output.
 
-```{r knitr-workflow, echo = FALSE, fig.cap = 'A flowchart of inputs and outputs to a language engine.', out.width = '50%'}
+```{r knitr-workflow, echo = FALSE, fig.cap = 'A flowchart of inputs and outputs to a language engine.', out.width = '100%', fig.dim=c(7, 3.5), fig.align='center'}
 nomnoml::nomnoml(
   "
   [<frame>Code chunk|
@@ -115,7 +115,7 @@ nomnoml::nomnoml(
   [Environment]->[Language Engine]
   [Language Engine]->[Formatted Code]
   [Language Engine]->[Formatted Output]
-  [Language Engine]->[Enviornment]
+  [Language Engine]->[(Modified) Enviornment]
   ]")
 ```
 
@@ -159,7 +159,7 @@ print(y)
 
 When writing this document, we likely think of each piece as linear with independent sections of text and code following in a sequence one after the other. However, what we are actually doing is creating a set of nested containers which conceptually^[In reality, there are many more containers than shown. For example, for a knitted code chunk, the code and output exist in separate containers which share a common parent] looks more like this: 
 
-```{r rmd-containers, echo = FALSE, fig.cap = 'A simple R Markdown illustrated as a set of nested containers.', out.width = '50%'}
+```{r rmd-containers, echo = FALSE, fig.cap = 'A simple R Markdown document illustrated as a set of nested containers.', out.width = '50%', fig.align='center'}
 nomnoml::nomnoml(
   "
   [Title (Level 1)|
