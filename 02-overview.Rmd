@@ -78,7 +78,7 @@ params:
 
 The narrative textual elements of R Markdown may be simpler to understand than the YAML metadata and code chunks. Typically, this will feel quite a bit like writing in a text editor. However, this Markdown content can be more powerful and interesting than simple text---both in how its content is made, and how the document structure is made from it.
 
-While much of our narrative is human-written, many R Markdown documents will likely wish to reference the code and analysis being used. For this reason, Chapter \@ref(document-elements) demonstrates the many ways that code can help generate parts of the text, such as combining words into a list (\@ref(combine-words)) or writing a bibliography (\@ref(bibliography). This conversion is handled by `knitr` as we convert from `.Rmd` to `.md`.
+While much of our narrative is human-written, many R Markdown documents will likely wish to reference the code and analysis being used. For this reason, Chapter \@ref(document-elements) demonstrates the many ways that code can help generate parts of the text, such as combining words into a list (Section \@ref(combine-words)) or writing a bibliography (Section \@ref(bibliography)). This conversion is handled by `knitr` as we convert from `.Rmd` to `.md`.
 
 Our markdown text can also provide structure to the document. While we do not have enough space here to review markdown syntax^[Instead, for a review of markdown syntax, please see the [Bookdown book](https://bookdown.org/yihui/bookdown/markdown-syntax.html)], one particularly relevant concept is section headers which are denoted by one or more `#`s (corresponding to different levels).
 
