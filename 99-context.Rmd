@@ -28,7 +28,7 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 - The **xaringan** package [@R-xaringan] passes the `.md` output to a JavaScript library, which renders the Markdown content in the web browser.
 
-- The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by a site generator named Hugo.
+- The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by an external site generator.
 
 ## R Markdown Anatomy {#rmd-anatomy}
 
