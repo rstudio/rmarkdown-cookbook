@@ -40,41 +40,39 @@ The YAML metadata (also called the YAML header) is processed in many stages of t
 
 A typical YAML header looks like this, containing basic metadata about the document and rendering instructions:
 
-````md
-```
-title: My R Markdown report
+```yaml
+---
+title: My R Markdown Report
 author: Yihui Xie
 output: html_document
+---
 ```
-````
 
 In this case, the `title` and `author` fields are processed by Pandoc to set the values of template variables. Using the default template, the title and author information will appears at the beginning of the resulting document. More details on how Pandoc uses information from the header are included in the Pandoc Manual's section on the [YAML metadata block](https://pandoc.org/MANUAL.html#extension-yaml_metadata_block). 
 
 In contrast, the `output` field is used by **rmarkdown** to apply the function `rmarkdown::html_document()` when rendering. We can further influence the rendering processes by passing arguments to the rendering function we are specifying in `output`. For example, writing:
 
-````md
-```
+```yaml
 output:
   html_document:
     toc: true
     toc_float: true
 ```
-````
 
 is the equivalent of telling `rmarkdown::render()` to apply the `rmarkdown::html_document()` with the arguments to `toc` and `toc_float` set to `TRUE`. (To find out what these do and to learn about other parameter options, you may run `?rmarkdown::html_document` in your console.)
 
 The YAML header can also influence our content and code itself if we chose to use code parameters, as described in Section \@ref(parameterized-reports). In short, we can include variables and R expressions in this header that can be referenced throughout our RMarkdown. For example, the following header defines `start_date` and `end_date` parameters. `knitr` will use this information to create a list called `params`. Thus, if we want to use these values in our R code, we can access them via `params$x` and `params$y`.
 
-````md
-```
+```yaml
+---
 title: My RMarkdown
 author: Yihui Xie
 output: html_document
 params:
   start_date: '2020-01-01'
   end_date: '2020-06-01'
+---
 ```
-````
 
 ### Narrative
 
@@ -84,7 +82,7 @@ While much of our narrative is human-written, many R Markdown documents will lik
 
 Our markdown text can also provide structure to the document. While we do not have enough space here to review markdown syntax^[Instead, for a review of markdown syntax, please see the [Bookdown book](https://bookdown.org/yihui/bookdown/markdown-syntax.html)], one particularly relevant concept is section headers which are denoted by one or more `#`s (corresponding to different levels).
 
-```
+```md
 # First-level header
 
 ## Second-level header
@@ -96,7 +94,7 @@ These headers give structure to our entire document as **rmarkdown** converts th
 
 For example, we might write:
 
-```
+```md
 ## Second-level header {#introduction .colorful-text}
 ```
 
@@ -199,4 +197,3 @@ Finally, our YAML header may help us toggle any of these steps. Changing paramet
 Of course, these are all rough heuristics and should not be taken as absolute fact. Ultimately, there is not a completely clear division of labor. Throughout this book, you will see that there are often multiple valid paths to achieving many of the outcomes described in this book, and these may enter different stages of the pipeline. For example, for the simple task of inserting in image in your document, you may use the R code  `knitr::include_graphics()` which would execute in the `.Rmd` to `.md` stage or you could directly use markdown syntax (`![]()`). This may seem confusing, and sometimes different approaches will have different advantages. However, do not be concerned; if anything, this means you often means there are many valid ways to solve your problem and you can follow whichever approach makes the most sense to you.
 
 And that's that! In the rest of the book, you can now color in this rough sketch with many more concrete examples of ways to modify all of the components we've discussed to get the most value out of R Markdown.
-  
