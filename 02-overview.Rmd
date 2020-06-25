@@ -98,7 +98,7 @@ These headers give structure to our entire document as **rmarkdown** converts th
 
 We can them access this section with many of the tools that you will learn by referencing it by its ID or class. As examples, Section \@ref(cross-ref) demonstrates how to use section ID to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subsections.
 
-The third and final interesting type of content that we might find in the textual part of our R Markdown is raw code written in our desired output format (e.g. HTML, LaTeX). This is ignored by both **knitr** and **rmarkdown** and can 'flow through' to be correctly interpreted in the final output.
+The final interesting type of content that we might find in the textual part of our R Markdown is raw content written specifically for our desired output format, e.g., raw LaTeX code for LaTeX output (\@ref(raw-latex)), raw HTML code for HTML output, and so on (Section \@ref(raw-content)). Raw content may help you achieve things that cannot be done with plain Markdown, but please keep in mind that it is usually ignored when the output format is a different format, e.g., raw LaTeX commands in Markdown will be ignored when the output format is HTML.
 
 ### Code chunks
 
