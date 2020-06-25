@@ -90,7 +90,7 @@ Our Markdown text can also provide structure to the document. While we do not ha
 ### Third-level header
 ```
 
-These headers give structure to our entire document as **rmarkdown** converts the `.md` to our final output format. This structure is useful for referencing these sections and appending certain formatting and choices to them. To create such references, Pandoc syntax allows us to provide a unique name by following the header notation with `{#name}` or to attach one or more classes (or 'groups') to a section with `{.type}`.
+These headers give structure to our entire document as **rmarkdown** converts the `.md` to our final output format. This structure is useful for referencing and formatting these sections by appending certain attributes to them. To create such references, Pandoc syntax allows us to provide a unique name by following the header notation with `{#name}` or to attach one or more classes (or 'groups') to a section with `{.type}`.
 
 For example, we might write:
 
