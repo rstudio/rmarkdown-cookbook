@@ -30,13 +30,13 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 - The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by an external site generator.
 
-## R Markdown Anatomy {#rmd-anatomy}
+## R Markdown anatomy {#rmd-anatomy}
 
 We can dig one level deeper by considering the different components of an RMarkdown. Specifically, let's look at when and how these are altered during the rendering workflow. 
 
-### YAML Header
+### YAML metadata
 
-The YAML header is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information is contains can effect the code, content, and the rendering process. 
+The YAML metadata (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information is contains can effect the code, content, and the rendering process. 
 
 A typical YAML header might look something like this, containing basic metadata and rendering instructions:
 
@@ -104,7 +104,7 @@ We can them access this section with many of the tools you'll learn by referenci
 
 The third and final interesting type of content that we might find in the textual part of our R Markdown is raw code written in our desired output format (e.g. HTML, LaTeX). This is ignored by both **knitr** and **rmarkdown** and can 'flow through' to be correctly interpreted in the final output.
 
-### Code Chunks
+### Code chunks
 
 Code chunks are the beating heart of our R Markdown. The code in these chunks is run by **knitr** and its output is translated to markdown to dynamically keep our reports in-sync with our current scripts and data. Each code chunk consists of a language engine (\@ref(other-languages)), an optional name, chunk options (\@ref(chunk-options)), and code. 
 
@@ -128,7 +128,7 @@ We can modify this process by changing our language engine; modifying chunk opti
 Code chunks also have analogous concepts to the groups and unique identifiers that we explored for narrative sections. A code chunk can specify an optional name immediately after its language engine, and it can set classes for the code chunk our the output by using the `class.source` and `class.output` code chunk options. For example, the chunk header `{r summary-stats, class.output = 'bigplot'}`
  gives this chunk the unique name `summary-stats` and the class of `bigplot`. A chunk can have only one name but can have multiple classes.
 
-### Document Body
+### Document body
 
 One important thing to understand when authoring and modifying a document is how code and narrative pieces create different sections, or containers within the document. For example, suppose we have a document that looks something like this:
 
