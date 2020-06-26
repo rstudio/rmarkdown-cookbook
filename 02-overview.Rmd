@@ -165,7 +165,7 @@ print(y)
 ```
 ````
 
-When writing this document, we likely think of each piece as linear with independent sections of text and code following in a sequence one after the other. However, what we are actually doing is creating a set of nested containers which conceptually^[In reality, there are many more containers than shown. For example, for a knitted code chunk, the code and output exist in separate containers which share a common parent.] looks more like this: 
+When writing this document, we likely think of each piece as linear with independent sections of text and code following in a sequence one after the other. However, what we are actually doing is creating a set of nested containers which conceptually^[In reality, there are many more containers than shown. For example, for a knitted code chunk, the code and output exist in separate containers which share a common parent.] looks more like Figure \@ref(fig:rmd-containers).
 
 ```{r rmd-containers, echo = FALSE, fig.cap = 'A simple R Markdown document illustrated as a set of nested containers.', out.width = '50%', fig.align='center'}
 nomnoml::nomnoml(
