@@ -265,6 +265,26 @@ Note that you need to change the vignette title in both the `title` field and th
 
 The vignette output format does not have to be HTML. It can also be PDF, so you can use `output: pdf_document`, too. Any other output formats that create HTML or PDF are also okay, such as `beamer_presentation` and `tufte::tufte_html`. However, currently R only recognizes HTML and PDF vignettes.
 
+## R package templates
+
+In section \@ref(package-vignette), you learned how to include an R Markdown document in a package as a vignette. This is an excellent way to demonstrate the functionality of your package. However, it is not the only way that RMarkdown documents can be included in an R package. You may also include editable R Markdown templates in your package.
+
+R Markdown templates are often included to help package users structure their document correctly. In fact, section \@ref(package-vignette) itself shows this feature in action. The "Package Vignette (HTML)" template is contained in the **rmarkdown** package and is easily accessible through the RStudio IDE. This template gives vignette authors a file to edit which already contains the appropriate YAML metadata for an R Markdown vignette. Templates can also help demonstrate package features and provide scaffolding code for users. For example, the **flexdashboard** package contains a sample dashboard template and the **xaringan** package contains a template demonstrating many formatting features. 
+
+Each R Markdown template lives in its own subdirectory of the `inst/rmarkdown/templates` directory of your package. Within this directory, you will create at least two files:
+
+1. A file named `template.yaml` which gives the RStudio IDE basic metadata such as a human-readable name for the template
+
+```yaml
+name: Example Template
+```
+
+2. An R Markdown document saved under `skeleton/skeleton.Rmd` which contains the template. This may contain anything you wish to put in an R Markdown document. 
+
+Optionally, the `skeleton` folder may also include additional resources like style sheets or images used by your template. 
+
+As with vignettes, the **usethis** package has the helpful function `usethis::use_rmarkdown_template()` which automatically creates the required subdirectories and files.
+
 ## Write books and long-form reports with **bookdown** {#bookdown}
 
 The **bookdown** package [@R-bookdown] is designed for creating long-form documents with multiple R Markdown documents. For example, if you want to write a book, you can put each chapter in its own Rmd file.
