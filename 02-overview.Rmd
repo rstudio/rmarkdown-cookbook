@@ -133,7 +133,7 @@ Code chunks also have analogous concepts to the classes and unique identifiers t
 
 ### Document body
 
-One important thing to understand when authoring and modifying a document is how code and narrative pieces create different sections, or containers within the document. For example, suppose we have a document that looks something like this:
+One important thing to understand when authoring and modifying a document is how code and narrative pieces create different sections, or containers within the document. For example, suppose we have a document that looks like this:
 
 ````md
 # Title
