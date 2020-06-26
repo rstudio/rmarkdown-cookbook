@@ -4,7 +4,7 @@ In this chapter, we introduce some tips and tricks that can be used to customize
 
 ## Insert page breaks {#pagebreaks}
 
-When you want to break a page, you can insert the command `\newpage` or `\pagebreak` in the document. These are LaTeX commands, but the **rmarkdown** package is able to recognize them for both LaTeX output formats and a few non-LaTeX output formats including HTML,^[For HTML output, page breaks only make sense when you print the HTML page, otherwise you will not see the page breaks, because an HTML page is just a single continuous page.] Word, and ODT. For example:
+When you want to break a page, you can insert the command `\newpage` in the document. It is a LaTeX command, but the **rmarkdown** package is able to recognize it for both LaTeX output formats and a few non-LaTeX output formats including HTML,^[For HTML output, page breaks only make sense when you print the HTML page, otherwise you will not see the page breaks, because an HTML page is just a single continuous page.] Word, and ODT. For example:
 
 ```md
 ---
