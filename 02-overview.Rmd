@@ -180,7 +180,7 @@ nomnoml::nomnoml(
 
 Two key features of this diagram are (1) every section of text or code is its own discrete container, and (2) containers can be nested within one another. This nesting is particularly apparent if you are authoring your R Markdown document in the RStudio IDE and expand the document outline.
 
-Note that in Figure \@ref(fig:rmd-containers), header of the same level represent containers at the same level of nesting. Lower-level headers exist inside of the container of higher-level headers. In this case, it is common to call the higher-level sections the "parent" and the minor sections the "child." For example, a subsection is the child of a section. Besides headers, you can also create divisions in your text using `:::`, as demonstrated in Section \@ref(multi-column).
+Note that in Figure \@ref(fig:rmd-containers), headers of the same level represent containers at the same level of nesting. Lower-level headers exist inside of the container of higher-level headers. In this case, it is common to call the higher-level sections the "parent" and the minor sections the "child." For example, a subsection is the child of a section. Besides headers, you can also create divisions in your text using `:::`, as demonstrated in Section \@ref(multi-column).
 
 This structure has important implications as we attempt to apply some of the formatting and styling options that are described in this text. For example, we will see this nested structure when we learn about how Pandoc represents our document as an abstract syntax tree (Section \@ref(lua-filters)), or when we use CSS selectors (Section \@ref(html-css), among others) to style our HTML output. 
 
