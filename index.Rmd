@@ -52,6 +52,9 @@ lapply(c(
   }
 )
 
+# screenshot HTML widgets
+if (is.null(webshot:::find_phantom())) webshot::install_phantomjs()
+
 import_example <- function(file, lang = xfun::file_ext(file)) {
   x = xfun::read_utf8(file.path("examples", file))
   lang = tolower(lang)
