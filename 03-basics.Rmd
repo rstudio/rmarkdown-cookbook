@@ -4,34 +4,6 @@ In this chapter, we present some high-level concepts about R Markdown. First, we
 
 For those seeking lower-level basics, please read Chapter 2 of the R Markdown Definitive Guide [@rmarkdown2018].
 
-## The R Markdown process {#rmarkdown-process}
-
-R Markdown combines several different processes together to create documents, and one of the main sources of confusion from R Markdown is how all the components work together.^[Allison Horst has created an amusing artwork that describes the R Markdown process as wizardry: https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rmarkdown_wizards.png.] Fortunately, as a user, it is not essential to understand all the inner workings of these processes to be able to create documents. However, as a user who may be seeking to alter the behavior of a document, it is important to understand which component is responsible for what. This makes it a lot easier to seek help as you can target your searches on the correct area.
-
-The basic workflow structure for an R Markdown document is shown in Figure \@ref(fig:rmdworkflow), highlighting the steps (arrows) and the intermediate files that are created before producing the output. The whole process is implemented via the function `rmarkdown::render()`. Each stage is explained in further detail below.
-
-```{r rmdworkflow, echo = FALSE, fig.cap = "A diagram illustrating how an R Markdown document is converted to the final output document.", out.width='100%'}
-knitr::include_graphics("images/workflow.png", dpi = NA)
-```
-
-The `.Rmd` document is the original format of the document. It contains a combination of YAML (metadata), text (narratives), and code chunks.
-
-First, the `knit()` function in **knitr** is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
-
-Then the `.md` file is processed by [Pandoc](https://pandoc.org), a multipurpose tool designed to convert files from one markup language to another. It takes any parameters specified within the YAML frontmatter of the document (e.g., `title`, `author`, and `date`) to convert the document to the output format specified in the `output` parameter (such as `html_document` for HTML output).
-
-If the output format is PDF, there is an additional layer of processing, as Pandoc will convert the intermediate `.md` file into an intermediate `.tex` file. This file is then processed by [LaTeX](https://www.latex-project.org) to form the final PDF document. As we mentioned in Section \@ref(install-latex), the **rmarkdown** package calls the `latexmk()` function in the **tinytex** package [@R-tinytex], which in turn calls LaTeX to compile `.tex` to `.pdf`.
-
-In short, `rmarkdown::render()` = `knitr::knit()` + Pandoc (+ LaTeX for PDF output only).
-
-Robin Linacre has written a nice summary of the relationship between R Markdown, **knitr**, and Pandoc at https://stackoverflow.com/q/40563479/559676, which contains more technical details than the above overview.
-
-Note that not all R Markdown documents are eventually compiled through Pandoc. The intermediate `.md` file could be compiled by other Markdown renderers. Below are two examples:
-
-- The **xaringan** package [@R-xaringan] passes the `.md` output to a JavaScript library, which renders the Markdown content in the web browser.
-
-- The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by an external site generator.
-
 ## Code chunks and inline R code {#r-code}
 
 An R Markdown document consists of intermingled prose (narratives) and code. There are two types of code in an Rmd document: code chunks, and inline R code. Below is a quick example:

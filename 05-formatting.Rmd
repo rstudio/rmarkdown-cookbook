@@ -313,7 +313,7 @@ This will show a verbatim inline R expression
 
 I'd recommend the second way, because the first way is more or less a hack taking advantage of the Markdown syntax and **knitr**'s parser.
 
-## Multi-column layout
+## Multi-column layout {#multi-column}
 
 Pandoc's Markdown supports the multi-column layout for slides but not other types of documents. In this recipe, we show how to use the multi-column layout in normal HTML documents and LaTeX documents. This recipe was inspired by Atsushi Yasumoto's solutions to the **knitr** issue https://github.com/yihui/knitr/issues/1743.
 

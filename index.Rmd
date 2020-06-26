@@ -1,6 +1,6 @@
 --- 
 title: "R Markdown Cookbook"
-author: "Yihui Xie and Christophe Dervieux"
+author: "Yihui Xie, Christophe Dervieux, Emily Riederer"
 date: "`r Sys.Date()`"
 bibliography:
   - packages.bib
@@ -51,6 +51,9 @@ lapply(c(
     }
   }
 )
+
+# screenshot HTML widgets
+if (is.null(webshot:::find_phantom())) webshot::install_phantomjs()
 
 import_example <- function(file, lang = xfun::file_ext(file)) {
   x = xfun::read_utf8(file.path("examples", file))

@@ -1,8 +1,8 @@
 # About the Authors {#author .unnumbered}
 
-Yihui typed out most of the words in this book, which is the only justification for him to be the "first" author. Christophe has made substantial contribution to this book by helping Yihui organize all the GitHub issues and occasionally writing a few sections.
+Yihui typed out most of the words in this book, which is the only justification for him to be the "first" author. Christophe has made substantial contribution to this book by helping Yihui organize all the GitHub issues and occasionally writing a few sections. Emily was originally a reviewer of this book. Since Yihui was not patient enough to deal with her lengthy comments, he invited her to become a co-author of this book (out of revenge) to feel his pain of having to deal with so many additional things when he thought he was pretty much done! Just kidding... No, he invited her out of full appreciation, because her comments were so helpful, yet Yihui lacked the time to do all the improvements that she suggested.
 
-When you see the pronoun "I" in this book, it refers to Yihui. Using "I" instead of "We" does not mean the co-author was forgotten, but Yihui wanted to express certain opinions completely of his own. He certainly wants to appear smart, but in case he is actually silly, he wants to be silly alone.
+When you see the pronoun "I" in this book, it refers to Yihui. Using "I" instead of "We" does not mean the co-authors were forgotten, but Yihui wanted to express certain opinions completely of his own. He certainly wants to appear smart, but in case he is actually silly, he wants to be silly alone.
 
 ## Yihui Xie {-}
 
@@ -25,3 +25,5 @@ He is interested in helping others get the most from R, and you can find him wan
 As an R developer, he is a contributor to several R packages, such as **bookdown**, **rmarkdown**, and **knitr**. He has also co-authored the **crrri** package. His own projects can be found on GitHub (https://github.com/cderv), and sometimes he shares his ideas on Twitter (https://twitter.com/chrisderv).
 
 He does not like spicy food, but he enjoys playing badminton every week.
+
+## Emily Riederer {-}
