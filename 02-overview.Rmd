@@ -140,23 +140,24 @@ One important thing to understand when authoring and modifying a document is how
 
 ## Section x
 
-This is my introduction
+This is my introduction.
 
 ```{r chunk-x}`r ''`
 x <- 1
 print(x)
 ```
+
 ### Subsection 1
 
-Here are some details
+Here are some details.
 
 ### Subsection 2
 
-These are more details
+These are more details.
 
 ## Section y
 
-This is another section
+This is another section.
 
 ```{r chunk-y}`r ''`
 y <- 2
