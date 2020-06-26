@@ -178,7 +178,7 @@ nomnoml::nomnoml(
   ]")
 ```
 
-Two key features of this diagram are (1) every section of text or code is its own discrete container, and (2) containers can be nested within one another. This nesting is particularly apparent if you are authoring your R Markdown in the RStudio IDE and expand the document outline.
+Two key features of this diagram are (1) every section of text or code is its own discrete container, and (2) containers can be nested within one another. This nesting is particularly apparent if you are authoring your R Markdown document in the RStudio IDE and expand the document outline.
 
 Note that in the image about, header of the same level (the same number of `#`'s) represent containers at the same level of nesting. More minor headers (those with a larger number of `#`'s than the preceding) exist inside of the container of more major headers (those with smaller number of `#`s). In such a case, it is common to call the major sections the 'parent' and the minor sections the 'child'. Beyond the use of headers, you can also create divisions in your code using `:::`, as demonstrated in \@ref(multi-column). 
 
