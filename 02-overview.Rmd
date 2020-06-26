@@ -184,9 +184,9 @@ Note that in Figure \@ref(fig:rmd-containers), headers of the same level represe
 
 This structure has important implications as we attempt to apply some of the formatting and styling options that are described in this text. For example, we will see this nested structure when we learn about how Pandoc represents our document as an abstract syntax tree (Section \@ref(lua-filters)), or when we use CSS selectors (Section \@ref(html-css), among others) to style our HTML output. 
 
-Some options we can chose to apply to containers of similar types (e.g. code section) and others we can chose to apply to all containers that exist inside of another container (e.g. everything under 'Section y'). Additionally, as explained above, we can use classes designate some sections as being more or less similar by adding attributes to denote their common properties or intent. 
+Formatting and styling can be applied to either containers of similar types (e.g., all code blocks), or all containers that exist inside of another container (e.g., everything under "Section y"). Additionally, as explained in Section \@ref(narrative), we can apply the same classes to certain sections to designate them as being similar, and in this case, the common class names denote the common properties or intent of these sections.
 
-As you read through this cookbook, it may be useful to quiz yourself and think about what sort of container the specific 'recipe' is acting upon.
+As you read through this cookbook, it may be useful to quiz yourself and think about what sort of container the specific "recipe" is acting upon.
 
 ## What can we change to change the results? {#what-to-change}
 
