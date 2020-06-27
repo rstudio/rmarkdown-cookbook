@@ -267,9 +267,9 @@ The vignette output format does not have to be HTML. It can also be PDF, so you 
 
 ## R package templates
 
-In section \@ref(package-vignette), you learned how to include an R Markdown document in a package as a vignette. This is an excellent way to demonstrate the package's functionality, but it is not the only way that R Markdown documents can be used in an R package. You may also include editable R Markdown templates in your package.
+In section \@ref(package-vignette), you learned how to include an R Markdown document in a package as a vignette. This is an excellent way to demonstrate the package's functionality, but it is not the only way that R Markdown documents can be used in an R package. As a package developer, you may also include editable R Markdown templates in your package.
 
-R Markdown templates help package users interact with a package by provide boilerplate code or document structure. In fact, section \@ref(package-vignette) itself demonstrates a compelling use case. The "Package Vignette (HTML)" template is contained in the **rmarkdown** package and is easily accessible through the RStudio IDE. This template gives vignette authors a file to edit which already contains the appropriate YAML metadata for a package vignette. 
+R Markdown templates help package users interact with a package by provide boilerplate code or document structure. In fact, section \@ref(package-vignette) on package vignettes provides a compelling use case. Figure \@ref(fig:package-vignette) shows how RStudio users can use the menu `File -> New File -> R Markdown -> From Template` to retrieve the "Package Vignette (HTML)" template from the **rmarkdown** package. This template offers a file to edit which already contains the appropriate YAML metadata for a package vignette. 
 
 Templates can also include boilerplate content and showcase a package's features. For example, the **flexdashboard** package contains a sample dashboard and the **xaringan** package contains a presentation template which demonstrates many formatting options.
 
