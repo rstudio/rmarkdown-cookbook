@@ -435,3 +435,35 @@ If you are making a self-contained R Markdown document (the default for the `htm
 Most small, square PNG files will work reasonably well as a favicon. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better. 
 
 If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net/ to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function to make a set of favicons out of R package logos. 
+
+
+## Sharing HTML content on the web
+
+One appealing aspect of rendering R Markdown content to HTML files is that it is very easy to host these files on the internet and share them just as one shares any other website. This section briefly summarizes numerous options for sharing the HTML documents which you create. 
+
+### R-specific services
+
+RStudio PBC offers a number of services for publishing various types of content created in R Markdown to the internet. These services make it particularly easy to publish content by using the RStudio IDE or the **rsconnect** package.
+
+- [**RPubs**](https://rpubs.com/): RPubs enables free hosting of static single-file R Markdown content. It is easy to publish via the Publish button in the RStudio IDE or the `rsconnect::rpubsUpload()` function. Please see the "Getting Started" page (https://rpubs.com/about/getting-started) for more details.
+
+- [**shinyapps.io**](https://www.shinyapps.io/): Most R Markdown documents with HTML output are rendered to a static HTML file. However, if you have made an interactive document with the `runtime: shiny` option, it must be hosted on a server which can run R. shinyapps.io is an analog to RPubs which enables easy deployment of Shiny apps (by push-button in the RStudio IDE or using the `rsconnect::deployApp()` function). See the user guide (https://docs.rstudio.com/shinyapps.io/index.html) for more details. You may start for free depending on the requirements of your application. 
+
+- [**bookdown.org**](https://bookdown.org/home/about/) offers free hosting services specifically intended for books written with the **bookdown** package. Static output files of your book can be easily published using the `bookdown::publish_book()` function. This platform is based on RStudio PBC's enterprise RStudio Connect product (see below).
+
+- [**RStudio Connect**](https://rstudio.com/products/connect/) is an enterprise product which individual organizations may run on their own servers. It offers the ability to host web content in a secured environment with document-level access controls, viewership history, and more. It supports all of the different types of content R Markdown can produce (as well as `shiny` apps and `plumber` APIs.) Similar to the open-source RPubs and shinyapps.io offerings, content can be published to RStudio Connect using manual upload, the **rsconnect** package, or with Git-based deployment. 
+
+### Static website services
+
+In addition to R-specific services, you may host your HTML document on many freely available static website hosting services. These include:
+
+- [**GitHub Pages**](https://pages.github.com/) makes is particularly easy to publish HTML content straight from a GitHub repository. You may specify whether to host content from either your main branch's root, your main branch's `docs/` folder, or a specific `gh-pages` branch. You can publish new content simply by pushing new HTML files to your repository.
+
+- [**GitLab Pages**](https://docs.gitlab.com/ee/user/project/pages/) offers similar functionality to GitHub Pages for GitLab repositories. 
+
+- [**Netlify**](https://www.netlify.com/) is a platform to build and deploy static website content. It is a popular choice for web content created by the **blogdown** and **pkgdown** packages, but it can host all types of Markdown and HTML content. Compared to GitHub Pages, it offers more advanced features such as deploy previews and compatability with all major static site generators (e.g. Hugo). The deployment process is just as easy as GitHub Pages with many different options including drag-and-drop, command line, or Git integration. See the Netlify documentation (https://docs.netlify.com/) or the RStudio webinar "Sharing on Short Notice" (https://rstudio.com/resources/webinars/sharing-on-short-notice-how-to-get-your-materials-online-with-r-markdown/) for more details. 
+
+### Advice
+
+While all of the above options are good choices for sharing your work, there are numerous reasons to favor Netlify as a flexible option which makes accessible a wide variety of tools and has minimal lock-in risk. These benefits are described in more detail on Yihui's blog (https://yihui.org/en/2017/06/netlify-instead-of-github-pages/) and the ["Deployment" chapter](https://bookdown.org/yihui/blogdown/deployment.html) of the **blogdown** book [@blogdown2017].
+
