@@ -6,6 +6,37 @@ In this chapter, we introduce techniques to enhance your HTML output from R Mark
 
 ## Sharing HTML content on the web
 
+One advantage of the HTML output format is that HTML documents can function as static web pages. This makes it possible to host the on the internet. Sharing your work online gives it more visibility  
+
+### R-specific services
+
+RStudio PBC offers a number of services for publishing various types of content created in R Markdown to the internet. These services make it particularly easy to publish content by using the RStudio IDE or the **rsconnect** package.
+
+- [**RPubs**](https://rpubs.com/): RPubs enables free hosting of static single-file R Markdown content. It is easy to publish via the Publish button in the RStudio IDE or the `rsconnect::rpubsUpload()` function. Please see the "Getting Started" page (https://rpubs.com/about/getting-started) for more details.
+
+- [**shinyapps.io**](https://www.shinyapps.io/): Most R Markdown documents with HTML output are rendered to a static HTML file. However, if you have made an interactive document with the `runtime: shiny` option, it must be hosted on a server which can run R. shinyapps.io is an analog to RPubs which enables easy deployment of Shiny apps (by push-button in the RStudio IDE or using the `rsconnect::deployApp()` function). See the user guide (https://docs.rstudio.com/shinyapps.io/index.html) for more details. You may start for free depending on the requirements of your application. 
+
+- [**bookdown.org**](https://bookdown.org/home/about/) offers free hosting services specifically intended for books written with the **bookdown** package. Static output files of your book can be easily published using the `bookdown::publish_book()` function. This platform is based on RStudio PBC's enterprise RStudio Connect product (see below).
+
+- [**RStudio Connect**](https://rstudio.com/products/connect/) is an enterprise product which individual organizations may run on their own servers. It offers the ability to host web content in a secured environment with document-level access controls, viewership history, and more. It supports all of the different types of content R Markdown can produce (as well as `shiny` apps and `plumber` APIs.) Similar to the open-source RPubs and shinyapps.io offerings, content can be published to RStudio Connect using manual upload, the **rsconnect** package, or with Git-based deployment. 
+
+### Static website services
+
+In addition to R-specific services, you may host your HTML document on many freely available static website hosting services. These include:
+
+- [**Netlify**]()
+
+- [**GitHub Pages**]()
+
+- [**Gitlab Pages**]()
+
+- **Self hosting on a web server**
+
+Static website service:
+Netlify: Hosting service for static website stack. Will support any non shiny runtime production. Mostly use for Blogdown or pkgdown website, but can be used to publish one document also. Great resource: https://rstudio.com/resources/webinars/sharing-on-short-notice-how-to-get-your-materials-online-with-r-markdown/ . One can publish by drag and drop or using a cli tool : most often this is integrated into continuous deployment pipeline
+
+CI related hosting service (Github Pages, Gitlab Pages) : Allows to easily serve a static website from files that are included in the code repository service (Github, Gitlab). Either published by continuous deployment pipeline or by putting the website file into a specific folder in the repository or being the repository itself. (For Github page)
+Self hosting method using any web server : using apache, nginx or else, one can decide to host itself its documents or website. On its own servers or using docker container.
 
 
 ## Apply custom CSS {#html-css}
