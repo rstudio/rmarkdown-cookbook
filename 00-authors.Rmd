@@ -27,3 +27,9 @@ As an R developer, he is a contributor to several R packages, such as **bookdown
 He does not like spicy food, but he enjoys playing badminton every week.
 
 ## Emily Riederer {-}
+
+Emily Riederer works in data science for the consumer finance industry where she leads a team to build analysis tools in R and cultivate an open science culture in industry. Previously, she studied Mathematics and Statistics at the University of North Carolina at Chapel Hill. 
+
+Emily frequently discusses R on Twitter (https://twitter.com/emilyriederer) and her blog (https://emilyriederer.netlify.app/) and shared projects, including the **projmgr** R package, on GitHub (https://github.com/emilyriederer). She has also served as a package reviewer for rOpenSci and a founding co-organizer of the annual satRday Chicago R conference. 
+
+Emily enjoys reading and weightlifting. She thinks she likes spicy food, but since she has only ever lived in the United States, she's been told that she does not really know what that actually means. 
