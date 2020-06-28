@@ -9,7 +9,7 @@ TODOs:
 
 Section \@ref(html-css) explains that you may style your HTML output with custom CSS code. To do this effectively, it is helpful to know how common R Markdown elements can be selected by CSS. This section documents some frequently occuring properties and recommends tools for exploring and identifying more complex elements on your own. 
 
-This document assumes a basic knowledge of CSS concepts including selection by tag, class, or id. You may learn more about CSS in many free online tutorials such as https://www.w3schools.com/css/.
+This document assumes a basic knowledge of CSS concepts including selection by tag, class, or id. You may find a quick crash course in CSS in the [CSS chapter](https://bookdown.org/yihui/blogdown/css.html) of the **blogdown** book [@blogdown2017] or study more in many free online tutorials such as https://www.w3schools.com/css/.
 
 ### Common CSS selectors
 
