@@ -2,18 +2,22 @@
 TODOs:
 - Where this should live? I started with ## header because I assume it will not be stand-alone.
 - Should anything I mention in terms of the Developer Tools, etc have a screenshot?
+- What is the best way to format the Common CSS Selectors section?
 .-->
 
 ## CSS tips for R Markdown
 
 Section \@ref(html-css) explains that you may style your HTML output with custom CSS code. To do this effectively, it is important to understand a bit more about CSS and how various R Markdown elements translate to CSS selectors. This section provides a set of CSS tips that are commonly useful for R Markdown authors. 
 
-### CSS Basics
+### CSS basics
 
-multiple items
 tag
 . - class
 /# - id
+
+Cascading
+
+multiple items
 AND
 CHILD
 psuedoselectors
@@ -24,11 +28,32 @@ psuedoselectors
 
 You may learn more about CSS in many free online tutorials such as https://www.w3schools.com/css/.
 
-### C is for cascading
-
-
-
 ### Common CSS selectors
+
+
+Section made from Level 1 header with `# Some Name` -> <div>, classes = 'section level1', id = 'some-name'
+Level 1 header itself with `# Some Name` -> <h1> 
+Section with custom ID or class with # Part 1.3 {.a #b} -> <div id = 'b' class = 'section level1 a'>
+
+Code chunk -> <pre class = 'r'><code class = 'hljs'> </code></pre>
+Code output -> <pre><code class = 'hljs'>  </code></pre> 
+mention hljs-number, hljs-string, hljs-keyword
+Warning -> <pre> <code class = 'hljs'>
+
+Normal text -> <p>
+Bold text with **x** -> <strong>
+Italics with *x* -> <em>
+Code with `x` -> <code>
+Lists -> <ul> (unordered), <ol> (ordered), <li> elements, new <ul> or <ol> for subbullets. Text wrapped in <p>s
+Blockquote with `>` -> <blockquote>
+Strikethrough with `~` -> <p><strikethrough>
+Markdown table -> <table> with <tr> and <td>
+Arbitrary section made with ::: MyDiv -> <div class = 'MyDiv'>
+
+Link with `[]()` -> <a> 
+Image from `![]()` -> <img> wrapped in <div class = 'figure'>
+Image from `knitr::include_graphics()` -> <img> wrapped in <p> 
+
 
 ### Tools for exploring HTML output
 
