@@ -25,16 +25,22 @@ When `section_divs = FALSE`, section divs are not created, so the content follow
 
 #### Text
 
-Normal text -> <p>
-Bold text with **x** -> <strong>
-Italics with *x* -> <em>
-Code with `x` -> <code>
-Lists -> <ul> (unordered), <ol> (ordered), <li> elements, new <ul> or <ol> for subbullets. Text wrapped in <p>s
-Blockquote with `>` -> <blockquote>
-Strikethrough with `~` -> <p><strikethrough>
-Markdown table -> <table> with <tr> and <td>
-Arbitrary section made with ::: MyDiv -> <div class = 'MyDiv'>
-Link with `[]()` -> <a> 
+The following markdown syntax translates to HTML tags within the text. 
+
+- Normal text paragraphs are wrapped in `<p>` tags
+- Text made bold by `**` is wrapped in `<strong>` tags
+- Text italicized by `*` is wrapped in `<em>` tags
+- In-line code formatting with backticks is wrapped in `<code>` tags
+- Strikethrough made with `~` is wrapped in `<strikethrough>` tags
+- Links made with `[]()` are created with `<a>` tags
+
+The following markdown syntax creates new sections in the text. 
+
+- Blockquotes made with `>` are wrapped in `<blockquote>` tags
+- Unordered lists made with `-` or `*` are wrapped in `<ul>` tags and individual elements are wrapped in `<li>` tags (list element)
+- Ordered lists made with `1.` are wrapped in `<ol>` tags and individual elements are wrapped in `<li>` tags (list element)
+- Markdown tables are made with `<table>` tags. Table rows are distinguished by `<tr>` tags and individual table data cells are separated by `<td>` tags.
+- Sections created by `:::` are fenced by `<div>` tags. These can be given a class. For example, `::: MyDiv` translates to `<div class = 'MyDiv'>` (If this is a new concept to you, please see Section \@ref(multi-column) for an example)
 
 #### Code 
 
