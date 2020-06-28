@@ -42,7 +42,7 @@ The following markdown syntax creates new sections in the text.
 - Unordered lists made with `-` or `*` are wrapped in `<ul>` tags and individual elements are wrapped in `<li>` tags (list element)
 - Ordered lists made with `1.` are wrapped in `<ol>` tags and individual elements are wrapped in `<li>` tags (list element)
 - Markdown tables are made with `<table>` tags. Table rows are distinguished by `<tr>` tags and individual table data cells are separated by `<td>` tags.
-- Sections created by `:::` are fenced by `<div>` tags. These can be given a class. For example, `::: MyDiv` translates to `<div class = 'MyDiv'>` (If this is a new concept to you, please see Sections \@ref(multi-column) and \@ref(custom-blocks) for examples)
+- Sections created by Pandoc Divs (`:::`) are fenced by `<div>` tags. These can be given a class. For example, `::: MyDiv` and `::: {.MyDiv}` translate to `<div class = 'MyDiv'>` (If this is a new concept to you, please see Sections \@ref(multi-column) and \@ref(custom-blocks) for examples)
 
 #### Code 
 
