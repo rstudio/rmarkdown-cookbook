@@ -199,6 +199,60 @@ We used the width `50%` in the above examples, which means half of the width of 
 
 The chunk option `fig.align` specifies the alignment of figures. For example, you can center images with `fig.align = 'center'`, or right-align images with `fig.align = 'right'`. This option works for both HTML and LaTeX output, but may not work for other output formats (such as Word, unfortunately). It works for both plots drawn from R code chunks and external images included via `knitr::include_graphics()`.
 
+## Verbatim code chunks
+
+Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
+
+Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
+
+````{r echo = FALSE, comment = NA}
+cat("```{r, eval=TRUE}`r ''`
+1 + 1
+```")
+````
+
+will be rendered as:
+
+````
+```{r, eval=TRUE}`r ''`
+1 + 1
+```
+````
+
+in the output. The inline expression is gone because it is substituted by an empty string. However, that is only the first step. To show something verbatim in the output, the syntax in Markdown is to wrap it in a code block (indent by four spaces or use backtick fences). This will be the actual source if you want to see the output above:
+
+```{r echo = FALSE, comment = NA}
+cat("````
+```{r, eval=TRUE}`r ''`
+1 + 1
+```\n````")
+```
+
+Why four backticks? That is because you have to use at least N+1 backticks to wrap up N backticks.
+
+### Show a verbatim inline expression
+
+There are multiple ways to show a verbatim inline expression. The first way is to break the inline expression after `` `r``, e.g.,
+
+```md
+This will show a verbatim inline R expression `` `r
+1+1` `` in the output.
+```
+
+The trick works due to two reasons (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression. In the output document, you should see:
+
+> This will show a verbatim inline R expression `` `r
+1+1` `` in the output.
+
+Another way to show a verbatim inline R expression is to wrap the R code in `knitr::inline_expr()`, e.g.,
+
+```md
+This will show a verbatim inline R expression
+`` `r knitr::inline_expr('knitr::inline_expr("1+1")')` `` in the output.
+```
+
+I'd recommend the second way, because the first way is more or less a hack taking advantage of the Markdown syntax and **knitr**'s parser.
+
 ## Line numbers for code blocks (*) {#number-lines}
 
 You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"`, e.g.,
@@ -258,60 +312,6 @@ if (TRUE) {
 ````
 
 Line numbers are not supported for Word output at the moment.
-
-## Verbatim code chunks
-
-Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
-
-Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
-
-````{r echo = FALSE, comment = NA}
-cat("```{r, eval=TRUE}`r ''`
-1 + 1
-```")
-````
-
-will be rendered as:
-
-````
-```{r, eval=TRUE}`r ''`
-1 + 1
-```
-````
-
-in the output. The inline expression is gone because it is substituted by an empty string. However, that is only the first step. To show something verbatim in the output, the syntax in Markdown is to wrap it in a code block (indent by four spaces or use backtick fences). This will be the actual source if you want to see the output above:
-
-```{r echo = FALSE, comment = NA}
-cat("````
-```{r, eval=TRUE}`r ''`
-1 + 1
-```\n````")
-```
-
-Why four backticks? That is because you have to use at least N+1 backticks to wrap up N backticks.
-
-### Show a verbatim inline expression
-
-There are multiple ways to show a verbatim inline expression. The first way is to break the inline expression after `` `r``, e.g.,
-
-```md
-This will show a verbatim inline R expression `` `r
-1+1` `` in the output.
-```
-
-The trick works due to two reasons (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression. In the output document, you should see:
-
-> This will show a verbatim inline R expression `` `r
-1+1` `` in the output.
-
-Another way to show a verbatim inline R expression is to wrap the R code in `knitr::inline_expr()`, e.g.,
-
-```md
-This will show a verbatim inline R expression
-`` `r knitr::inline_expr('knitr::inline_expr("1+1")')` `` in the output.
-```
-
-I'd recommend the second way, because the first way is more or less a hack taking advantage of the Markdown syntax and **knitr**'s parser.
 
 ## Multi-column layout (*) {#multi-column}
 
