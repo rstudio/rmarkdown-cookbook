@@ -267,25 +267,27 @@ The vignette output format does not have to be HTML. It can also be PDF, so you 
 
 ## R Markdown templates
 
-Figure \@ref(fig:package-vignette) of section \@ref(package-vignette) illustrates the process of retrieving the editable "Package Vignette (HTML)" template from the **rmarkdown** package. This R Markdown file opens pre-populated with the appropriate metadata for an R package vignette. 
+Figure \@ref(fig:package-vignette) of section \@ref(package-vignette) illustrates the process of retrieving the editable "Package Vignette (HTML)" template from the **rmarkdown** package. This R Markdown file is pre-populated with the appropriate metadata for an R package vignette. 
 
-Similarly, any package may include R Markdown templates for package users to access through the RStudio IDE (as shown in the figure) or across any platform with `rmarkdown::draft()` function.
+Similarly, any package may include R Markdown templates whcih package users can access through the RStudio IDE (as shown in the figure) or across any platform with the `rmarkdown::draft()` function.
 
 ### Template use-cases
 
-Templates are a useful way to share custom structure, style, and content.
+Templates are a useful way to share custom structure, style, and content. There are many excellent examples of this "in the wild".
 
-Many add structure and style by pre-populating the YAML metadata. We already saw this with the **rmarkdown** "Package Vignette (HTML)" template. Similarly, the **rmdformats** package provides a number of templates which pass different custom styling functions to the `output` option. 
+Many templates add structure and style by pre-populating the YAML metadata. We already saw an example of this with the **rmarkdown** package's "Package Vignette (HTML)" template. Similarly, the **rmdformats** package provides a number of templates which pass different custom styling functions to the `output` option. 
 
-Other templates can be used to demonstrate required document structure. For example, the **pagedown** package includes a multitude of templates for posters, resumes, and more. Similarly, the **xaringan** package's "Ninja Presentation" template demonstrates the syntax for many different slide formatting options. 
+Other templates demonstrate required document structure. For example, the **pagedown** package includes numerous templates for posters, resumes, and other page layouts Similarly, the **xaringan** package's "Ninja Presentation" template demonstrates the syntax for many different slide formatting options. 
 
-Templates may also demonstrate package functionality. For example, the **flexdashboard** package and the **learnr** package both include templates with code chunks that call a number of the package functions to create a sample dashboard or lesson, respectively. 
+Templates may also demonstrate package features and syntax. For example, the **flexdashboard** package and the **learnr** package both include templates with code chunks that call functions from the packages to create a sample dashboard or tutorial, respectively. 
 
-Finally, templates may also include boilerplate content. This is particularly useful in organizational settings, such as a team generating a quarterly reports. Similarly, the **rticles** package provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals.   
+Similarly, templates may also include boilerplate content. For example, the **rticles** package provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals. Boilerplate content is also useful in in organizational settings, such as a team generating a quarterly reports. One example of,    
 
 ### Template set-up
 
-To add an R Markdown template to a package, create a subdirectory of the `inst/rmarkdown/templates` directory. Within this directory, you will save at least two files:
+The **usethis** package has a helpful function for creating templates. Running `usethis::use_rmarkdown_template()` will automatically create the required directory structure and files.
+
+If instead you wish to set up your template manually, create a subdirectory of the `inst/rmarkdown/templates` directory. Within this directory, you will save at least two files:
 
 1. A file named `template.yaml` which gives the RStudio IDE basic metadata such as a human-readable name for the template. At minimum, this file should have `name` and `description` fields. 
 
@@ -294,13 +296,11 @@ name: Example Template
 description: What this template does
 ```
 
-You may include is `create_dir: true` if you want a new directory to be created when the template is selected. This is useful if your template relies upon additional resources. For example, the **learnr** [package template](https://github.com/rstudio/learnr/blob/master/inst/rmarkdown/templates/tutorial/template.yaml) sets `create_dir: true` whereas the **flexdashboard** [package template](https://github.com/rstudio/flexdashboard/blob/master/inst/rmarkdown/templates/flex_dashboard/template.yaml) uses the default `create_dir: false`. You may attempt to open both of these templates in RStudio to note the difference in user prompts.
+You may include is `create_dir: true` if you want a new directory to be created when the template is selected. This is useful if your template relies upon additional resources. For example, the **learnr** [package template](https://github.com/rstudio/learnr/blob/master/inst/rmarkdown/templates/tutorial/template.yaml) sets `create_dir: true` whereas the **flexdashboard** [package template](https://github.com/rstudio/flexdashboard/blob/master/inst/rmarkdown/templates/flex_dashboard/template.yaml) uses the default `create_dir: false`. You may attempt to open both of these templates in RStudio to notice the differet user prompts.
 
 2. An R Markdown document saved under `skeleton/skeleton.Rmd`. This may contain anything you wish to put in an R Markdown document. 
 
-Optionally, the `skeleton` folder may also include additional resources like style sheets or images used by your template. 
-
-Similar to vignettes, the **usethis** package also has a helpful function for creating templates. Running `usethis::use_rmarkdown_template()` will automatically create the required directory structure and files.
+Optionally, the `skeleton` folder may also include additional resources like style sheets or images used by your template. These files will be loaded to the user's computer along with the template.
 
 For more details on building custom R Markdown templates, please refer to the [RStudio Extensions](https://rstudio.github.io/rstudio-extensions/rmarkdown_templates.html) website and the [Document Templates chapter](https://bookdown.org/yihui/rmarkdown/document-templates.html) of the R Markdown Definitive Guide [@rmarkdown2018]. 
 
