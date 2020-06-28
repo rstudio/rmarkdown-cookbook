@@ -453,7 +453,12 @@ RStudio PBC offers a number of services for publishing various types of content 
 
 ### Static website services
 
-In addition to R-specific services, you may host your HTML document on many freely available static website hosting services. These include:
+In a few words, a simple static website is composed of an `index.html` (the main page), any number of other HTML, JavaScript, CSS files, and additional content such as images. This collection of files can be hosted as-is on a web server and rendered in a browser. 
+
+When R Markdown is rendered to the HTML output format, the result may be treated as a static website.
+Websites can range in complexity from a single, standalone HTML file (which is what we get when we use the default `self_contained: true` option), a set of files, or a complex project like **blogdown** output (which relies upon a static website generator). See [Section 2.1](https://bookdown.org/yihui/blogdown/static-sites.html) in [@blogdown2017].
+
+As a result, in addition to R-specific services, you may host your HTML document on many freely available static website hosting services. Commonly used options in the R community are: 
 
 - [**GitHub Pages**](https://pages.github.com/) makes is particularly easy to publish markdown and HTML content straight from a GitHub repository. You may specify whether to host content from either the main branch's root, a `docs/` directory on the main branch, or a specific `gh-pages` branch. Publishing new content can be as simple as pushing new HTML files to your repository.
 
