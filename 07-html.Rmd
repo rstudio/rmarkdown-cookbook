@@ -447,7 +447,7 @@ RStudio PBC offers a number of services for publishing various types of content 
 
 - [**shinyapps.io**](https://www.shinyapps.io/) allows for hosting dynamic content which requires a server running R. For example, one can host interactive R Markdown documents which use the `runtime: shiny` option to include Shiny components. shinyapps.io is an analog to RPubs for Shiny applications. Apps and interactive R Markdowns can be published using the push-button in the RStudio IDE or the `rsconnect::deployApp()` function. See the user guide (https://docs.rstudio.com/shinyapps.io/index.html) for more details. 
 
-- [**bookdown.org**](https://bookdown.org/home/about/) offers free hosting specifically for books written with the **bookdown** package. You may easily publish static output files of your book using the `bookdown::publish_book()` function. This platform is based on RStudio PBC's enterprise RStudio Connect product (see below).
+- [**bookdown.org**](https://bookdown.org/home/about/) offers free hosting specifically for books written with the **bookdown** package. You may easily publish static output files of your book using the `bookdown::publish_book()` function.
 
 - [**RStudio Connect**](https://rstudio.com/products/connect/) is an enterprise product which organizations may run on their own servers. It can host a wide variety of content created in R (R Markdown documents, Shiny apps, APIs) in a secured environment with document-level access controls, viewership history, and more. Similar to the open-source RPubs and shinyapps.io offerings, content can be published to RStudio Connect using manual upload, the **rsconnect** package, or with Git-based deployment. 
 
