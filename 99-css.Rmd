@@ -13,6 +13,8 @@ This document assumes a basic knowledge of CSS concepts including selection by t
 
 ### Common CSS selectors
 
+This section described common tags, classes, and IDs you may find in a typical R Markdown document when rendered with the `rmarkdown::html_document()` function with default settings. This is intended to serve as a high-level reference and intuition builder, but exact structure may change depending on additional options you set. The following section will help you dig deeper and explore your own document beyond these "typical" results. 
+
 #### Headers
 
 With the default option `section_divs = TRUE` for `rmarkdown::html_document`, each header creates its own `<div>` which contains all contents up until the next header of the same level. Then, a section header such as `## My Header` creates the following:
@@ -40,18 +42,23 @@ The following markdown syntax creates new sections in the text.
 - Unordered lists made with `-` or `*` are wrapped in `<ul>` tags and individual elements are wrapped in `<li>` tags (list element)
 - Ordered lists made with `1.` are wrapped in `<ol>` tags and individual elements are wrapped in `<li>` tags (list element)
 - Markdown tables are made with `<table>` tags. Table rows are distinguished by `<tr>` tags and individual table data cells are separated by `<td>` tags.
-- Sections created by `:::` are fenced by `<div>` tags. These can be given a class. For example, `::: MyDiv` translates to `<div class = 'MyDiv'>` (If this is a new concept to you, please see Section \@ref(multi-column) for an example)
+- Sections created by `:::` are fenced by `<div>` tags. These can be given a class. For example, `::: MyDiv` translates to `<div class = 'MyDiv'>` (If this is a new concept to you, please see Sections \@ref(multi-column) and \@ref(custom-blocks) for examples)
 
 #### Code 
 
-R code chunks are wrapped in ``.
+R code chunk blocks are wrapped in `<pre>` tags with class `"r"`. The code itself is wrapped in `<code>` tags with class `"hljs"` (for highlight.js, the default syntax highlighter). Individual parts of code are wrapped in `<span>` tags with classes such as `"hljs-number"`, `"hljs-string"`, and `"hljs-keyword"`. For example, the following shows the HTML code representing an R code chunk containing the code `1+1`:
 
-Code output in wrapped i
+```html
+<pre class = "r">
+  <code class = "hljs">
+    <span class ="hljs-number">1</span>
+    "+"
+    <span class ="hljs-number">1</span>
+  </code>
+</pre>
+```
 
-Code chunk -> <pre class = 'r'><code class = 'hljs'> </code></pre>
-Code output -> <pre><code class = 'hljs'>  </code></pre> 
-mention hljs-number, hljs-string, hljs-keyword
-Warning -> <pre> <code class = 'hljs'>
+Console output such as numeric results, messages, warnings, and errors are similarly wrapped in `<pre>` and `<code>` tags.^[However, when the chunk option `results = 'asis'` is set, output is wrapped in `<p>` tags instead.] Other types of output are treated differently. For example, the next section describes how plot output is processed. 
 
 #### Figures
 
