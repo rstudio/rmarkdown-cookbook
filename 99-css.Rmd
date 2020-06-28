@@ -11,40 +11,15 @@ Section \@ref(html-css) explains that you may style your HTML output with custom
 
 This document assumes a basic knowledge of CSS concepts including selection by tag, class, or id. You may learn more about CSS in many free online tutorials such as https://www.w3schools.com/css/.
 
-### CSS basics
-
-
-
-At the simplest level, there are three typical ways to select document elements in CSS:
-
-- HTML tags: Give structure to the document. For example, headers made with `##` are wrapped in `
-
-tag
-. - class
-/# - id
-
-Cascading
-
-multiple items
-AND
-CHILD
-psuedoselectors
-  ::nth-child
-  ::nth-of-type
-  ::before
-  ::after
-
 ### Common CSS selectors
 
+#### Headers 
 
 Section made from Level 1 header with `# Some Name` -> <div>, classes = 'section level1', id = 'some-name'
 Level 1 header itself with `# Some Name` -> <h1> 
 Section with custom ID or class with # Part 1.3 {.a #b} -> <div id = 'b' class = 'section level1 a'>
 
-Code chunk -> <pre class = 'r'><code class = 'hljs'> </code></pre>
-Code output -> <pre><code class = 'hljs'>  </code></pre> 
-mention hljs-number, hljs-string, hljs-keyword
-Warning -> <pre> <code class = 'hljs'>
+#### Text
 
 Normal text -> <p>
 Bold text with **x** -> <strong>
@@ -55,11 +30,28 @@ Blockquote with `>` -> <blockquote>
 Strikethrough with `~` -> <p><strikethrough>
 Markdown table -> <table> with <tr> and <td>
 Arbitrary section made with ::: MyDiv -> <div class = 'MyDiv'>
-
 Link with `[]()` -> <a> 
-Image from `![]()` -> <img> wrapped in <div class = 'figure'>
-Image from `knitr::include_graphics()` -> <img> wrapped in <p> 
 
+#### Code 
+
+Code chunk -> <pre class = 'r'><code class = 'hljs'> </code></pre>
+Code output -> <pre><code class = 'hljs'>  </code></pre> 
+mention hljs-number, hljs-string, hljs-keyword
+Warning -> <pre> <code class = 'hljs'>
+
+#### Figures
+
+Images will have slightly different selectors depending on how they were included in R Markdown. 
+
+Images inserted with markdown code (`![]()`) create an `<img>` element that is a child of a `<div>` with class `figure`.
+
+Images inserted with R code (`knitr::include_graphics()`) create an `<img>` element that is a child of a `<p>` with no class. 
+
+Similarly, R code which creates plots create an `<img>` element that is a child of a `<p>` with no class.
+
+#### Combining selectors
+
+Note that these selectors are typically most powerful when many are used together. With CSS, you may specify relationships such as "all elements having both of two specific classes", "the n-th child of a given ID", etc. The more you learn about CSS, the richer your vocabulary will become to describe complex and nuanced relationships.
 
 ### Tools for exploring HTML output
 
