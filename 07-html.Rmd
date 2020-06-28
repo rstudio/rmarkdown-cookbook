@@ -457,11 +457,11 @@ RStudio PBC offers a number of services for publishing various types of content 
 
 In addition to R-specific services, you may host your HTML document on many freely available static website hosting services. These include:
 
-- [**GitHub Pages**](https://pages.github.com/) makes is particularly easy to publish HTML content straight from a GitHub repository. You may specify whether to host content from either your main branch's root, your main branch's `docs/` folder, or a specific `gh-pages` branch. You can publish new content simply by pushing new HTML files to your repository.
+- [**GitHub Pages**](https://pages.github.com/) makes is particularly easy to publish markdown and HTML content straight from a GitHub repository. You may specify whether to host content from either your main branch's root, your main branch's `docs/` folder, or a specific `gh-pages` branch. You can publish new content simply by pushing new HTML files to your repository.
 
 - [**GitLab Pages**](https://docs.gitlab.com/ee/user/project/pages/) offers similar functionality to GitHub Pages for GitLab repositories. 
 
-- [**Netlify**](https://www.netlify.com/) is a platform to build and deploy static website content. It is a popular choice for web content created by the **blogdown** and **pkgdown** packages, but it can host all types of Markdown and HTML content. Compared to GitHub Pages, it offers more advanced features such as deploy previews and compatability with all major static site generators (e.g. Hugo). The deployment process is just as easy as GitHub Pages with many different options including drag-and-drop, command line, or Git integration. See the Netlify documentation (https://docs.netlify.com/) or the RStudio webinar "Sharing on Short Notice" (https://rstudio.com/resources/webinars/sharing-on-short-notice-how-to-get-your-materials-online-with-r-markdown/) for more details. 
+- [**Netlify**](https://www.netlify.com/) is a platform to build and deploy static website content. It is a popular choice for web content created by the **blogdown** and **pkgdown** packages, but it can host all types of markdown and HTML files. Compared to GitHub Pages, it offers more advanced features such as deploy previews and compatability with all major static site generators (e.g. Hugo). The deployment process is just as easy as GitHub Pages and has many different options including drag-and-drop, command line, or Git integration. See the Netlify documentation (https://docs.netlify.com/) or the RStudio webinar "Sharing on Short Notice" (https://rstudio.com/resources/webinars/sharing-on-short-notice-how-to-get-your-materials-online-with-r-markdown/) for more details. 
 
 ### Advice
 
