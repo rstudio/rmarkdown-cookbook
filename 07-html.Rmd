@@ -401,19 +401,19 @@ document.querySelectorAll('pre:not([class])');
 
 The CSS selector `pre:not([class])` means all `<pre>` elements without the `class` attribute. You can also select other types of elements. For more about CSS selectors, see https://www.w3schools.com/css/css_selectors.asp. For more about the HTML tags `<details>` and `<summary>`, see https://www.w3schools.com/tags/tag_details.asp.
 
-## Add a custom browser icon
+## Add a custom browser icon {#favicon}
 
-Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output. 
+Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output.
 
-Favicons are the website logos that are displayed in your browser's address bar, tab title, history, and  bookmarks. For example, if you visit the Comprehensive R Archive Network website (https://cran.r-project.org/) in Google Chrome and look at the browser tab, you will see a small R logo. On mobile devices, favicons are also used in place of an app icon for websites that are pinned to the home screen. 
+Favicons are the website logos that are displayed in your browser's address bar, tab title, history, and bookmarks. For example, if you visit the CRAN website (https://cran.r-project.org) in Google Chrome, and look at the browser tab, you will see a small R logo. On mobile devices, favicons are also used in place of an App icon for websites that are pinned to the home screen.
 
-To add a favicon to your HTML document, add the following line of code to a custom header file (such as the file `header.html` mentioned in \@ref(include-html)):
+To add a favicon to your HTML document, add the following line of code to a custom header file (such as the file `header.html` mentioned in Section \@ref(include-html)):
 
 ```html
-<link rel="shortcut icon" href="{path to favicon file}">
+<link rel="shortcut icon" href="{path to favicon file}" />
 ```
 
-Recall that this file can be injected into the document `<head>` area using the YAML metadata.
+Recall that this file can be injected into the document `<head>` area using the YAML metadata:
 
 ```yaml
 output:
@@ -422,45 +422,39 @@ output:
       in_header: header.html
 ```
 
-The path you provide to `href` should assume the same relative path structure as you would use to reference any other asset (e.g. an image or data set). For the image itself, most small, square PNG files will work reasonably well Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better. 
+The path you provide to the `href` attribute in `<link>` should assume the same relative path structure as you would use to reference any other asset (e.g., an image or dataset). For the image itself, most small, square PNG files will work reasonably well. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better.
 
-If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net/ to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function to make a set of favicons out of R package logos. 
+If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function to make a set of favicons out of R package logos.
 
+## Sharing HTML output on the web {#html-share}
 
-## Sharing HTML content on the web
-
-One appealing aspect of rendering R Markdown content to HTML files is that it is very easy to host these files on the internet and share them just as one shares any other website. This section briefly summarizes numerous options for sharing the HTML documents which you create. 
+One appealing aspect of rendering R Markdown to HTML files is that it is very easy to host these files on the Internet and share them just as one shares any other website. This section briefly summarizes numerous options for sharing the HTML documents that you have created.
 
 ### R-specific services
 
-RStudio PBC offers a number of services for publishing various types of content created in R Markdown to the internet. These services make it particularly easy to publish content by using the RStudio IDE or the **rsconnect** package.
+RStudio offers a number of services for publishing various types of content created in R Markdown to the Internet. These services make it particularly easy to publish content by using the RStudio IDE or the **rsconnect** package.
 
-- [**RPubs**](https://rpubs.com/) enables free hosting of static single-file R Markdown content. It is easy to publish via the Publish button in the RStudio IDE or the `rsconnect::rpubsUpload()` function. Please see the "Getting Started" page (https://rpubs.com/about/getting-started) for more details.
+- [**RPubs**](https://rpubs.com) enables free hosting of static single-file R Markdown content. It is easy to publish via the `Publish` button in the RStudio IDE or the `rsconnect::rpubsUpload()` function. Please see the "Getting Started" page (https://rpubs.com/about/getting-started) for more details.
 
-- [**shinyapps.io**](https://www.shinyapps.io/) allows for hosting dynamic content which requires a server to run R. For example, one can host interactive R Markdown documents which include Shiny components.^[You may include Shiny components in an R Markdown document by setting the option `runtime: shiny` or `runtime: shinyprerendered` in the YAML metadata. You will no longer be able to render your document to an HTML document as before; instead, you run your document with `rmarkdown::run()`. To learn more, please refer to [Section 19 on Shiny Documents](https://bookdown.org/yihui/rmarkdown/shiny-documents.html) of the R Markdown Definitive Guide [@rmarkdown2018] and the documentation about `runtime: shiny_prerendered`.] shinyapps.io is an analog to RPubs for Shiny applications. Apps and interactive R Markdowns can be published using the push-button in the RStudio IDE or the `rsconnect::deployApp()` function. See the user guide (https://docs.rstudio.com/shinyapps.io/index.html) for more details. 
+- [**ShinyApps.io**](https://www.shinyapps.io) allows for hosting dynamic content that requires a server to run R. For example, one can host interactive R Markdown documents that include Shiny components.^[You may include Shiny components in an R Markdown document by setting the option `runtime: shiny` or `runtime: shiny_prerendered` in the YAML metadata. You will no longer be able to render your document to an HTML document as before; instead, you run your document with `rmarkdown::run()`. To learn more, please refer to @rmarkdown2018 (Chapter 19: https://bookdown.org/yihui/rmarkdown/shiny-documents.html).] ShinyApps.io is an analog to RPubs for Shiny applications. Apps and interactive R Markdown documents can be published using the push-button in the RStudio IDE or the `rsconnect::deployApp()` function. See the user guide (https://docs.rstudio.com/shinyapps.io/) for more details.
 
 - [**bookdown.org**](https://bookdown.org/home/about/) offers free hosting specifically for books written with the **bookdown** package. You may easily publish static output files of your book using the `bookdown::publish_book()` function.
 
-- [**RStudio Connect**](https://rstudio.com/products/connect/) is an enterprise product which organizations may run on their own servers. It can host a wide variety of content created in R (R Markdown documents, Shiny apps, APIs) in a secured environment with document-level access controls, viewership history, and more. Similar to the open-source RPubs and shinyapps.io offerings, content can be published to RStudio Connect using manual upload, the **rsconnect** package, or with Git-based deployment. 
+- [**RStudio Connect**](https://rstudio.com/products/connect/) is an enterprise product that organizations may run on their own servers. It can host a wide variety of content created in R (such as R Markdown documents, Shiny apps, and APIs) in a secured environment with document-level access controls, viewership history, and more. Content can be published to RStudio Connect using manual upload, the **rsconnect** package, or with GIT-based deployment.
 
 ### Static website services
 
-In a few words, a simple static website is composed of an `index.html` (the main page), any number of other HTML, JavaScript, CSS files, and additional content such as images. This collection of files can be hosted as-is on a web server and rendered in a browser. 
+In a few words, a simple static website is composed of any number of HTML files (typically containing an `index.html`, which is the homepage), JavaScript, CSS files, and additional content such as images. This collection of files can be hosted as-is on a web server and rendered in a web browser.
 
-When R Markdown is rendered to the HTML output format, the result may be treated as a static website.
-Websites can range in complexity from a single, standalone HTML file (which is what we get when we use the default `self_contained: true` option), a set of files, or a complex project like **blogdown** output (which relies upon a static website generator). For more details, see [Section 2.1 on Static Sites](https://bookdown.org/yihui/blogdown/static-sites.html) of the **blogdown** book [@blogdown2017].
+When R Markdown is rendered to the HTML output format, the result may be treated as a static website. Websites can range in complexity from a single, standalone HTML file (which is what we get when we use the default `self_contained: true` option), a set of files, or a sophisticated project like a website based on **blogdown** (which relies upon a static website generator). For more details, see [Section 2.1 on Static Sites](https://bookdown.org/yihui/blogdown/static-sites.html) of the **blogdown** book [@blogdown2017].
 
 As a result, in addition to R-specific services, you may host your HTML document on many freely available static website hosting services. Commonly used options in the R community are: 
 
-- [**GitHub Pages**](https://pages.github.com/) makes is particularly easy to publish markdown and HTML content straight from a GitHub repository. You may specify whether to host content from either the main branch's root, a `docs/` directory on the main branch, or a specific `gh-pages` branch. Publishing new content can be as simple as pushing new HTML files to your repository.
+- [**GitHub Pages**](https://pages.github.com) makes is particularly easy to publish Markdown and HTML content straight from a GitHub repository. You may specify whether to host content from either the main branch's root, a `docs/` directory on the main branch, or a specific `gh-pages` branch. Publishing new content can be as simple as pushing new HTML files to your repository via GIT.
 
 - [**GitLab Pages**](https://docs.gitlab.com/ce/user/project/pages/) offers similar functionality to GitHub Pages for GitLab repositories. GitLab deploys content stores in the `public/` directory of a repository. To build and publish content, you must provide a YAML file, `.gitlab-ci.yml` with instructions, but GitLab provides many helpful templates. For an example of hosting rendered HTML content, please see https://gitlab.com/pages/plain-html/-/tree/master. 
 
-- [**Netlify**](https://www.netlify.com/) is a platform to build and deploy static website content. It is a popular choice for web content created by the **blogdown** and **pkgdown** packages, but it can host all types of markdown and HTML files. There are many different publishing options including including drag-and-drop, command line, or automated publishing from GitHub and GitLab repositories. Additionally, Netlify offers many helpful features such as website previews in pull requests. See the Netlify documentation (https://docs.netlify.com/) or the RStudio webinar "Sharing on Short Notice" (https://rstudio.com/resources/webinars/sharing-on-short-notice-how-to-get-your-materials-online-with-r-markdown/) for more details. 
-
-### Advice
-
-While all of the above options are good choices for sharing your work, there are numerous reasons to favor Netlify. It is a flexible option which is compatible with a wide variety of tools. It also allows you to have a portable workflow if you later decide to change services. These benefits are described in more detail on Yihui's blog (https://yihui.org/en/2017/06/netlify-instead-of-github-pages/) and the ["Deployment" chapter](https://bookdown.org/yihui/blogdown/deployment.html) of the **blogdown** book [@blogdown2017].
+- [**Netlify**](https://www.netlify.com) is a platform to build and deploy static website content. It is a popular choice for web content created by the **blogdown** and **pkgdown** packages, but it can host all kinds of HTML files. There are many different publishing options including drag-and-drop, command line, or automated publishing from GitHub and GitLab repositories. Additionally, Netlify offers many helpful features such as website previews in pull requests. See the Netlify documentation (https://docs.netlify.com) or the RStudio webinar ["Sharing on Short Notice"](https://rstudio.com/resources/webinars/sharing-on-short-notice-how-to-get-your-materials-online-with-r-markdown/) for more details.
 
 ## For hardcore HTML users {#html-hardcore}
 
