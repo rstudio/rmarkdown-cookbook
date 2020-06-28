@@ -1,0 +1,53 @@
+<!--
+TODOs:
+- Where this should live? I started with ## header because I assume it will not be stand-alone.
+- Should anything I mention in terms of the Developer Tools, etc have a screenshot?
+.-->
+
+## CSS tips for R Markdown
+
+Section \@ref(html-css) explains that you may style your HTML output with custom CSS code. To do this effectively, it is important to understand a bit more about CSS and how various R Markdown elements translate to CSS selectors. This section provides a set of CSS tips that are commonly useful for R Markdown authors. 
+
+### CSS Basics
+
+multiple items
+tag
+. - class
+/# - id
+AND
+CHILD
+psuedoselectors
+  ::nth-child
+  ::nth-of-type
+  ::before
+  ::after
+
+You may learn more about CSS in many free online tutorials such as https://www.w3schools.com/css/.
+
+### C is for cascading
+
+
+
+### Common CSS selectors
+
+### Tools for exploring HTML output
+
+For more customization, you may have to do more research to find the right CSS selectors to describe what you want to do. Luckily, there are many tools to help you explore your HTML output efficiently. 
+
+**Exploring Raw HTML**: First, an HTML file is a simple text document. In theory, you could open this file in any text editor and search through it. However, this is not the recommended approach. HTML output from R Markdown has a lot of text unrelated to the core, visible content of your document. This is particularly true when the document is self-contained (using the default option of `self_contained: true`) because all dependencies (e.g. images) are encoded within the document. This text makes understanding document structure much more challenging than necessary. Additionally, if you accidentally delete or modify raw HTML code it may be hard to repair. 
+
+**Developer Tools**: Most major web browsers offer developer tools which help to navigate the sourcecode of any website or HTML document. Google Chrome's Elements Panel (https://developers.google.com/web/tools/chrome-devtools#elements) and Mozilla Firefox's Page Inspector (https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector) are two examples. Using such interfaces, you may hover over either the code or the output to see relevant section of the other, and you can easily extract tags, classes, and IDs of each component. Such tools also make it easy to see what CSS is currently being applied to a given HTML element which may be useful when debugging CSS code which is not being applied correctly.
+
+**Selector Gadget**: Similar to developer tools, the Selector Gadget browser add-in (https://selectorgadget.com/) is an open-source tool which allows you to determine appropriate CSS selectors for elements of an HTML document by hovering over them. Additionally, it shows which other items on the page are represented by the same set of selectors to help you understand everywhere your new style would be applied.
+
+**Experimentation**: Finally, do not be afraid to experiment. It can sometimes be helpful to temporarily add style to items to help confirm or deny your understanding of the document structure. As a trivial example, the following CSS code draws brightly colored boxes around output at different levels of nesting. This could be useful to check visually review which items are parents, siblings, or children of others.
+
+```css
+* * * * * { border: 3px solid red}
+* * * * * * { border: 3px solid orange}
+* * * * * * * { border: 3px solid yellow}
+* * * * * * * * { border: 3px solid green}
+* * * * * * * * * { border: 3px solid blue}
+* * * * * * * * * * { border: 3px solid purple}
+* * * * * * * * * * * { border: 3px solid pink}
+```
