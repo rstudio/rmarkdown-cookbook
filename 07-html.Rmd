@@ -463,5 +463,5 @@ In addition to R-specific services, you may host your HTML document on many free
 
 ### Advice
 
-While all of the above options are good choices for sharing your work, there are numerous reasons to favor Netlify as a flexible option which makes accessible a wide variety of tools and has minimal lock-in risk. These benefits are described in more detail on Yihui's blog (https://yihui.org/en/2017/06/netlify-instead-of-github-pages/) and the ["Deployment" chapter](https://bookdown.org/yihui/blogdown/deployment.html) of the **blogdown** book [@blogdown2017].
+While all of the above options are good choices for sharing your work, there are numerous reasons to favor Netlify. It is a flexible option which is compatible with a wide variety of tools. It also allows you to have a portable workflow if you later decide to change services. These benefits are described in more detail on Yihui's blog (https://yihui.org/en/2017/06/netlify-instead-of-github-pages/) and the ["Deployment" chapter](https://bookdown.org/yihui/blogdown/deployment.html) of the **blogdown** book [@blogdown2017].
 
