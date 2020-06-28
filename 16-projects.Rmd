@@ -296,7 +296,7 @@ name: Example Template
 description: What this template does
 ```
 
-You may include is `create_dir: true` if you want a new directory to be created when the template is selected. This is useful if your template relies upon additional resources. For example, the **learnr** [package template](https://github.com/rstudio/learnr/blob/master/inst/rmarkdown/templates/tutorial/template.yaml) sets `create_dir: true` whereas the **flexdashboard** [package template](https://github.com/rstudio/flexdashboard/blob/master/inst/rmarkdown/templates/flex_dashboard/template.yaml) uses the default `create_dir: false`. You may attempt to open both of these templates in RStudio to notice the differet user prompts.
+You may include `create_dir: true` if you want a new directory to be created when the template is selected. This is useful if your template relies upon additional resources. For example, the **learnr** [package template](https://github.com/rstudio/learnr/blob/master/inst/rmarkdown/templates/tutorial/template.yaml) sets `create_dir: true` whereas the **flexdashboard** [package template](https://github.com/rstudio/flexdashboard/blob/master/inst/rmarkdown/templates/flex_dashboard/template.yaml) uses the default `create_dir: false`. You may attempt to open both of these templates in RStudio to notice the different user prompts.
 
 2. An R Markdown document saved under `skeleton/skeleton.Rmd`. This may contain anything you wish to put in an R Markdown document. 
 
