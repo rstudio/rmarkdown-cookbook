@@ -430,9 +430,7 @@ output:
       in_header: header.html
 ```
 
-If you are making a self-contained R Markdown document (the default for the `html_document` format), the path you provide to `href` should assume the same relative path structure as you would use to reference any other asset (e.g. an image or data set). 
-
-Most small, square PNG files will work reasonably well as a favicon. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better. 
+The path you provide to `href` should assume the same relative path structure as you would use to reference any other asset (e.g. an image or data set). For the image itself, most small, square PNG files will work reasonably well Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better. 
 
 If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net/ to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function to make a set of favicons out of R package logos. 
 
