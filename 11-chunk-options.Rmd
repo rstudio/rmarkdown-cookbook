@@ -553,47 +553,22 @@ if (TRUE) {
 The third example is about how to automatically add line numbers to any output blocks, including source code blocks, text output, messages, warnings, and errors. We have mentioned in Section \@ref(number-lines) how to use chunk options such as `attr.source` and `attr.output` to add line numbers. Here we want to use a single chunk option (`numberLines` in this example) to control the blocks to which we want to add line numbers.
 
 ```{r, eval=FALSE, tidy=FALSE}
-# a function to generate option hooks
-numberLines <- function(code = c(
-  "source", "output", "message", "warning", "error"
-)) {
-  .code <- match.arg(code)
-  .attr <- paste0("attr.", code)
-
-  function(options) {
-    if (.code %in% options$numberLines) {
-      options[[.attr]] <- c(
-        options[[.attr]], ".numberLines"
-      )
-    }
+knitr::opts_hooks$set(
+  numberLines = function(options) {
+    attrs <- paste0("attr.", options$numberLines)
+    options[attrs] <- lapply(options[attrs], c, ".numberLines")
     options
   }
-}
-
-# set option hooks
-knitr::opts_hooks$set(
-  attr.source = numberLines("source"),
-  attr.output = numberLines("output"),
-  attr.message = numberLines("message"),
-  attr.warning = numberLines("warning"),
-  attr.error = numberLines("error")
 )
 
-# automatically run hooks by setting attr.* to empty
-# string (or any value but `NULL`)
 knitr::opts_chunk$set(
-  attr.source = "",
-  attr.output = "",
-  attr.message = "",
-  attr.warning = "",
-  attr.error = "",
   numberLines = c(
     "source", "output", "message", "warning", "error"
   )
 )
 ```
 
-Basically, the option hooks append the attribute `.numberLines` to output blocks, and the chunk options set via `opts_chunk$set()` make sure that these options hooks will be executed.
+Basically, the option hook `numberLines` appends the attribute `.numberLines` to output blocks, and the chunk option `numberLines` set via `opts_chunk$set()` makes sure that the option hook will be executed.
 
 With the above setup, you can use the chunk option `numberLines` on a code chunk to decide which of its output blocks will have line numbers, e.g., `numberLines = c('source', 'output')`. Specifying `numberLines = NULL` removes line numbers completely.
 
