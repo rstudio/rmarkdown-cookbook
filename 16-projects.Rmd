@@ -265,7 +265,7 @@ Note that you need to change the vignette title in both the `title` field and th
 
 The vignette output format does not have to be HTML. It can also be PDF, so you can use `output: pdf_document`, too. Any other output formats that create HTML or PDF are also okay, such as `beamer_presentation` and `tufte::tufte_html`. However, currently R only recognizes HTML and PDF vignettes.
 
-## R Markdown templates
+## R Markdown templates in R packages {#package-template}
 
 Figure \@ref(fig:package-vignette) of section \@ref(package-vignette) illustrates the process of retrieving the editable "Package Vignette (HTML)" template from the **rmarkdown** package. This R Markdown file is pre-populated with the appropriate metadata for an R package vignette. 
 
