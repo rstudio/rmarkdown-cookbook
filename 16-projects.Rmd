@@ -281,7 +281,7 @@ Other templates demonstrate required document structure. For example, the **page
 
 Templates may also demonstrate package features and syntax. For example, the **flexdashboard** package and the **learnr** package both include templates with code chunks that call functions from the packages to create a sample dashboard or tutorial, respectively. 
 
-Similarly, templates may also include boilerplate content. For example, the **rticles** package provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals. Boilerplate content is also useful in in organizational settings, such as a team generating a quarterly reports. One example of,    
+Similarly, templates may also include boilerplate content. For example, the **rticles** package provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals. Boilerplate content is also useful in in organizational settings, such as a team generating a quarterly reports. 
 
 ### Template set-up
 
