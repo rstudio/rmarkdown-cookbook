@@ -31,7 +31,7 @@ The following markdown syntax translates to HTML tags within the text.
 - Text made bold by `**` is wrapped in `<strong>` tags
 - Text italicized by `*` is wrapped in `<em>` tags
 - In-line code formatting with backticks is wrapped in `<code>` tags
-- Strikethrough made with `~` is wrapped in `<strikethrough>` tags
+- Strike-through made with `~` is wrapped in `<strikethrough>` tags
 - Links made with `[]()` are created with `<a>` tags
 
 The following markdown syntax creates new sections in the text. 
