@@ -57,7 +57,7 @@ colorize = function(x, color){
 
 We can then use the code in an inline R expression `` `r knitr::inline_expr('colorize("some words in red", "red")')` ``, which will create `r colorize("some words in red", "red")` (you will not see the red color if you are reading this book printed in black and white).
 
-### Using a Pandoc Lua filter {#lua-color}
+### Using a Pandoc Lua filter (*) {#lua-color}
 
 This method may be a little advanced for R users because it involves another programming language, Lua, but it is extremely powerful---you can programmatically modify Markdown elements via Pandoc's Lua filters (see Section \@ref(lua-filters)). Below is a full example:
 
@@ -199,7 +199,7 @@ We used the width `50%` in the above examples, which means half of the width of 
 
 The chunk option `fig.align` specifies the alignment of figures. For example, you can center images with `fig.align = 'center'`, or right-align images with `fig.align = 'right'`. This option works for both HTML and LaTeX output, but may not work for other output formats (such as Word, unfortunately). It works for both plots drawn from R code chunks and external images included via `knitr::include_graphics()`.
 
-## Line numbers for code blocks {#number-lines}
+## Line numbers for code blocks (*) {#number-lines}
 
 You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"`, e.g.,
 
@@ -313,7 +313,7 @@ This will show a verbatim inline R expression
 
 I'd recommend the second way, because the first way is more or less a hack taking advantage of the Markdown syntax and **knitr**'s parser.
 
-## Multi-column layout {#multi-column}
+## Multi-column layout (*) {#multi-column}
 
 Pandoc's Markdown supports the multi-column layout for slides but not other types of documents. In this recipe, we show how to use the multi-column layout in normal HTML documents and LaTeX documents. This recipe was inspired by Atsushi Yasumoto's solutions to the **knitr** issue https://github.com/yihui/knitr/issues/1743.
 
