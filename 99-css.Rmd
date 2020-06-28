@@ -7,9 +7,17 @@ TODOs:
 
 ## CSS tips for R Markdown
 
-Section \@ref(html-css) explains that you may style your HTML output with custom CSS code. To do this effectively, it is important to understand a bit more about CSS and how various R Markdown elements translate to CSS selectors. This section provides a set of CSS tips that are commonly useful for R Markdown authors. 
+Section \@ref(html-css) explains that you may style your HTML output with custom CSS code. To do this effectively, it is helpful to know how common R Markdown elements can be selected by CSS. This section documents some frequently occuring properties and recommends tools for exploring and identifying more complex elements on your own. 
+
+This document assumes a basic knowledge of CSS concepts including selection by tag, class, or id. You may learn more about CSS in many free online tutorials such as https://www.w3schools.com/css/.
 
 ### CSS basics
+
+
+
+At the simplest level, there are three typical ways to select document elements in CSS:
+
+- HTML tags: Give structure to the document. For example, headers made with `##` are wrapped in `
 
 tag
 . - class
@@ -25,8 +33,6 @@ psuedoselectors
   ::nth-of-type
   ::before
   ::after
-
-You may learn more about CSS in many free online tutorials such as https://www.w3schools.com/css/.
 
 ### Common CSS selectors
 
@@ -65,7 +71,7 @@ For more customization, you may have to do more research to find the right CSS s
 
 **Selector Gadget**: Similar to developer tools, the Selector Gadget browser add-in (https://selectorgadget.com/) is an open-source tool which allows you to determine appropriate CSS selectors for elements of an HTML document by hovering over them. Additionally, it shows which other items on the page are represented by the same set of selectors to help you understand everywhere your new style would be applied.
 
-**Experimentation**: Finally, do not be afraid to experiment. It can sometimes be helpful to temporarily add style to items to help confirm or deny your understanding of the document structure. As a trivial example, the following CSS code draws brightly colored boxes around output at different levels of nesting. This could be useful to check visually review which items are parents, siblings, or children of others.
+**Experimentation**: Finally, do not be afraid to experiment. It can sometimes be helpful to temporarily add style to items to help confirm or deny your understanding of the document structure. As a trivial example, the following CSS code draws brightly colored boxes around output at different levels of nesting. This could be useful to check visually review parent and child relationships between elements or notice invisible levels of nesting. 
 
 ```css
 * * * * * { border: 3px solid red}
@@ -76,3 +82,5 @@ For more customization, you may have to do more research to find the right CSS s
 * * * * * * * * * * { border: 3px solid purple}
 * * * * * * * * * * * { border: 3px solid pink}
 ```
+
+
