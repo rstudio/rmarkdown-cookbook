@@ -401,14 +401,6 @@ document.querySelectorAll('pre:not([class])');
 
 The CSS selector `pre:not([class])` means all `<pre>` elements without the `class` attribute. You can also select other types of elements. For more about CSS selectors, see https://www.w3schools.com/css/css_selectors.asp. For more about the HTML tags `<details>` and `<summary>`, see https://www.w3schools.com/tags/tag_details.asp.
 
-## For hardcore HTML users {#html-hardcore}
-
-In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.
-
-In an `Rhtml` document, code chunks are embedded between `<!--begin.rcode` and `end.rcode-->`, and inline R expressions are embedded in `<!--rinline -->`. Below is a full `Rhtml` example. You can save it to a file named `test.Rhtml`, and use `knitr::knit("test.Rhtml")` to compile it. The output will be an HTML (`.html`) file. In RStudio, you can also hit the `Knit` button on the toolbar to compile the document.
-
-`r import_example('knitr.Rhtml')`
-
 ## Add a custom browser icon
 
 Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output. 
@@ -470,3 +462,10 @@ As a result, in addition to R-specific services, you may host your HTML document
 
 While all of the above options are good choices for sharing your work, there are numerous reasons to favor Netlify. It is a flexible option which is compatible with a wide variety of tools. It also allows you to have a portable workflow if you later decide to change services. These benefits are described in more detail on Yihui's blog (https://yihui.org/en/2017/06/netlify-instead-of-github-pages/) and the ["Deployment" chapter](https://bookdown.org/yihui/blogdown/deployment.html) of the **blogdown** book [@blogdown2017].
 
+## For hardcore HTML users {#html-hardcore}
+
+In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.
+
+In an `Rhtml` document, code chunks are embedded between `<!--begin.rcode` and `end.rcode-->`, and inline R expressions are embedded in `<!--rinline -->`. Below is a full `Rhtml` example. You can save it to a file named `test.Rhtml`, and use `knitr::knit("test.Rhtml")` to compile it. The output will be an HTML (`.html`) file. In RStudio, you can also hit the `Knit` button on the toolbar to compile the document.
+
+`r import_example('knitr.Rhtml')`
