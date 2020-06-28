@@ -13,11 +13,15 @@ This document assumes a basic knowledge of CSS concepts including selection by t
 
 ### Common CSS selectors
 
-#### Headers 
+#### Headers
 
-Section made from Level 1 header with `# Some Name` -> <div>, classes = 'section level1', id = 'some-name'
-Level 1 header itself with `# Some Name` -> <h1> 
-Section with custom ID or class with # Part 1.3 {.a #b} -> <div id = 'b' class = 'section level1 a'>
+With the default option `section_divs = TRUE` for `rmarkdown::html_document`, each header creates its own `<div>` which contains all contents up until the next header of the same level. Then, a section header such as `## My Header` creates the following:
+
+- The header text and following content is wrapped in a `<div>` with classes `'section'` and `'level2'` (or the appropriate level for the number of `#` in the markdown header). This div has an ID using the "kebab-case" version (lower case with "-" replacing spaces) version of the header text (e.g. `"my-header"`)
+- If the header text has a custom class (e.g. `## My Header {.my-class}`), this class is added to the div's classes
+- If the header text has a custom ID (e.g. `## My Header {#my-id`), this ID supplants the default ID
+
+When `section_divs = FALSE`, section divs are not created, so the content following a header is at the same level as the header. In this case, the header tags themselves (`<h1>`, `<h2>`, etc.) are given IDs based on the kebab-case name. For example, `## My Header` converts to `<h2 id = "my-header"> My Header </h2>`.
 
 #### Text
 
@@ -33,6 +37,10 @@ Arbitrary section made with ::: MyDiv -> <div class = 'MyDiv'>
 Link with `[]()` -> <a> 
 
 #### Code 
+
+R code chunks are wrapped in ``.
+
+Code output in wrapped i
 
 Code chunk -> <pre class = 'r'><code class = 'hljs'> </code></pre>
 Code output -> <pre><code class = 'hljs'>  </code></pre> 
