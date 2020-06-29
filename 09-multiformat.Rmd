@@ -90,6 +90,19 @@ Most chunk options related to figures also work for `knitr::include_url()`, such
 
 If you have published a Shiny app publicly on a server, you can use `knitr::include_app()` to include it, which works in the same way as `include_url()`. [Section 2.11](https://bookdown.org/yihui/bookdown/web-pages-and-shiny-apps.html) of the **bookdown** book [@bookdown2016] contains more details about `include_app()` and `include_url()`.
 
+## Multiple figures side-by-side {#figures-side}
+
+You can place multiple figures side-by-side using the `fig.show="hold"` along with the `out.width` option. In the example below, we have set `out.width="50%"` (see Figure \@ref(fig:figures-side) for the output):
+
+`r import_example('figures-side.Rmd')`
+
+```{r, child='examples/figures-side.Rmd', echo=FALSE, fig.dim=c(5, 4), fig.cap="Side-by-side figures."}
+```
+
+This simple approach works for both PDF and HTML output.
+
+If you want to use sub-figures when there are multiple plots in a figure, you may see Section \@ref(latex-subfigure), but please note that sub-figures are only supported in LaTeX output.
+
 ## Write raw content (*) {#raw-content}
 
 The technique introduced in Section \@ref(raw-latex) is actually a general technique. You can protect any complex raw content in Markdown by specifying the content as "raw". For example, if you want to write raw HTML content, you can use the attribute `=html`:
@@ -115,19 +128,6 @@ knitr:::pandoc_to()
 ````
 
 Please note that raw content is only visible to a specific output format. For example, raw LaTeX content will be ignored when the output format is HTML.
-
-## Multiple figures side-by-side {#figures-side}
-
-You can place multiple figures side-by-side using the `fig.show="hold"` along with the `out.width` option. In the example below, we have set `out.width="50%"` (see Figure \@ref(fig:figures-side) for the output):
-
-`r import_example('figures-side.Rmd')`
-
-```{r, child='examples/figures-side.Rmd', echo=FALSE, fig.dim=c(5, 4), fig.cap="Side-by-side figures."}
-```
-
-This simple approach works for both PDF and HTML output.
-
-If you want to use sub-figures when there are multiple plots in a figure, you may see Section \@ref(latex-subfigure), but please note that sub-figures are only supported in LaTeX output.
 
 ## Custom blocks (*) {#custom-blocks}
 <!-- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown -->
