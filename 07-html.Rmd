@@ -46,7 +46,7 @@ h1, h2, h3 {
 
 Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
 
-## Use a custom HTML template {#html-template}
+## Use a custom HTML template (*) {#html-template}
 
 We mentioned LaTeX templates in Section \@ref(latex-template). You can also specify a custom HTML template for Pandoc to convert Markdown to HTML. Below is a brief example template:
 
@@ -148,7 +148,7 @@ You can apply multiple classes to the code blocks. For example, with `class.sour
 
 If you want to decorate individual elements in code blocks instead of the whole blocks, you may consider using the **flair** package: https://github.com/kbodwin/flair. With this package, you can highlight different parts of your code (such as fixed strings, function names, and arguments) with custom styles (e.g., color, font size, and/or font weight).
 
-## Scrollable code blocks {#html-scroll}
+## Scrollable code blocks (*) {#html-scroll}
 
 When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights, otherwise the page may look overwhelmingly lengthy, which will make it difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format, which will fold code blocks in the output and readers can unfold them by clicking a button.
 
@@ -297,7 +297,7 @@ For multiple files, they are first compressed to a zip file, and the zip file wi
 
 You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package (https://github.com/fmmattioni/downloadthis) has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
 
-## Include the content of an existing HTML file {#include-html}
+## Include the content of an existing HTML file (*) {#include-html}
 
 With the `includes` option of the `html_document` format (or any other formats that support this option), you can include the content of an existing HTML file into the HTML output document in three possible places: the `<head>` area, the beginning of `<body>`, and the end of `</body>`.
 
