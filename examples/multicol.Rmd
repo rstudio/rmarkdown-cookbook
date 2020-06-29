@@ -2,8 +2,11 @@
 output:
   html_document: 
     css: columns.css
-  beamer_presentation: default
   pdf_document: 
+    keep_tex: true
+    includes:
+      in_header: columns.tex
+  beamer_presentation: 
     keep_tex: true
     includes:
       in_header: columns.tex
@@ -15,22 +18,22 @@ Below is a Div containing three child Divs side by side. The Div
 in the middle is empty, just to add more space between the left
 and right Divs.
 
-:::::: {.columns}
+:::::: {.cols data-latex=""}
 
-::: {.column width="55%" data-latex="{0.55\textwidth}"}
+::: {.col data-latex="{0.55\textwidth}"}
 ```{r, echo=FALSE, fig.width=5, fig.height=4}
 par(mar = c(4, 4, .2, .1))
 plot(cars, pch = 19)
 ```
 :::
 
-::: {.column width="5%" data-latex="{0.05\textwidth}"}
+::: {.col data-latex="{0.05\textwidth}"}
 \ 
 <!-- an empty Div (with a white space), serving as
 a column separator -->
 :::
 
-::: {.column width="40%" data-latex="{0.4\textwidth}"}
+::: {.col data-latex="{0.4\textwidth}"}
 The figure on the left-hand side shows the `cars` data.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

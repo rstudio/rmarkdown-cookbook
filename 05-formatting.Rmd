@@ -4,7 +4,7 @@ The greatest strength of the Markdown language is that its simplicity makes it v
 
 > A Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions.
 >
-> ::: {.flushright}
+> ::: {.flushright data-latex=""}
 > --- [John Gruber](http://daringfireball.net/projects/markdown/syntax#philosophy)
 > :::
 
@@ -332,7 +332,7 @@ output: html_document
 
 The CSS attribute `display: inline-block;` means the output code blocks (i.e., the `<pre>` tags in HTML) should be displayed as inline elements. By default, these blocks are displayed as block-level elements (i.e., `display: block;`) and will occupy whole rows. The chunk option `collapse = TRUE` means the text output will be merged into the R source code block, so both the source and its text output will be placed in the same `<pre>` block.
 
-If you want to arrange arbitrary content side by side in HTML output, you can use Pandoc's [fenced `Div`](https://pandoc.org/MANUAL.html#divs-and-spans). The name "Div" comes from the HTML tag `<div>`, but you can interpret it as an arbitrary block or container. A `Div` starts and ends with three or more colons (e.g., `:::`). A `Div` with more colons can contain `Div`s with fewer colons. An important and useful feature of the fenced `Div` is that you can attach attributes to it. For example, you can apply the CSS attribute `display: flex;` to an outside container, so that the inside containers will be placed side by side:
+If you want to arrange arbitrary content side by side in HTML output, you can use Pandoc's [fenced `Div`.](https://pandoc.org/MANUAL.html#divs-and-spans) The name "Div" comes from the HTML tag `<div>`, but you can interpret it as an arbitrary block or container. A `Div` starts and ends with three or more colons (e.g., `:::`). A `Div` with more colons can contain `Div`s with fewer colons. An important and useful feature of the fenced `Div` is that you can attach attributes to it. For example, you can apply the CSS attribute `display: flex;` to an outside container, so that the inside containers will be placed side by side:
 
 `r import_example('multicol-html.Rmd')`
 
@@ -346,14 +346,16 @@ It is trickier if you want the layout to work for both HTML and LaTeX output. We
 knitr::include_graphics('images/multicol.png', dpi = NA)
 ```
 
-Figure \@ref(fig:multicol) shows the output. In this example, we used an outside `Div` with the class `.columns` and three inside `Div`s with the class `.column`. For HTML output, we introduced an external CSS file `columns.css`, in which we applied the Flexbox layout to the outside `Div` so the inside `Div`s can be placed side by side:
+Figure \@ref(fig:multicol) shows the output. In this example, we used an outside `Div` with the class `.cols` and three inside `Div`s with the class `.col`. For HTML output, we introduced an external CSS file `columns.css`, in which we applied the Flexbox layout to the outside `Div` so the inside `Div`s can be placed side by side:
 
 `r import_example('columns.css')`
 
-For Beamer output, there is nothing we need to do, because the LaTeX class `beamer.cls` has defined environments `columns` and `column`. They will just work.
-
-For LaTeX output (`pdf_document`), we have to introduce some dirty hacks stored in `columns.tex` to the LaTeX preamble to define the LaTeX environments `columns` and `column`:
+For LaTeX output (`pdf_document`), we have to introduce some dirty hacks stored in `columns.tex` to the LaTeX preamble to define the LaTeX environments `cols` and `col`:
 
 `r import_example('columns.tex')`
 
-The `column` environment is particularly complicated mainly because Pandoc starts a new paragraph for each `Div` in LaTeX output, and we have to remove these new paragraphs, otherwise the `Div`s cannot be placed side by side. The hacks were borrowed from https://tex.stackexchange.com/q/179016/9128.
+The `col` environment is particularly complicated mainly because Pandoc starts a new paragraph for each `Div` in LaTeX output, and we have to remove these new paragraphs, otherwise the `Div`s cannot be placed side by side. The hacks were borrowed from https://tex.stackexchange.com/q/179016/9128.
+
+For Beamer output, we apply the same hacks in `columns.tex`. Please note that Pandoc has provided some special `Div`'s for [slide shows,](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc) such as `::: {.columns}`, `::: {.column}`, and `::: {.incremental}`. They have their special meanings. You have to be careful _not_ to use these types of `Div`'s if you intend to convert a `Div` to a LaTeX environment in the way mentioned in this section. That is why we did not use the `Div` types `columns` or `column`, but chose to use `cols` and `col` instead.
+
+For more information about fenced `Div`'s, please refer to Section \@ref(custom-blocks).

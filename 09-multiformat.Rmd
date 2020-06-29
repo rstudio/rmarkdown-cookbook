@@ -162,7 +162,7 @@ will be converted to the HTML code below:
 </div>
 ```
 
-For LaTeX output, the first class name will be used as the LaTeX environment name, and you can provide an optional attribute named `data-latex` in the `Div` block, which will be the arguments of the environment. This attribute can be either missing or an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
+For LaTeX output, the first class name will be used as the LaTeX environment name, and you should provide an attribute named `data-latex` in the `Div` block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
 
 ````md
 ::: {.verbatim data-latex=""}
@@ -223,7 +223,7 @@ output:
 ---
 ```
 
-Next we will demonstrate a few more advanced custom blocks that use custom CSS rules and LaTeX environments.
+Next we will demonstrate a few more advanced custom blocks that use custom CSS rules and LaTeX environments. You may find an additional example in Section \@ref(multi-column), in which we arranged multiple blocks in a multi-column layout.
 
 ### Adding a shaded box {#block-shaded}
 

@@ -512,7 +512,7 @@ So would I, unbroken,
 Change my sorrow  
 　Into song.
 >
-> ::: {.flushright}
+> ::: {.flushright data-latex=""}
 > --- Sara Teasdale
 > :::
 
