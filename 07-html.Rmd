@@ -46,71 +46,6 @@ h1, h2, h3 {
 
 Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
 
-## Use a custom HTML template (*) {#html-template}
-
-We mentioned LaTeX templates in Section \@ref(latex-template). You can also specify a custom HTML template for Pandoc to convert Markdown to HTML. Below is a brief example template:
-
-```html
-<html>
-  <head>
-    <title>$title$</title>
-    $for(css)$
-    <link rel="stylesheet" href="$css$" type="text/css" />
-    $endfor$
-  </head>
-  <body>
-  $body$
-  </body>
-</html>
-```
-
-You can see that the template contains a few variables such as `$title$` and `$body$`. You can find the full list of Pandoc variables and their meanings at https://pandoc.org/MANUAL.html#templates.
-
-The template gives you the ultimate power to customize the HTML output. For example, you can include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. For example, we could use a Boolean variable `draft` to indicate whether the document is a draft or a final version:
-
-```html
-<head>
-<style type="text/css">
-.logo {
-  float: right;
-}
-</style>
-</head>
-
-<body>
-<div class="logo">
-$if(draft)$
-<!-- use draft.png to show that this is a draft -->
-<img src="images/draft.png" alt="Draft mode" />
-$else$
-<!-- insert the formal logo if this is final -->
-<img src="images/logo.png" alt="Final version" />
-$endif$
-</div>
-
-$body$
-</body>
-```
-
-Then we can set the variable `draft` to `true` or `false` in the YAML metadata of the Rmd document, e.g.,
-
-```yaml
----
-title: "An Important Report"
-draft: true
----
-```
-
-To apply a template to an Rmd document, you can save the template to a file, and pass the file path to the `template` option of `html_document`, e.g.,
-
-```yaml
-output:
-  html_output:
-    template: my-template.html
-```
-
-The **rmarkdown** package uses a custom HTML template shipped with the package, which is different from Pandoc's default template. To use the latter, you can specify `template: null`.
-
 ## Style code blocks and text output {#chunk-styling}
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
@@ -296,6 +231,71 @@ xfun::embed_files(list.files('.', '[.](Rmd|csv)$'))
 For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, which a reader can click on the HTML page to download the embedded file.
 
 You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package (https://github.com/fmmattioni/downloadthis) has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
+
+## Use a custom HTML template (*) {#html-template}
+
+We mentioned LaTeX templates in Section \@ref(latex-template). You can also specify a custom HTML template for Pandoc to convert Markdown to HTML. Below is a brief example template:
+
+```html
+<html>
+  <head>
+    <title>$title$</title>
+    $for(css)$
+    <link rel="stylesheet" href="$css$" type="text/css" />
+    $endfor$
+  </head>
+  <body>
+  $body$
+  </body>
+</html>
+```
+
+You can see that the template contains a few variables such as `$title$` and `$body$`. You can find the full list of Pandoc variables and their meanings at https://pandoc.org/MANUAL.html#templates.
+
+The template gives you the ultimate power to customize the HTML output. For example, you can include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. For example, we could use a Boolean variable `draft` to indicate whether the document is a draft or a final version:
+
+```html
+<head>
+<style type="text/css">
+.logo {
+  float: right;
+}
+</style>
+</head>
+
+<body>
+<div class="logo">
+$if(draft)$
+<!-- use draft.png to show that this is a draft -->
+<img src="images/draft.png" alt="Draft mode" />
+$else$
+<!-- insert the formal logo if this is final -->
+<img src="images/logo.png" alt="Final version" />
+$endif$
+</div>
+
+$body$
+</body>
+```
+
+Then we can set the variable `draft` to `true` or `false` in the YAML metadata of the Rmd document, e.g.,
+
+```yaml
+---
+title: "An Important Report"
+draft: true
+---
+```
+
+To apply a template to an Rmd document, you can save the template to a file, and pass the file path to the `template` option of `html_document`, e.g.,
+
+```yaml
+output:
+  html_output:
+    template: my-template.html
+```
+
+The **rmarkdown** package uses a custom HTML template shipped with the package, which is different from Pandoc's default template. To use the latter, you can specify `template: null`.
 
 ## Include the content of an existing HTML file (*) {#include-html}
 
