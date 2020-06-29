@@ -74,6 +74,8 @@ Similarly, R code which creates plots create an `<img>` element that is a child 
 
 Note that these selectors are typically most powerful when many are used together. With CSS, you may specify relationships such as "all elements having both of two specific classes", "the n-th child of a given ID", etc. The more you learn about CSS, the richer your vocabulary will become to describe complex and nuanced relationships.
 
+A nice quick reference of these selector combinations is available at https://www.w3schools.com/cssref/css_selectors.asp.
+
 ### Tools for exploring HTML output
 
 For more customization, you may have to do more research to find the right CSS selectors to describe what you want to do. Luckily, there are many tools to help you explore your HTML output efficiently. 
