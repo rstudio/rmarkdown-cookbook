@@ -65,7 +65,7 @@ Read a C++ file:
 
 With the `code` option, you can develop complicated code in your favorite editor, and read it into a code chunk of an R Markdown document.
 
-## Read multiple code chunks from an external script {#read-chunk}
+## Read multiple code chunks from an external script (*) {#read-chunk}
 
 In Section \@ref(option-code), we introduced a way to read code into a single code chunk. In this section, we introduce one method to read multiple code chunks from an external script. The key is that you need to label the code in the script, and you can use the same labels in the code chunks in your R Markdown document, so the code in the external script can be mapped to the code chunks via the function `knitr::read_chunk()`. To label a block of code in a script, you write the label after `## ----` (optionally, you can add a series of dashes to the end of this line). One script can contain multiple labeled code blocks, e.g.,
 
@@ -101,7 +101,7 @@ Note that we use `knitr::read_chunk()` mainly for its side-effect, so please mak
 
 Like methods introduced in Section \@ref(source-script) and Section \@ref(option-code), this method also gives you the flexibility of developing code in a separate environment.
 
-## Child documents {#child-document}
+## Child documents (*) {#child-document}
 
 When you feel an R Markdown document is too long, you may consider splitting it into shorter documents, and include them as child documents of the main document via the chunk option `child`. The `child` option takes a character vector of paths to the child documents, e.g.,
 
