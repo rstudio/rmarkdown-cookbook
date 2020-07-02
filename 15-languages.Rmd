@@ -14,7 +14,7 @@ At the moment, most code chunks of non-R languages are executed independently. F
 
 First, let's reveal how a language engine works by registering a custom language engine.
 
-## Register a custom language engine (*) {#custom-engine}
+## Register a custom language engine (\*) {#custom-engine}
 
 You can register a custom language engine via the `knitr::knit_engines$set()` method, which accepts a function as its input, e.g.,
 

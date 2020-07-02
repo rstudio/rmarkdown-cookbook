@@ -103,7 +103,7 @@ This simple approach works for both PDF and HTML output.
 
 If you want to use sub-figures when there are multiple plots in a figure, you may see Section \@ref(latex-subfigure), but please note that sub-figures are only supported in LaTeX output.
 
-## Write raw content (*) {#raw-content}
+## Write raw content (\*) {#raw-content}
 
 The technique introduced in Section \@ref(raw-latex) is actually a general technique. You can protect any complex raw content in Markdown by specifying the content as "raw". For example, if you want to write raw HTML content, you can use the attribute `=html`:
 
@@ -129,7 +129,7 @@ knitr:::pandoc_to()
 
 Please note that raw content is only visible to a specific output format. For example, raw LaTeX content will be ignored when the output format is HTML.
 
-## Custom blocks (*) {#custom-blocks}
+## Custom blocks (\*) {#custom-blocks}
 <!-- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown -->
 
 [Section 2.7](https://bookdown.org/yihui/bookdown/custom-blocks.html) of the **bookdown** book mentioned how we can use custom blocks in R Markdown to customize the appearance of blocks of content. This can be a useful way to make some content stand out from your report or book, to make sure that your readers take away the key points from your work. Examples of how these blocks could be used include:

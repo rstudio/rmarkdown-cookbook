@@ -6,7 +6,7 @@ Besides chunk options (Chapter \@ref(chunk-options)), output hooks (Chapter \@re
 
 You can freely reuse code chunks anywhere in your source document without cut-and-paste. The key is to label your code chunks, so you can refer to them with labels in other places. There are three ways to reuse code chunks.
 
-### Embed one chunk in another chunk (*) {#embed-chunk}
+### Embed one chunk in another chunk (\*) {#embed-chunk}
 
 You can embed one code chunk in another code chunk by enclosing its label in `<<>>`, then **knitr** will automatically expand the string `<<label>>` to the actual code. For example, you can create an R function in this way:
 
@@ -72,7 +72,7 @@ We used the chunk label "chunk-one" twice in the above example, and the second c
 
 We recommend that you do not use this method to run a code chunk more than once to generate plots (or other files), because plot files created from a latter chunk may overwrite files from a previous chunk. It is okay if only one of such chunks uses the chunk option `eval = TRUE`, and all other chunks use `eval = FALSE`.
 
-### Use reference labels (*) {#ref-label}
+### Use reference labels (\*) {#ref-label}
 
 The chunk option `ref.label` takes a vector of chunk labels to retrieve the content of these chunks. For example, the code chunk with the label `chunk-a` is the combination of `chunk-c` and `chunk-b` below:
 
@@ -106,7 +106,7 @@ The chunk option `ref.label` has provided a very flexible way of reorganizing co
 
 There is an application of this chunk option in Section \@ref(code-appendix).
 
-## Use an object before it is created (*) {#load-cache}
+## Use an object before it is created (\*) {#load-cache}
 
 All code in a **knitr** document, including the code in code chunks and inline R expressions, is executed in the linear order from beginning to end. In theory, you cannot use a variable before it is assigned a value. However, in certain cases, we may want to mention the value of a variable earlier in the document. For example, it is common to present a result in the abstract of an article, but the result is actually computed later in the document. Below is an example that illustrates the idea but will not compile:
 
@@ -240,7 +240,7 @@ When you no longer need this global graphical device, you can set the option to 
 
 `r import_example('global-device.Rmd')`
 
-## Save a group of chunk options and reuse them (*) {#opts-template}
+## Save a group of chunk options and reuse them (\*) {#opts-template}
 
 If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`, and then you can use the chunk option `opts.label` to refer to the group name. For example:
 
@@ -305,7 +305,7 @@ cat(res, sep = '\n')
 
 If you find it difficult to understand this example, please see Section \@ref(results-asis) for the meaning of the chunk option `results = 'asis'`, and Section \@ref(child-document) for the usage of `knitr::knit_child()`.
 
-## Allow duplicate labels in code chunks (*) {#duplicate-label}
+## Allow duplicate labels in code chunks (\*) {#duplicate-label}
 
 <!-- https://stackoverflow.com/questions/36868287/purl-within-knit-duplicate-label-error/47065392#47065392 -->
 
