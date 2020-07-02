@@ -157,40 +157,6 @@ There is an extensive community for LaTeX, and there are over 4,000 packages ava
 - [caption](https://ctan.org/pkg/caption): change the appearance of caption subtitles. For example, you can make the figure title italic or bold.
 - [fancyhdr](https://ctan.org/pkg/fancyhdr): change the style of running headers of all pages.
 
-## Use a custom Pandoc LaTeX template {#latex-template}
-
-Pandoc converts Markdown to LaTeX through a template. The template is a LaTeX file containing Pandoc variables, and Pandoc will replace these variables with their values. Below is a simple template that only contains a single variable `$body$`:
-
-```tex
-\documentclass{article}
-\begin{document}
-$body$
-\end{document}
-```
-
-The value of `$body$` is the LaTeX code generated from the body of the Markdown document. For example, if the body text is `Hello **world**!` in Markdown, the value of `$body$` will be `Hello \textbf{world}!`.
-
-If the LaTeX customization methods in Sections \@ref(latex-preamble), \@ref(latex-variables), and \@ref(latex-extra) are not enough for you, you may try to use a custom template instead. A template allows you to use arbitrary LaTeX code in it, hence is much more flexible. To use a template, include the path of the template in the `template` option of `pdf_document`, e.g.,
-
-```yaml
-output:
-  pdf_document:
-    template: my-template.tex
-```
-
-The default LaTeX template of Pandoc can be found at https://github.com/jgm/pandoc/tree/master/data/templates (named `default.latex`). If you want to create your own template, you may want to start with this template.
-
-For the full list of Pandoc variables and their meanings (such as `$body$` and `$title$`), see Pandoc's manual at https://pandoc.org/MANUAL.html#templates. You can also use arbitrary custom variables, which are typically passed to the template from the YAML metadata. If you want to learn by examples, you may take a look the **MonashEBSTemplates** package (https://github.com/robjhyndman/MonashEBSTemplates), which has provided several custom LaTeX templates. These templates are under the `inst/rmarkdown/templates/*/resources/` directories. For example, the template for the output format `MonashEBSTemplates::memo` allows you to use a variable `branding` in the YAML metadata to control whether to include the brand logo of Monash University. This is achieved by an `if` statement in the template that looks like this:
-
-```latex
-$if(branding)$%
-\includegraphics[height=1.5cm]{monash2}
-\vspace*{-0.6cm}
-$else$
-\vspace*{-1cm}
-$endif$
-```
-
 ## Control the placement of figures {#figure-placement}
 
 <!-- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 -->
@@ -256,7 +222,7 @@ output:
     extra_dependencies: ["flafter"]
 ```
 
-### Adjust LaTeX placement rules
+### Adjust LaTeX placement rules (*)
 
 LaTeX's own float placement parameters could prevent placements that seem entirely "reasonable" to you---they are notoriously rather conservative. These defaults are displayed in Table \@ref(tab:float-default).
 
@@ -292,52 +258,6 @@ To encourage LaTeX not to move your figures, we can alter these default settings
 ```
 
 If we have added these lines to a `.tex` file, we could include this file in the preamble of the LaTeX document using the method introduced in Section \@ref(latex-preamble).
-
-## Add custom headers and footers {#latex-header}
-
-<!-- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown -->
-<!-- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc -->
-
-The LaTeX package **fancyhdr** has provided several commands to customize the header and footer lines of your document. For a more complete guide, please refer to the full documentation at https://ctan.org/pkg/fancyhdr. To begin with, we must load the package. Then we can change the header style, e.g.,
-
-```tex
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-```
-
-The package offers three different interfaces, but we will use the commands `\fancyhead` and `\fancyfoot`. The syntax for the formatting is `\fancyhead[selectors]{output text}`, whereby the selectors state the part of the header that we wish to customize. We can use the following selectors for the page locators:
-
-- **E** for even pages
-- **O** for odd pages
-- **L** for the left side
-- **C** for the center
-- **R** for the right side
-
-For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on the left side of the header for even pages, and the right side for odd pages. We can combine this with additional LaTeX commands to extract details from our document for each page:
-
-- `\thepage`: the number of the current page.
-- `\thechapter`: the number of the current chapter.
-- `\thesection`: the number of the current section.
-- `\chaptername`: the the word "Chapter" in English, or its equivalent in the current language, or the text that the author specified by redefining this command.
-- `\leftmark`: the name and number of the current top-level structure in uppercase letters.
-- `\rightmark`: the name and number of the current next to top-level structure in uppercase letters.
-
-Below is some example LaTeX code that you can add to the preamble using the methods introduced in Section \@ref(latex-preamble):
-
-```latex
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-% center of header
-\fancyhead[CO,CE]{Your Document Header}
-% center of footer
-\fancyfoot[CO,CE]{And this is a fancy footer}
-% page number on the left of even pages and right of odd pages
-\fancyfoot[LE,RO]{\thepage}
-```
-
-<!-- https://stackoverflow.com/questions/30922602/creating-a-footer-for-every-page-including-first-using-r-markdown -->
-
-By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line `\fancypagestyle{plain}{\pagestyle{fancy}}`.
 
 ## LaTeX sub-figures {#latex-subfigure}
 
@@ -424,7 +344,87 @@ output: latex_fragment
 
 This will render a `.tex` file, e.g., `foo.Rmd` will render `foo.tex`, and you can use `\input{foo.tex}` to include this fragment into another LaTeX document.
 
-## Write raw LaTeX code {#raw-latex}
+## Add custom headers and footers (*) {#latex-header}
+
+<!-- https://stackoverflow.com/questions/25329375/creating-a-footer-for-every-page-using-r-markdown -->
+<!-- https://tex.stackexchange.com/questions/139139/adding-headers-and-footers-using-pandoc -->
+
+The LaTeX package **fancyhdr** has provided several commands to customize the header and footer lines of your document. For a more complete guide, please refer to the full documentation at https://ctan.org/pkg/fancyhdr. To begin with, we must load the package. Then we can change the header style, e.g.,
+
+```tex
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+```
+
+The package offers three different interfaces, but we will use the commands `\fancyhead` and `\fancyfoot`. The syntax for the formatting is `\fancyhead[selectors]{output text}`, whereby the selectors state the part of the header that we wish to customize. We can use the following selectors for the page locators:
+
+- **E** for even pages
+- **O** for odd pages
+- **L** for the left side
+- **C** for the center
+- **R** for the right side
+
+For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on the left side of the header for even pages, and the right side for odd pages. We can combine this with additional LaTeX commands to extract details from our document for each page:
+
+- `\thepage`: the number of the current page.
+- `\thechapter`: the number of the current chapter.
+- `\thesection`: the number of the current section.
+- `\chaptername`: the the word "Chapter" in English, or its equivalent in the current language, or the text that the author specified by redefining this command.
+- `\leftmark`: the name and number of the current top-level structure in uppercase letters.
+- `\rightmark`: the name and number of the current next to top-level structure in uppercase letters.
+
+Below is some example LaTeX code that you can add to the preamble using the methods introduced in Section \@ref(latex-preamble):
+
+```latex
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% center of header
+\fancyhead[CO,CE]{Your Document Header}
+% center of footer
+\fancyfoot[CO,CE]{And this is a fancy footer}
+% page number on the left of even pages and right of odd pages
+\fancyfoot[LE,RO]{\thepage}
+```
+
+<!-- https://stackoverflow.com/questions/30922602/creating-a-footer-for-every-page-including-first-using-r-markdown -->
+
+By default, headers and footers will not be displayed on the first page of your PDF document. If we wish to show our footer on the front page, we must include an additional line `\fancypagestyle{plain}{\pagestyle{fancy}}`.
+
+## Use a custom Pandoc LaTeX template (*) {#latex-template}
+
+Pandoc converts Markdown to LaTeX through a template. The template is a LaTeX file containing Pandoc variables, and Pandoc will replace these variables with their values. Below is a simple template that only contains a single variable `$body$`:
+
+```tex
+\documentclass{article}
+\begin{document}
+$body$
+\end{document}
+```
+
+The value of `$body$` is the LaTeX code generated from the body of the Markdown document. For example, if the body text is `Hello **world**!` in Markdown, the value of `$body$` will be `Hello \textbf{world}!`.
+
+If the LaTeX customization methods in Sections \@ref(latex-preamble), \@ref(latex-variables), and \@ref(latex-extra) are not enough for you, you may try to use a custom template instead. A template allows you to use arbitrary LaTeX code in it, hence is much more flexible. To use a template, include the path of the template in the `template` option of `pdf_document`, e.g.,
+
+```yaml
+output:
+  pdf_document:
+    template: my-template.tex
+```
+
+The default LaTeX template of Pandoc can be found at https://github.com/jgm/pandoc/tree/master/data/templates (named `default.latex`). If you want to create your own template, you may want to start with this template.
+
+For the full list of Pandoc variables and their meanings (such as `$body$` and `$title$`), see Pandoc's manual at https://pandoc.org/MANUAL.html#templates. You can also use arbitrary custom variables, which are typically passed to the template from the YAML metadata. If you want to learn by examples, you may take a look the **MonashEBSTemplates** package (https://github.com/robjhyndman/MonashEBSTemplates), which has provided several custom LaTeX templates. These templates are under the `inst/rmarkdown/templates/*/resources/` directories. For example, the template for the output format `MonashEBSTemplates::memo` allows you to use a variable `branding` in the YAML metadata to control whether to include the brand logo of Monash University. This is achieved by an `if` statement in the template that looks like this:
+
+```latex
+$if(branding)$%
+\includegraphics[height=1.5cm]{monash2}
+\vspace*{-0.6cm}
+$else$
+\vspace*{-1cm}
+$endif$
+```
+
+## Write raw LaTeX code (*) {#raw-latex}
 
 By default, Pandoc will preserve raw LaTeX code in Markdown documents when converting the document to LaTeX, so you can use LaTeX commands or environments in Markdown. However, sometimes your LaTeX code might be too complex for Pandoc to parse, in which case Pandoc will treat the content as normal Markdown. The consequence is that special LaTeX characters may be escaped, e.g., Pandoc may convert a backslash `\` to `\textbackslash{}`.
 
@@ -441,7 +441,7 @@ A & B \\
 
 Do not forget the equal sign before `latex`, i.e., it is `=latex` instead of `latex`. This feature requires a Pandoc version higher than 2.0 (check `rmarkdown::pandoc_version()`).
 
-## For hardcore LaTeX users {#latex-hardcore}
+## For hardcore LaTeX users (*) {#latex-hardcore}
 
 R Markdown is certainly not the best possible document format for authoring or typesetting documents. Simplicity is both its advantage and disadvantage. LaTeX is much more powerful than Markdown in terms of typesetting at the price of more commands to be typed. If typesetting is of much higher priority to you and you are comfortable with using all kinds of LaTeX commands and environments, you can just use pure LaTeX code instead of Markdown to write the whole document.
 

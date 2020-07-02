@@ -175,7 +175,7 @@ knitr::include_graphics('images/params-shiny.png', dpi = NA)
 
 For more information on parameterized reports, you may read [Chapter 15](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) of the R Markdown book [@rmarkdown2018].
 
-## Customize the `Knit` button {#custom-knit}
+## Customize the `Knit` button (*) {#custom-knit}
 
 When you click the `Knit` button in RStudio, it will call the `rmarkdown::render()` function in a new R session and output a file of the same base name as the input file in the same directory. For example, knitting `example.Rmd` with the output format `html_document` will create an output file `example.html`.
 

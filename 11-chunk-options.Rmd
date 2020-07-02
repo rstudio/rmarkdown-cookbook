@@ -249,7 +249,7 @@ abc <- 2#another variable
 
 By default, `tidy = FALSE` and your R code will not be reformatted.
 
-## Output text as raw Markdown content {#results-asis}
+## Output text as raw Markdown content (*) {#results-asis}
 
 By default, text output from code chunks will be written out verbatim with two leading hashes (see Section \@ref(opts-comment)). The text is verbatim because **knitr** puts it in fenced code blocks. For example, the raw output of the code `1:5` from **knitr** is:
 
@@ -311,7 +311,7 @@ And definitely a paragraph.
 
 The `cat()` function is not the only function that can generate text output. Another commonly used function is `print()`. Please note that `print()` is often _implicitly_ called to print objects, which is why you see output after typing out an object or value in the R console. For example, when you type `1:5` in the R console and hit the `Enter` key, you see the output because R actually called `print(1:5)` implicitly. This can be highly confusing when you fail to generate output inside an expression (such as a `for`-loop) with objects or values that would otherwise be correctly printed if they were typed in the R console. This topic is quite technical, and I have written [a blog post](https://yihui.org/en/2017/06/top-level-r-expressions/) to explain it. If you are not interested in the technical details, just remember this rule: if you do not see output from a `for`-loop, you should probably print objects explicitly with the `print()` function.
 
-## Remove leading hashes in text output {#opts-comment}
+## Remove leading hashes in text output (*) {#opts-comment}
 
 <!-- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr -->
 
@@ -355,13 +355,13 @@ if (TRUE) {
 }
 ```
 
-## Add attributes to text output blocks {#attr-output}
+## Add attributes to text output blocks (*) {#attr-output}
 
 TODO
 
 The `attr.*` options, and the special case, `class.*` options.
 
-## Post-process plots {#fig-process}
+## Post-process plots (*) {#fig-process}
 
 After a plot is generated from a code chunk, you can post-process the plot file via the chunk option `fig.process`, which should be a function that takes the file path as the input argument and returns a path to the processed plot file. This function can have an optional second argument `options`, which is a list of the current chunk options.
 
@@ -409,7 +409,7 @@ pdf2png = function(path) {
 }
 ```
 
-## High-quality graphics {#graphical-device}
+## High-quality graphics (*) {#graphical-device}
 
 The **rmarkdown** package has set reasonable default graphical devices for different output formats. For example, HTML output formats use the `png()` device, so **knitr** will generate PNG plot files, and PDF output formats use the `pdf()` device, etc. If you are not satisfied by the quality of the default graphical devices, you can change them via the chunk option `dev`. All possible devices supported by **knitr** are: `r knitr::combine_words(names(knitr:::auto_exts), before = '\x60"', after = '"\x60')`.
 
@@ -445,7 +445,7 @@ Second, it is often significantly slower to render the plots, because this devic
 
 For Figure \@ref(fig:dev-tikz), we also used the chunk option `fig.process = pdf2png`, where the function `pdf2png` is defined in Section \@ref(fig-process) to convert the PDF plot to PNG when the output format is not LaTeX. Without the conversion, you may not be able to view the PDF plot in the online version of this book in the web browser.
 
-## Step-by-step plots with low-level plotting functions {#low-plots}
+## Step-by-step plots with low-level plotting functions (*) {#low-plots}
 
 For R graphics, there are two types of plotting functions: high-level plotting functions create new plots, and low-level functions add elements to existing plots. You may see Chapter 12 (Graphical procedures) of the R manual ["An Introduction to R"](https://cran.r-project.org/doc/manuals/r-release/R-intro.html) for more information.
 
@@ -462,7 +462,7 @@ abline(fit)
 
 If you want to keep modifying a plot in a _different_ code chunk, please see Section \@ref(global-device).
 
-## Customize the printing of objects in chunks {#opts-render}
+## Customize the printing of objects in chunks (*) {#opts-render}
 
 By default, objects in code chunks are printed through the `knitr::knit_print()` function, which is by and large just `print()` in base R. The `knit_print()` function is an S3 generic function, which means you can extend it by yourself by registering S3 methods on it. Below is an example that shows how to automatically print data frames as tables via `knitr::kable()`:
 
@@ -498,7 +498,7 @@ iris
 
 The `render` option gives you complete freedom on how to print your R objects.
 
-## Option hooks {#option-hooks}
+## Option hooks (*) {#option-hooks}
 
 Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options, and you may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. This function takes the list of options for the current chunk as the input argument, and should return the (potentially modified) list. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
 

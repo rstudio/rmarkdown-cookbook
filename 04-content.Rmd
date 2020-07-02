@@ -199,7 +199,7 @@ nocite: '@*'
 
 This will force all items to be displayed in the bibliography.
 
-### Include appendix after bibliography
+### Include appendix after bibliography (*)
 
 <!-- https://stackoverflow.com/questions/41532707/include-rmd-appendix-after-references/42258998#42258998 -->
 <!-- https://stackoverflow.com/questions/16427637/pandoc-insert-appendix-after-bibliography -->
@@ -518,37 +518,6 @@ Change my sorrow
 
 Some users may ask, "Since the fenced code block preserves whitespaces, why not put poems in code blocks?" Code could be poetic, but poems are not code. Please do not be too addicted to coding...
 
-## Put together all code in the appendix {#code-appendix}
-
-Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report, but set the chunk option `echo = FALSE` to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
-
-There is a simple method of extracting all code chunks in a document and put them together in a single code chunk using the chunk option `ref.label` and the function `knitr::all_labels()`, e.g.,
-
-````md
-# Appendix: All code for this report
-
-```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}`r ''`
-```
-````
-
-Please read Section \@ref(ref-label) if you are not familiar with the chunk option `ref.label`.
-
-The function `knitr::all_labels()` returns a vector of all chunk labels in the document, so `ref.label = knitr::all_labels()` means retrieving all source code chunks to this code chunk. With the chunk options `echo = TRUE` (display the code) and `eval = FALSE` (do not evaluate this particular code chunk because all code has been executed before), you can show a copy of all your source code in one code chunk.
-
-Since `ref.label` can be a character vector of arbitrary chunk labels, you can certainly filter the labels to decide a subset of code chunks to display in the code appendix. Below is an example (credits to [Ariel Muldoon](https://yihui.org/en/2018/09/code-appendix/)) of excluding the labels `setup` and `get-labels`:
-
-````md
-```{r get-labels, echo = FALSE}`r ''`
-labs = knitr::all_labels()
-labs = setdiff(labs, c("setup", "get-labels"))
-```
-
-```{r all-code, ref.label=labs, eval=FALSE}`r ''`
-```
-````
-
-You can also filter code chunks using the arguments of `knitr::all_labels()`. For example, you may use `knitr::all_labels(engine == "Rcpp", echo == FALSE)` to obtain all your code chunks that use the `Rcpp` engine (`engine == "Rcpp"`) and are not displayed in the document (`echo = FALSE`). If you want precise control over which code chunks to display in the appendix, you may use a special chunk option `appendix = TRUE` on certain code chunks, and `ref.label = knitr::all_labels(appendix == TRUE)` to obtain the labels of these code chunks.
-
 ## Convert models to equations {#equatiomatic}
 
 The **equatiomatic** package (https://github.com/datalorax/equatiomatic) developed by Daniel Anderson et al. provides a convenient and automatic way to show the equations corresponding to models fitted in R. At the time of writing, this package is still very new on GitHub and its API may change significantly before its possible future CRAN release, so we only show a few brief examples below:
@@ -681,7 +650,38 @@ If you do not want certain section headings to be included in the table of conte
 
 Note that this feature requires at least Pandoc 2.9. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.9, you may install a newer version (see Section \@ref(install-pandoc)).
 
-## Manipulate Markdown via Pandoc Lua filters {#lua-filters}
+## Put together all code in the appendix (*) {#code-appendix}
+
+Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report, but set the chunk option `echo = FALSE` to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
+
+There is a simple method of extracting all code chunks in a document and put them together in a single code chunk using the chunk option `ref.label` and the function `knitr::all_labels()`, e.g.,
+
+````md
+# Appendix: All code for this report
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}`r ''`
+```
+````
+
+Please read Section \@ref(ref-label) if you are not familiar with the chunk option `ref.label`.
+
+The function `knitr::all_labels()` returns a vector of all chunk labels in the document, so `ref.label = knitr::all_labels()` means retrieving all source code chunks to this code chunk. With the chunk options `echo = TRUE` (display the code) and `eval = FALSE` (do not evaluate this particular code chunk because all code has been executed before), you can show a copy of all your source code in one code chunk.
+
+Since `ref.label` can be a character vector of arbitrary chunk labels, you can certainly filter the labels to decide a subset of code chunks to display in the code appendix. Below is an example (credits to [Ariel Muldoon](https://yihui.org/en/2018/09/code-appendix/)) of excluding the labels `setup` and `get-labels`:
+
+````md
+```{r get-labels, echo = FALSE}`r ''`
+labs = knitr::all_labels()
+labs = setdiff(labs, c("setup", "get-labels"))
+```
+
+```{r all-code, ref.label=labs, eval=FALSE}`r ''`
+```
+````
+
+You can also filter code chunks using the arguments of `knitr::all_labels()`. For example, you may use `knitr::all_labels(engine == "Rcpp", echo == FALSE)` to obtain all your code chunks that use the `Rcpp` engine (`engine == "Rcpp"`) and are not displayed in the document (`echo = FALSE`). If you want precise control over which code chunks to display in the appendix, you may use a special chunk option `appendix = TRUE` on certain code chunks, and `ref.label = knitr::all_labels(appendix == TRUE)` to obtain the labels of these code chunks.
+
+## Manipulate Markdown via Pandoc Lua filters (*) {#lua-filters}
 
 Technically, this section may be a little advanced, but once you learn the Pandoc abstract syntax tree (AST), you will have the power of manipulating any Markdown elements with the programming language called Lua.
 

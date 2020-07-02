@@ -206,7 +206,7 @@ knitr::kables(
 )
 ```
 
-### Generate multiple tables from a `for`-loop
+### Generate multiple tables from a `for`-loop (*)
 
 One common confusion about `kable()` is that it does not work inside `for`-loops. This problem is not specific to `kable()` but exists in many other packages, too. The reason is a little complicated. In case you are interested in the technicality, it has been explained in the blog post ["The Ghost Printer Behind Top-level R Expressions".](https://yihui.org/en/2017/06/top-level-r-expressions/)
 
@@ -275,7 +275,7 @@ Mazda RX4            21.0     6    160   110
 Mazda RX4 Wag        21.0     6    160   110
 ```
 
-### Customize LaTeX tables
+### Customize LaTeX tables (*)
 
 If the only output format you need is LaTeX, there are a few extra options you can use in `kable()`. Note that these options will be ignored in other types of output such as HTML. Unless you have set the table format option globally (see Section \@ref(kable-formats)), you will have to use the `format` argument of `kable()` explicitly in the examples of this section, e.g.,
 
@@ -342,7 +342,7 @@ Sometimes your table may be longer than a page. In this case, you can use the ar
 
 Tables are center-aligned by default when they are included in a table environment (i.e., when the table has a caption). If you do not want to center a table, use the argument `centering = FALSE`.
 
-### Customize HTML tables
+### Customize HTML tables (*)
 
 <!-- https://stackoverflow.com/questions/24254552/knitr-style-table-with-css -->
 
