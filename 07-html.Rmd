@@ -456,7 +456,7 @@ As a result, in addition to R-specific services, you may host your HTML document
 
 - [**Netlify**](https://www.netlify.com) is a platform to build and deploy static website content. It is a popular choice for web content created by the **blogdown** and **pkgdown** packages, but it can host all kinds of HTML files. There are many different publishing options including drag-and-drop, command line, or automated publishing from GitHub and GitLab repositories. Additionally, Netlify offers many helpful features such as website previews in pull requests. See the Netlify documentation (https://docs.netlify.com) or the RStudio webinar ["Sharing on Short Notice"](https://rstudio.com/resources/webinars/sharing-on-short-notice-how-to-get-your-materials-online-with-r-markdown/) for more details.
 
-## For hardcore HTML users {#html-hardcore}
+## For hardcore HTML users (\*) {#html-hardcore}
 
 In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.
 

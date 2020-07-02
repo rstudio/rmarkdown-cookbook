@@ -311,7 +311,7 @@ And definitely a paragraph.
 
 The `cat()` function is not the only function that can generate text output. Another commonly used function is `print()`. Please note that `print()` is often _implicitly_ called to print objects, which is why you see output after typing out an object or value in the R console. For example, when you type `1:5` in the R console and hit the `Enter` key, you see the output because R actually called `print(1:5)` implicitly. This can be highly confusing when you fail to generate output inside an expression (such as a `for`-loop) with objects or values that would otherwise be correctly printed if they were typed in the R console. This topic is quite technical, and I have written [a blog post](https://yihui.org/en/2017/06/top-level-r-expressions/) to explain it. If you are not interested in the technical details, just remember this rule: if you do not see output from a `for`-loop, you should probably print objects explicitly with the `print()` function.
 
-## Remove leading hashes in text output (\*) {#opts-comment}
+## Remove leading hashes in text output {#opts-comment}
 
 <!-- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr -->
 

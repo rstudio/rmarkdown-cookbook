@@ -424,7 +424,7 @@ $else$
 $endif$
 ```
 
-## Write raw LaTeX code (\*) {#raw-latex}
+## Write raw LaTeX code {#raw-latex}
 
 By default, Pandoc will preserve raw LaTeX code in Markdown documents when converting the document to LaTeX, so you can use LaTeX commands or environments in Markdown. However, sometimes your LaTeX code might be too complex for Pandoc to parse, in which case Pandoc will treat the content as normal Markdown. The consequence is that special LaTeX characters may be escaped, e.g., Pandoc may convert a backslash `\` to `\textbackslash{}`.
 

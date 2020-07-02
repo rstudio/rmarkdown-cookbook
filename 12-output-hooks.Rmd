@@ -90,7 +90,7 @@ The meaning of the argument `x` in the hook functions is explained in the above 
 
 Output hooks give you the ultimate control over every single piece of your chunk and document output. Compared with chunk options, which often have predefined purposes, output hooks can be much more powerful since they are user-defined functions, and you can do anything you want in functions.
 
-## Redact source code (\*) {#hook-hide}
+## Redact source code {#hook-hide}
 
 Sometimes we may not want to fully display our source code in the report. For example, you may have a password in a certain line of code. We mentioned in Section \@ref(hide-one) that you can use the chunk option `eval` to select which expressions in the R code to display (e.g., show the second expression via `echo = 2`). In this section, we provide a more flexible method that does not require you to specify the indices of expressions.
 
@@ -131,7 +131,7 @@ hook_source(x, options)
 
 This example shows you how to manipulate the source code string, and `grepl()` is certainly not the only choice of string manipulation. In Section \@ref(hook-number), we will show another example.
 
-## Add line numbers to source code (\*) {#hook-number}
+## Add line numbers to source code {#hook-number}
 
 In this section, we show an example of defining a `source` hook to add line numbers as comments to the source code. For example, for this code chunk:
 
@@ -165,7 +165,7 @@ knitr:::v_spaces(c(1, 3, 6, 0))
 
 The method introduced in Section \@ref(number-lines) may be the actual way in which you want to add line numbers to source code. The syntax is cleaner, and it works both source code and text output blocks. The above `source` hook trick mainly aims to show you one possibility of manipulating the source code with a custom function.
 
-## Scrollable text output (\*) {#hook-scroll}
+## Scrollable text output {#hook-scroll}
 
 In Section \@ref(html-scroll), we showed how to restrict the heights of code blocks and text output blocks via CSS. In fact, there is a simpler method with the chunk options `attr.source` and `attr.output` to add the `style` attribute to the fenced code blocks in the Markdown output. For example, for this code chunk with the `attr.output` option:
 
@@ -220,7 +220,7 @@ knitr::include_graphics('images/hook-scroll.png', dpi = NA)
 
 You can use the similar trick in the `source` hook to limit the height of source code blocks.
 
-## Truncate text output (\*) {#hook-truncate}
+## Truncate text output {#hook-truncate}
 
 When the text output from a code chunk is lengthy, you may want to only show the first few lines. For example, when printing a data frame of a few thousand rows, it may not be helpful to show the full data, and the first few lines may be enough. Below we redefine the `output` hook so that we can control the maximum number of lines via a custom chunk option `out.lines`:
 
@@ -274,7 +274,7 @@ As an exercise to readers, you may try to truncate the output in a different way
 
 Please note that the last line in the output (i.e., the argument `x` of the hook function) might be an empty line, so you may need something like `c(head(x, n/2), '....', tail(x, n/2 + 1))` (`+ 1` to take the last empty line into account).
 
-## Output figures in the HTML5 format (\*) {#hook-html5}
+## Output figures in the HTML5 format {#hook-html5}
 
 By default, plots in R Markdown are included in the tag `<img src="..." />` in a `<p>` or `<div>` tag in the HTML output. This example below shows how to use the HTML5 `<figure>` tag to display plots.
 
