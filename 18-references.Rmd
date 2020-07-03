@@ -19,7 +19,6 @@ knitr::write_bib(c(
 'tufte', 
 'formatR', 
 'xfun', 
-# Bios only: 'shiny', 'leaflet', 'rolldown', 'crrri', 'projmgr', 'Rd2roxyen', 'servr', 'highr', 'mime', 'testit', 'fun', 'tufte'
 'pagedown', 
 'remedy', 
 'blastula', 
@@ -82,6 +81,7 @@ knitr::write_bib(c(
 'workflowr'
 # GH Only: 'equatiomatic', 'MonashEBSTemplates', 'plantuml', 'redoc', 'Statamarkdown', 'rmdrive'
 # LaTeX: 'float', 'framed', 'tscolorbox', 'booktabs', 'longtable', 'flafter', 'subfig', 'fancyhdr', 'xcolor', 'listings', 'titling', 'animate'
+# Bios only: 'shiny', 'leaflet', 'rolldown', 'crrri', 'projmgr', 'Rd2roxyen', 'servr', 'highr', 'mime', 'testit', 'fun', 'tufte'
 # JavaScript: 'DataTables'
 ), 
 file = 'packages.bib')
