@@ -71,7 +71,7 @@ Sys.which('pdfcrop')
 
 If you are using the LaTeX distribution TinyTeX (see Section \@ref(install-latex)), and `pdfcrop` is not available in your system, you may install it via `tinytex::tlmgr_install('pdfcrop')`.
 
-For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** to crop them. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
+For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick] to crop them. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
 
 ```{r, crop-no, crop=NULL, echo=FALSE, fig.cap='A plot that is not cropped.'}
 par(bg = 'gray', fg = 'yellow')
@@ -184,7 +184,7 @@ You can see that the code chunk was evaluated, and the chunk header was also add
 
 ## Embed an interactive 3D plot with rgl {#rgl-3d}
 
-The **rgl** package can be used to generate interactive 3D plots. These plots can still be interactive if they are saved to the WebGL format, which can be done through a hook function `rgl::hook_webgl()`. Below is an example that shows you how to set up **rgl** and **knitr** so 3D plots can be saved while preserving the interactivity:
+The **rgl** package [@R-rgl] can be used to generate interactive 3D plots. These plots can still be interactive if they are saved to the WebGL format, which can be done through a hook function `rgl::hook_webgl()`. Below is an example that shows you how to set up **rgl** and **knitr** so 3D plots can be saved while preserving the interactivity:
 
 `r import_example('rgl-3d.Rmd')`
 

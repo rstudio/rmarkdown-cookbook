@@ -81,7 +81,7 @@ knitr::opts_chunk$set(class.source='watch-out')
 
 You can apply multiple classes to the code blocks. For example, with `class.source = c("important", "warning")`, the code block will have two classes, "important" and "warning."
 
-If you want to decorate individual elements in code blocks instead of the whole blocks, you may consider using the **flair** package: https://github.com/kbodwin/flair. With this package, you can highlight different parts of your code (such as fixed strings, function names, and arguments) with custom styles (e.g., color, font size, and/or font weight).
+If you want to decorate individual elements in code blocks instead of the whole blocks, you may consider using the **flair** package [@R-flair]. With this package, you can highlight different parts of your code (such as fixed strings, function names, and arguments) with custom styles (e.g., color, font size, and/or font weight).
 
 ## Scrollable code blocks (\*) {#html-scroll}
 
@@ -200,7 +200,7 @@ After the option is turned on, the HTML output page will contain a download butt
 
 ## Embed arbitrary files in the HTML output file {#embed-file}
 
-As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source document in the HTML output file. Sometimes the Rmd source file alone may not be enough to reproduce the report. For example, the report may need an external data file. There is a series of functions in the **xfun** package that enable you to embed arbitrary files in the HTML output file. To use these functions, make sure you have the following R packages available:
+As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source document in the HTML output file. Sometimes the Rmd source file alone may not be enough to reproduce the report. For example, the report may need an external data file. There is a series of functions in the **xfun** package [@R-xfun] that enable you to embed arbitrary files in the HTML output file. To use these functions, make sure you have the following R packages available:
 
 ```{r, eval=FALSE}
 xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
@@ -230,7 +230,7 @@ xfun::embed_files(list.files('.', '[.](Rmd|csv)$'))
 
 For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, which a reader can click on the HTML page to download the embedded file.
 
-You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package (https://github.com/fmmattioni/downloadthis) has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
+You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package [@R-downloadthis] has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
 
 ## Use a custom HTML template (\*) {#html-template}
 
@@ -424,7 +424,7 @@ output:
 
 The path you provide to the `href` attribute in `<link>` should assume the same relative path structure as you would use to reference any other asset (e.g., an image or dataset). For the image itself, most small, square PNG files will work reasonably well. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better.
 
-If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function to make a set of favicons out of R package logos.
+If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function [@R-pkgdown] to make a set of favicons out of R package logos.
 
 ## Sharing HTML output on the web {#html-share}
 
@@ -432,7 +432,7 @@ One appealing aspect of rendering R Markdown to HTML files is that it is very ea
 
 ### R-specific services
 
-RStudio offers a number of services for publishing various types of content created in R Markdown to the Internet. These services make it particularly easy to publish content by using the RStudio IDE or the **rsconnect** package.
+RStudio offers a number of services for publishing various types of content created in R Markdown to the Internet. These services make it particularly easy to publish content by using the RStudio IDE or the **rsconnect** package [@R-rsconnect].
 
 - [**RPubs**](https://rpubs.com) enables free hosting of static single-file R Markdown content. It is easy to publish via the `Publish` button in the RStudio IDE or the `rsconnect::rpubsUpload()` function. Please see the "Getting Started" page (https://rpubs.com/about/getting-started) for more details.
 

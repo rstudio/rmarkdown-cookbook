@@ -14,7 +14,7 @@ knitr::include_graphics("images/workflow.png", dpi = NA)
 
 The `.Rmd` document is the original format of the document. It contains a combination of YAML (metadata), text (narratives), and code chunks.
 
-First, the `knit()` function in **knitr** is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
+First, the `knit()` function in **knitr** [@R-knitr] is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
 
 Then the `.md` file is processed by [Pandoc](https://pandoc.org), a multipurpose tool designed to convert files from one markup language to another. It takes any parameters specified within the YAML frontmatter of the document (e.g., `title`, `author`, and `date`) to convert the document to the output format specified in the `output` parameter (such as `html_document` for HTML output).
 

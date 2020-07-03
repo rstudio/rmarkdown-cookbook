@@ -82,7 +82,7 @@ Again, the **redoc** package is still experimental and its future is unclear at 
 
 Due to the simplicity of Markdown, you can apply some global styles to the Word document (see Section \@ref(word-template)), but it is not straightforward to style individual elements, such as changing the color of a word, or centering a paragraph.
 
-Continuing his effort on making it easier to work with Office documents in R, David Gohel started to develop the **officedown** package (https://github.com/davidgohel/officedown) in 2018, which aims to bring some **officer** (https://github.com/davidgohel/officer) features into R Markdown. As of this writing, this package is still experimental, although its initial version has been published on CRAN. You may either install it from CRAN or GitHub:
+Continuing his effort on making it easier to work with Office documents in R, David Gohel started to develop the **officedown** package [@R-officedown] in 2018, which aims to bring some **officer** [@R-officer] features into R Markdown. As of this writing, this package is still experimental, although its initial version has been published on CRAN. You may either install it from CRAN or GitHub:
 
 ```r
 # install from CRAN

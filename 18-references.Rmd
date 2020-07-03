@@ -7,8 +7,84 @@
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'DiagrammeR', 'blogdown', 'kableExtra', 'tinytex', 'stargazer', 'gt', 'flextable', 'magick', 'sass', 'xaringan', 'printr', 'formatR'
-), file = 'packages.bib')
+  .packages(), 
+'knitr', 
+'rmarkdown', 
+'bookdown', 
+'blogdown', 
+'xaringan', 
+'tinytex', 
+'animation', 
+'DT', 
+'tufte', 
+'formatR', 
+'xfun', 
+# Bios only: 'shiny', 'leaflet', 'rolldown', 'crrri', 'projmgr', 'Rd2roxyen', 'servr', 'highr', 'mime', 'testit', 'fun', 'tufte'
+'pagedown', 
+'remedy', 
+'blastula', 
+'knitcitations', 
+'distill', 
+'gifski', 
+'gganimate', 
+'ggplot2', 
+'DiagrammeR', 
+'nomnoml', 
+'diagram', 
+'dagitty', 
+'ggdag', 
+'govdown', 
+'revealjs', 
+'kableExtra', 
+'flair', 
+'downloadthis',
+'pkgdown',
+'rsconnect',
+'officedown',
+'officer',
+'webshot',
+'flextable',
+'huxtable', 
+'gt',
+'gtsummary',
+'formattable',
+'reactable',
+'rhandsontable',
+'pixiedust',
+'broom',
+'stargazer', 
+'xtable',
+'tables',
+'pander',
+'tangram',
+'ztable',
+'condformat',
+'styler',
+'magick',
+'Cairo',
+'cairoDevice',
+'svglite',
+'tikzDevice', 
+'printr',
+'rgl',
+'reticulate',
+'r2d3',
+'yaml',
+'sass',
+'roxygen2',
+'usethis',
+'rmdformats',
+'flexdashboard',
+'learnr',
+'rticles',
+'spelling',
+'googledrive',
+'workflowr'
+# GH Only: 'equatiomatic', 'MonashEBSTemplates', 'plantuml', 'redoc', 'Statamarkdown', 'rmdrive'
+# LaTeX: 'float', 'framed', 'tscolorbox', 'booktabs', 'longtable', 'flafter', 'subfig', 'fancyhdr', 'xcolor', 'listings', 'titling', 'animate'
+# JavaScript: 'DataTables'
+), 
+file = 'packages.bib')
 
 # embed fonts
 if (knitr::is_latex_output()) {
@@ -16,3 +92,5 @@ if (knitr::is_latex_output()) {
   invisible(lapply(pdfs, embedFonts))
 }
 ```
+
+

@@ -291,7 +291,7 @@ pre.numberSource code > span > a:first-child::before {
 }
 ```
 
-For **revealjs**'s `revealjs_presentation` output format, you may also need to adjust the CSS.
+For **revealjs**'s `revealjs_presentation` output format [@R-revealjs], you may also need to adjust the CSS.
 
 ```css
 .reveal pre code {

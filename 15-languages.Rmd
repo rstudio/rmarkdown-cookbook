@@ -59,7 +59,7 @@ The key is that we apply the function `toupper` to the "code", and return the re
 > Hello, **knitr** engines!
 > ```
 
-Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
+Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package [@R-reticulate] and supports Python code chunks much better (see \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
 
 ```{r, tidy=FALSE}
 knitr::knit_engines$set(py = function(options) {
@@ -142,7 +142,7 @@ You can also pass other arguments to `bash` by providing them as a character vec
 
 ## Visualization with D3 {#d3}
 
-The R package **r2d3** (https://rstudio.github.io/r2d3/) is an interface to D3 visualizations. This package can be used in R Markdown documents as well as other applications (e.g., Shiny). To use it in R Markdown, you can either call its function `r2d3()` in a code chunk, or use its `d3` engine. The latter requires you to understand the D3 library and JavaScript, which are beyond the scope of this book, and we will leave it to readers to learn them. Below is an example of using the `d3` engine to draw a bar chart:
+The R package **r2d3** [@R-r2d3] is an interface to D3 visualizations. This package can be used in R Markdown documents as well as other applications (e.g., Shiny). To use it in R Markdown, you can either call its function `r2d3()` in a code chunk, or use its `d3` engine. The latter requires you to understand the D3 library and JavaScript, which are beyond the scope of this book, and we will leave it to readers to learn them. Below is an example of using the `d3` engine to draw a bar chart:
 
 `r import_example('d3.Rmd')`
 
@@ -213,7 +213,7 @@ b:
   bb: 2
 ```
 
-To show the file `demo.yml` is really generated, we can try to read it into R with the **yaml** package:
+To show the file `demo.yml` is really generated, we can try to read it into R with the **yaml** package [@R-yaml]:
 
 ```{r}
 str(yaml::read_yaml('demo.yml'))

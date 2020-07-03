@@ -235,7 +235,7 @@ knitr::include_graphics('images/rmd-wd.png', dpi = NA)
 
 If you have experience in developing R packages, or your project requires clear documentation and rigorous tests for custom functions written in the project, you may consider organizing the project as an R package. If you do not know how to create an R package, you can easily get started in the RStudio IDE by clicking the menu `File -> New Project`, and selecting the project type to be an R package.
 
-There are a lot of benefits of using an R package to manage a project. For example, you can place datasets in the `data/` folder, write R code under `R/`, generate documentation (e.g., using **roxygen2**) to `man/`, and add unit tests to `test/`. When it comes to the R Markdown reports, you can write them as package vignettes under `vignettes/`. In the vignettes, you can load datasets and call functions in the package. When you build the package (via the command `R CMD build` or RStudio), vignettes will be automatically compiled.
+There are a lot of benefits of using an R package to manage a project. For example, you can place datasets in the `data/` folder, write R code under `R/`, generate documentation (e.g., using the **roxygen2** package [@R-roxygen2]) to `man/`, and add unit tests to `test/`. When it comes to the R Markdown reports, you can write them as package vignettes under `vignettes/`. In the vignettes, you can load datasets and call functions in the package. When you build the package (via the command `R CMD build` or RStudio), vignettes will be automatically compiled.
 
 To create a package vignette in R Markdown, the easiest way is through the RStudio menu `File -> New File -> R Markdown -> From Template` (see Figure \@ref(fig:package-vignette)). Then you select "Package Vignette" from the **rmarkdown** package, and you will get a vignette template. After changing the title, author, and other metadata of the template, you can start writing the content of your report.
 
@@ -243,7 +243,7 @@ To create a package vignette in R Markdown, the easiest way is through the RStud
 knitr::include_graphics('images/package-vignette.png', dpi = NA)
 ```
 
-Alternatively, you can install the package **usethis** and use its function `usethis::use_vignette()` to create a vignette skeleton. Below is what the YAML frontmatter of a package vignette typically looks like:
+Alternatively, you can install the package **usethis** [@R-usethis] and use its function `usethis::use_vignette()` to create a vignette skeleton. Below is what the YAML frontmatter of a package vignette typically looks like:
 
 ```yaml
 ---
@@ -274,17 +274,17 @@ Similarly, any package may include R Markdown templates that package users can a
 
 Templates are a useful way to share custom structure, style, and content. There are many excellent examples of this "in the wild".
 
-Many templates add structure and style by pre-populating the YAML metadata. We already saw an example of this with the **rmarkdown** package's "Package Vignette (HTML)" template. Similarly, the **rmdformats** package provides a number of templates that pass different custom styling functions to the `output` option.
+Many templates add structure and style by pre-populating the YAML metadata. We already saw an example of this with the **rmarkdown** package's "Package Vignette (HTML)" template. Similarly, the **rmdformats** package [@R-rmdformats] provides a number of templates that pass different custom styling functions to the `output` option.
 
-Other templates demonstrate required document structures by the packages. For example, the **pagedown** package includes numerous templates for posters, resumes, and other page layouts. Similarly, the **xaringan** package's "Ninja Presentation" template demonstrates the syntax for many different slide formatting options. 
+Other templates demonstrate required document structures by the packages. For example, the **pagedown** package [@R-pagedown] includes numerous templates for posters, resumes, and other page layouts. Similarly, the **xaringan** package's "Ninja Presentation" template [@R-xaringan] demonstrates the syntax for many different slide formatting options. 
 
-Templates may also demonstrate package features and syntax. For example, both the **flexdashboard** package and the **learnr** package include templates with code chunks that call functions from the packages to create a sample dashboard or tutorial, respectively.
+Templates may also demonstrate package features and syntax. For example, both the **flexdashboard** package [@R-flexdashboard] and the **learnr** package [@R-learnr] include templates with code chunks that call functions from the packages to create a sample dashboard or tutorial, respectively.
 
-Similarly, templates may also include boilerplate content. For example, the **rticles** package provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals. Boilerplate content is also useful in in organizational settings, such as a team generating a quarterly reports. 
+Similarly, templates may also include boilerplate content. For example, the **rticles** package [@R-rticles] provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals. Boilerplate content is also useful in in organizational settings, such as a team generating a quarterly reports. 
 
 ### Template set-up
 
-The **usethis** package has a helpful function for creating templates. Running `usethis::use_rmarkdown_template("Template Name")` will automatically create the required directory structure and files (you should provide your own "Template Name").
+The **usethis** package [@R-usethis] has a helpful function for creating templates. Running `usethis::use_rmarkdown_template("Template Name")` will automatically create the required directory structure and files (you should provide your own "Template Name").
 
 If you wish to set up your template manually instead, create a subdirectory of the `inst/rmarkdown/templates` directory. Within this directory, you need to save at least two files:
 
@@ -364,7 +364,7 @@ There are a lot of settings that you can customize for a **bookdown** project. F
 
 ## Build websites with **blogdown** {#blogdown}
 
-If you want build a website based on R Markdown, you may consider using the **blogdown** package. The easiest way to get started is to use the RStudio menu  `File -> New Project -> New Directory -> Website using blogdown`, as you can see from Figure \@ref(fig:bookdown-project). If you have never used **blogdown** before, you may use the default settings in the dialog box, otherwise you can customize things like the website theme. If you do not use RStudio, you may call the function `blogdown::new_site()` under an empty directory to create a new website.
+If you want build a website based on R Markdown, you may consider using the **blogdown** package [@R-blogdown]. The easiest way to get started is to use the RStudio menu  `File -> New Project -> New Directory -> Website using blogdown`, as you can see from Figure \@ref(fig:bookdown-project). If you have never used **blogdown** before, you may use the default settings in the dialog box, otherwise you can customize things like the website theme. If you do not use RStudio, you may call the function `blogdown::new_site()` under an empty directory to create a new website.
 
 A website project may contain any number of Rmd documents. They could either be normal pages or blog posts. R Markdown makes it easier for you to maintain your website because the results on your website are automatically and dynamically generated.
 
