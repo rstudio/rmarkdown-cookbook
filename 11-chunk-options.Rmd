@@ -437,7 +437,7 @@ That is because `xetex` is usually better than the default engine `pdftex` in pr
 
 There are two major disadvantages of the `tikz` device. First, it requires a LaTeX installation, but this may not be too bad (see Section \@ref(install-latex)). You also need a few LaTeX packages, which can be easily installed if you are using TinyTeX:
 
-```{r, tikz-packages, cache=TRUE, message=FALSE}
+```{r, tikz-packages, eval=!tinytex:::check_installed(c('pgf', 'preview', 'xcolor')), message=FALSE}
 tinytex::tlmgr_install(c('pgf', 'preview', 'xcolor'))
 ```
 
