@@ -1,0 +1,28 @@
+```{r, setup}
+library(reticulate)
+```
+
+Create a variable `x` in the Python session:
+
+```{python}
+x = [1, 2, 3]
+```
+
+Access the Python variable `x` in an R code chunk:
+
+```{r}
+py$x
+```
+
+Create a new variable `y` in the Python session using R,
+and pass a data frame to `y`:
+
+```{r}
+py$y <- head(cars)
+```
+
+Print the variable `y` in Python:
+
+```{python}
+print(y)
+```

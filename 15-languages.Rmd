@@ -59,7 +59,7 @@ The key is that we apply the function `toupper` to the "code", and return the re
 > Hello, **knitr** engines!
 > ```
 
-Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
+Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see Section \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
 
 ```{r, tidy=FALSE}
 knitr::knit_engines$set(py = function(options) {
@@ -95,7 +95,23 @@ You can even override existing language engines via `knitr::knit_engines$set()`,
 
 ## Run Python code and interact with Python {#eng-python}
 
-TODO
+We know you love Python, so let's make it super clear: R Markdown and **knitr** do support Python.
+
+To add a Python code chunk to an R Markdown document, you can use the chunk header ```` ```{python}````, e.g.,
+
+````md
+```{python}`r ''`
+print("Hello Python!")
+```
+````
+
+You can add chunk options to the chunk header as usual, such as `echo = FALSE` or `eval = FALSE`. Plots drawn with the **matplotlib** package in Python are also supported.
+
+The Python support in R Markdown and **knitr** is based on the **reticulate** package [@R-reticulate], and one important feature of this package is that it allows the two-way communication between Python and R. For example, you may access or create Python variables from the R session via the object `py` in **reticulate**:
+
+`r import_example('python.Rmd')`
+
+For more information about the **reticulate** package, you may see its documentation at https://rstudio.github.io/reticulate/.
 
 ## Conditional content via the `asis` engine {#eng-asis}
 
