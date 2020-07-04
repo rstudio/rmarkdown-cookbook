@@ -50,7 +50,7 @@ Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
-We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names. For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class. This can be useful when you want to highlight a certain code chunk or its text output.
+We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class. This can be useful when you want to highlight a certain code chunk or its text output.
 
 By default, the HTML output of R Markdown includes the Bootstrap framework, which makes it easy for you to change the appearance of your code and output, because Bootstrap has predefined some [CSS classes for backgrounds:](https://getbootstrap.com/docs/3.4/css/#helper-classes): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.
 

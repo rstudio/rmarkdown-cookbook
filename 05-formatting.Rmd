@@ -255,7 +255,7 @@ I'd recommend the second way, because the first way is more or less a hack takin
 
 ## Line numbers for code blocks (\*) {#number-lines}
 
-You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"`, e.g.,
+You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"` (see Section \@ref(attr-output) for more information on these options), e.g.,
 
 ````md
 ```{r, attr.source='.numberLines'}`r ''`

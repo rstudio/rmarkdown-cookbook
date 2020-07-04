@@ -357,9 +357,47 @@ if (TRUE) {
 
 ## Add attributes to text output blocks (\*) {#attr-output}
 
-TODO
+In Section \@ref(chunk-styling), we showed some examples to style source and text output blocks based on the chunk options `class.source` and `class.output`. Actually, there are a wider range of similar options in **knitr**, such as `class.message`, `class.warning`, and `class.error`. These options can be used to add class names to the corresponding text output blocks, e.g., `class.error` adds classes to error messages when the chunk option `error = TRUE` (see Section \@ref(opts-error)). The most common application of these options may be styling the output blocks with CSS rules defined according to the class names, as demonstrated by the examples in Section \@ref(chunk-styling).
 
-The `attr.*` options, and the special case, `class.*` options.
+Typically, a text output block is essentially a fenced code block, and its Markdown source looks like this:
+
+````md
+```{.className}
+lines of output
+```
+````
+
+When the output format is HTML, it is usually^[It could also be converted to `<div class="className"></div>`. You may view the source of the HTML output document to make sure.] converted to:
+
+````html
+<pre class="className">
+<code>lines of output</code>
+</pre>
+````
+
+The `class.*` options control the `class` attribute of the `<pre>` element, which is the container of the text output blocks that we mentioned above.
+
+In fact, the class is only one of the possible attribute of the `<pre>` element in HTML. An HTML element may have many other attributes, such as the width, height, and style, etc. The chunk options `attr.*`, including `attr.source`, `attr.output`, `attr.message`, `attr.warning`, and `attr.error`, allow you to add arbitrary attributes to the text output blocks. For example, with `attr.source = 'style="background: pink;"'`, you may change the background color of source blocks to pink. The corresponding fenced code block will be:
+
+````md
+```{style="background: pink;"}
+...
+```
+````
+
+And the HTML output will be:
+
+````html
+<pre style="background: pink;">
+...
+</pre>
+````
+
+You can find more examples in Section \@ref(number-lines) and Section \@ref(hook-scroll).
+
+As a technical note, the chunk options `class.*` are just special cases of `attr.*`, e.g., `class.source = 'numberLines'` is equivalent to `attr.source = '.numberLines'` (note the leading dot here), but `attr.source` can take arbitrary attribute values, e.g., `attr.source = c('.numberLines', 'startFrom="11"')`.
+
+These options are mostly useful to HTML output. There are cases in which the attributes may be useful to other output formats, but these cases are relatively rare. The attributes need to be supported by either Pandoc (such as the `.numberLines` attribute, which works for both HTML and LaTeX output), or a third-party package (usually via a Lua filter, as introduced in Section \@ref(lua-filters)).
 
 ## Post-process plots (\*) {#fig-process}
 

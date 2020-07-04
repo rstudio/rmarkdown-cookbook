@@ -167,7 +167,7 @@ The method introduced in Section \@ref(number-lines) may be the actual way in wh
 
 ## Scrollable text output {#hook-scroll}
 
-In Section \@ref(html-scroll), we showed how to restrict the heights of code blocks and text output blocks via CSS. In fact, there is a simpler method with the chunk options `attr.source` and `attr.output` to add the `style` attribute to the fenced code blocks in the Markdown output. For example, for this code chunk with the `attr.output` option:
+In Section \@ref(html-scroll), we showed how to restrict the heights of code blocks and text output blocks via CSS. In fact, there is a simpler method with the chunk options `attr.source` and `attr.output` to add the `style` attribute to the fenced code blocks in the Markdown output (see Section \@ref(attr-output) for more information on these options). For example, for this code chunk with the `attr.output` option:
 
 ````md
 ```{r, attr.output='style="max-height: 100px;"'}`r ''`
