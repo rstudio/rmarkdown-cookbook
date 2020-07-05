@@ -4,7 +4,7 @@
 # References {-}
 '`
 
-```{r include=FALSE}
+```{r include=FALSE, tidy=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 
@@ -83,7 +83,7 @@ knitr::write_bib(c(
 # Bios only: 'shiny', 'leaflet', 'rolldown', 'crrri', 'projmgr', 'Rd2roxyen', 'servr', 'highr', 'mime', 'testit', 'fun', 'tufte'
 # JavaScript: 'DataTables'
 ), 
-file = 'packages.bib')
+file = 'packages.bib', lib.loc = c(.libPaths(), '~/R-tmp'))
 
 # embed fonts
 if (knitr::is_latex_output()) {
