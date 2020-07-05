@@ -79,7 +79,7 @@ We used the title as the example in this section, but the idea can be applied to
 
 ## Access the document metadata in R code {#document-metadata}
 
-When a Rmd document is compiled, all of its metadata in the YAML section will be stored in the list object `rmarkdown::metadata`. For example, `rmarkdown::metadata$title` gives you the title of the document. You can use this `metadata` object in your R code, so that you do not need to hard-code information that has been provided in the YAML metadata. For example, when you send an email with [the **blastula** package](https://github.com/rich-iannone/blastula) [@R-blastula] within an Rmd document, you may use the title of the document as the email subject, and get the sender information from the author field:
+When a Rmd document is compiled, all of its metadata in the YAML section will be stored in the list object `rmarkdown::metadata`. For example, `rmarkdown::metadata$title` gives you the title of the document. You can use this `metadata` object in your R code, so that you do not need to hard-code information that has been provided in the YAML metadata. For example, when you send an email with the **blastula** package [@R-blastula] within an Rmd document, you may use the title of the document as the email subject, and get the sender information from the author field:
 
 ````md
 ---
