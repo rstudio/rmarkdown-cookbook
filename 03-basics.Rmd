@@ -23,7 +23,7 @@ You can customize the behavior and output of code chunks through chunk options (
 
 ## Writing Markdown with the remedy package {#remedy}
 
-If you are not very familiar with Markdown yet, we recommend that you try the **remedy** package [@R-remedy], which has provided a series of RStudio addins to help you write Markdown content by clicking the addins. A GIF animation is worth a thousand words. Please check out its homepage for many GIFs that quickly shows you what this package can do.
+If you are not very familiar with Markdown yet, we recommend that you try the **remedy** package (https://github.com/ThinkR-open/remedy), which has provided a series of RStudio addins to help you write Markdown content by clicking the addins. A GIF animation is worth a thousand words. Please check out its homepage for many GIFs that quickly shows you what this package can do.
 
 ## Render an R script to a report {#spin}
 
