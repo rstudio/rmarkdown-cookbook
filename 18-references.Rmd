@@ -51,7 +51,6 @@ knitr::write_bib(c(
 'printr',
 'r2d3',
 'reactable',
-'remedy',
 'reticulate',
 'revealjs',
 'rgl',
