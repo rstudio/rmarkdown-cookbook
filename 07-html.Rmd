@@ -203,7 +203,7 @@ After the option is turned on, the HTML output page will contain a download butt
 As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source document in the HTML output file. Sometimes the Rmd source file alone may not be enough to reproduce the report. For example, the report may need an external data file. There is a series of functions in the **xfun** package [@R-xfun] that enable you to embed arbitrary files in the HTML output file. To use these functions, make sure you have the following R packages available:
 
 ```{r, eval=FALSE}
-xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
+xfun::pkg_load2(c('htmltools', 'mime'))
 ```
 
 Then you can use one of the functions `xfun::embed_file()`, `xfun::embed_dir()`, or `xfun::embed_files()` in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
