@@ -4,7 +4,7 @@ One main advantage of R Markdown is that it can create multiple output formats f
 
 Sometimes it can be challenging to make an output element of a code chunk work for all output formats. For example, it is extremely simple to create a rounded and circular image in HTML output with a single CSS rule (`img { border-radius: 50%; }`), but not so straightforward in LaTeX output (typically it will involve TikZ graphics).
 
-Sometimes it is just impossible for an output element to work for all output formats. For example, you can easily create a GIF animation with the **gifski** package (see Section \@ref(animation)), and it will work perfectly for HTML output, but embedding such an animation in LaTeX output is not possible without extra steps of processing the GIF file and using extra LaTeX packages.
+Sometimes it is just impossible for an output element to work for all output formats. For example, you can easily create a GIF animation with the **gifski** package [@R-gifski] (see Section \@ref(animation)), and it will work perfectly for HTML output, but embedding such an animation in LaTeX output is not possible without extra steps of processing the GIF file and using extra LaTeX packages.
 
 This chapter provides a few examples that can work for multiple formats. If a certain feature is only available to a specific output format, we will show you how to conditionally enable or disable it based on the output format.
 
@@ -64,7 +64,7 @@ Note however that the HTML output will not be visible in
 non-HTML formats.
 ```
 
-There is actually a better solution than the one mentioned in the above error message, but it involves extra packages. You can install the **webshot** package in R and also install PhantomJS:
+There is actually a better solution than the one mentioned in the above error message, but it involves extra packages. You can install the **webshot** package [@R-webshot] in R and also install PhantomJS:
 
 ```{r, eval=FALSE}
 install.packages('webshot')
@@ -75,7 +75,7 @@ Then if you knit an Rmd document with HTML widgets to a non-HTML format, the HTM
 
 ## Embed a web page {#include-url}
 
-If you have **webshot** and PhantomJS installed (see Section \@ref(html-widgets)), you can embed any web page in the output document through `knitr::include_url()`. When you pass a URL of a web page to this function in a code chunk, it will generate an `<iframe>` (inline frame) if the output format is HTML, and a screenshot of the web page for other output formats. You can view the actual page in the inline frame. For example, Figure \@ref(fig:include-url) should show you my homepage if you are reading the online version of this book, otherwise you will see a static screenshot instead.
+If you have the **webshot** package [@R-webshot] and PhantomJS installed (see Section \@ref(html-widgets)), you can embed any web page in the output document through `knitr::include_url()`. When you pass a URL of a web page to this function in a code chunk, it will generate an `<iframe>` (inline frame) if the output format is HTML, and a screenshot of the web page for other output formats. You can view the actual page in the inline frame. For example, Figure \@ref(fig:include-url) should show you my homepage if you are reading the online version of this book, otherwise you will see a static screenshot instead.
 
 \let\ooldhref\href
 \let\href\oldhref
