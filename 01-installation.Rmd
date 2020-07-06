@@ -19,7 +19,7 @@ If you need to create PDF output, you may need to install LaTeX (Section \@ref(i
 
 ## Use a Pandoc version not bundled with the RStudio IDE {#install-pandoc}
 
-The RStudio IDE has bundled a version of Pandoc, so you do not need to install Pandoc by yourself if you are using the RStudio IDE. However, the bundled version is often not the latest, or may not be the exact version that you want. You can choose to install a separate copy of Pandoc by yourself. Please keep in mind that the bundled version may be more thoroughly tested with R Markdown because most RStudio users may just use the bundled version. If you want to go with a different version (especially a higher version), you might run into problems that have not been discovered by other R Markdown users or developers.
+The RStudio IDE has bundled a version of Pandoc, so you do not need to install Pandoc by yourself if you are using the RStudio IDE. However, the bundled version is often not the latest, or may not be the exact version that you want. You can choose to install a separate copy of Pandoc by yourself. Please keep in mind that the bundled version may be more thoroughly tested with R Markdown, because most RStudio users may just use the bundled version. If you want to go with a different version (especially a higher version), you might run into problems that have not been discovered by other R Markdown users or developers.
 
 There are detailed instructions on how to install Pandoc on different platforms on the Pandoc website at https://pandoc.org/installing.html. If you have installed Pandoc by yourself and want to use that specific version, you may inform the **rmarkdown** package by calling the function `rmarkdown::find_pandoc()`, e.g.,
 
@@ -46,9 +46,9 @@ rmarkdown::find_pandoc(version = '2.9.1')
 
 ## Install LaTeX (TinyTeX) for PDF reports {#install-latex}
 
-If you would like to create PDF documents from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, we recommend that R Markdown users install [TinyTeX](https://yihui.org/tinytex/).
+If you would like to create PDF documents from R Markdown, you will need to have a LaTeX distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, we recommend that R Markdown users install [TinyTeX.](https://yihui.org/tinytex/)
 
-TinyTeX is a custom LaTeX distribution based on TeX Live that is small in size (150Mb on macOS/Linux and 220Mb on Windows when installed) but functions well in most cases, especially for R users. Installing or running TinyTeX does not require sysadmin privileges.^[Actually, we recommend that you **do not** use your root privilege (i.e., `sudo`) to install TinyTeX on Linux or macOS, if you are the only user of your system.] You can install TinyTeX with the R package **tinytex** [@R-tinytex]:
+TinyTeX is a custom LaTeX distribution based on TeX Live that is relatively small in size, but functions well in most cases, especially for R users. Installing or running TinyTeX does not require sysadmin privileges.^[Actually, we recommend that you **do not** use your root privilege (i.e., `sudo`) to install TinyTeX on Linux or macOS, if you are the only user of your system.] You can install TinyTeX with the R package **tinytex** [@R-tinytex]:
 
 ```{r eval=FALSE}
 tinytex::install_tinytex()
@@ -77,7 +77,7 @@ When you compile a document to PDF through LaTeX, you may run into errors like t
   Font tcrm0700 at 600 not found
 ```
 
-If you are using TinyTeX as introduced in Section \@ref(install-latex), usually you do not need to deal with such errors since **tinytex** [@R-tinytex] will automatically deal with them, but if you run into such errors anyway, it is still easy to install the missing LaTeX package(s) via `tinytex::parse_install()`. This function takes the path of the LaTeX log file as the input, tries to figure out the missing packages automatically, and install them if they are found on CTAN (the Comprehensive TEX Archive Network, https://ctan.org). The LaTeX log file typically has the same base name as your input document, and has an extension `.log`. If you cannot find this log file, you can pass the error message to the `text` argument of this function. Both ways should work:
+If you are using TinyTeX as introduced in Section \@ref(install-latex), usually you do not need to deal with such errors, since **tinytex** [@R-tinytex] will automatically deal with them, but if you run into such errors anyway, it is still easy to install the missing LaTeX package(s) via `tinytex::parse_install()`. This function takes the path of the LaTeX log file as the input, tries to figure out the missing packages automatically, and install them if they are found on CTAN (the Comprehensive TEX Archive Network, https://ctan.org). The LaTeX log file typically has the same base name as your input document, and has an extension `.log`. If you cannot find this log file, you can pass the error message to the `text` argument of this function. Both ways should work:
 
 ```{r, tidy=FALSE, eval=FALSE}
 # if the log file is filename.log

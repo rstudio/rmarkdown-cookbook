@@ -1,6 +1,6 @@
 # Conceptual Overview {#conceptual-overview}
 
-The goal of this text is to showcase many tips and tracks for getting the most value from R Markdown. The following chapters demonstrate techniques to write more efficient and succinct code and to customize your output. Before we begin, it may be helpful to understand just a bit more about how R Markdown works, to help you to understand, remember, apply, and "remix" these tricks. In this section, we provide a brief overview of the process of knitting a document and the key "levers to pull" to change the output. This material is not necessary to understand the subsequent chapters (so feel free to skip ahead!), but it may help you to build a richer mental model for how all the pieces fit together.
+The goal of this text is to showcase many tips and tricks for getting the most value from R Markdown. The following chapters demonstrate techniques to write more efficient and succinct code and to customize your output. Before we begin, it may be helpful to learn just a bit more about how R Markdown works, to help you to understand, remember, apply, and "remix" these tricks. In this section, we provide a brief overview of the process of knitting a document and the "key levers to pull" to change the output. This material is not necessary to understand the subsequent chapters (so feel free to skip ahead!), but it may help you to build a richer mental model for how all the pieces fit together.
 
 ## What happens when we render? {#rmarkdown-process}
 
@@ -16,9 +16,9 @@ The `.Rmd` document is the original format of the document. It contains a combin
 
 First, the `knit()` function in **knitr** [@R-knitr] is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
 
-Then the `.md` file is processed by [Pandoc](https://pandoc.org), a multipurpose tool designed to convert files from one markup language to another. It takes any parameters specified within the YAML frontmatter of the document (e.g., `title`, `author`, and `date`) to convert the document to the output format specified in the `output` parameter (such as `html_document` for HTML output).
+Then the `.md` file is processed by Pandoc, a multipurpose tool designed to convert files from one markup language to another. It takes any parameters specified within the YAML frontmatter of the document (e.g., `title`, `author`, and `date`) to convert the document to the output format specified in the `output` parameter (such as `html_document` for HTML output).
 
-If the output format is PDF, there is an additional layer of processing, as Pandoc will convert the intermediate `.md` file into an intermediate `.tex` file. This file is then processed by [LaTeX](https://www.latex-project.org) to form the final PDF document. As we mentioned in Section \@ref(install-latex), the **rmarkdown** package calls the `latexmk()` function in the **tinytex** package [@R-tinytex], which in turn calls LaTeX to compile `.tex` to `.pdf`.
+If the output format is PDF, there is an additional layer of processing, as Pandoc will convert the intermediate `.md` file into an intermediate `.tex` file. This file is then processed by LaTeX to form the final PDF document. As we mentioned in Section \@ref(install-latex), the **rmarkdown** package calls the `latexmk()` function in the **tinytex** package [@R-tinytex], which in turn calls LaTeX to compile `.tex` to `.pdf`.
 
 In short, `rmarkdown::render()` = `knitr::knit()` + Pandoc (+ LaTeX for PDF output only).
 
@@ -32,11 +32,11 @@ Note that not all R Markdown documents are eventually compiled through Pandoc. T
 
 ## R Markdown anatomy {#rmarkdown-anatomy}
 
-We can dig one level deeper by considering the different components of an RMarkdown. Specifically, let's look at when and how these are altered during the rendering workflow. 
+We can dig one level deeper by considering the different components of an R Markdown. Specifically, let's look at when and how these are altered during the rendering workflow. 
 
 ### YAML metadata
 
-The YAML metadata (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information it contains can effect the code, content, and the rendering process. 
+The YAML metadata (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information that it contains can effect the code, content, and the rendering process. 
 
 A typical YAML header looks like this, containing basic metadata about the document and rendering instructions:
 
@@ -50,7 +50,7 @@ output: html_document
 
 In this case, the `title` and `author` fields are processed by Pandoc to set the values of template variables. With the default template, the title and author information will appear at the beginning of the resulting document. More details on how Pandoc uses information from the YAML header are included in the Pandoc Manual's section on the [YAML metadata block.](https://pandoc.org/MANUAL.html#extension-yaml_metadata_block)
 
-In contrast, the `output` field is used by **rmarkdown** to apply the function `rmarkdown::html_document()` in the rendering process. We can further influence the rendering process by passing arguments to the rendering function that we are specifying in `output`. For example, writing:
+In contrast, the `output` field is used by **rmarkdown** to apply the output format function `rmarkdown::html_document()` in the rendering process. We can further influence the rendering process by passing arguments to the output format that we are specifying in `output`. For example, writing:
 
 ```yaml
 output:
@@ -59,9 +59,9 @@ output:
     toc_float: true
 ```
 
-is the equivalent of telling `rmarkdown::render()` to apply the `rmarkdown::html_document()` with the arguments to `toc` and `toc_float` set to `TRUE`. To find out what these options do, and to learn about other possible options, you may run `?rmarkdown::html_document` in your R console and read the help page. Note that `output: html_document` is equivalent to `output: rmarkdown::html_document`. When an output format does not have a qualifier like `rmarkdown::`, it is assumed that it is from the **rmarkdown** package, otherwise it must be prefixed with the R package name, e.g., `bookdown::html_document2`.
+is the equivalent of telling `rmarkdown::render()` to apply the output format `rmarkdown::html_document(toc = TRUE, toc_float = TRUE)`. To find out what these options do, and to learn about other possible options, you may run `?rmarkdown::html_document` in your R console and read the help page. Note that `output: html_document` is equivalent to `output: rmarkdown::html_document`. When an output format does not have a qualifier like `rmarkdown::`, it is assumed that it is from the **rmarkdown** package, otherwise it must be prefixed with the R package name, e.g., `bookdown::html_document2`.
 
-The YAML header can also influence our content and code if we choose to use parameters in YAML, as described in Section \@ref(parameterized-reports). In short, we can include variables and R expressions in this header that can be referenced throughout our R Markdown document. For example, the following header defines `start_date` and `end_date` parameters, which will be reflected in a list called `params` later in the R Markdown document. Thus, if we want to use these values in our R code, we can access them via `params$x` and `params$y`.
+The YAML header can also influence our content and code if we choose to use parameters in YAML, as described in Section \@ref(parameterized-reports). In short, we can include variables and R expressions in this header that can be referenced throughout our R Markdown document. For example, the following header defines `start_date` and `end_date` parameters, which will be reflected in a list called `params` later in the R Markdown document. Thus, if we want to use these values in our R code, we can access them via `params$start_date` and `params$end_date`.
 
 ```yaml
 ---
@@ -96,9 +96,9 @@ These headers give structure to our entire document as **rmarkdown** converts th
 ## Second-level header {#introduction .important .large}
 ```
 
-We can them access this section with many of the tools that you will learn by referencing it by its ID or class. As examples, Section \@ref(cross-ref) demonstrates how to use section ID to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subsections.
+We can them access this section with many of the tools that you will learn, e.g., by referencing it with its ID or class. As examples, Section \@ref(cross-ref) demonstrates how to use section ID to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subsections.
 
-The final interesting type of content that we might find in the textual part of our R Markdown is raw content written specifically for our desired output format, e.g., raw LaTeX code for LaTeX output (\@ref(raw-latex)), raw HTML code for HTML output, and so on (Section \@ref(raw-content)). Raw content may help you achieve things that cannot be done with plain Markdown, but please keep in mind that it is usually ignored when the output format is a different format, e.g., raw LaTeX commands in Markdown will be ignored when the output format is HTML.
+The final interesting type of content that we might find in the textual part of our R Markdown is raw content written specifically for our desired output format, e.g., raw LaTeX code for LaTeX output (Section \@ref(raw-latex)), raw HTML code for HTML output, and so on (Section \@ref(raw-content)). Raw content may help you achieve things that cannot be done with plain Markdown, but please keep in mind that it is usually ignored when the output format is a different format, e.g., raw LaTeX commands in Markdown will be ignored when the output format is HTML.
 
 ### Code chunks
 
@@ -115,7 +115,7 @@ nomnoml::nomnoml(
   [Environment]->[Language Engine]
   [Language Engine]->[Formatted Code]
   [Language Engine]->[Formatted Output]
-  [Language Engine]->[(Modified) Enviornment]
+  [Language Engine]->[(Modified) Environment]
   ]")
 ```
 
@@ -129,7 +129,7 @@ We can modify this process by:
 
 For example, in Section \@ref(hook-hide), you will learn how to add a hook to post-process the code output to redact certain lines in the source code.
 
-Code chunks also have analogous concepts to the classes and unique identifiers that we explored for narratives in Section \@ref(narrative). A code chunk can specify an optional identifier (often called the "chunk label") immediately after its language engine. It can set classes for code and text output blocks in the output document via the chunk options `class.source` and `class.output`, respectively. For example, the chunk header ```` ```{r summary-stats, class.output = 'large-text'}```` gives this chunk a label `summary-stats`, and the class `large-text` for the text output blocks. A chunk can have only one label, but can have multiple classes.
+Code chunks also have analogous concepts to the classes and unique identifiers that we explored for narratives in Section \@ref(narrative). A code chunk can specify an optional identifier (often called the "chunk label") immediately after its language engine. It can set classes for code and text output blocks in the output document via the chunk options `class.source` and `class.output`, respectively (see Section \@ref(chunk-styling)). For example, the chunk header ```` ```{r summary-stats, class.output = 'large-text'}```` gives this chunk a label `summary-stats`, and the class `large-text` for the text output blocks. A chunk can have only one label, but can have multiple classes.
 
 ### Document body
 
@@ -138,7 +138,7 @@ One important thing to understand when authoring and modifying a document is how
 ````md
 # Title
 
-## Section x
+## Section X
 
 This is my introduction.
 
@@ -155,7 +155,7 @@ Here are some details.
 
 These are more details.
 
-## Section y
+## Section Y
 
 This is another section.
 
@@ -165,15 +165,15 @@ print(y)
 ```
 ````
 
-When writing this document, we likely think of each piece as linear with independent sections of text and code following in a sequence one after the other. However, what we are actually doing is creating a set of nested containers which conceptually^[In reality, there are many more containers than shown. For example, for a knitted code chunk, the code and output exist in separate containers which share a common parent.] looks more like Figure \@ref(fig:rmd-containers).
+When writing this document, we might think of each piece as linear with independent sections of text and code following in a sequence one after the other. However, what we are actually doing is creating a set of nested containers that conceptually^[In reality, there are many more containers than shown. For example, for a knitted code chunk, the code and output exist in separate containers that share a common parent.] looks more like Figure \@ref(fig:rmd-containers).
 
 ```{r rmd-containers, echo = FALSE, fig.cap = 'A simple R Markdown document illustrated as a set of nested containers.', out.width = '50%', fig.align='center', cache=TRUE}
 nomnoml::nomnoml(
   "
   [Title (Level 1)|
   
-    [Section x (Level 2)| - Text | - Code (chunk-x) | - Subsection 1 | - Subsection 2]
-    [Section y (Level 2)| - Text | - Code (chunk-y) ]
+    [Section X (Level 2)| - Text | - Code (chunk-x) | - Subsection 1 | - Subsection 2]
+    [Section Y (Level 2)| - Text | - Code (chunk-y) ]
 
   ]")
 ```
@@ -184,7 +184,7 @@ Note that in Figure \@ref(fig:rmd-containers), headers of the same level represe
 
 This structure has important implications as we attempt to apply some of the formatting and styling options that are described in this text. For example, we will see this nested structure when we learn about how Pandoc represents our document as an abstract syntax tree (Section \@ref(lua-filters)), or when we use CSS selectors (Section \@ref(html-css), among others) to style our HTML output. 
 
-Formatting and styling can be applied to either containers of similar types (e.g., all code blocks), or all containers that exist inside of another container (e.g., everything under "Section y"). Additionally, as explained in Section \@ref(narrative), we can apply the same classes to certain sections to designate them as being similar, and in this case, the common class names denote the common properties or intent of these sections.
+Formatting and styling can be applied to either containers of similar types (e.g., all code blocks), or all containers that exist inside of another container (e.g., everything under "Section Y"). Additionally, as explained in Section \@ref(narrative), we can apply the same classes to certain sections to designate them as being similar, and in this case, the common class names denote the common properties or intent of these sections.
 
 As you read through this cookbook, it may be useful to quiz yourself and think about what sort of container the specific "recipe" is acting upon.
 

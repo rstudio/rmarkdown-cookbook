@@ -14,7 +14,7 @@ In 2006, he founded the Capital of Statistics (https://cosx.org), which has grow
 
 He usually reads Twitter messages once a week (https://twitter.com/xieyihui), and most of the time you can find him on GitHub (https://github.com/yihui).
 
-He has four hobbies: reading, writing, cooking, and playing badminton. He is actually more interested in cooking than eating, but he really loves eating spicy food. When being asked "how spicy you want your food to be" in the restaurant, he usually answers "as spicy as your chef can make it to be."
+He has four hobbies: reading, writing (mostly blogging), cooking, and playing badminton. He is actually more interested in cooking than eating. There are not many types of food that he cannot resist eating, and spicy food is one of the few. Since cooking is more fun, he rarely goes to restaurants. When he does go and is asked "how spicy you want your food to be" in the restaurant, he usually answers "as spicy as your chef can make it to be."
 
 ## Christophe Dervieux {-}
 
@@ -32,4 +32,4 @@ Emily Riederer works in data science for the consumer finance industry where she
 
 Emily frequently discusses R on Twitter (https://twitter.com/emilyriederer) and her blog (https://emilyriederer.netlify.app/) and shared projects, including her **projmgr** R package, on GitHub (https://github.com/emilyriederer). She has also served as a package reviewer for rOpenSci and a founding co-organizer of the annual satRday Chicago R conference. 
 
-Emily's other interests include reading and weightlifting. She thinks she likes spicy food, but since she has only ever lived in the United States, she's been told that she does not really know what that actually means. 
+Emily's other interests include reading and weightlifting. She thinks she likes spicy food, but since she has only ever lived in the United States, she has been told that she does not really know what that actually means. 
