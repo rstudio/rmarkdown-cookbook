@@ -218,7 +218,7 @@ Sometimes you may want to use another directory as the working directory. The us
 If you want to change the working directory for all code chunks, you may set it via a `setup` code chunk in the beginning of your document:
 
 ````md
-```{setup, include=FALSE}`r ''`
+```{r, setup, include=FALSE}`r ''`
 knitr::opts_knit$set(root.dir = '/tmp')
 ```
 ````
