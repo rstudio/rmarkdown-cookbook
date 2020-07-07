@@ -421,7 +421,7 @@ identical(parse_code({x <- 1}), parse_code({1 -> x}))
 
 ### Invalidate the cache by changes in global variables
 
-There are two types of variables in an expression: global variables and local variables. Global variables are those created outside the expression, and local variables are those created inside the expression. If the value of a global variable in the expression has changed. For example, in the expression below, if `y` has changed, you are most likely to want to invalidate the cache and rerun the expression, otherwise you still get the result from the old value of `y`:
+There are two types of variables in an expression: global variables and local variables. Global variables are those created outside the expression, and local variables are those created inside the expression. If the value of a global variable in the expression has changed, your cached result will no longer reflect the result you would obtain by running the expression again. For example, in the expression below, if `y` has changed, you are most likely to want to invalidate the cache and rerun the expression, otherwise you still get the result from the old value of `y`:
 
 ```r
 y <- 2
@@ -481,7 +481,7 @@ The global variables are identified by `codetools::findGlobals()` when `hash = "
 
 ### Keep multiple copies of the cache
 
-Since cache is typically used for time-consuming code, perhaps you should invalidate it conservatively. You might regret invalidating the cache too soon or aggressively, because in case you should need an older version of the cache again, you would have to wait for a long time for the computing to be redone.
+Since the cache is typically used for time-consuming code, perhaps you should invalidate it conservatively. You might regret invalidating the cache too soon or aggressively, because in case you should need an older version of the cache again, you would have to wait for a long time for the computing to be redone.
 
 The `clean` argument of `cache_rds()` allows you to keep older copies of the cache if you set it to `FALSE`. You can also set the global R option `options(xfun.cache_rds.clean = FALSE)` if you want this to be the default behavior throughout the entire R session. By default, `clean = TRUE` and `cache_rds()` will try to delete the older cache every time. Setting `clean = FALSE` can be useful if you are still experimenting with the code. For example, you can cache two versions of a linear model:
 
