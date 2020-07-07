@@ -175,7 +175,7 @@ mx <- mean(x)
 
 In this example, we added a chunk label `mean-x` to the R code chunk (which is passed to the `load_cache()` function), and cached it using the chunk option `cache = TRUE`. All objects in this code chunk will be saved to the cache database. Again, you will have to compile this document at least twice, so the object `mx` can be correctly loaded from the cache database. If the value of `mx` is not going to be changed in the future, you do not need to compile the document one more time.
 
-If you do not have to specify the object name in `load_cache()` in the second argument, the whole cache database will be loaded into the current environment, and you can use any objects cache database before these objects are created later in the document, e.g.,
+If you do not specify the object name in the second argument to `load_cache()`, the whole cache database will be loaded into the current environment. You can then use any objects that were in the cache database before these objects are created later in the document, e.g.,
 
 ```{r, eval=FALSE}
 knitr::load_cache('mean-x')
