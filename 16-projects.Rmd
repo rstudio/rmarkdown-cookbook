@@ -25,48 +25,48 @@ There is a disadvantage of the `source()` method in Section \@ref(source-script)
 
 Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples.
 
-The `code` option can take a character vector of source code. For example:
+- The `code` option can take a character vector of source code. For example:
 
-````md
-```{r, code=c('1 + 1', 'if (TRUE) plot(cars)')}`r ''`
-```
-````
+    ````md
+    ```{r, code=c('1 + 1', 'if (TRUE) plot(cars)')}`r ''`
+    ```
+    ````
 
-You can also read an external file:
+- You can also read an external file:
 
-````md
-```{r, code=xfun::read_utf8('your-script.R')}`r ''`
-```
-````
+    ````md
+    ```{r, code=xfun::read_utf8('your-script.R')}`r ''`
+    ```
+    ````
 
-You can read as many scripts as you want:
+- You can read as many scripts as you want:
 
-````md
-```{r, include=FALSE}`r ''`
-read_files <- function(files) {
-  unlist(lapply(files, xfun::read_utf8))
-}
-```
+    ````md
+    ```{r, include=FALSE}`r ''`
+    read_files <- function(files) {
+      unlist(lapply(files, xfun::read_utf8))
+    }
+    ```
 
-```{r, code=read_files(c('one.R', 'two.R'))}`r ''`
-```
-````
+    ```{r, code=read_files(c('one.R', 'two.R'))}`r ''`
+    ```
+    ````
 
 You can read scripts of other languages, too. See Chapter \@ref(other-languages) for how to use other languages in R Markdown. Here are a few more examples on non-R code.
 
-Read a Python script:
+- Read a Python script:
 
-````md
-```{python, code=xfun::read_utf8('script.py')}`r ''`
-```
-````
+    ````md
+    ```{python, code=xfun::read_utf8('script.py')}`r ''`
+    ```
+    ````
 
-Read a C++ file:
+- Read a C++ file:
 
-````md
-```{Rcpp, code=xfun::read_utf8('file.cpp')}`r ''`
-```
-````
+    ````md
+    ```{Rcpp, code=xfun::read_utf8('file.cpp')}`r ''`
+    ```
+    ````
 
 With the `code` option, you can develop complicated code in your favorite editor, and read it into a code chunk of an R Markdown document.
 
