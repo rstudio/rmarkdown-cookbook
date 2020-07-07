@@ -1,0 +1,41 @@
+---
+title: Awesome Boxes
+output:
+  pdf_document:
+    extra_dependencies: awesomebox
+---
+
+A note box:
+
+::: {.noteblock data-latex=""}
+Thank you for noticing this **new notice**! Your noticing it has
+been noted, and _will be reported to the authorities_!
+:::
+
+We define an R function `box_args()` to generate the arguments
+for the box:
+
+```{r}
+box_args <- function(
+  vrulecolor = 'white',
+  hrule = c('\\abLongLine', '\\abShortLine', ''),
+  title = '', vrulewidth = '0pt',
+  icon = 'Bomb', iconcolor = 'black'
+) {
+  hrule <- match.arg(hrule)
+  sprintf(
+    '[%s][%s][\\textbf{%s}]{%s}{\\fa%s}{%s}',
+    vrulecolor, hrule, title, vrulewidth, icon, iconcolor
+  )
+}
+```
+
+Pass some arguments to the `awesomeblock` environment through
+an inline R expression:
+
+::: {.awesomeblock data-latex="`r box_args(title = 'NOTICE!')`"}
+Thank you for noticing this **new notice**!
+
+Your noticing it has been noted, and _will be reported to
+the authorities_!
+:::
