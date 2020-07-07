@@ -1,6 +1,6 @@
 # Miscellaneous knitr Tricks {#knitr-misc}
 
-Besides chunk options (Chapter \@ref(chunk-options)), output hooks (Chapter \@ref(output-hooks)), and chunk hooks (Chapter \@ref(chunk-hooks)), there are other useful functions and tricks in **knitr**, which we will introduce in this chapter, such as how to reuse code chunks, exit knitting early, display a plot in a custom place, and so on.
+Besides chunk options (Chapter \@ref(chunk-options)), output hooks (Chapter \@ref(output-hooks)), and chunk hooks (Chapter \@ref(chunk-hooks)), there are other useful functions and tricks in **knitr**. We introduce these tricks in this chapter, such as how to reuse code chunks, exit knitting early, display a plot in a custom place, and so on.
 
 ## Reuse code chunks {#reuse-chunks}
 
