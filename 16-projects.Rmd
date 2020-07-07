@@ -300,7 +300,7 @@ Similarly, any package may include R Markdown templates that package users can a
 
 ### Template use-cases
 
-Templates are a useful way to share custom structure, style, and content. There are many excellent examples of this "in the wild".
+Templates are a useful way to share custom structure, style, and content. There are many excellent examples of this "in the wild."
 
 Many templates add structure and style by pre-populating the YAML metadata. We already saw an example of this with the **rmarkdown** package's "Package Vignette (HTML)" template. Similarly, the **rmdformats** package [@R-rmdformats] provides a number of templates that pass different custom styling functions to the `output` option.
 
