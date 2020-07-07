@@ -1,6 +1,6 @@
 # Workflow
 
-In this chapter, we introduce some tips on working with individual R Markdown documents as well as running your R Markdown projects. You may also check out [Chapter 30](https://r4ds.had.co.nz/r-markdown-workflow.html) of the book "R for Data Science" [@wickham2016], which briefly introduced some tips on using analysis notebooks (including R Markdown documents). Nicholas Tierney also discussed the workflow in the book ["R Markdown for Scientists."](https://rmd4sci.njtierney.com/workflow.html)
+In this chapter, we introduce some tips on working with individual R Markdown documents as well as running your R Markdown projects. You may also check out [Chapter 30](https://r4ds.had.co.nz/r-markdown-workflow.html) of the book "R for Data Science" [@wickham2016], which briefly introduces some tips on using analysis notebooks (including R Markdown documents). Nicholas Tierney also discusses the workflow in the book ["R Markdown for Scientists."](https://rmd4sci.njtierney.com/workflow.html)
 
 ## RStudio keyboard shortcuts {#rstudio-shortcuts}
 
