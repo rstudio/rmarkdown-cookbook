@@ -2,7 +2,7 @@
 
 In this chapter, we introduce some tips on working with individual R Markdown documents as well as running your R Markdown projects. You may also check out [Chapter 30](https://r4ds.had.co.nz/r-markdown-workflow.html) of the book "R for Data Science" [@wickham2016], which briefly introduces some tips on using analysis notebooks (including R Markdown documents). Nicholas Tierney also discusses the workflow in the book ["R Markdown for Scientists."](https://rmd4sci.njtierney.com/workflow.html)
 
-## RStudio keyboard shortcuts {#rstudio-shortcuts}
+## Use RStudio keyboard shortcuts {#rstudio-shortcuts}
 
 The R Markdown format can be used with any editor of your choice, as long as R, the **rmarkdown** package, and Pandoc are installed. However, RStudio has a deep integration with R Markdown so you can work with R Markdown smoothly.
 
@@ -233,7 +233,7 @@ knit: myPackage::knit_with_date
 
 You may refer to the help page `?rmarkdown::render` to find out more ideas on how you could customize your `knit` function behind the `Knit` button in RStudio.
 
-## Collaborative editing of Rmd documents through Google Drive {#google-drive}
+## Collaborate on Rmd documents through Google Drive {#google-drive}
 
 Based on the **googledrive** package [@R-googledrive], Emily Kothe provided a few wrapper functions in the **rmdrive** package, which is currently available only on GitHub at https://github.com/ekothe/rmdrive. At the time of writing, it still lacks rich documentation, so I recommend that you try Janosch Linkersdörfer's fork instead: https://github.com/januz/rmdrive (which is based on Ben Marwick's fork---if you still have not learned GIT, you may be motivated by these examples of freely forking and improving other people's GIT repositories).
 
