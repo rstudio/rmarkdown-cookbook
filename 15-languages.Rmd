@@ -140,7 +140,7 @@ You can run Shell scripts via the `bash` or `sh` or `zsh` engine, depending on w
 ls *.Rmd | head -n 5
 ```
 
-Please note that `bash` is invoked with the R function `system2()`, and it will ignore profile files like `~/.bash_profile` and `~/.bash_login`, in which you may have defined command aliases or modified environment variables like the `PATH` variable. If you want these profile files to be executed just like when you use the terminal, you may pass the argument `-l` to `bash` via `engine.opts`, e.g.,
+Please note that `bash` is invoked with the R function `system2()`. It will ignore profile files like `~/.bash_profile` and `~/.bash_login`, in which you may have defined command aliases or modified environment variables like the `PATH` variable. If you want these profile files to be executed just like when you use the terminal, you may pass the argument `-l` to `bash` via `engine.opts`, e.g.,
 
 ````md
 ```{bash, engine.opts='-l'}`r ''`
