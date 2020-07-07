@@ -101,7 +101,7 @@ The second argument of `xfun::Rscript_call()` takes a list of arguments to be pa
 
 ## Parameterized reports {#parameterized-reports}
 
-In Section \@ref(rmarkdown-render), we mentioned that one way to render a series of reports in a `for`-loop. In fact, `rmarkdown::render()` has an argument named `params` specifically designed for this task. You can parameterize your report through this argument. When you specify parameters for a report, you can use the variable `params` in your report. For example, if you call:
+In Section \@ref(rmarkdown-render), we mentioned one way to render a series of reports in a `for`-loop. In fact, `rmarkdown::render()` has an argument named `params` specifically designed for this task. You can parameterize your report through this argument. When you specify parameters for a report, you can use the variable `params` in your report. For example, if you call:
 
 ```{r, eval=FALSE, tidy=FALSE}
 for (state in state.name) {
