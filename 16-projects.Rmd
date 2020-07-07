@@ -181,7 +181,7 @@ cat(unlist(res), sep = '\n')
 
 ## Keep the plot files {#keep-files}
 
-Most R Markdown output formats use the option `self_contained = TRUE` by default, which means R plots will be embedded in the output documents, so we do not need the intermediate plot files when viewing the output documents, and the plot folder (which typically has a suffix `_files`) will be deleted after the Rmd document is rendered.
+Most R Markdown output formats use the option `self_contained = TRUE` by default. This causes R plots to be embedded in the output documents, so we do not need the intermediate plot files when viewing the output documents. As a consequence, the plot folder (which typically has a suffix `_files`) will be deleted after the Rmd document is rendered.
 
 Sometimes you may want to keep the plot files. For example, some academic journals require authors to submit figures files separately. For R Markdown, there are three ways to avoid the automatic deletion of these files:
 
