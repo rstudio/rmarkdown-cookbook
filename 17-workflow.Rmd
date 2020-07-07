@@ -177,7 +177,7 @@ If you use RStudio, you can click the menu `Knit with Parameters` behind the `Kn
 knitr::include_graphics('images/params-shiny.png', dpi = NA)
 ```
 
-For more information on parameterized reports, you may read [Chapter 15](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) of the R Markdown book [@rmarkdown2018].
+For more information on parameterized reports, you may read [Chapter 15](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) of the R Markdown Definitive Guide [@rmarkdown2018].
 
 ## Customize the `Knit` button (\*) {#custom-knit}
 
