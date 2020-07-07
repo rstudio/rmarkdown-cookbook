@@ -1,0 +1,32 @@
+# (APPENDIX) Appendix {-}
+
+# **knitr**'s Chunk and Package Options {#full-options}
+
+```{r, echo=FALSE, results='asis'}
+# retrieve md from knitr's website; I have cloned the website repo locally, so
+# I'll read the local .md file; if you don't want to clone the repo, you may
+# read from Github
+url = '../yihui.org/content/knitr/options.md'
+# system('git clone git@github.com:rbind/yihui.git ../yihui.org')
+if (!file.exists(url)) url = 'https://raw.githubusercontent.com/rbind/yihui/master/content/knitr/options.md'
+txt = xfun::read_utf8(url)
+
+# remove YAML
+txt = txt[(which(txt == '---')[2] + 1):length(txt)]
+txt = sub('This page documents', 'This chapter describes', txt)
+txt = sub('## Chunk Options', '## Chunk options {#chunk-options-full}', txt)
+txt = sub('## Package Options', '## Package options', txt)
+txt = sub('### Animation', '### Animation {#animation-options}', txt)
+txt = sub('### Cache', '### Cache {#cache-options}', txt)
+# resolve relative URLs to absolute URLs
+m = gregexpr('(?<=]\\()[^)]+(?=\\))', txt, perl = TRUE)
+regmatches(txt, m) = lapply(regmatches(txt, m), function(x) {
+  i = grepl('/', x)
+  if (length(x[i]) == 0) return(x)
+  i = i & !grepl('^http', x)
+  x[i] = sub('^[.][.]/', 'https://yihui.org/knitr/', x[i])
+  x
+})
+# output raw text
+cat(txt, sep = '\n')
+```

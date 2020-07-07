@@ -2,7 +2,7 @@
 
 As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** plays a critical role in R Markdown. In this chapter and the next three chapters, we show some recipes related to **knitr**.
 
-There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. [Section 2.8](https://bookdown.org/yihui/rmarkdown/r-code.html) of the R Markdown Definitive Guide [@rmarkdown2018] provides a subset of these options, while the full list is available at <https://yihui.org/knitr/options/>.
+There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. Please refer to the online documentation at <https://yihui.org/knitr/options/> for the full list of options. `r if (knitr::is_latex_output()) 'For your convenience, we have also provided a copy of the documentation in Appendix \\@ref(full-options) of this book.'`
 
 In the following sections, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
 
