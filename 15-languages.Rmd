@@ -2,7 +2,7 @@
 
 Besides the R language, many other languages are supported in R Markdown through the **knitr** package. The language name is indicated by the first word in the curly braces after the three opening backticks. For example, the little `r` in ```` ```{r}```` indicates that the code chunk contains R code, and ```` ```{python}```` is a Python code chunk. In this chapter, we show a few languages that you may not be familiar with.
 
-In **knitr**, each language is supported through a language engine. Language engines are essentially functions that takes the source code and options of a chunk as the input, and returns a character string as the output. They are managed through the object `knitr::knit_engines`. You may check the existing engines via:
+In **knitr**, each language is supported through a language engine. Language engines are essentially functions that takes the source code and options of a chunk as the input, and return a character string as the output. They are managed through the object `knitr::knit_engines`. You may check the existing engines via:
 
 ```{r}
 names(knitr::knit_engines$get())
