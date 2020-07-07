@@ -50,7 +50,7 @@ keyboard_table <- tibble::tribble(
 knitr::kable(keyboard_table, caption = "RStudio keyboard shortcuts related to R Markdown.", booktabs = TRUE)
 ```
 
-Besides, you can press `F7` to spellcheck your document. You can also restart the R session by `Ctrl + Alt + F10` (or `Command + Option + F10` on macOS), which can be helpful for reproducibility, because results are more likely to be reproducible if they are computed from a new R session. This can also be done through the dropdown menu "Restart R and Run All Chunks" behind the "Run" button on the toolbar.
+Additionally, you can press `F7` to spell check your document. You can also restart the R session by `Ctrl + Alt + F10` (or `Command + Option + F10` on macOS). Restarting regularly is helpful for reproducibility, because results are more likely to be reproducible if they are computed from a new R session. This can also be done through the dropdown menu "Restart R and Run All Chunks" behind the "Run" button on the toolbar.
 
 ## Spell check R Markdown {#spell-check}
 
