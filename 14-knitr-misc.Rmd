@@ -242,7 +242,7 @@ When you no longer need this global graphical device, you can set the option to 
 
 ## Save a group of chunk options and reuse them (\*) {#opts-template}
 
-If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`, and then you can use the chunk option `opts.label` to refer to the group name. For example:
+If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`. Then you can use the chunk option `opts.label` to refer to the group name. For example:
 
 ````md
 ```{r, setup, include=FALSE}`r ''`
