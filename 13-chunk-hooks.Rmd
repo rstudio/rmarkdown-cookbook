@@ -71,7 +71,7 @@ Sys.which('pdfcrop')
 
 If you are using the LaTeX distribution TinyTeX (see Section \@ref(install-latex)), and `pdfcrop` is not available in your system, you may install it via `tinytex::tlmgr_install('pdfcrop')`.
 
-For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick] to crop them. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
+For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick] for cropping You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
 
 ```{r, crop-no, crop=NULL, echo=FALSE, fig.cap='A plot that is not cropped.'}
 par(bg = 'gray', fg = 'yellow')
