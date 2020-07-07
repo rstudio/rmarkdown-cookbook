@@ -8,7 +8,7 @@ You can freely reuse code chunks anywhere in your source document without cut-an
 
 ### Embed one chunk in another chunk (\*) {#embed-chunk}
 
-You can embed one code chunk in another code chunk by enclosing its label in `<<>>`, then **knitr** will automatically expand the string `<<label>>` to the actual code. For example, you can create an R function in this way:
+You can embed one code chunk in another code chunk by enclosing its label in `<<>>`. Then **knitr** will automatically expand the string `<<label>>` to the actual code. For example, you can create an R function in this way:
 
 ````md
 We define a function to convert Fahrenheit to Celsius.
