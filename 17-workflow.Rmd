@@ -101,7 +101,7 @@ The second argument of `xfun::Rscript_call()` takes a list of arguments to be pa
 
 ## Parameterized reports {#parameterized-reports}
 
-In Section \@ref(rmarkdown-render), we mentioned one way to render a series of reports in a `for`-loop. In fact, `rmarkdown::render()` has an argument named `params` specifically designed for this task. You can parameterize your report through this argument. When you specify parameters for a report, you can use the variable `params` in your report. For example, if you call:
+In Section \@ref(rmarkdown-render), we mentioned that one way to render a series of reports in a `for`-loop. In fact, `rmarkdown::render()` has an argument named `params` specifically designed for this task. You can parameterize your report through this argument. When you specify parameters for a report, you can use the variable `params` in your report. For example, if you call:
 
 ```{r, eval=FALSE, tidy=FALSE}
 for (state in state.name) {
@@ -137,7 +137,7 @@ params:
 
 Note that you can include as many parameters in the `params` YAML field or the `params` argument of `rmarkdown::render()`. If both the YAML field and the argument are present, the parameter values in the argument will override the corresponding parameters in YAML. For example, when we call `rmarkdown::render(..., params = list(state = 'Iowa', year = 2018)` on the previous example that has the `params` field, `params$state` will become `Iowa` (instead of `Nebraska`) and `params$year` will become `2018` (instead of `2019`) in the R Markdown document.
 
-When rendering the same R Markdown document to a series of reports, you need to adjust the `output_file` argument of `rmarkdown::render()`, to make sure each report has its unique filename, so you will not accidentally override certain report files. For example, you can write a function to generate a report for each state and each year:
+When rendering the same R Markdown document to a series of reports, you need to adjust the `output_file` argument of `rmarkdown::render()`, to make sure each report has its unique filename. Otherwise, you will accidentally override certain report files. For example, you can write a function to generate a report for each state and each year:
 
 ```{r, eval=FALSE, tidy=FALSE}
 render_one <- function(state, year) {
