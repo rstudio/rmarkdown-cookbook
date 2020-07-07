@@ -52,7 +52,7 @@ knitr::knit_hooks$get('output')
 
 Unless you are truly interested in making contributions to the **knitr** package, we do not recommend that you read the source code of these built-in hooks. If you are interested, this code can be found in the scripts named in the form `hooks-*.R` at https://github.com/yihui/knitr/tree/master/R (e.g., `hooks-md.R` contains hooks for R Markdown documents). As a **knitr** user, it usually suffices if you know how to create custom output hooks by taking advantage of the built-in hooks. You will learn that in several examples in this chapter, and we show the basic idea below.
 
-A custom output hook is registered through the `set()` method on `knit_hooks`. Because this method will override the existing default hook, we recommend that you save a copy of existing hook, process the output elements in your own way, and pass the results to the default hook. The usual syntax is:
+A custom output hook is registered through the `set()` method of `knit_hooks`. Because this method will override the existing default hook, we recommend that you save a copy of existing hook, process the output elements in your own way, and pass the results to the default hook. The usual syntax is:
 
 ```{r, eval=FALSE}
 # using local() is optional here (we just want to avoid creating unnecessary global variables like `hook_old`)
