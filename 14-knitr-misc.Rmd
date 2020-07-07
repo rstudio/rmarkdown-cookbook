@@ -499,7 +499,7 @@ After you decide which model to use, you can set `clean = TRUE` again, or delete
 
 ### Comparison with **knitr**'s caching
 
-You may wonder when to use **knitr**'s caching (i.e., set the chunk option `cache = TRUE`), and when to use `xfun::cache_rds()` in a **knitr** source document. The biggest disadvantage of `xfun::cache_rds()` is that it does not cache side-effects (but only the value of the expression), whereas **knitr** does. Some side-effects may be useful, such as printed output or plots. For example, the text output and the plot will be lost when `cache_rds()` loads the cache the next time, and only the value `1:10` will be returned:
+You may wonder when to use **knitr**'s caching (i.e., set the chunk option `cache = TRUE`), and when to use `xfun::cache_rds()` in a **knitr** source document. The biggest disadvantage of `xfun::cache_rds()` is that it does not cache side-effects (but only the value of the expression), whereas **knitr** does. Some side-effects may be useful, such as printed output or plots. For example, in the code below, the text output and the plot will be lost when `cache_rds()` loads the cache the next time, and only the value `1:10` will be returned:
 
 ```{r, eval=FALSE}
 xfun::cache_rds({
@@ -531,4 +531,4 @@ mean(x)
 
 Actually **knitr** caching is quite powerful and flexible, and its behavior can be tweaked in many ways. As its author, I often doubt if it is worth introducing these lesser-known features, because you may end up spending much more time on learning and understanding how the cache works than the time the actual computing takes.
 
-In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere (not necessarily inside **knitr** documents). Apparently **knitr**'s caching only works in **knitr** documents.
+In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere whereas **knitr**'s caching only works in **knitr** documents.
