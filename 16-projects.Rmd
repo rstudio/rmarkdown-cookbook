@@ -23,22 +23,25 @@ Note that we used `include = FALSE` in the above example because we only want to
 
 There is a disadvantage of the `source()` method in Section \@ref(source-script). That is, you will not be able to see the source code by default. You can use `source(..., echo = TRUE)`, but the source code will not be properly syntax highlighted. Besides, you need to be careful about the `local` argument of `source()`, as mentioned in Section \@ref(source-script). In this section, we introduce an alternative method that does not have these problems.
 
-Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples:
+Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples.
+
+The `code` option can take a character vector of source code. For example:
 
 ````md
-The `code` option can take a character vector of source code.
-For example:
-
 ```{r, code=c('1 + 1', 'if (TRUE) plot(cars)')}`r ''`
 ```
+````
 
 You can also read an external file:
 
+````md
 ```{r, code=xfun::read_utf8('your-script.R')}`r ''`
 ```
+````
 
 You can read as many scripts as you want:
 
+````md
 ```{r, include=FALSE}`r ''`
 read_files <- function(files) {
   unlist(lapply(files, xfun::read_utf8))
@@ -49,16 +52,18 @@ read_files <- function(files) {
 ```
 ````
 
-You can read scripts of other languages, too. See Chapter \@ref(other-languages) for how to use other languages in R Markdown. Here are a few more examples on non-R code:
+You can read scripts of other languages, too. See Chapter \@ref(other-languages) for how to use other languages in R Markdown. Here are a few more examples on non-R code.
 
-````md
 Read a Python script:
 
+````md
 ```{python, code=xfun::read_utf8('script.py')}`r ''`
 ```
+````
 
 Read a C++ file:
 
+````md
 ```{Rcpp, code=xfun::read_utf8('file.cpp')}`r ''`
 ```
 ````
