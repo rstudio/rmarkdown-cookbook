@@ -262,7 +262,7 @@ summarize
 ```
 ````
 
-The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially extended it in the **Statamarkdown** package, which is available on GitHub at https://github.com/Hemken/Statamarkdown. You may find tutorials about this package by searching online for "Stata R Markdown".
+The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially extended it in the **Statamarkdown** package, which is available on GitHub at https://github.com/Hemken/Statamarkdown. You may find tutorials about this package by searching online for "Stata R Markdown."
 
 ## Create graphics with Asymptote {#eng-asy}
 
@@ -371,4 +371,4 @@ $primary-color: #00FF00
 
 If you are reading [the HTML version of this section,](https://bookdown.org/yihui/rmarkdown-cookbook/eng-sass.html) you will notice that the font for this page has been changed to Comic Sans, which might be surprising, but please do not panic---[you are not having a stroke.](https://twitter.com/andrewheiss/status/1250438044542361600)
 
-The `sass`/`scss` code chunks are compiled through the `sass::sass()` function. Currently you can customize the output style for the CSS code via the chunk option `engine.opts`, e.g., `engine.opts = list(style = "expanded")`. The default style is "compressed". If you are not sure what this means, please refer to the help page `?sass::sass_options` and look for the `output_style` argument.
+The `sass`/`scss` code chunks are compiled through the `sass::sass()` function. Currently you can customize the output style for the CSS code via the chunk option `engine.opts`, e.g., `engine.opts = list(style = "expanded")`. The default style is "compressed." If you are not sure what this means, please refer to the help page `?sass::sass_options` and look for the `output_style` argument.
