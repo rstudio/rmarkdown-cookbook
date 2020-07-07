@@ -163,7 +163,7 @@ The main trick in the above example is to determine the number of spaces needed 
 knitr:::v_spaces(c(1, 3, 6, 0))
 ```
 
-The method introduced in Section \@ref(number-lines) may be the actual way in which you want to add line numbers to source code. The syntax is cleaner, and it works both source code and text output blocks. The above `source` hook trick mainly aims to show you one possibility of manipulating the source code with a custom function.
+The method introduced in Section \@ref(number-lines) may be the actual way in which you want to add line numbers to source code. The syntax is cleaner, and it works for both source code and text output blocks. The above `source` hook trick mainly aims to show you one possibility of manipulating the source code with a custom function.
 
 ## Scrollable text output {#hook-scroll}
 
