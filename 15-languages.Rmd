@@ -59,7 +59,7 @@ The key is that we apply the function `toupper` to the "code", and return the re
 > Hello, **knitr** engines!
 > ```
 
-Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see Section \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
+Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see Section \@ref(eng-python)).] named `py`. This engine is implemented by simply calling the `python` command via `system2()`:
 
 ```{r, tidy=FALSE}
 knitr::knit_engines$set(py = function(options) {
