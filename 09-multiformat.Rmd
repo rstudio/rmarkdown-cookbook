@@ -258,7 +258,7 @@ For LaTeX output, we create a new environment named `blackbox` and based on the 
  {\end{shaded}}
 ```
 
-We used the **framed** package in this book because it is fairly lightweight, but it is not possible to draw a colored frame with rounded corners with this package. To achieve the latter, you will need more sophisticated LaTeX packages such as **tcolorbox** (https://ctan.org/pkg/tcolorbox), which offers a set of very flexible options for creating shaded boxes. You can find many examples in its documentation. The LaTeX environment below will create a shaded box of similar appearance as the above CSS example:
+We used the **framed** package in this book because it is fairly lightweight, but it is not possible to draw a colored frame with rounded corners with this package. To achieve the latter, you will need more sophisticated LaTeX packages such as **tcolorbox** (https://ctan.org/pkg/tcolorbox), which offers a set of very flexible options for creating shaded boxes. You can find many examples in its documentation. The LaTeX environment below will create a shaded box of similar appearance to the above CSS example:
 
 ```tex
 \usepackage{tcolorbox}
