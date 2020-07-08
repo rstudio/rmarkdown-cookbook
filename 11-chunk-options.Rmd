@@ -610,7 +610,7 @@ Basically, the option hook `numberLines` appends the attribute `.numberLines` to
 
 With the above setup, you can use the chunk option `numberLines` on a code chunk to decide which of its output blocks will have line numbers, e.g., `numberLines = c('source', 'output')`. Specifying `numberLines = NULL` removes line numbers completely.
 
-You may wonder why not setting the chunk options directly, e.g., just `knitr::opts_chunk$set(attr.source = '.numberLines')` like we did in Section \@ref(number-lines). The advantage of using the option hooks here is that they only _append_ the attribute `.numberLines` to chunk options, which means they will not _override_ existing chunk option values, e.g., the source code block of the chunk below will be numbered (with the above setup), and the numbers start from the second line:
+You may wonder how this approach differs from setting the chunk options directly, e.g., just `knitr::opts_chunk$set(attr.source = '.numberLines')` like we did in Section \@ref(number-lines). The advantage of using the option hooks here is that they only _append_ the attribute `.numberLines` to chunk options, which means they will not _override_ existing chunk option values, e.g., the source code block of the chunk below will be numbered (with the above setup), and the numbers start from the second line:
 
 ````md
 ```{r, attr.source='startFrom="2"'}`r ''`
