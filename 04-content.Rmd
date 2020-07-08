@@ -57,7 +57,7 @@ share <- runif(1)
 title: "Our market share is `r knitr::inline_expr('round(100 * share, 2)')`% now!"
 ---
 
-Apparently I feel `r knitr::inline_expr('if(share > 0.8) "happy" else "sad"')` about it.
+I feel `r knitr::inline_expr('if(share > 0.8) "happy" else "sad"')` about it.
 ````
 
 In the example above, we added the document title after we have created the variable `share`. The title works in this case because Pandoc can read any number of YAML sections in a document (and merge them).
