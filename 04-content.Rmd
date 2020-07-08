@@ -652,7 +652,7 @@ Note that this feature requires at least Pandoc 2.9. You may check your Pandoc v
 
 ## Put together all code in the appendix (\*) {#code-appendix}
 
-Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report, but set the chunk option `echo = FALSE` to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
+Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report. For this purpose, you can set the chunk option `echo = FALSE` to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
 
 There is a simple method of extracting all code chunks in a document and put them together in a single code chunk using the chunk option `ref.label` and the function `knitr::all_labels()`, e.g.,
 
