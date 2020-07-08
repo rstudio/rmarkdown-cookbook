@@ -74,7 +74,7 @@ options(bookdown.post.latex = function(x) {
   # fix syntax highlighting:
   # \FunctionTok{tufte:}\AttributeTok{:tufte_html: default} ->
   # \FunctionTok{tufte::tufte_html:}\AttributeTok{ default}
-  x = gsub('(\\\\FunctionTok\\{[^:]+:)(})(\\\\AttributeTok\\{)(:[^:]+:)', '\\1\\4\\2\\3', x)
+  x = gsub('(\\\\AttributeTok\\{[^:]+:)(})(\\\\FunctionTok\\{)(:[^:]+:)', '\\1\\4\\2\\3', x)
   if (length(i <- grep('^\\\\begin\\{longtable\\}', x)) == 0) return(x)
   i1 = bookdown:::next_nearest(i, which(x == '\\toprule'))
   i2 = bookdown:::next_nearest(i, which(x == '\\endfirsthead'))
