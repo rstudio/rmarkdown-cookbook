@@ -162,7 +162,7 @@ will be converted to the HTML code below:
 </div>
 ```
 
-For LaTeX output, the first class name will be used as the LaTeX environment name, and you should provide an attribute named `data-latex` in the `Div` block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
+For LaTeX output, the first class name will be used as the LaTeX environment name. You should also provide an attribute named `data-latex` in the `Div` block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
 
 ````md
 ::: {.verbatim data-latex=""}
@@ -210,7 +210,7 @@ its width is 50\% of the width of its parent element.
 \end{center}
 ```
 
-It is up to the user to define the appearance of their `<div>` blocks via CSS for the HTML output. Similarly, for LaTeX output, you may use the command `\newenvironment` to define the environment if it has not been defined, or `\renewenvironment` to redefine an existing environment in LaTeX. In the LaTeX definitions, you can decide the appearance of these blocks in PDF. These customizations will normally be contained in their own files such as `style.css` or `preamble.tex`, and then included within the YAML options:
+It is up to the user to define the appearance of their `<div>` blocks via CSS for the HTML output. Similarly, for LaTeX output, you may use the command `\newenvironment` to define the environment if it has not been defined, or `\renewenvironment` to redefine an existing environment in LaTeX. In the LaTeX definitions, you can decide on the appearance of these blocks in PDF. These customizations will normally be contained in their own files such as `style.css` or `preamble.tex`, and then included within the YAML options:
 
 ```yaml
 ---
@@ -258,7 +258,7 @@ For LaTeX output, we create a new environment named `blackbox` and based on the 
  {\end{shaded}}
 ```
 
-We used the **framed** package in this book because it is fairly lightweight, but it is not possible to draw a colored frame with rounded corners with this package. To achieve the latter, you will need more sophisticated LaTeX packages such as **tcolorbox** (https://ctan.org/pkg/tcolorbox), which offers a set of very flexible options for creating shaded boxes. You can find many examples in its documentation. The LaTeX environment below will create a shaded box of the similar appearance as the above CSS example:
+We used the **framed** package in this book because it is fairly lightweight, but it is not possible to draw a colored frame with rounded corners with this package. To achieve the latter, you will need more sophisticated LaTeX packages such as **tcolorbox** (https://ctan.org/pkg/tcolorbox), which offers a set of very flexible options for creating shaded boxes. You can find many examples in its documentation. The LaTeX environment below will create a shaded box of similar appearance to the above CSS example:
 
 ```tex
 \usepackage{tcolorbox}
@@ -297,7 +297,7 @@ been noted, and _will be reported to the authorities_!
 
 ### Including icons {#block-image}
 
-We can make custom blocks even more visually appealing by including images in them, and it can be an effective way to convey the content of the block. For the following example, we assume that we are working within a directory structure below, which is a simplified version of what is used to build this book:
+We can make custom blocks even more visually appealing by including images in them. Images can also be an effective way to convey the content of the block. For the following example, we assume that we are working within a directory structure below, which is a simplified version of what is used to build this book:
 
 ```text
 directory/
@@ -346,7 +346,7 @@ For the HTML output, we can add an image to the box through the `background-imag
 }
 ```
 
-Note that we used two class names, `.infobox` and `.caution`, on the outer block. The `infobox` class will be used to define the shaded box with a colored border, and the `caution` class will be used to include the image. The advantage of using two classes is that we can define more blocks with different icons without repeating the setup of the shaded box. For example, if we need a `warning` box, we only need to define the CSS rule without repeating rules in `.infobox`:
+Note that we used two class names, `.infobox` and `.caution`, on the outer block. The `infobox` class will be used to define the shaded box with a colored border, and the `caution` class will be used to include the image. The advantage of using two classes is that we can define more blocks with different icons without repeating the setup of the shaded box. For example, if we need a `warning` box, we only need to define the following CSS rule without repeating rules in `.infobox`:
 
 ```css
 .warning {
@@ -364,7 +364,7 @@ Include the actual content here.
 ::::
 ```
 
-For the PDF output, we can create an `infobox` environment based on the `blackbox` environment defined in the previous example, and add the icon to the left side of the box. There are multiple ways of including images in a LaTeX environment, and here is only one of them (it does not precisely reproduce the box style defined in CSS above):
+For the PDF output, we can create an `infobox` environment based on the `blackbox` environment defined in the previous example, and add the icon to the left side of the box. There are multiple ways of including images in a LaTeX environment. Here is only one of them (it does not precisely reproduce the box style defined in CSS above):
 
 ```{cat, class.source='tex', engine.opts=list(file = 'latex/infobox.tex')}
 \newenvironment{infobox}[1]
