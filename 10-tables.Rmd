@@ -67,7 +67,7 @@ options(knitr.table.format = function() {
 
 <!-- https://stackoverflow.com/questions/51432502/replace-column-names-in-kable-r-markdown/51444998#51444998 -->
 
-The names of columns in a data frame may not be the same as what we want to display to readers. In R, the column names of data often do not use spaces to separate words but dots or underscores instead, which may not feel natural when we read them in a table. We can use the the `col.names` argument to replace the column names with a vector of new names. For example, we substitute the dots with spaces in the column names of the `iris` data:
+The names of columns in a data frame may not be the same as what we want to display to readers. In R, the column names of data often do not use spaces to separate words but dots or underscores instead. This may not feel natural when we read them in a table. We can use the the `col.names` argument to replace the column names with a vector of new names. For example, we substitute the dots with spaces in the column names of the `iris` data:
 
 ```{r}
 iris2 = head(iris)
@@ -130,7 +130,7 @@ knitr::kable(d, digits = 3, format.args = list(big.mark = ',', scientific = FALS
 
 ### Display missing values
 
-By default, missing values (i.e., `NA`) are displayed as the character string `NA` in the table. You can replace it with other values or choose not to display anything (i.e., leave the `NA` cells empty) with the global R option `knitr.kable.NA`, e.g., we make `NA` cells empty in the second table and display `**` in the third table below:
+By default, missing values (i.e., `NA`) are displayed as the character string `NA` in the table. You can replace them with other values or choose not to display anything (i.e., leave the `NA` cells empty) with the global R option `knitr.kable.NA`, e.g., we make `NA` cells empty in the second table and display `**` in the third table below:
 
 ```{r}
 d[rbind(c(1, 1), c(2, 3), c(3, 2))] = NA
