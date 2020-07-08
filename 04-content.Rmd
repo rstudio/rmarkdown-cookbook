@@ -266,7 +266,7 @@ Note that `write_bib()` is designed to overwrite the existing bibliography file.
 
 ````md
 ---
-bibliography: [packages.bib. references.bib]
+bibliography: [packages.bib, references.bib]
 ---
 
 ```{r, include=FALSE}`r ''`
