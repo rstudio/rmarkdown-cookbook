@@ -357,7 +357,7 @@ if (TRUE) {
 
 ## Add attributes to text output blocks (\*) {#attr-output}
 
-In Section \@ref(chunk-styling), we showed some examples to style source and text output blocks based on the chunk options `class.source` and `class.output`. Actually, there are a wider range of similar options in **knitr**, such as `class.message`, `class.warning`, and `class.error`. These options can be used to add class names to the corresponding text output blocks, e.g., `class.error` adds classes to error messages when the chunk option `error = TRUE` (see Section \@ref(opts-error)). The most common application of these options may be styling the output blocks with CSS rules defined according to the class names, as demonstrated by the examples in Section \@ref(chunk-styling).
+In Section \@ref(chunk-styling), we showed some examples of styling source and text output blocks based on the chunk options `class.source` and `class.output`. Actually, there are a wider range of similar options in **knitr**, such as `class.message`, `class.warning`, and `class.error`. These options can be used to add class names to the corresponding text output blocks, e.g., `class.error` adds classes to error messages when the chunk option `error = TRUE` (see Section \@ref(opts-error)). The most common application of these options may be styling the output blocks with CSS rules defined according to the class names, as demonstrated by the examples in Section \@ref(chunk-styling).
 
 Typically, a text output block is essentially a fenced code block, and its Markdown source looks like this:
 
