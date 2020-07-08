@@ -47,7 +47,7 @@ author: "Smart Analyst"
 output: pdf_document
 ---
 
-I just tried really hard to calculat our market share:
+I just tried really hard to calculate our market share:
 
 ```{r}`r ''`
 share <- runif(1)
