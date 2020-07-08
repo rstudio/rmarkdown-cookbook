@@ -135,7 +135,7 @@ By default, `cache.path = "INPUT_cache/FORMAT/"` in R Markdown, where `INPUT` is
 
 ## Cache large objects {#cache-lazy}
 
-When the chunk option `cache = TRUE`, cached objects will be lazy-loaded into the R session, which means an object will not be read from the cache database until it is actually used in the code. This can save you some memory when not all objects are used later in the document. For example, you may have read a large data but only used a subset in the subsequent analysis, and the original data object will not be loaded from the cache database:
+When the chunk option `cache = TRUE`, cached objects will be lazy-loaded into the R session, which means an object will not be read from the cache database until it is actually used in the code. This can save you some memory when not all objects are used later in the document. For example, if you read a large data object but only use a subset in the subsequent analysis, the original data object will not be loaded from the cache database:
 
 ````md
 ```{r, read-data, cache=TRUE}`r ''`
@@ -309,7 +309,7 @@ And definitely a paragraph.
 # Absolutely another header
 ```
 
-The `cat()` function is not the only function that can generate text output. Another commonly used function is `print()`. Please note that `print()` is often _implicitly_ called to print objects, which is why you see output after typing out an object or value in the R console. For example, when you type `1:5` in the R console and hit the `Enter` key, you see the output because R actually called `print(1:5)` implicitly. This can be highly confusing when you fail to generate output inside an expression (such as a `for`-loop) with objects or values that would otherwise be correctly printed if they were typed in the R console. This topic is quite technical, and I have written [a blog post](https://yihui.org/en/2017/06/top-level-r-expressions/) to explain it. If you are not interested in the technical details, just remember this rule: if you do not see output from a `for`-loop, you should probably print objects explicitly with the `print()` function.
+The `cat()` function is not the only function that can generate text output. Another commonly used function is `print()`. Please note that `print()` is often _implicitly_ called to print objects, which is why you see output after typing out an object or value in the R console. For example, when you type `1:5` in the R console and hit the `Enter` key, you see the output because R actually called `print(1:5)` implicitly. This can be highly confusing when you fail to generate output inside an expression (such as a `for`-loop) with objects or values that would otherwise be correctly printed if they were typed in the R console. This topic is quite technical, and I have written the blog post ["The Ghost Printer Behind Top-level R Expressions"](https://yihui.org/en/2017/06/top-level-r-expressions/) to explain it. If you are not interested in the technical details, just remember this rule: if you do not see output from a `for`-loop, you should probably print objects explicitly with the `print()` function.
 
 ## Remove leading hashes in text output {#opts-comment}
 
@@ -357,7 +357,7 @@ if (TRUE) {
 
 ## Add attributes to text output blocks (\*) {#attr-output}
 
-In Section \@ref(chunk-styling), we showed some examples to style source and text output blocks based on the chunk options `class.source` and `class.output`. Actually, there are a wider range of similar options in **knitr**, such as `class.message`, `class.warning`, and `class.error`. These options can be used to add class names to the corresponding text output blocks, e.g., `class.error` adds classes to error messages when the chunk option `error = TRUE` (see Section \@ref(opts-error)). The most common application of these options may be styling the output blocks with CSS rules defined according to the class names, as demonstrated by the examples in Section \@ref(chunk-styling).
+In Section \@ref(chunk-styling), we showed some examples of styling source and text output blocks based on the chunk options `class.source` and `class.output`. Actually, there are a wider range of similar options in **knitr**, such as `class.message`, `class.warning`, and `class.error`. These options can be used to add class names to the corresponding text output blocks, e.g., `class.error` adds classes to error messages when the chunk option `error = TRUE` (see Section \@ref(opts-error)). The most common application of these options may be styling the output blocks with CSS rules defined according to the class names, as demonstrated by the examples in Section \@ref(chunk-styling).
 
 Typically, a text output block is essentially a fenced code block, and its Markdown source looks like this:
 
@@ -524,7 +524,7 @@ output:
 ---
 ```
 
-Please see the help pages of the output format functions (e.g., `?rmarkdown::html_document`) for the possible values for the option `df_print`, or whether an output format supports the `df_print` option.
+Please see the help pages of the output format functions (e.g., `?rmarkdown::html_document`) to determine whether an output format supports the `df_print` option and, if so, what the possible values are. 
 
 In fact, you can completely replace the printing function `knit_print()` through the chunk option `render`, which can take any function to print objects. For example, if you want to print objects using the **pander** package, you may set the chunk option `render` to the function `pander::pander()`:
 
@@ -538,7 +538,7 @@ The `render` option gives you complete freedom on how to print your R objects.
 
 ## Option hooks (\*) {#option-hooks}
 
-Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options, and you may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. This function takes the list of options for the current chunk as the input argument, and should return the (potentially modified) list. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
+Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options. You may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. This function takes the list of options for the current chunk as the input argument, and should return the (potentially modified) list. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
 
 ```{r, eval=FALSE}
 knitr::opts_hooks$set(fig.width = function(options) {
@@ -610,7 +610,7 @@ Basically, the option hook `numberLines` appends the attribute `.numberLines` to
 
 With the above setup, you can use the chunk option `numberLines` on a code chunk to decide which of its output blocks will have line numbers, e.g., `numberLines = c('source', 'output')`. Specifying `numberLines = NULL` removes line numbers completely.
 
-You may wonder why not setting the chunk options directly, e.g., just `knitr::opts_chunk$set(attr.source = '.numberLines')` like we did in Section \@ref(number-lines). The advantage of using the option hooks here is that they only _append_ the attribute `.numberLines` to chunk options, which means they will not _override_ existing chunk option values, e.g., the source code block of the chunk below will be numbered (with the above setup), and the numbers start from the second line:
+You may wonder how this approach differs from setting the chunk options directly, e.g., just `knitr::opts_chunk$set(attr.source = '.numberLines')` like we did in Section \@ref(number-lines). The advantage of using the option hooks here is that they only _append_ the attribute `.numberLines` to chunk options, which means they will not _override_ existing chunk option values, e.g., the source code block of the chunk below will be numbered (with the above setup), and the numbers start from the second line:
 
 ````md
 ```{r, attr.source='startFrom="2"'}`r ''`
