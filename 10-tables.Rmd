@@ -352,7 +352,7 @@ If you want to customize tables generated via `knitr::kable(format = "html")`, t
 knitr::kable(mtcars[1:2, 1:2], table.attr = 'class="striped"', format = "html")
 ```
 
-We added a class `striped` to the table. However, a class name is not enough to change the appearance of a table. You have to define CSS rules for the class. For example, to make a striped table that has different colors for odd and even rows, you can add a lightgray background to even or odd rows:
+We added a class `striped` to the table. However, a class name is not enough to change the appearance of a table. You have to define CSS rules for the class. For example, to make a striped table that has different colors for odd and even rows, you can add a light gray background to even or odd rows:
 
 ```css
 .striped tr:nth-child(even) { background: #eee; }
