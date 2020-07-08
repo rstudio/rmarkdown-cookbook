@@ -251,7 +251,7 @@ Mazda RX4            21.0     6    160   110
 Mazda RX4 Wag        21.0     6    160   110
 ```
 
-But it will be if there is a clear separation like (note that we added an empty line below the image):
+But it will be if there is a clear separation like this (note that we added an empty line below the image):
 
 ```md
 ![](logo.png)
