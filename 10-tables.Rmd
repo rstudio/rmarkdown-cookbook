@@ -67,7 +67,7 @@ options(knitr.table.format = function() {
 
 <!-- https://stackoverflow.com/questions/51432502/replace-column-names-in-kable-r-markdown/51444998#51444998 -->
 
-The names of columns in a data frame may not be the same as what we want to display to readers. In R, the column names of data often do not use spaces to separate words but dots or underscores instead, which may not feel natural when we read them in a table. We can use the the `col.names` argument to replace the column names with a vector of new names. For example, we substitute the dots with spaces in the column names of the `iris` data:
+The names of columns in a data frame may not be the same as what we want to display to readers. In R, the column names of data often do not use spaces to separate words but dots or underscores instead. This may not feel natural when we read them in a table. We can use the the `col.names` argument to replace the column names with a vector of new names. For example, we substitute the dots with spaces in the column names of the `iris` data:
 
 ```{r}
 iris2 = head(iris)
@@ -130,7 +130,7 @@ knitr::kable(d, digits = 3, format.args = list(big.mark = ',', scientific = FALS
 
 ### Display missing values
 
-By default, missing values (i.e., `NA`) are displayed as the character string `NA` in the table. You can replace it with other values or choose not to display anything (i.e., leave the `NA` cells empty) with the global R option `knitr.kable.NA`, e.g., we make `NA` cells empty in the second table and display `**` in the third table below:
+By default, missing values (i.e., `NA`) are displayed as the character string `NA` in the table. You can replace them with other values or choose not to display anything (i.e., leave the `NA` cells empty) with the global R option `knitr.kable.NA`, e.g., we make `NA` cells empty in the second table and display `**` in the third table below:
 
 ```{r}
 d[rbind(c(1, 1), c(2, 3), c(3, 2))] = NA
@@ -208,7 +208,7 @@ knitr::kables(
 
 ### Generate multiple tables from a `for`-loop (\*)
 
-One common confusion about `kable()` is that it does not work inside `for`-loops. This problem is not specific to `kable()` but exists in many other packages, too. The reason is a little complicated. In case you are interested in the technicality, it has been explained in the blog post ["The Ghost Printer Behind Top-level R Expressions".](https://yihui.org/en/2017/06/top-level-r-expressions/)
+One common confusion about `kable()` is that it does not work inside `for`-loops. This problem is not specific to `kable()` but exists in many other packages, too. The reason is a little complicated. In case you are interested in the technicality, it has been explained in the blog post ["The Ghost Printer Behind Top-level R Expressions."](https://yihui.org/en/2017/06/top-level-r-expressions/)
 
 You may expect the following code chunk to generate three tables, but it will not:
 
@@ -251,7 +251,7 @@ Mazda RX4            21.0     6    160   110
 Mazda RX4 Wag        21.0     6    160   110
 ```
 
-But it will be if there is a clear separation like (note that we added an empty line below the image):
+But it will be if there is a clear separation like this (note that we added an empty line below the image):
 
 ```md
 ![](logo.png)
@@ -352,7 +352,7 @@ If you want to customize tables generated via `knitr::kable(format = "html")`, t
 knitr::kable(mtcars[1:2, 1:2], table.attr = 'class="striped"', format = "html")
 ```
 
-We added a class `striped` to the table. However, a class name is not enough to change the appearance of a table. You have to define CSS rules for the class. For example, to make a striped table that has different colors for odd and even rows, you can add a lightgray background to even or odd rows:
+We added a class `striped` to the table. However, a class name is not enough to change the appearance of a table. You have to define CSS rules for the class. For example, to make a striped table that has different colors for odd and even rows, you can add a light gray background to even or odd rows:
 
 ```css
 .striped tr:nth-child(even) { background: #eee; }
@@ -474,7 +474,7 @@ There are many other R packages that can be used to generated tables. The main r
 
 - **DT** [@R-DT]: As its author, I think I'm familiar with this package, but I did not introduce it in a separate section because it only supports the HTML format. **DT** is built on top of the JavaScript library **DataTables**, which can turn a static table into an interactive table on an HTML page. You may sort, search, and paginate the table. **DT** also supports formatting the cells, works with Shiny to build interactive applications, and has included a large number of **DataTables** extensions (e.g., you may export the table to Excel, or interactively reorder columns). See the package repository for more information: https://github.com/rstudio/DT.
 
-- **reactable** [@R-reactable]: Similar to **DT** (also creates interactive tables based on a JavaScript library), but frankly speaking, it looks better than **DT** in several aspects in my eyes (such as row grouping and aggregation, and embedding HTML widgets). Had **reactable** existed in 2015, I would not have developed **DT**. That said, **reactable** does not contain all the features of **DT**, so you may read its documentation and see which one fits your purpose better: https://glin.github.io/reactable/.
+- **reactable** [@R-reactable]: Similar to **DT**, this package also creates interactive tables based on a JavaScript library. Frankly speaking, it looks better than **DT** in several aspects in my eyes (such as row grouping and aggregation, and embedding HTML widgets). Had **reactable** existed in 2015, I would not have developed **DT**. That said, **reactable** does not contain all the features of **DT**, so you may read its documentation and see which one fits your purpose better: https://glin.github.io/reactable/.
 
 - **rhandsontable** [@R-rhandsontable]: Also similar to **DT**, and has an Excel feel (e.g., you can edit data directly in the table). Visit https://jrowen.github.io/rhandsontable/ to know more about it.
 
