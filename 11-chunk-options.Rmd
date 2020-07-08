@@ -538,7 +538,7 @@ The `render` option gives you complete freedom on how to print your R objects.
 
 ## Option hooks (\*) {#option-hooks}
 
-Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options, and you may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. This function takes the list of options for the current chunk as the input argument, and should return the (potentially modified) list. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
+Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options. You may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. This function takes the list of options for the current chunk as the input argument, and should return the (potentially modified) list. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
 
 ```{r, eval=FALSE}
 knitr::opts_hooks$set(fig.width = function(options) {
