@@ -364,7 +364,7 @@ Include the actual content here.
 ::::
 ```
 
-For the PDF output, we can create an `infobox` environment based on the `blackbox` environment defined in the previous example, and add the icon to the left side of the box. There are multiple ways of including images in a LaTeX environment, and here is only one of them (it does not precisely reproduce the box style defined in CSS above):
+For the PDF output, we can create an `infobox` environment based on the `blackbox` environment defined in the previous example, and add the icon to the left side of the box. There are multiple ways of including images in a LaTeX environment. Here is only one of them (it does not precisely reproduce the box style defined in CSS above):
 
 ```{cat, class.source='tex', engine.opts=list(file = 'latex/infobox.tex')}
 \newenvironment{infobox}[1]
