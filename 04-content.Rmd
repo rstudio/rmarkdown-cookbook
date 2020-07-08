@@ -633,7 +633,7 @@ Some characters have special meanings in the Markdown syntax. If you want these 
 
 <!-- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown -->
 
-It is useful to comment out text in the source document, which will not be displayed in the final output document. We can use the HTML syntax `<!-- your comment -->`. The comments will not be displayed in any output format.
+It is useful to comment out text in the source document, which will not be displayed in the final output document. For this purpose, we can use the HTML syntax `<!-- your comment -->`. The comments will not be displayed in any output format.
 
 Comments can span either a single line or multiple lines. This may be useful for you to write draft content.
 <!-- TODO: it also allows us to comment out code chunks and prevent them from being run in knitr (not possible at the moment). -->
