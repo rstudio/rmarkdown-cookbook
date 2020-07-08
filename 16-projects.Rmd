@@ -23,45 +23,50 @@ Note that we used `include = FALSE` in the above example because we only want to
 
 There is a disadvantage of the `source()` method in Section \@ref(source-script). That is, you will not be able to see the source code by default. You can use `source(..., echo = TRUE)`, but the source code will not be properly syntax highlighted. Besides, you need to be careful about the `local` argument of `source()`, as mentioned in Section \@ref(source-script). In this section, we introduce an alternative method that does not have these problems.
 
-Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples:
+Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples.
 
-````md
-The `code` option can take a character vector of source code.
-For example:
+- The `code` option can take a character vector of source code. For example:
 
-```{r, code=c('1 + 1', 'if (TRUE) plot(cars)')}`r ''`
-```
+    ````md
+    ```{r, code=c('1 + 1', 'if (TRUE) plot(cars)')}`r ''`
+    ```
+    ````
 
-You can also read an external file:
+- You can also read an external file:
 
-```{r, code=xfun::read_utf8('your-script.R')}`r ''`
-```
+    ````md
+    ```{r, code=xfun::read_utf8('your-script.R')}`r ''`
+    ```
+    ````
 
-You can read as many scripts as you want:
+- You can read as many scripts as you want:
 
-```{r, include=FALSE}`r ''`
-read_files <- function(files) {
-  unlist(lapply(files, xfun::read_utf8))
-}
-```
+    ````md
+    ```{r, include=FALSE}`r ''`
+    read_files <- function(files) {
+      unlist(lapply(files, xfun::read_utf8))
+    }
+    ```
 
-```{r, code=read_files(c('one.R', 'two.R'))}`r ''`
-```
-````
+    ```{r, code=read_files(c('one.R', 'two.R'))}`r ''`
+    ```
+    ````
 
-You can read scripts of other languages, too. See Chapter \@ref(other-languages) for how to use other languages in R Markdown. Here are a few more examples on non-R code:
+You can read scripts of other languages, too. See Chapter \@ref(other-languages) for how to use other languages in R Markdown. Here are a few more examples on non-R code.
 
-````md
-Read a Python script:
+- Read a Python script:
 
-```{python, code=xfun::read_utf8('script.py')}`r ''`
-```
+    ````md
+    ```{python, code=xfun::read_utf8('script.py')}`r ''`
+    ```
+    ````
 
-Read a C++ file:
+- Read a C++ file:
 
-```{Rcpp, code=xfun::read_utf8('file.cpp')}`r ''`
-```
-````
+    ````md
+    ```{Rcpp, code=xfun::read_utf8('file.cpp')}`r ''`
+    ```
+    ````
 
 With the `code` option, you can develop complicated code in your favorite editor, and read it into a code chunk of an R Markdown document.
 
@@ -181,7 +186,7 @@ cat(unlist(res), sep = '\n')
 
 ## Keep the plot files {#keep-files}
 
-Most R Markdown output formats use the option `self_contained = TRUE` by default, which means R plots will be embedded in the output documents, so we do not need the intermediate plot files when viewing the output documents, and the plot folder (which typically has a suffix `_files`) will be deleted after the Rmd document is rendered.
+Most R Markdown output formats use the option `self_contained = TRUE` by default. This causes R plots to be embedded in the output documents, so we do not need the intermediate plot files when viewing the output documents. As a consequence, the plot folder (which typically has a suffix `_files`) will be deleted after the Rmd document is rendered.
 
 Sometimes you may want to keep the plot files. For example, some academic journals require authors to submit figures files separately. For R Markdown, there are three ways to avoid the automatic deletion of these files:
 
@@ -251,7 +256,7 @@ There is no absolutely correct choice for the working directory. Each choice has
 
 - Using the project directory as the working directory requires an obvious assumption: you have to use a project (e.g., an RStudio project or a version control project) in the first place, which could be a disadvantage of this approach. The advantage of this type of working directory is that all relative paths in any Rmd document are relative to the project root directory, so you do not need to think where your Rmd file is located in the project or adjust the relative paths of other files accordingly. This type of working directory is advocated by the **here** package [@R-here], which provides the function `here::here()` to return an absolute path by resolving a relative path passed to it (remember that the relative path is relative to the project root). The disadvantage is that when you move the referenced file together with the Rmd file to another location in the project, you need to update the referenced path in the Rmd document. When you share the Rmd file with other people, you also have to share the whole project.
 
-    This type of paths are similar to absolute paths without the protocol or domain in HTML. For example, an image `<img src="/foo/bar.png" />` on the page `https://www.example.org/path/to/page.html` refers to the image under the root directory of the website, i.e., `https://www.example.org/foo/bar.png`. The leading `/` in the `src` attribute of the image indicates the root directory of the website. If you want to learn more (or further confuse yourself) about absolute and relative paths in HTML in [the Appendix B.1 of the **blogdown** book](https://bookdown.org/yihui/blogdown/html.html) [@blogdown2017].
+    This type of paths are similar to absolute paths without the protocol or domain in HTML. For example, an image `<img src="/foo/bar.png" />` on the page `https://www.example.org/path/to/page.html` refers to the image under the root directory of the website, i.e., `https://www.example.org/foo/bar.png`. The leading `/` in the `src` attribute of the image indicates the root directory of the website. If you want to learn more (or further confuse yourself) about absolute and relative paths in HTML, please see [the Appendix B.1 of the **blogdown** book](https://bookdown.org/yihui/blogdown/html.html) [@blogdown2017].
 
 The working directory pain mainly arises from this question when dealing with relative paths: _relative to what?_ As we mentioned earlier, different people have different preferences, and there is not an absolutely right answer.
 
@@ -300,7 +305,7 @@ Similarly, any package may include R Markdown templates that package users can a
 
 ### Template use-cases
 
-Templates are a useful way to share custom structure, style, and content. There are many excellent examples of this "in the wild".
+Templates are a useful way to share custom structure, style, and content. There are many excellent examples of this "in the wild."
 
 Many templates add structure and style by pre-populating the YAML metadata. We already saw an example of this with the **rmarkdown** package's "Package Vignette (HTML)" template. Similarly, the **rmdformats** package [@R-rmdformats] provides a number of templates that pass different custom styling functions to the `output` option.
 

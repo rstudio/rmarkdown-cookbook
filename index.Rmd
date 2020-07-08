@@ -66,6 +66,11 @@ import_example <- function(file, lang = xfun::file_ext(file)) {
 }
 
 options(bookdown.post.latex = function(x) {
+  # substitute nonbreaking spaces in \texttt{} with normal spaces
+  m = gregexpr('\\\\texttt\\{[^}]+}', x)
+  regmatches(x, m) = lapply(regmatches(x, m), function(z) {
+    gsub('\\\\ ', ' ', z)
+  })
   # only build a skeleton for the online version
   if (Sys.getenv('BOOKDOWN_FULL_PDF', '') == 'false') return(bookdown:::strip_latex_body(
     x, '\nThis PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.\n'
@@ -74,7 +79,7 @@ options(bookdown.post.latex = function(x) {
   # fix syntax highlighting:
   # \FunctionTok{tufte:}\AttributeTok{:tufte_html: default} ->
   # \FunctionTok{tufte::tufte_html:}\AttributeTok{ default}
-  x = gsub('(\\\\FunctionTok\\{[^:]+:)(})(\\\\AttributeTok\\{)(:[^:]+:)', '\\1\\4\\2\\3', x)
+  x = gsub('(\\\\AttributeTok\\{[^:]+:)(})(\\\\FunctionTok\\{)(:[^:]+:)', '\\1\\4\\2\\3', x)
   if (length(i <- grep('^\\\\begin\\{longtable\\}', x)) == 0) return(x)
   i1 = bookdown:::next_nearest(i, which(x == '\\toprule'))
   i2 = bookdown:::next_nearest(i, which(x == '\\endfirsthead'))
@@ -151,7 +156,7 @@ I came up with the idea of writing this cookbook after I published the *R Markdo
 
 David Keyes saved my life in Section \@ref(table-other), since he had written [a wonderful blog post](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) to introduce several R packages to create tables, with which I was not very familiar. Other online materials that have helped me a lot include: Holtz Yan's [post on some R Markdown tips,](https://holtzy.github.io/Pimp-my-rmd/) Nicholas Tierney's book ["R Markdown for Scientists",](https://rmd4sci.njtierney.com) Maëlle Salmon's [R Markdown course,](https://github.com/maelle/rmd_course_isglobal) Jennifer Thompson's [R Markdown course,](https://github.com/jenniferthompson/RepResearchRMarkdown) Emi Tanaka's [R Markdown workshop,](https://github.com/emitanaka/combine2019) Alison Hill's [R Markdown workshop](https://arm.rbind.io) (co-taught with me), and Alison Hill and Emi Tanaka's [R Markdown workshop.](https://ysc-rmarkdown.netlify.app)
 
-Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Xiangyun Huang, Florian Kohrt, Romain Lesur, Jiaxiang Li, Song Li, Ulrik Lyngs, Matt Small, Jake Stephen, Atsushi Yasumoto, Hao Zhu, and John Zobolas.
+Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Krishnakumar Gopalakrishnan, Xiangyun Huang, Florian Kohrt, Romain Lesur, Jiaxiang Li, Song Li, Ulrik Lyngs, Matt Small, Jake Stephen, Atsushi Yasumoto, Hao Zhu, and John Zobolas.
 
 The original idea of this book was partially motivated from a remote talk that I delivered to the RaukR Summer School in 2018, in which I introduced some lesser known features of **knitr**. The audience seemed to like those short introductions of **knitr** features, which were like recipes. I'd like to thank the organizers of the summer school, including Marcin Kierczak and Sebastian Dilorenzo, for inviting me. I have given similar talks later at Genentech and [DahShu.](http://dahshu.org) I want to thank Michael Lawrence and Yuqing Zhang for the invitations, as well as the audience of these talks for their feedback. Paul Johnson published a very helpful critique of our book _R Markdown: the Definitive Guide_ on the journal _The American Statistician_ in 2020. He complained that the book lacked in-depth examples, therefore the definitive guide was not definitive enough. I truly appreciate and agree with his comments. I hope this new (cook)book could fill the gap.
 

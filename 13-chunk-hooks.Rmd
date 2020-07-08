@@ -42,7 +42,7 @@ function(before, options, envir, name) {
 
 All four arguments are optional. You can have four, three, two, one, or even no arguments. In the above example, we used one argument (i.e., `before`). The meanings of these arguments are:
 
-- `before`: Whether the chunk hook is executed before or after the code chunk itself is executed. Note that a chunk hook is executed twice for every code chunk (once before with `hook(before = TRUE)` and once after with `hook(before = FALSE`).
+- `before`: Whether the chunk hook is currently being executed before or after the code chunk itself is executed. Note that a chunk hook is executed twice for every code chunk (once before with `hook(before = TRUE)` and once after with `hook(before = FALSE`).
 
 - `options`: The list of chunk options for the current code chunk, e.g., `list(fig.width = 5, echo = FALSE, ...)`.
 
@@ -71,7 +71,7 @@ Sys.which('pdfcrop')
 
 If you are using the LaTeX distribution TinyTeX (see Section \@ref(install-latex)), and `pdfcrop` is not available in your system, you may install it via `tinytex::tlmgr_install('pdfcrop')`.
 
-For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick] to crop them. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
+For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick] for cropping. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
 
 ```{r, crop-no, crop=NULL, echo=FALSE, fig.cap='A plot that is not cropped.'}
 par(bg = 'gray', fg = 'yellow')
@@ -147,9 +147,9 @@ knitr::knit_hooks$set(time_it = local({
 )
 ```
 
-Then you can access all the time information in the object `all_times`, which is a named list with the names being chunk labels, and element values being the execution time for each chunk.
+Then you can access all the time information in the object `all_times`. This object is a named list with the names being chunk labels, and element values being the execution time for each chunk.
 
-Lastly, as a technical note, we want to explain the use of the `local()` function in the previous hooks because some readers may not be familiar with it. This function allows you to run code in a "local" environment. The main benefit is that variables created in the code are local to that environment, so they will not pollute the outer environment (usually the global environment). For example, we created a variable `now` in `local()`, and used it in the `time_it` hook function. In the hook function, we update the value of `now` via the double arrow `<<-` instead of the normal assignment operator `<-`, because `<<-` assigns a value to a variable in the parent environment (which is the environment in `local()` in this case), and `<-` can only assign values to variables in the current environment. Before each code chunk is evaluated, the local variable `now` records the current time. After each code chunk is evaluated, we calculate the time difference between the current time and `now`. Note that `local()` returns the last value in the expression passed to it, which is a (hook) function in this case. In short, `local()` can make your workspace cleaner by not exposing variables that are only used locally but unused in the global environment. If you do not mind creating a variable `now` in the global environment, you can choose not to use `local()`.
+Lastly, as a technical note, we want to explain the use of the `local()` function in the previous hooks because some readers may not be familiar with it. This function allows you to run code in a "local" environment. The main benefit is that variables created in the code are local to that environment, so they will not pollute the outer environment (usually the global environment). For example, we created a variable `now` in `local()`, and used it in the `time_it` hook function. In the hook function, we update the value of `now` via the double arrow `<<-` instead of the normal assignment operator `<-`. This is because `<<-` assigns a value to a variable in the parent environment (which is the environment in `local()` in this case), and `<-` can only assign values to variables in the current environment. Before each code chunk is evaluated, the local variable `now` records the current time. After each code chunk is evaluated, we calculate the time difference between the current time and `now`. Note that `local()` returns the last value in the expression passed to it, which is a (hook) function in this case. In short, `local()` can make your workspace cleaner by not exposing variables that are only used locally but unused in the global environment. If you do not mind creating a variable `now` in the global environment, you can choose not to use `local()`.
 
 ## Show the chunk header in the output {#show-header}
 
