@@ -553,7 +553,7 @@ for (i in 1:2) {
 }
 ```
 
-The image format of the animation is GIF, which works well for HTML output, but it is not straightforward to support GIF in LaTeX. That is why you only see two static image frames if you are reading the PDF or printed version of this book in Figure \@ref(fig:pacman). If you read the online version of this book, you will see the actual animation.
+The image format of the animation is GIF, which works well for HTML output, but it is not straightforward to support GIF in LaTeX. That is why you only see two static image frames in Figure \@ref(fig:pacman) if you are reading the PDF or printed version of this book. If you read the online version of this book, you will see the actual animation.
 
 Animations can work in PDF, but there are two prerequisites. First, you have to load the LaTeX package [**animate**](https://ctan.org/pkg/animate) (see Section \@ref(latex-extra) for how). Second, you can only use Acrobat Reader to view the animation. Then the chunk option `fig.show = "animate"` will use the **animate** package to create the animation. Below is an example:
 
