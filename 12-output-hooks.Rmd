@@ -1,6 +1,6 @@
 # Output Hooks (\*) {#output-hooks}
 
-With the **knitr** package, you have control over every piece of output from your code chunks, such as source code, text output, messages, and plots. The control is achieved through "output hooks". Output hooks are a series of functions that take a piece of output as the input (typically a character vector), and return a character vector to be written to the output document. This may not be easy to understand for now, but hopefully you can see the idea more clearly with a small example below explaining how the output of a simple code chunk is rendered through **knitr**'s output hooks.
+With the **knitr** package, you have control over every piece of output from your code chunks, such as source code, text output, messages, and plots. The control is achieved through "output hooks." Output hooks are a series of functions that take a piece of output as the input (typically a character vector), and return a character vector to be written to the output document. This may not be easy to understand for now, but hopefully you can see the idea more clearly with a small example below explaining how the output of a simple code chunk is rendered through **knitr**'s output hooks.
 
 Consider this code chunk with one line of code:
 
