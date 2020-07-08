@@ -208,7 +208,7 @@ knitr::kables(
 
 ### Generate multiple tables from a `for`-loop (\*)
 
-One common confusion about `kable()` is that it does not work inside `for`-loops. This problem is not specific to `kable()` but exists in many other packages, too. The reason is a little complicated. In case you are interested in the technicality, it has been explained in the blog post ["The Ghost Printer Behind Top-level R Expressions".](https://yihui.org/en/2017/06/top-level-r-expressions/)
+One common confusion about `kable()` is that it does not work inside `for`-loops. This problem is not specific to `kable()` but exists in many other packages, too. The reason is a little complicated. In case you are interested in the technicality, it has been explained in the blog post ["The Ghost Printer Behind Top-level R Expressions."](https://yihui.org/en/2017/06/top-level-r-expressions/)
 
 You may expect the following code chunk to generate three tables, but it will not:
 
