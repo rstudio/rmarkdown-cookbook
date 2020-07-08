@@ -346,7 +346,7 @@ For the HTML output, we can add an image to the box through the `background-imag
 }
 ```
 
-Note that we used two class names, `.infobox` and `.caution`, on the outer block. The `infobox` class will be used to define the shaded box with a colored border, and the `caution` class will be used to include the image. The advantage of using two classes is that we can define more blocks with different icons without repeating the setup of the shaded box. For example, if we need a `warning` box, we only need to define the CSS rule without repeating rules in `.infobox`:
+Note that we used two class names, `.infobox` and `.caution`, on the outer block. The `infobox` class will be used to define the shaded box with a colored border, and the `caution` class will be used to include the image. The advantage of using two classes is that we can define more blocks with different icons without repeating the setup of the shaded box. For example, if we need a `warning` box, we only need to define the following CSS rule without repeating rules in `.infobox`:
 
 ```css
 .warning {
