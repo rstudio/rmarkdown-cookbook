@@ -66,6 +66,11 @@ import_example <- function(file, lang = xfun::file_ext(file)) {
 }
 
 options(bookdown.post.latex = function(x) {
+  # substitute nonbreaking spaces in \texttt{} with normal spaces
+  m = gregexpr('\\\\texttt\\{[^}]+}', x)
+  regmatches(x, m) = lapply(regmatches(x, m), function(z) {
+    gsub('\\\\ ', ' ', z)
+  })
   # only build a skeleton for the online version
   if (Sys.getenv('BOOKDOWN_FULL_PDF', '') == 'false') return(bookdown:::strip_latex_body(
     x, '\nThis PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.\n'
