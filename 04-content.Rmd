@@ -595,7 +595,7 @@ There are extensive controls that can be used to define the shape of nodes, colo
 
 ### Adding parameters to plots
 
-Graphviz substitution allows for mixing in R expressions into a Graphviz graph specification without sacrificing readability. If you specify a substitution with `@@`, you must ensure there is a valid R expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object. The `@@` notation is immediately followed by a number, and that number should correspond to the number of the R expression footnote. Figure \@ref(fig:diagram-params) shows an example of embedding and evaluating R code in the diagram.
+Graphviz substitution allows for mixing in R expressions into a Graphviz graph specification, without sacrificing readability. If you specify a substitution with `@@`, you must ensure there is a valid R expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object. The `@@` notation is immediately followed by a number, and that number should correspond to the number of the R expression footnote. Figure \@ref(fig:diagram-params) shows an example of embedding and evaluating R code in the diagram.
 
 ```{r diagram-params, fig.cap="A diagram using parameters input from R.", fig.dim=c(6, 1), out.width="100%", crop=TRUE}
 DiagrammeR::grViz("
