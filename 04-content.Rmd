@@ -161,7 +161,7 @@ Items can be cited directly within the documentation using the syntax `@key` whe
 
 ### Changing citation style
 
-By default, Pandoc will use a Chicago author-date format for citations and references. To use another style, you will need to specify a CSL (Citation Style Language) style file in the `csl` metadata field, e.g.,
+By default, Pandoc will use a Chicago author-date format for citations and references. To use another style, you will need to specify a CSL (Citation Style Language) file in the `csl` metadata field, e.g.,
 
 ```yaml
 ---
