@@ -1,6 +1,6 @@
 # Miscellaneous knitr Tricks {#knitr-misc}
 
-Besides chunk options (Chapter \@ref(chunk-options)), output hooks (Chapter \@ref(output-hooks)), and chunk hooks (Chapter \@ref(chunk-hooks)), there are other useful functions and tricks in **knitr**, which we will introduce in this chapter, such as how to reuse code chunks, exit knitting early, display a plot in a custom place, and so on.
+Besides chunk options (Chapter \@ref(chunk-options)), output hooks (Chapter \@ref(output-hooks)), and chunk hooks (Chapter \@ref(chunk-hooks)), there are other useful functions and tricks in **knitr**. We introduce these tricks in this chapter, such as how to reuse code chunks, exit knitting early, display a plot in a custom place, and so on.
 
 ## Reuse code chunks {#reuse-chunks}
 
@@ -8,7 +8,7 @@ You can freely reuse code chunks anywhere in your source document without cut-an
 
 ### Embed one chunk in another chunk (\*) {#embed-chunk}
 
-You can embed one code chunk in another code chunk by enclosing its label in `<<>>`, then **knitr** will automatically expand the string `<<label>>` to the actual code. For example, you can create an R function in this way:
+You can embed one code chunk in another code chunk by enclosing its label in `<<>>`. Then **knitr** will automatically expand the string `<<label>>` to the actual code. For example, you can create an R function in this way:
 
 ````md
 We define a function to convert Fahrenheit to Celsius.
@@ -175,7 +175,7 @@ mx <- mean(x)
 
 In this example, we added a chunk label `mean-x` to the R code chunk (which is passed to the `load_cache()` function), and cached it using the chunk option `cache = TRUE`. All objects in this code chunk will be saved to the cache database. Again, you will have to compile this document at least twice, so the object `mx` can be correctly loaded from the cache database. If the value of `mx` is not going to be changed in the future, you do not need to compile the document one more time.
 
-If you do not have to specify the object name in `load_cache()` in the second argument, the whole cache database will be loaded into the current environment, and you can use any objects cache database before these objects are created later in the document, e.g.,
+If you do not specify the object name in the second argument to `load_cache()`, the whole cache database will be loaded into the current environment. You can then use any objects that were in the cache database before these objects are created later in the document, e.g.,
 
 ```{r, eval=FALSE}
 knitr::load_cache('mean-x')
@@ -242,7 +242,7 @@ When you no longer need this global graphical device, you can set the option to 
 
 ## Save a group of chunk options and reuse them (\*) {#opts-template}
 
-If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`, and then you can use the chunk option `opts.label` to refer to the group name. For example:
+If you frequently use some chunk options, you may save them as a group and reuse them later only using the group name. This can be done with `knitr::opts_template$set(name = list(options))`. Then you can use the chunk option `opts.label` to refer to the group name. For example:
 
 ````md
 ```{r, setup, include=FALSE}`r ''`
@@ -421,7 +421,7 @@ identical(parse_code({x <- 1}), parse_code({1 -> x}))
 
 ### Invalidate the cache by changes in global variables
 
-There are two types of variables in an expression: global variables and local variables. Global variables are those created outside the expression, and local variables are those created inside the expression. If the value of a global variable in the expression has changed. For example, in the expression below, if `y` has changed, you are most likely to want to invalidate the cache and rerun the expression, otherwise you still get the result from the old value of `y`:
+There are two types of variables in an expression: global variables and local variables. Global variables are those created outside the expression, and local variables are those created inside the expression. If the value of a global variable in the expression has changed, your cached result will no longer reflect the result that you would obtain by running the expression again. For example, in the expression below, if `y` has changed, you are most likely to want to invalidate the cache and rerun the expression, otherwise you still get the result from the old value of `y`:
 
 ```r
 y <- 2
@@ -481,7 +481,7 @@ The global variables are identified by `codetools::findGlobals()` when `hash = "
 
 ### Keep multiple copies of the cache
 
-Since cache is typically used for time-consuming code, perhaps you should invalidate it conservatively. You might regret invalidating the cache too soon or aggressively, because in case you should need an older version of the cache again, you would have to wait for a long time for the computing to be redone.
+Since the cache is typically used for time-consuming code, perhaps you should invalidate it conservatively. You might regret invalidating the cache too soon or aggressively, because in case you should need an older version of the cache again, you would have to wait for a long time for the computing to be redone.
 
 The `clean` argument of `cache_rds()` allows you to keep older copies of the cache if you set it to `FALSE`. You can also set the global R option `options(xfun.cache_rds.clean = FALSE)` if you want this to be the default behavior throughout the entire R session. By default, `clean = TRUE` and `cache_rds()` will try to delete the older cache every time. Setting `clean = FALSE` can be useful if you are still experimenting with the code. For example, you can cache two versions of a linear model:
 
@@ -499,7 +499,7 @@ After you decide which model to use, you can set `clean = TRUE` again, or delete
 
 ### Comparison with **knitr**'s caching
 
-You may wonder when to use **knitr**'s caching (i.e., set the chunk option `cache = TRUE`), and when to use `xfun::cache_rds()` in a **knitr** source document. The biggest disadvantage of `xfun::cache_rds()` is that it does not cache side-effects (but only the value of the expression), whereas **knitr** does. Some side-effects may be useful, such as printed output or plots. For example, the text output and the plot will be lost when `cache_rds()` loads the cache the next time, and only the value `1:10` will be returned:
+You may wonder when to use **knitr**'s caching (i.e., set the chunk option `cache = TRUE`), and when to use `xfun::cache_rds()` in a **knitr** source document. The biggest disadvantage of `xfun::cache_rds()` is that it does not cache side-effects (but only the value of the expression), whereas **knitr** does. Some side-effects may be useful, such as printed output or plots. For example, in the code below, the text output and the plot will be lost when `cache_rds()` loads the cache the next time, and only the value `1:10` will be returned:
 
 ```{r, eval=FALSE}
 xfun::cache_rds({
@@ -531,4 +531,4 @@ mean(x)
 
 Actually **knitr** caching is quite powerful and flexible, and its behavior can be tweaked in many ways. As its author, I often doubt if it is worth introducing these lesser-known features, because you may end up spending much more time on learning and understanding how the cache works than the time the actual computing takes.
 
-In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere (not necessarily inside **knitr** documents). Apparently **knitr**'s caching only works in **knitr** documents.
+In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere, whereas **knitr**'s caching only works in **knitr** documents.

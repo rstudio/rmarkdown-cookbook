@@ -2,13 +2,13 @@
 
 Besides the R language, many other languages are supported in R Markdown through the **knitr** package. The language name is indicated by the first word in the curly braces after the three opening backticks. For example, the little `r` in ```` ```{r}```` indicates that the code chunk contains R code, and ```` ```{python}```` is a Python code chunk. In this chapter, we show a few languages that you may not be familiar with.
 
-In **knitr**, each language is supported through a language engine. Language engines are essentially functions that takes the source code and options of a chunk as the input, and returns a character string as the output. They are managed through the object `knitr::knit_engines`. You may check the existing engines via:
+In **knitr**, each language is supported through a language engine. Language engines are essentially functions that take the source code and options of a chunk as the input, and return a character string as the output. They are managed through the object `knitr::knit_engines`. You may check the existing engines via:
 
 ```{r}
 names(knitr::knit_engines$get())
 ```
 
-At the moment, most code chunks of non-R languages are executed independently. For example, all `bash` code chunks in the same document are executed separately in their own sessions, so a later `bash` code chunk cannot use variables created in a previous `bash` chunk, and the changed working directory (via `cd`) will not be persistent across different `bash` chunks. Only R, Python, and Julia code chunks are executed in the same session, but please note that all R code chunks are executed in the same R session, and all Python code chunks are executed in the same Python session, etc. The R session and the Python session are two different sessions, but it is possible to access or manipulate objects of one session from another session (see Section \@ref(eng-python)).
+At the moment, most code chunks of non-R languages are executed independently. For example, all `bash` code chunks in the same document are executed separately in their own sessions, so a later `bash` code chunk cannot use variables created in a previous `bash` chunk, and the changed working directory (via `cd`) will not be persistent across different `bash` chunks. Only R, Python, and Julia code chunks are executed in the same session. Please note that all R code chunks are executed in the same R session, and all Python code chunks are executed in the same Python session, etc. The R session and the Python session are two different sessions, but it is possible to access or manipulate objects of one session from another session (see Section \@ref(eng-python)).
 
 [Section 2.7](https://bookdown.org/yihui/rmarkdown/language-engines.html) of the R Markdown Definitive Guide [@rmarkdown2018] has shown examples of using Python, Shell, SQL, Rcpp, Stan, JavaScript, CSS, Julia, C, and Fortran code in R Markdown. In this chapter, we will show more language engines, and you may find more examples in the repository at https://github.com/yihui/knitr-examples (look for filenames that contain the word "engine").
 
@@ -59,7 +59,7 @@ The key is that we apply the function `toupper` to the "code", and return the re
 > Hello, **knitr** engines!
 > ```
 
-Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see Section \@ref(eng-python)).] named `py` and implemented by simply calling the `python` command via `system2()`:
+Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see Section \@ref(eng-python)).] named `py`. This engine is implemented by simply calling the `python` command via `system2()`:
 
 ```{r, tidy=FALSE}
 knitr::knit_engines$set(py = function(options) {
@@ -113,7 +113,7 @@ The Python support in R Markdown and **knitr** is based on the **reticulate** pa
 
 For more information about the **reticulate** package, you may see its documentation at https://rstudio.github.io/reticulate/.
 
-## Conditional content via the `asis` engine {#eng-asis}
+## Execute content conditionally via the `asis` engine {#eng-asis}
 
 As its name indicates, the `asis` engine writes out the chunk content as is. The advantage of using this engine is that you can include some content conditionally---the display of the chunk content is decided by the chunk option `echo`. When `echo = FALSE`, the chunk will be hidden. Below is a simple example:
 
@@ -140,7 +140,7 @@ You can run Shell scripts via the `bash` or `sh` or `zsh` engine, depending on w
 ls *.Rmd | head -n 5
 ```
 
-Please note that `bash` is invoked with the R function `system2()`, and it will ignore profile files like `~/.bash_profile` and `~/.bash_login`, in which you may have defined command aliases or modified environment variables like the `PATH` variable. If you want these profile files to be executed just like when you use the terminal, you may pass the argument `-l` to `bash` via `engine.opts`, e.g.,
+Please note that `bash` is invoked with the R function `system2()`. It will ignore profile files like `~/.bash_profile` and `~/.bash_login`, in which you may have defined command aliases or modified environment variables like the `PATH` variable. If you want these profile files to be executed just like when you use the terminal, you may pass the argument `-l` to `bash` via `engine.opts`, e.g.,
 
 ````md
 ```{bash, engine.opts='-l'}`r ''`
@@ -262,7 +262,7 @@ summarize
 ```
 ````
 
-The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially extended it in the **Statamarkdown** package, which is available on GitHub at https://github.com/Hemken/Statamarkdown. You may find tutorials about this package by searching online for "Stata R Markdown".
+The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially extended it in the **Statamarkdown** package, which is available on GitHub at https://github.com/Hemken/Statamarkdown. You may find tutorials about this package by searching online for "Stata R Markdown."
 
 ## Create graphics with Asymptote {#eng-asy}
 
@@ -344,7 +344,7 @@ unlink('sine.csv')
 
 Sass (https://sass-lang.com) is a CSS extension language that allows you to create CSS rules in much more flexible ways than you'd do with plain CSS. Please see its official documentation if you are interested in learning it.
 
-The R package **sass** [@R-sass] can be used to compile Sass to CSS. Based on the **sass** package, [Emily Riederer contributed](https://github.com/yihui/knitr/pull/1666) two language engines to **knitr**, `sass` and `scss` (corresponding to the Sass and SCSS syntax, respectively), to compile code chunks to CSS. Below is a `scss` code chunk, with the chunk header ```` ```{scss}````:
+The R package **sass** [@R-sass] can be used to compile Sass to CSS. Based on the **sass** package, **knitr** includes two language engines: `sass` and `scss` (corresponding to the Sass and SCSS syntax, respectively) to compile code chunks to CSS. Below is a `scss` code chunk, with the chunk header ```` ```{scss}````:
 
 ```{scss}
 $font-stack: "Comic Sans MS", cursive, sans-serif;
@@ -371,4 +371,4 @@ $primary-color: #00FF00
 
 If you are reading [the HTML version of this section,](https://bookdown.org/yihui/rmarkdown-cookbook/eng-sass.html) you will notice that the font for this page has been changed to Comic Sans, which might be surprising, but please do not panic---[you are not having a stroke.](https://twitter.com/andrewheiss/status/1250438044542361600)
 
-The `sass`/`scss` code chunks are compiled through the `sass::sass()` function. Currently you can customize the output style for the CSS code via the chunk option `engine.opts`, e.g., `engine.opts = list(style = "expanded")`. The default style is "compressed". If you are not sure what this means, please refer to the help page `?sass::sass_options` and look for the `output_style` argument.
+The `sass`/`scss` code chunks are compiled through the `sass::sass()` function. Currently you can customize the output style for the CSS code via the chunk option `engine.opts`, e.g., `engine.opts = list(style = "expanded")`. The default style is "compressed." If you are not sure what this means, please refer to the help page `?sass::sass_options` and look for the `output_style` argument.

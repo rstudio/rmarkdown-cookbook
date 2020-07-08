@@ -1,6 +1,6 @@
 # Output Hooks (\*) {#output-hooks}
 
-With the **knitr** package, you have control over every piece of output from your code chunks, such as source code, text output, messages, and plots. The control is achieved through "output hooks", which are a series of functions that take a piece of output as the input (typically a character vector), and return a character vector to be written to the output document. This may not be easy to understand for now, but hopefully you can see the idea more clearly with a small example below explaining how the output of a simple code chunk is rendered through **knitr**'s output hooks.
+With the **knitr** package, you have control over every piece of output from your code chunks, such as source code, text output, messages, and plots. The control is achieved through "output hooks." Output hooks are a series of functions that take a piece of output as the input (typically a character vector), and return a character vector to be written to the output document. This may not be easy to understand for now, but hopefully you can see the idea more clearly with a small example below explaining how the output of a simple code chunk is rendered through **knitr**'s output hooks.
 
 Consider this code chunk with one line of code:
 
@@ -20,7 +20,7 @@ function(x, options) {
 }
 ```
 
-Similar, the text output is processed by the `output` hook that looks like this function:
+Similarly, the text output is processed by the `output` hook that looks like this function:
 
 ```{r, eval=FALSE}
 function(x, options) {
@@ -50,9 +50,9 @@ knitr::knit_hooks$get('output')
 # or knitr::knit_hooks$get(c('source', 'output'))
 ```
 
-Unless you are truly interested in making contributions to the **knitr** package, we do not recommend that you read the source code of these built-in hooks, which can be found in the scripts named in the form `hooks-*.R` at https://github.com/yihui/knitr/tree/master/R (e.g., `hooks-md.R` contains hooks for R Markdown documents). As a **knitr** user, it usually suffices if you know how to create custom output hooks by taking advantage of the built-in hooks. You will learn that in several examples in this chapter, and we show the basic idea below.
+Unless you are truly interested in making contributions to the **knitr** package, we do not recommend that you read the source code of these built-in hooks. If you are interested, this code can be found in the scripts named in the form `hooks-*.R` at https://github.com/yihui/knitr/tree/master/R (e.g., `hooks-md.R` contains hooks for R Markdown documents). As a **knitr** user, it usually suffices if you know how to create custom output hooks by taking advantage of the built-in hooks. You will learn that in several examples in this chapter, and we show the basic idea below.
 
-A custom output hook is registered through the `set()` method on `knit_hooks`. Because this method will override the existing default hook, we recommend that you save a copy of existing hook, process the output elements in your own way, and pass the results to the default hook. The usual syntax is:
+A custom output hook is registered through the `set()` method of `knit_hooks`. Because this method will override the existing default hook, we recommend that you save a copy of existing hook, process the output elements in your own way, and pass the results to the default hook. The usual syntax is:
 
 ```{r, eval=FALSE}
 # using local() is optional here (we just want to avoid creating unnecessary global variables like `hook_old`)
@@ -92,7 +92,7 @@ Output hooks give you the ultimate control over every single piece of your chunk
 
 ## Redact source code {#hook-hide}
 
-Sometimes we may not want to fully display our source code in the report. For example, you may have a password in a certain line of code. We mentioned in Section \@ref(hide-one) that you can use the chunk option `eval` to select which expressions in the R code to display (e.g., show the second expression via `echo = 2`). In this section, we provide a more flexible method that does not require you to specify the indices of expressions.
+Sometimes we may not want to fully display our source code in the report. For example, you may have a password in a certain line of code. We mentioned in Section \@ref(hide-one) that you can use the chunk option `echo` to select which expressions in the R code to display (e.g., show the second expression via `echo = 2`). In this section, we provide a more flexible method that does not require you to specify the indices of expressions.
 
 The basic idea is that you add a special comment to the code (e.g., `# SECRET!!`). When this comment is detected in a line of code, you omit that line. Below is a full example using the `source` hook:
 
@@ -163,7 +163,7 @@ The main trick in the above example is to determine the number of spaces needed 
 knitr:::v_spaces(c(1, 3, 6, 0))
 ```
 
-The method introduced in Section \@ref(number-lines) may be the actual way in which you want to add line numbers to source code. The syntax is cleaner, and it works both source code and text output blocks. The above `source` hook trick mainly aims to show you one possibility of manipulating the source code with a custom function.
+The method introduced in Section \@ref(number-lines) may be the actual way in which you want to add line numbers to source code. The syntax is cleaner, and it works for both source code and text output blocks. The above `source` hook trick mainly aims to show you one possibility of manipulating the source code with a custom function.
 
 ## Scrollable text output {#hook-scroll}
 
