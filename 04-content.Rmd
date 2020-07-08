@@ -427,7 +427,7 @@ plot(mpg ~ hp, mtcars)
 
 Section \@ref(cross-ref) demonstrates how this works for other elements such as tables and equations, and how to cross-reference the numbered elements within the text. Besides `html_document2`, there are several other similar functions for other output formats, such as `pdf_document2` and `word_document2`.
 
-You can add this feature to R Markdown output formats outside **bookdown**, too. The key is to use those formats as the "base formats" of **bookdown** output formats. For example, to number and cross-reference figures in the `rticles::jss_article` format, you can use:
+You can add this feature to R Markdown output formats outside **bookdown**, too. The key is to use those formats as the "base formats" of **bookdown** output formats. For example, in order to number and cross-reference figures in the `rticles::jss_article` format, you can use:
 
 ```yaml
 output:
