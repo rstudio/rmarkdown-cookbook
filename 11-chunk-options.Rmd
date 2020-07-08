@@ -524,7 +524,7 @@ output:
 ---
 ```
 
-Please see the help pages of the output format functions (e.g., `?rmarkdown::html_document`) for the possible values for the option `df_print`, or whether an output format supports the `df_print` option.
+Please see the help pages of the output format functions (e.g., `?rmarkdown::html_document`) to determine whether an output format supports the `df_print` option and, if so, what the possible values are. 
 
 In fact, you can completely replace the printing function `knit_print()` through the chunk option `render`, which can take any function to print objects. For example, if you want to print objects using the **pander** package, you may set the chunk option `render` to the function `pander::pander()`:
 
