@@ -536,7 +536,7 @@ Please read the documentation and follow the development of this package on GitH
 
 ## Create an animation from multiple R plots {#animation}
 
-When you generate a series of plots in a code chunk, you can combine them into an animation. It is easy to do so if the output format is HTML---you only need to install the **gifski** package [@R-gifski] and set the chunk option `animation.hook = "gifski"`. Figure \@ref(fig:pacman) shows a simple "Pac-man" animation created from the code chunk below:
+When you generate a series of plots in a code chunk, you can combine them into an animation. It is easy to do so if the output format is HTML---you only need to install the **gifski** package [@R-gifski] and then set the chunk option `animation.hook = "gifski"`. Figure \@ref(fig:pacman) shows a simple "Pac-man" animation created from the code chunk below:
 
 ````md
 ```{r, animation.hook="gifski"}`r ''`
