@@ -115,7 +115,7 @@ If you want to specify different maximum heights for individual code blocks, you
 
 ## Fold all code blocks but show some initially {#fold-show}
 
-If code blocks in the output document are potentially distracting to readers, you may choose to fold them initially, and readers can choose to display them by clicking the fold buttons:
+If code blocks in the output document are potentially distracting to readers, you may choose to fold them initially. Readers can then choose to display them by clicking the fold buttons:
 
 ```yaml
 output:
