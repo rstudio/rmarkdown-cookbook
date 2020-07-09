@@ -16,8 +16,14 @@ To include one or multiple custom stylesheets in an Rmd document, you can use th
 output:
   html_document:
     css: "style.css"
-    # or multiple sheets in an array
-    # css: ["style-1.css", "style-2.css"]
+```
+
+To include multiple stylesheets, you may list them in brackets, e.g.:
+
+```yaml
+output:
+  html_document:
+    css: ["style-1.css", "style-2.css"]
 ```
 
 Alternatively, you can use a `css` code chunk to embed the CSS rules directly in your Rmd document, e.g.,
