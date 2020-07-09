@@ -2,7 +2,7 @@
 
 For many authors, the main output of their work will be the PDF report, in which case they can utilize the powerful styling of LaTeX. In this chapter, we discuss approaches that can be used to customize PDF reports, such as including LaTeX code or packages in the preamble, using custom LaTeX templates, adding headers and footers, generating sub-figures, and writing raw LaTeX code in the document body.
 
-We want to offer a note of caution before we start, however. One benefit of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format but at the expense of this transferability. This problem is not unique to LaTeX, but all other output formats.
+We want to offer a note of caution before we start, however. One benefit of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format but at the expense of this transferability. This problem is not unique to LaTeX, but all other output formats as well.
 
 ## Add LaTeX code to the preamble {#latex-preamble}
 
@@ -16,7 +16,9 @@ The general structure of a LaTeX document is like this:
 \end{document}
 ```
 
-That is, you declare the document class in `\documentclass{}`, load certain LaTeX packages and set certain options if necessary in the preamble, and start writing the body of your document after `\begin{document}`. A Markdown document is mostly the body of the document. If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
+That is, you declare the document class in `\documentclass{}`, load certain LaTeX packages and set certain options if necessary in the preamble, and start writing the body of your document after `\begin{document}`. A Markdown document is mostly the body of the document. 
+
+If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
 
 For example, below is a trick that turns hyperlinks on text into footnotes. This trick is useful when the PDF output document is printed on paper, because readers will not be able to click the links (generated from `\href{URL}{text}`) on paper but can see the URLs in footnotes. This trick displays both the text and URL.
 
