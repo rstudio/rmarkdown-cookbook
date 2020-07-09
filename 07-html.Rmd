@@ -212,7 +212,7 @@ As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source 
 xfun::pkg_load2(c('htmltools', 'mime'))
 ```
 
-Then you can use one of the functions `xfun::embed_file()`, `xfun::embed_dir()`, or `xfun::embed_files()` in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
+Then you can use one of the functions `xfun::embed_file()`, `xfun::embed_files()`, or `xfun::embed_dir()` in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
 
 ````md
 ```{r echo=FALSE}`r ''`
