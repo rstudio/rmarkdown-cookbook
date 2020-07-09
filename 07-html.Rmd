@@ -468,7 +468,7 @@ It is important to make your HTML output documents accessible to readers who are
 
 - HTML documents are often more accessible than PDF.
 
-- Try to provide the Rmd source document along with the HTML output document if possible. In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
+- Try to provide the Rmd source document along with the HTML output document if possible (e.g. Section \@ref(embed-rmd) demonstrates one way to do this). In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
 
 - Provide informative text tags to your graphics. At the useR! conference in 2014, Jonathan explained this issue to me in person. It was the first time that I had learned about the importance of the `alt` attribute of images on web pages.
 
