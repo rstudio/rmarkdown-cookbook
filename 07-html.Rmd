@@ -93,12 +93,6 @@ If you want to decorate individual elements in code blocks instead of the whole 
 
 When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format. This option will fold code blocks in the output and readers can unfold them by clicking a button (see Section \@ref(fold-show) for more details).
 
-```yaml
-output:
-  html_document:
-    code_fold: hide
-```
-
 The other possible solution is to make the code blocks scrollable within a fixed height when they are too long. This can be achieved by the CSS properties `max-height` and `overflow-y`. Below is a full example with the output in Figure \@ref(fig:html-scroll):
 
 `r import_example('html-scroll.Rmd')`
