@@ -47,7 +47,7 @@ author: "Smart Analyst"
 output: pdf_document
 ---
 
-I just tried really hard to calculat our market share:
+I just tried really hard to calculate our market share:
 
 ```{r}`r ''`
 share <- runif(1)
@@ -57,7 +57,7 @@ share <- runif(1)
 title: "Our market share is `r knitr::inline_expr('round(100 * share, 2)')`% now!"
 ---
 
-Apparently I feel `r knitr::inline_expr('if(share > 0.8) "happy" else "sad"')` about it.
+I feel `r knitr::inline_expr('if(share > 0.8) "happy" else "sad"')` about it.
 ````
 
 In the example above, we added the document title after we have created the variable `share`. The title works in this case because Pandoc can read any number of YAML sections in a document (and merge them).
@@ -161,7 +161,7 @@ Items can be cited directly within the documentation using the syntax `@key` whe
 
 ### Changing citation style
 
-By default, Pandoc will use a Chicago author-date format for citations and references. To use another style, you will need to specify a CSL (Citation Style Language) style file in the `csl` metadata field, e.g.,
+By default, Pandoc will use a Chicago author-date format for citations and references. To use another style, you will need to specify a CSL (Citation Style Language) file in the `csl` metadata field, e.g.,
 
 ```yaml
 ---
@@ -252,9 +252,9 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
-The first argument should be a character vector of package names, and the second argument is the path to the `.bib` file. In the above example, `.packages()` returns the names of all packages loaded in the current R session. This makes sure all packages being used will have their citation entries written to the `.bib` file. When any of these packages are updated (e.g., the author, title, or year, or version of a package is changed), `write_bib()` can automatically update the `.bib` file.
+The first argument should be a character vector of package names, and the second argument is the path to the `.bib` file. In the above example, `.packages()` returns the names of all packages loaded in the current R session. This makes sure all packages being used will have their citation entries written to the `.bib` file. When any of these packages are updated (e.g., the author, title, year, or version of a package is changed), `write_bib()` can automatically update the `.bib` file.
 
-There are two possible types of citation entries. One type is those generated from the package's `DESCRIPTION` file, and the other type is generated from the package's `CITATION` file if provided. For the former type, the citation keys are of the form `R-pkgname`, where `pkgname` is the package name (e.g., `R-knitr`). For the latter type, the keys are created by concatenating the package name and the publication year (e.g., `knitr2015`). If there are multiple entries in the same year, a letter suffix will be added, e.g., `knitr2015a` and `knitr2015b`. The former type is often used to cite the package itself (i.e., the software), and the latter type often consists of publications related to the package, such as journal papers or books.
+There are two possible types of citation entries. One type is generated from the package's `DESCRIPTION` file, and the other type is generated from the package's `CITATION` file if provided. For the former type, the citation keys are of the form `R-pkgname`, where `pkgname` is the package name (e.g., `R-knitr`). For the latter type, the keys are created by concatenating the package name and the publication year (e.g., `knitr2015`). If there are multiple entries in the same year, a letter suffix will be added, e.g., `knitr2015a` and `knitr2015b`. The former type is often used to cite the package itself (i.e., the software), and the latter type often consists of publications related to the package, such as journal papers or books.
 
 ```{r, warning=FALSE, comment='', class.output='bibtex'}
 knitr::write_bib(c('knitr', 'rmarkdown'), width = 60)
@@ -266,7 +266,7 @@ Note that `write_bib()` is designed to overwrite the existing bibliography file.
 
 ````md
 ---
-bibliography: [packages.bib. references.bib]
+bibliography: [packages.bib, references.bib]
 ---
 
 ```{r, include=FALSE}`r ''`
@@ -441,7 +441,7 @@ Please read the help pages of the **bookdown** output format functions to see if
 
 When you want to output a character vector for humans to read (e.g., `x <- c("apple", "banana", "cherry")`), you probably do not want something like `[1] "apple" "banana" "cherry"`, which is the normal way to print a vector in R. Instead, you may want a character string "`apple, banana, and cherry`". There is a base R function `paste()` that you can use to concatenate a character vector into a single string, e.g., `paste(x, collapse = ', ')`, and the output will be `"apple, banana, cherry"`. The problems are (1) the conjunction "and" is missing, and (2) when the vector only contains two elements, we should not use commas (e.g., the output should be `"apple and banana"` instead of `"apple, banana"`).
 
-The function `knitr::combine_words()` can be used to concatenate words into a phrase regardless of the length of the character vector. Basically, for a single word, it will just return this word; for two words A and B, it return `"A and B"`; for three or more words, it returns `"A, B, C, ..., Y, and Z"`. The function also has a few arguments that can customize the output. For example, if you want to output the words in pairs of backticks, you may use ``knitr::combine_words(x, before = '`')``. Below are more examples with different arguments, and please see the help page `?knitr::combine_words` if the meaning of any argument is not clear from the output here:
+The function `knitr::combine_words()` can be used to concatenate words into a phrase regardless of the length of the character vector. Basically, for a single word, it will just return this word; for two words A and B, it returns `"A and B"`; for three or more words, it returns `"A, B, C, ..., Y, and Z"`. The function also has a few arguments that can customize the output. For example, if you want to output the words in pairs of backticks, you may use ``knitr::combine_words(x, before = '`')``. Below are more examples with different arguments, and please see the help page `?knitr::combine_words` if the meaning of any argument is not clear from the output here:
 
 ```{r, collapse=TRUE}
 v = c("apple", "banana", "cherry")
@@ -553,7 +553,7 @@ for (i in 1:2) {
 }
 ```
 
-The image format of the animation is GIF, which works well for HTML output, but it is not straightforward to support GIF in LaTeX. That is why you only see two static image frames if you are reading the PDF or printed version of this book in Figure \@ref(fig:pacman). If you read the online version of this book, you will see the actual animation.
+The image format of the animation is GIF, which works well for HTML output, but it is not straightforward to support GIF in LaTeX. That is why you only see two static image frames in Figure \@ref(fig:pacman) if you are reading the PDF or printed version of this book. If you read the online version of this book, you will see the actual animation.
 
 Animations can work in PDF, but there are two prerequisites. First, you have to load the LaTeX package [**animate**](https://ctan.org/pkg/animate) (see Section \@ref(latex-extra) for how). Second, you can only use Acrobat Reader to view the animation. Then the chunk option `fig.show = "animate"` will use the **animate** package to create the animation. Below is an example:
 
@@ -573,7 +573,7 @@ While there are several different packages available for R, we will only briefly
 
 **DiagrammeR** provides methods to build graphs for a number of different graphing languages. We will present a Graphviz example in this section,^[Depending on your background, this section may be a biased introduction to **DiagrammeR**. Please see its official documentation if you are interested in this package.] but you can also use pure R code to create graphs and diagrams with **DiagrammeR**.
 
-The RStudio IDE provides native support for Graphviz (`.gv`) and mermaid (`.mmd`) files. Editing these types of files in RStudio has the advantage of syntax highlighting, RStudio also allows you to preview the diagrams by clicking the "Preview" button on the toolbar. Figure \@ref(fig:diagram-profit) is a simple flowchart example that has four rectangles representing four steps, generated by the code below:
+The RStudio IDE provides native support for Graphviz (`.gv`) and mermaid (`.mmd`) files. Editing these types of files in RStudio has the advantage of syntax highlighting. RStudio also allows you to preview the diagrams by clicking the "Preview" button on the toolbar. Figure \@ref(fig:diagram-profit) is a simple flowchart example that has four rectangles representing four steps, generated by the code below:
 
 ```{r diagram-profit, fig.align='center', fig.cap="A diagram showing a programmer's daydream.", fig.dim=c(3, 6), out.width="100%"}
 DiagrammeR::grViz("digraph {
@@ -595,7 +595,7 @@ There are extensive controls that can be used to define the shape of nodes, colo
 
 ### Adding parameters to plots
 
-Graphviz substitution allows for mixing in R expressions into a Graphviz graph specification without sacrificing readability. If you specify a substitution with `@@`, you must ensure there is a valid R expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object. The `@@` notation is immediately followed by a number, and that number should correspond to the number of the R expression footnote. Figure \@ref(fig:diagram-params) shows an example of embedding and evaluating R code in the diagram.
+Graphviz substitution allows for mixing in R expressions into a Graphviz graph specification, without sacrificing readability. If you specify a substitution with `@@`, you must ensure there is a valid R expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object. The `@@` notation is immediately followed by a number, and that number should correspond to the number of the R expression footnote. Figure \@ref(fig:diagram-params) shows an example of embedding and evaluating R code in the diagram.
 
 ```{r diagram-params, fig.cap="A diagram using parameters input from R.", fig.dim=c(6, 1), out.width="100%", crop=TRUE}
 DiagrammeR::grViz("
@@ -627,13 +627,13 @@ You may also check out these packages for creating diagrams: **nomnoml** [@R-nom
 
 ## Escape special characters {#special-chars}
 
-Some characters have special meanings in the Markdown syntax. If you want these characters verbatim, you have to escape them. For example, a pair of underscores surrounding text usually make the text italic, and you need to escape the underscores if you want verbatim underscores instead of italic text. The way to escape a special character is to add a backslash before it, e.g., `I do not want \_italic text\_ here`. Similarly, if `#` does not indicate a section heading, you may write `\# This is not a heading`.
+Some characters have special meanings in the Markdown syntax. If you want these characters verbatim, you have to escape them. For example, a pair of underscores surrounding text usually make the text italic. You need to escape the underscores if you want verbatim underscores instead of italic text. The way to escape a special character is to add a backslash before it, e.g., `I do not want \_italic text\_ here`. Similarly, if `#` does not indicate a section heading, you may write `\# This is not a heading`.
 
 ## Comment out text {#comments}
 
 <!-- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown -->
 
-It is useful to comment out text in the source document, which will not be displayed in the final output document. We can use the HTML syntax `<!-- your comment -->`. The comments will not be displayed in any output format.
+It is useful to comment out text in the source document, which will not be displayed in the final output document. For this purpose, we can use the HTML syntax `<!-- your comment -->`. The comments will not be displayed in any output format.
 
 Comments can span either a single line or multiple lines. This may be useful for you to write draft content.
 <!-- TODO: it also allows us to comment out code chunks and prevent them from being run in knitr (not possible at the moment). -->
@@ -648,11 +648,11 @@ If you do not want certain section headings to be included in the table of conte
 # Section heading {.unlisted .unnumbered}
 ```
 
-Note that this feature requires at least Pandoc 2.9. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.9, you may install a newer version (see Section \@ref(install-pandoc)).
+Note that this feature requires at least Pandoc 2.10. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.10, you may install a newer version (see Section \@ref(install-pandoc)).
 
 ## Put together all code in the appendix (\*) {#code-appendix}
 
-Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report, but set the chunk option `echo = FALSE` to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
+Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report. For this purpose, you can set the chunk option `echo = FALSE` to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
 
 There is a simple method of extracting all code chunks in a document and put them together in a single code chunk using the chunk option `ref.label` and the function `knitr::all_labels()`, e.g.,
 

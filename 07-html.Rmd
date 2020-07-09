@@ -1,6 +1,6 @@
 # HTML Output
 
-Compared to LaTeX, HTML may be a little weak in typesetting for paged output, but it is much more powerful in presenting results, especially when combined with CSS and JavaScript. For example, you can embed interactive applications in HTML, and dynamically modify the appearance and even the content of an HTML page. Some useful yet simple CSS and JavaScript tricks for HTML output are very difficult (and often impossible) to reproduce in LaTeX output.
+Compared to LaTeX, HTML may be a little weak in typesetting for paged output. However, it is much more powerful in presenting results, especially when combined with CSS and JavaScript. For example, you can embed interactive applications in HTML, and dynamically modify the appearance and even the content of an HTML page. Some useful yet simple CSS and JavaScript tricks for HTML output are very difficult (and often impossible) to reproduce in LaTeX output.
 
 In this chapter, we introduce techniques to enhance your HTML output from R Markdown, including how to apply custom CSS rules, use custom HTML templates, style or fold code blocks, arrange content in tabs, and embed files on HTML pages.
 
@@ -16,8 +16,14 @@ To include one or multiple custom stylesheets in an Rmd document, you can use th
 output:
   html_document:
     css: "style.css"
-    # or multiple sheets in an array
-    # css: ["style-1.css", "style-2.css"]
+```
+
+To include multiple stylesheets, you may list them in brackets, e.g.,
+
+```yaml
+output:
+  html_document:
+    css: ["style-1.css", "style-2.css"]
 ```
 
 Alternatively, you can use a `css` code chunk to embed the CSS rules directly in your Rmd document, e.g.,
@@ -50,7 +56,7 @@ Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
-We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class. This can be useful when you want to highlight a certain code chunk or its text output.
+We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class.^[In this case, the rule would begin `.important` because in CSS, classes are prefixed with a `.`.] This can be useful when you want to highlight a certain code chunk or its text output.
 
 By default, the HTML output of R Markdown includes the Bootstrap framework, which makes it easy for you to change the appearance of your code and output, because Bootstrap has predefined some [CSS classes for backgrounds:](https://getbootstrap.com/docs/3.4/css/#helper-classes): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.
 
@@ -85,13 +91,7 @@ If you want to decorate individual elements in code blocks instead of the whole 
 
 ## Scrollable code blocks (\*) {#html-scroll}
 
-When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights, otherwise the page may look overwhelmingly lengthy, which will make it difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format, which will fold code blocks in the output and readers can unfold them by clicking a button.
-
-```yaml
-output:
-  html_document:
-    code_fold: hide
-```
+When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format. This option will fold code blocks in the output and readers can unfold them by clicking a button (see Section \@ref(fold-show) for more details).
 
 The other possible solution is to make the code blocks scrollable within a fixed height when they are too long. This can be achieved by the CSS properties `max-height` and `overflow-y`. Below is a full example with the output in Figure \@ref(fig:html-scroll):
 
@@ -109,7 +109,7 @@ If you want to specify different maximum heights for individual code blocks, you
 
 ## Fold all code blocks but show some initially {#fold-show}
 
-If code blocks in the output document are potentially distracting to readers, you may choose to fold them initially, and readers can choose to display them by clicking the fold buttons:
+If code blocks in the output document are potentially distracting to readers, you may choose to fold them initially. Readers can then choose to display them by clicking the fold buttons:
 
 ```yaml
 output:
@@ -153,7 +153,7 @@ output:
 
 One natural way of organizing parallel sections in an HTML report is to use tabsets. This allows readers to view the content of different sections by clicking the tab titles instead of scrolling back and forth on the page.
 
-To turn sections into tabs, you can add a class attribute `.tabset` to the upper-level section header. Below is a full example:
+To turn sections into tabs, you can add a class attribute `.tabset` to the section header that is one level higher than the headers to be converted to tabs, e.g., adding the `.tabset` attribute to a level-2 header will convert all subsequent level-3 headers to tabs. Below is a full example:
 
 `r import_example('html-tabs.Rmd')`
 
@@ -206,7 +206,7 @@ As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source 
 xfun::pkg_load2(c('htmltools', 'mime'))
 ```
 
-Then you can use one of the functions `xfun::embed_file()`, `xfun::embed_dir()`, or `xfun::embed_files()` in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
+Then you can use one of the functions `xfun::embed_file()`, `xfun::embed_files()`, or `xfun::embed_dir()` in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
 
 ````md
 ```{r echo=FALSE}`r ''`
@@ -356,9 +356,34 @@ There is an output format `html_fragment` in the **rmarkdown** package, which ge
 
 If you want to include an Rmd or Markdown document instead of an HTML file, you may use child documents introduced in Section \@ref(child-document).
 
+## Add a custom browser icon {#favicon}
+
+Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output.
+
+Favicons are the website logos that are displayed in your browser's address bar, tab title, history, and bookmarks. For example, if you visit the CRAN website (https://cran.r-project.org) in Google Chrome, and look at the browser tab, you will see a small R logo. On mobile devices, favicons are also used in place of an App icon for websites that are pinned to the home screen.
+
+To add a favicon to your HTML document, add the following line of code to a custom header file (such as the file `header.html` mentioned in Section \@ref(include-html)):
+
+```html
+<link rel="shortcut icon" href="{path to favicon file}" />
+```
+
+Recall that this file can be injected into the document `<head>` area using the YAML metadata:
+
+```yaml
+output:
+  html_document:
+    includes:
+      in_header: header.html
+```
+
+The path you provide to the `href` attribute in `<link>` should assume the same relative path structure as you would use to reference any other asset (e.g., an image or dataset). For the image itself, most small, square PNG files will work reasonably well. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better.
+
+If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function [@R-pkgdown] to make a set of favicons out of R package logos.
+
 ## Use the `<details>` disclosure element {#details-tag}
 
-As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_fold: true` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important, so we fold it initially. If the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
+As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_fold: true` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important. We can fold it initially, and, if the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
 
 ```{r, details-tag, echo=FALSE, fig.show='hold', fig.cap='Wrap text output in the details element.', out.width=if(knitr::is_latex_output()) '100%'}
 knitr::include_graphics(c('images/details-closed.png', 'images/details-open.png'), dpi = NA)
@@ -401,31 +426,6 @@ document.querySelectorAll('pre:not([class])');
 
 The CSS selector `pre:not([class])` means all `<pre>` elements without the `class` attribute. You can also select other types of elements. For more about CSS selectors, see https://www.w3schools.com/css/css_selectors.asp. For more about the HTML tags `<details>` and `<summary>`, see https://www.w3schools.com/tags/tag_details.asp.
 
-## Add a custom browser icon {#favicon}
-
-Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output.
-
-Favicons are the website logos that are displayed in your browser's address bar, tab title, history, and bookmarks. For example, if you visit the CRAN website (https://cran.r-project.org) in Google Chrome, and look at the browser tab, you will see a small R logo. On mobile devices, favicons are also used in place of an App icon for websites that are pinned to the home screen.
-
-To add a favicon to your HTML document, add the following line of code to a custom header file (such as the file `header.html` mentioned in Section \@ref(include-html)):
-
-```html
-<link rel="shortcut icon" href="{path to favicon file}" />
-```
-
-Recall that this file can be injected into the document `<head>` area using the YAML metadata:
-
-```yaml
-output:
-  html_document:
-    includes:
-      in_header: header.html
-```
-
-The path you provide to the `href` attribute in `<link>` should assume the same relative path structure as you would use to reference any other asset (e.g., an image or dataset). For the image itself, most small, square PNG files will work reasonably well. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better.
-
-If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function [@R-pkgdown] to make a set of favicons out of R package logos.
-
 ## Sharing HTML output on the web {#html-share}
 
 One appealing aspect of rendering R Markdown to HTML files is that it is very easy to host these files on the Internet and share them just as one shares any other website. This section briefly summarizes numerous options for sharing the HTML documents that you have created.
@@ -462,11 +462,11 @@ It is important to make your HTML output documents accessible to readers who are
 
 - HTML documents are often more accessible than PDF.
 
-- Try to provide the Rmd source document along with the HTML output document if possible. In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
+- Try to provide the Rmd source document along with the HTML output document if possible (e.g., Section \@ref(embed-rmd) demonstrates one way to do this). In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
 
 - Provide informative text tags to your graphics. At the useR! conference in 2014, Jonathan explained this issue to me in person. It was the first time that I had learned about the importance of the `alt` attribute of images on web pages.
 
-    To understand this problem, first you have to know that images on web pages are generated by the HTML tag `<img />`. It has an `src` attribute, which points to the source of the image, e.g., `<img src="foo_figures/image.png" />`. Sighted readers can see the image, but it is hard for blind users to know anything about the image, because usually screen readers cannot read it, especially when it is a raster image (vector graphics can be better, such as SVG). In this case, it is helpful to provide a text hint, which screen readers can read out to the blind reader. This text hint can be provided in the `alt` attribute of the image, which stands for "alternate text."
+    To understand this problem, first you have to know that images on web pages are generated by the HTML tag `<img />`. This tag has an `src` attribute, which points to the source of the image, e.g., `<img src="foo_figures/image.png" />`. Sighted readers can see the image, but it is hard for blind users to know anything about the image, because usually screen readers cannot read it, especially when it is a raster image (vector graphics can be better, such as SVG). In this case, it is helpful to provide a text hint, which screen readers can read out to the blind reader. This text hint can be provided in the `alt` attribute of the image, which stands for "alternate text."
     
     For images generated from code chunks in R Markdown, the `alt` attribute will be generated if you provide the chunk option `fig.cap` (i.e., figure caption). Alternatively, you can insert an image using the Markdown syntax `![]()`. You input the image path in parentheses, and the `alt` text in square brackets, e.g., `![an informative text](path/to/image.png)`.
     
