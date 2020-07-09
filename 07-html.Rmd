@@ -258,7 +258,7 @@ We mentioned LaTeX templates in Section \@ref(latex-template). You can also spec
 
 You can see that the template contains a few variables such as `$title$` and `$body$`. You can find the full list of Pandoc variables and their meanings at https://pandoc.org/MANUAL.html#templates.
 
-The template gives you the ultimate power to customize the HTML output. For example, you can include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. For example, we could use a Boolean variable `draft` to indicate whether the document is a draft or a final version:
+The template gives you the ultimate power to customize the HTML output and to include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. For example, we could use a Boolean variable `draft` to indicate whether the document is a draft or a final version:
 
 ```html
 <head>
