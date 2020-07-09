@@ -91,7 +91,7 @@ If you want to decorate individual elements in code blocks instead of the whole 
 
 ## Scrollable code blocks (\*) {#html-scroll}
 
-When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format. This option will fold code blocks in the output and readers can unfold them by clicking a button.
+When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format. This option will fold code blocks in the output and readers can unfold them by clicking a button. (See Section \@ref(fold-show) for more details.)
 
 ```yaml
 output:
