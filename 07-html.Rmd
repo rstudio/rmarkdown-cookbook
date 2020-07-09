@@ -362,6 +362,31 @@ There is an output format `html_fragment` in the **rmarkdown** package, which ge
 
 If you want to include an Rmd or Markdown document instead of an HTML file, you may use child documents introduced in Section \@ref(child-document).
 
+## Add a custom browser icon {#favicon}
+
+Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output.
+
+Favicons are the website logos that are displayed in your browser's address bar, tab title, history, and bookmarks. For example, if you visit the CRAN website (https://cran.r-project.org) in Google Chrome, and look at the browser tab, you will see a small R logo. On mobile devices, favicons are also used in place of an App icon for websites that are pinned to the home screen.
+
+To add a favicon to your HTML document, add the following line of code to a custom header file (such as the file `header.html` mentioned in Section \@ref(include-html)):
+
+```html
+<link rel="shortcut icon" href="{path to favicon file}" />
+```
+
+Recall that this file can be injected into the document `<head>` area using the YAML metadata:
+
+```yaml
+output:
+  html_document:
+    includes:
+      in_header: header.html
+```
+
+The path you provide to the `href` attribute in `<link>` should assume the same relative path structure as you would use to reference any other asset (e.g., an image or dataset). For the image itself, most small, square PNG files will work reasonably well. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better.
+
+If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function [@R-pkgdown] to make a set of favicons out of R package logos.
+
 ## Use the `<details>` disclosure element {#details-tag}
 
 As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_fold: true` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important. We can fold it initially, and, if the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
@@ -406,31 +431,6 @@ document.querySelectorAll('pre:not([class])');
 ```
 
 The CSS selector `pre:not([class])` means all `<pre>` elements without the `class` attribute. You can also select other types of elements. For more about CSS selectors, see https://www.w3schools.com/css/css_selectors.asp. For more about the HTML tags `<details>` and `<summary>`, see https://www.w3schools.com/tags/tag_details.asp.
-
-## Add a custom browser icon {#favicon}
-
-Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output.
-
-Favicons are the website logos that are displayed in your browser's address bar, tab title, history, and bookmarks. For example, if you visit the CRAN website (https://cran.r-project.org) in Google Chrome, and look at the browser tab, you will see a small R logo. On mobile devices, favicons are also used in place of an App icon for websites that are pinned to the home screen.
-
-To add a favicon to your HTML document, add the following line of code to a custom header file (such as the file `header.html` mentioned in Section \@ref(include-html)):
-
-```html
-<link rel="shortcut icon" href="{path to favicon file}" />
-```
-
-Recall that this file can be injected into the document `<head>` area using the YAML metadata:
-
-```yaml
-output:
-  html_document:
-    includes:
-      in_header: header.html
-```
-
-The path you provide to the `href` attribute in `<link>` should assume the same relative path structure as you would use to reference any other asset (e.g., an image or dataset). For the image itself, most small, square PNG files will work reasonably well. Bear in mind that a typical web browser will often display the image in a 16 x 16 pixel box, so simple designs are better.
-
-If you want to ensure that each browser or platform on which your document is viewed uses a version of your icon with optimal resolution for its specific layout, you may use a service such as https://realfavicongenerator.net to generate a set of favicons and a slightly more complex version of the header HTML code. This service is currently used by the **pkgdown** package's `pkgdown::build_favicon()` function [@R-pkgdown] to make a set of favicons out of R package logos.
 
 ## Sharing HTML output on the web {#html-share}
 
