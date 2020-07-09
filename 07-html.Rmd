@@ -159,7 +159,7 @@ output:
 
 One natural way of organizing parallel sections in an HTML report is to use tabsets. This allows readers to view the content of different sections by clicking the tab titles instead of scrolling back and forth on the page.
 
-To turn sections into tabs, you can add a class attribute `.tabset` to the upper-level section header. Below is a full example:
+To turn sections into tabs, you can add a class attribute `.tabset` to the section header that is one level higher than the headers which should be converted to tabs (e.g. adding the `.tabset` attribute to a level 2 header will convert all subsequent level 3 headers to tabs). Below is a full example:
 
 `r import_example('html-tabs.Rmd')`
 
