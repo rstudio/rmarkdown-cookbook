@@ -18,7 +18,7 @@ output:
     css: "style.css"
 ```
 
-To include multiple stylesheets, you may list them in brackets, e.g.:
+To include multiple stylesheets, you may list them in brackets, e.g.,
 
 ```yaml
 output:
@@ -56,7 +56,7 @@ Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
-We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class. (In this case, the rule would begin `.important` because in CSS, classes are prefixed with a `.`). This can be useful when you want to highlight a certain code chunk or its text output.
+We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class.^[In this case, the rule would begin `.important` because in CSS, classes are prefixed with a `.`.] This can be useful when you want to highlight a certain code chunk or its text output.
 
 By default, the HTML output of R Markdown includes the Bootstrap framework, which makes it easy for you to change the appearance of your code and output, because Bootstrap has predefined some [CSS classes for backgrounds:](https://getbootstrap.com/docs/3.4/css/#helper-classes): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.
 
@@ -91,7 +91,7 @@ If you want to decorate individual elements in code blocks instead of the whole 
 
 ## Scrollable code blocks (\*) {#html-scroll}
 
-When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format. This option will fold code blocks in the output and readers can unfold them by clicking a button. (See Section \@ref(fold-show) for more details.)
+When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format. This option will fold code blocks in the output and readers can unfold them by clicking a button (see Section \@ref(fold-show) for more details).
 
 ```yaml
 output:
@@ -159,7 +159,7 @@ output:
 
 One natural way of organizing parallel sections in an HTML report is to use tabsets. This allows readers to view the content of different sections by clicking the tab titles instead of scrolling back and forth on the page.
 
-To turn sections into tabs, you can add a class attribute `.tabset` to the section header that is one level higher than the headers which should be converted to tabs (e.g. adding the `.tabset` attribute to a level 2 header will convert all subsequent level 3 headers to tabs). Below is a full example:
+To turn sections into tabs, you can add a class attribute `.tabset` to the section header that is one level higher than the headers to be converted to tabs, e.g., adding the `.tabset` attribute to a level-2 header will convert all subsequent level-3 headers to tabs. Below is a full example:
 
 `r import_example('html-tabs.Rmd')`
 
@@ -258,7 +258,7 @@ We mentioned LaTeX templates in Section \@ref(latex-template). You can also spec
 
 You can see that the template contains a few variables such as `$title$` and `$body$`. You can find the full list of Pandoc variables and their meanings at https://pandoc.org/MANUAL.html#templates.
 
-The template gives you the ultimate power to customize the HTML output and to include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. For example, we could use a Boolean variable `draft` to indicate whether the document is a draft or a final version:
+The template gives you the ultimate power to customize the HTML output. For example, you can include arbitrary CSS stylesheets or JavaScript code or libraries in the `<head>` area. For example, we could use a Boolean variable `draft` to indicate whether the document is a draft or a final version:
 
 ```html
 <head>
@@ -468,7 +468,7 @@ It is important to make your HTML output documents accessible to readers who are
 
 - HTML documents are often more accessible than PDF.
 
-- Try to provide the Rmd source document along with the HTML output document if possible (e.g. Section \@ref(embed-rmd) demonstrates one way to do this). In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
+- Try to provide the Rmd source document along with the HTML output document if possible (e.g., Section \@ref(embed-rmd) demonstrates one way to do this). In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
 
 - Provide informative text tags to your graphics. At the useR! conference in 2014, Jonathan explained this issue to me in person. It was the first time that I had learned about the importance of the `alt` attribute of images on web pages.
 
