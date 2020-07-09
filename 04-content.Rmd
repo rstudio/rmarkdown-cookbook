@@ -648,7 +648,7 @@ If you do not want certain section headings to be included in the table of conte
 # Section heading {.unlisted .unnumbered}
 ```
 
-Note that this feature requires at least Pandoc 2.9. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.9, you may install a newer version (see Section \@ref(install-pandoc)).
+Note that this feature requires at least Pandoc 2.10. You may check your Pandoc version via `rmarkdown::pandoc_version()`. If the version is lower than 2.10, you may install a newer version (see Section \@ref(install-pandoc)).
 
 ## Put together all code in the appendix (\*) {#code-appendix}
 
