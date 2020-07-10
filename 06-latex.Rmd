@@ -228,8 +228,6 @@ output:
 
 LaTeX's own float placement parameters could prevent placements that seem entirely "reasonable" to you---they are notoriously rather conservative. These defaults are displayed in Table \@ref(tab:float-default).
 
-<!-- This table may work better as a diagram? -->
-
 ```{r float-default, echo = FALSE}
 floatOpts <- data.frame(
   Command = c("topfraction", "bottomfraction", "textfraction",
