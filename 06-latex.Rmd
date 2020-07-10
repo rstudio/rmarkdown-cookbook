@@ -204,7 +204,7 @@ output:
     extra_dependencies: ["float"]
 ```
 
-We can use the chunk option `fig.pos` to control the float behavior, and the use of `!H` will prevent any floating within the document. We can set the default behavior for the document so that all chunks have this setting by including the following line in the first code chunk in your R Markdown document:
+We can use the chunk option `fig.pos` to control the float behavior. The option value `!H` will prevent any floating within the document. We can set the default behavior for the document so that all chunks have this setting by including the following line in the first code chunk in your R Markdown document:
 
 ```{r, eval=FALSE}
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
