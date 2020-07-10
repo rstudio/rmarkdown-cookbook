@@ -216,7 +216,7 @@ In general, we do not recommend that users force LaTeX to stop floating figures.
 
 <!-- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text -->
 
-An alternative to forcing all floats to be held is to force floating forwards in the text. This can remove a common issue, where a figure is shown at the top of the page before the relevant text comes. This can break the reading flow of a report. We can force it so that the figure always appears after the text by using the **flafter** LaTeX package as follows:
+An alternative to forcing all floats to be held is to force floating forwards in the text. This can remove a common issue, where a figure is shown at the top of the page before the relevant text comes. This can break the reading flow of a report. We can force the figure always to appear after the text by using the **flafter** LaTeX package as follows:
 
 ```yaml
 output: 
