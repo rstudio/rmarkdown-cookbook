@@ -203,7 +203,7 @@ The chunk option `fig.align` specifies the alignment of figures. For example, yo
 
 ## Verbatim code chunks
 
-Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
+Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate a verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
 
 Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
 
