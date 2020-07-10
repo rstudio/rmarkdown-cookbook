@@ -117,7 +117,7 @@ You can see that the linebreak after "School of Ninja" was ignored.
 
 Sometimes the text output printed from R code may be too wide. If the output document has a fixed page width (e.g., PDF documents), the text output may exceed the page margin. See Figure \@ref(fig:wrap-text-1) for an example.
 
-The R global option `width` can be used to control the width of printed text output from some R functions, and you may try a smaller value if the default is too large. This option typically indicates a rough number of characters per line (except East Asian languages). For example:
+The R global option `width` can be used to control the width of printed text output from some R functions, and you may try a smaller value if the default is too large. This option typically indicates a rough number of characters per line (except for East Asian languages). For example:
 
 ````md
 The output is too wide in this chunk:
