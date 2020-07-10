@@ -2,7 +2,7 @@
 
 For many authors, the main output of their work will be the PDF report, in which case they can utilize the powerful styling of LaTeX. In this chapter, we discuss approaches that can be used to customize PDF reports, such as including LaTeX code or packages in the preamble, using custom LaTeX templates, adding headers and footers, generating sub-figures, and writing raw LaTeX code in the document body.
 
-We want to offer a note of caution before we start, however. One benefit of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format but at the expense of this transferability. This problem is not unique to LaTeX, but all other output formats.
+We want to offer a note of caution before we start, however. One benefit of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format but at the expense of this transferability. This problem is not unique to LaTeX, but all other output formats as well.
 
 ## Add LaTeX code to the preamble {#latex-preamble}
 
@@ -16,7 +16,9 @@ The general structure of a LaTeX document is like this:
 \end{document}
 ```
 
-That is, you declare the document class in `\documentclass{}`, load certain LaTeX packages and set certain options if necessary in the preamble, and start writing the body of your document after `\begin{document}`. A Markdown document is mostly the body of the document. If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
+That is, you declare the document class in `\documentclass{}`, load certain LaTeX packages and set certain options if necessary in the preamble, and start writing the body of your document after `\begin{document}`. A Markdown document is mostly the body of the document. 
+
+If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
 
 For example, below is a trick that turns hyperlinks on text into footnotes. This trick is useful when the PDF output document is printed on paper, because readers will not be able to click the links (generated from `\href{URL}{text}`) on paper but can see the URLs in footnotes. This trick displays both the text and URL.
 
@@ -37,7 +39,7 @@ output:
 
 For this particular trick, you do not really have to implement it by yourself, but can simply set the YAML option `links-as-notes` to `true` because it is a built-in feature of Pandoc's default LaTeX template (see Section \@ref(latex-variables)).
 
-Another way to add code to the preamble is to use the `header-includes` field in the YAML frontmatter. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
+Another way to add code to the preamble is to pass it directly to the `header-includes` field in the YAML frontmatter. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
 
 ## Pandoc options for LaTeX output {#latex-variables}
 
@@ -162,7 +164,7 @@ There is an extensive community for LaTeX, and there are over 4,000 packages ava
 <!-- https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc/17648350#17648350 -->
 <!-- Some of the solutions adapted from https://texfaq.org/FAQ-floats. Link left here for future reference -->
 
-One common frustration with LaTeX is the placement of figures and tables. Unlike in a word processor like Microsoft Word, in which figures are placed directly where the user specifies, LaTeX will attempt to place a figure in a position that does not violate certain typographic rules. In doing so, it can result in figures floating away from where they are referenced in the text. This section will explain some background information on how floating environments (such as figures) work, before providing several options for how to customize their behavior for your work.
+One common frustration with LaTeX is the placement of figures and tables. Unlike in a word processor like Microsoft Word, in which figures are placed directly where the user specifies, LaTeX will attempt to place a figure in a position that does not violate certain typographic rules. In doing so, figures may float away from where they are referenced in the text. This section will explain some background information on how floating environments (such as figures) work and provide several options for customizing their behavior.
 
 ### Floating environments
 
@@ -202,7 +204,7 @@ output:
     extra_dependencies: ["float"]
 ```
 
-We can use the chunk option `fig.pos` to control the float behavior, and the use of `!H` will prevent any floating within the document. We can set the default behavior for the document so that all chunks have this setting by including the following line in the first code chunk in your R Markdown document:
+We can use the chunk option `fig.pos` to control the float behavior. The option value `!H` will prevent any floating within the document. We can set the default behavior for the document so that all chunks have this setting by including the following line in the first code chunk in your R Markdown document:
 
 ```{r, eval=FALSE}
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
@@ -214,7 +216,7 @@ In general, we do not recommend that users force LaTeX to stop floating figures.
 
 <!-- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text -->
 
-An alternative to forcing all floats to be held is to force floating forwards in the text. This can remove a common issue, where a figure is shown at the top of the page before the relevant text comes. This can break the reading flow of a report. We can force it so that the figure always appears after the text by using the **flafter** LaTeX package as follows:
+An alternative to forcing all floats to be held is to force floating forwards in the text. This can remove a common issue, where a figure is shown at the top of the page before the relevant text comes. This can break the reading flow of a report. We can force the figure always to appear after the text by using the **flafter** LaTeX package as follows:
 
 ```yaml
 output: 
@@ -225,8 +227,6 @@ output:
 ### Adjust LaTeX placement rules (\*)
 
 LaTeX's own float placement parameters could prevent placements that seem entirely "reasonable" to you---they are notoriously rather conservative. These defaults are displayed in Table \@ref(tab:float-default).
-
-<!-- This table may work better as a diagram? -->
 
 ```{r float-default, echo = FALSE}
 floatOpts <- data.frame(
@@ -332,7 +332,7 @@ output:
 
 ## Generate a LaTeX fragment {#latex-fragment}
 
-If you work with pure LaTeX documents primarily, you may still find R Markdown useful, because sometimes it may be more convenient to write in R Markdown and convert the document to a LaTeX fragment, which can be included into other LaTeX documents.
+If you work primarily with pure LaTeX documents, you may still find R Markdown useful. Sometimes it may be more convenient to write in R Markdown and convert the document to a LaTeX fragment, which can be included into other LaTeX documents.
 
 When you render an Rmd document to LaTeX, it generates a full LaTeX document that includes the `\documentclass{}`, `\begin{body}`, and `\end{body}`. A LaTeX fragment is basically the body of a full LaTeX document. To render a LaTeX fragment, you may use the `latex_fragment` output format, e.g.,
 
@@ -413,7 +413,7 @@ output:
 
 The default LaTeX template of Pandoc can be found at https://github.com/jgm/pandoc/tree/master/data/templates (named `default.latex`). If you want to create your own template, you may want to start with this template.
 
-For the full list of Pandoc variables and their meanings (such as `$body$` and `$title$`), see Pandoc's manual at https://pandoc.org/MANUAL.html#templates. You can also use arbitrary custom variables, which are typically passed to the template from the YAML metadata. If you want to learn by examples, you may take a look the **MonashEBSTemplates** package (https://github.com/robjhyndman/MonashEBSTemplates), which has provided several custom LaTeX templates. These templates are under the `inst/rmarkdown/templates/*/resources/` directories. For example, the template for the output format `MonashEBSTemplates::memo` allows you to use a variable `branding` in the YAML metadata to control whether to include the brand logo of Monash University. This is achieved by an `if` statement in the template that looks like this:
+For the full list of Pandoc variables and their meanings (such as `$body$` and `$title$`), see Pandoc's manual at https://pandoc.org/MANUAL.html#templates. You can also use arbitrary custom variables, which are typically passed to the template from the YAML metadata. If you want to learn by examples, you may take a look the **MonashEBSTemplates** package (https://github.com/robjhyndman/MonashEBSTemplates), which has provided several custom LaTeX templates. These templates are under the `inst/rmarkdown/templates/*/resources/` directories (here `*` denotes the template names). For example, the template for the output format `MonashEBSTemplates::memo` allows you to use a variable `branding` in the YAML metadata to control whether to include the brand logo of Monash University. This is achieved by an `if` statement in the template that looks like this:
 
 ```latex
 $if(branding)$%
@@ -451,6 +451,6 @@ The **knitr** package supports a variety of source document formats, including b
 
 The filename usually has the extension `.Rnw`, e.g., the above file is `latex.Rnw`. The idea is the same but the syntax for writing R code chunks and inline R expressions is different. An R code chunk starts with `<<>>=` (with optional chunk options inside the angle brackets) and ends with `@`. An inline R expression is written in `\Sexpr{}`.
 
-The function `knitr::knit()` can compile an `Rnw` documents to a LaTeX (`.tex`) output file, which can be further compiled to PDF through your LaTeX tools such as `pdflatex`. You can also use `knitr::knit2pdf()` to compile `Rnw` to PDF in one step. If you use RStudio, you can hit the `Compile PDF` button on the toolbar. Please note that the default method to compile Rnw documents is through Sweave, and you may want to change it to **knitr** (see the post http://stackoverflow.com/q/27592837/559676 for how to do that).
+The function `knitr::knit()` can compile an `Rnw` document to a LaTeX (`.tex`) output file, which can be further compiled to PDF through your LaTeX tools such as `pdflatex`. You can also use `knitr::knit2pdf()` to compile `Rnw` to PDF in one step. If you use RStudio, you can hit the `Compile PDF` button on the toolbar. Please note that the default method to compile Rnw documents is through Sweave, and you may want to change it to **knitr** (see the post http://stackoverflow.com/q/27592837/559676 for how to do that).
 
 An `Rnw` document gives you the full power of LaTeX. This could be your last resort if there are typesetting problems that are really difficult to solve in Markdown. However, before you drop Markdown, we would like to remind you of the fact that a custom Pandoc LaTeX template may also be helpful (see Section \@ref(latex-template)).
