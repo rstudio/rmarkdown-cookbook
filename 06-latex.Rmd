@@ -39,7 +39,7 @@ output:
 
 For this particular trick, you do not really have to implement it by yourself, but can simply set the YAML option `links-as-notes` to `true` because it is a built-in feature of Pandoc's default LaTeX template (see Section \@ref(latex-variables)).
 
-Another way to add code to the preamble is to use the `header-includes` field in the YAML frontmatter. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
+Another way to add code to the preamble is to pass it directly to the `header-includes` field in the YAML frontmatter. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
 
 ## Pandoc options for LaTeX output {#latex-variables}
 
