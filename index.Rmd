@@ -126,7 +126,7 @@ Where relevant, this book provides references to these existing resources. By th
 
 You do not need to read this book in a particular order. Later chapters are not necessarily more challenging than previous chapters. The chapters and sections that we consider to be more advanced than others are marked with an asterisk (`*`) in their titles. It may be most efficient to read this book when you have some specific tasks in mind that you want to do with R Markdown, otherwise you can thumb through the table of contents and see if you are interested in any particular parts. We have tried to make each section and example as self-contained as possible, so you do not have to go back and forth among different parts of this book. In some cases, cross-referencing is unavoidable, and we will refer you to the background knowledge required to understand a certain example.
 
-If you want to try the examples by yourself, the full source code of this book and examples are freely provided on GitHub at https://github.com/yihui/rmarkdown-cookbook. If you are reading the electronical version of this book, you may also just copy and paste the examples from the pages and run them in your favorite editor.
+If you want to try the examples by yourself, the full source code of this book and examples are freely provided on GitHub at https://github.com/yihui/rmarkdown-cookbook. If you are reading the electronic version of this book, you may also just copy and paste the examples from the pages and run them in your favorite editor.
 
 ## Structure of the book {-}
 
@@ -162,7 +162,9 @@ The original idea of this book was partially motivated from a remote talk that I
 
 This is the fifth book that I have published with my editor John Kimmel. It has always been a pleasure to work with him and the team at Chapman & Hall/CRC. I'm excited every time John tells me the new success of **bookdown** as it is more widely adopted by other authors. I feel honored to hear from John that Suzanne Lassandro, the copy-editor of my previous books, still tried hard to help with this book even though she has many other responsibilities and rarely works directly with authors now.
 
-I will definitely not miss this unique opportunity to thank my two little "super helpful co-workers" (5 and 3) at home during the COVID-19 pandemic, without whom I could have published this book five months earlier. Now I feel daycare centers are perhaps not that expensive...
+I worked on the last part of this book in the vacant house (without Internet!) of my good old neighbor, Dong Guo and Qian Jia, after they moved to another city. I'm grateful to them for letting me use their house as my temporary office to finish up the book when I felt rather exhausted and needed a quiet environment. It was sad to say goodbye to them. To me, this book, finished in their house, will also be associated with some of my fond memories about this family, including their parents and lovely little daughter.
+
+Lastly, I will definitely not miss this unique opportunity to thank my two little "super helpful co-workers" (5 and 3) at home during the COVID-19 pandemic, without whom I could have published this book five months earlier. Now I miss the teachers at their daycare center (Small Miracle) and feel daycare centers are perhaps not that expensive...
 
 ::: {.flushright data-latex=""}
 Yihui Xie  
