@@ -105,4 +105,4 @@ tinytex::parse_packages(
 
 Once you know the package names, you can install them with the package manager of your LaTeX distribution.
 
-If you are using MiKTeX instead, it can also install missing packages automatically. During the installation of MiKTeX, be sure to check the setting "Always install missing packages on-the-fly". If you have already install it without this setting, [you can still change it in the MiKTeX Console.](https://github.com/rstudio/rmarkdown/issues/1285#issuecomment-374340175)
+If you are using MiKTeX instead, it can also install missing packages automatically. During the installation of MiKTeX, be sure to check the setting "Always install missing packages on-the-fly." If you have already install it without this setting, [you can still change it in the MiKTeX Console.](https://github.com/rstudio/rmarkdown/issues/1285#issuecomment-374340175)

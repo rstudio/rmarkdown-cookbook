@@ -105,7 +105,7 @@ If you want to use sub-figures when there are multiple plots in a figure, you ma
 
 ## Write raw content (\*) {#raw-content}
 
-The technique introduced in Section \@ref(raw-latex) is actually a general technique. You can protect any complex raw content in Markdown by specifying the content as "raw". For example, if you want to write raw HTML content, you can use the attribute `=html`:
+The technique introduced in Section \@ref(raw-latex) is actually a general technique. You can protect any complex raw content in Markdown by specifying the content as "raw." For example, if you want to write raw HTML content, you can use the attribute `=html`:
 
 ````md
 ```{=html}

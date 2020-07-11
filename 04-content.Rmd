@@ -493,7 +493,7 @@ Change my sorrow
 --- Sara Teasdale
 ```
 
-After we select the above poem and click the RStudio addin "Quote Poem", the output will be:
+After we select the above poem and click the RStudio addin "Quote Poem," the output will be:
 
 > Like Barley Bending  
 >
@@ -707,7 +707,7 @@ xfun:::tree(
 )
 ```
 
-You can see that the Markdown content is represented in a recursive list. The label `t` stands for "type", and `c` stands for "content." Take the header for example. Its type is "Header", and its content has three sub-elements: the header level (`2`), the attributes (e.g., the ID is `section-one`), and the text content.
+You can see that the Markdown content is represented in a recursive list. The label `t` stands for "type," and `c` stands for "content." Take the header for example. Its type is "Header", and its content has three sub-elements: the header level (`2`), the attributes (e.g., the ID is `section-one`), and the text content.
 
 After you are aware of the AST, you can modify it with the Lua programming language. Pandoc has a built-in Lua interpreter, so you do not need to install additional tools. The Lua scripts are called "Lua filters" for Pandoc. Next we give a quick example of raising the levels of headers by one, e.g., convert level-3 headers to level-2 headers. This may be useful when the top-level headers of your document are level-2 headers, but you want to start with level-1 headers instead.
 

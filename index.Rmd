@@ -114,7 +114,7 @@ We do not intend to provide a full technical reference for R Markdown in this co
 
 - *R Markdown: The Definitive Guide* [@rmarkdown2018], the technical reference for all R Markdown output formats in the **rmarkdown** package and several other extension packages.
 
-- Part V ("Communicate") of *R for Data Science* [@wickham2016]. This part is less technical than the above "Definitive Guide", hence may be a gentler introduction to R Markdown.
+- Part V ("Communicate") of *R for Data Science* [@wickham2016]. This part is less technical than the above "Definitive Guide," hence may be a gentler introduction to R Markdown.
 
 - *Dynamic Documents with R and knitr* [@knitr2015] provides a thorough introduction to the **knitr** package [@R-knitr] (note that R Markdown is only one of the document formats that **knitr** supports). If you want to read a shorter version, you may find Karl Broman's minimal tutorial ["knitr in a knutshell"](https://kbroman.org/knitr_knutshell/) helpful.
 

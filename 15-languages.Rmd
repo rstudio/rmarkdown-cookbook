@@ -47,7 +47,7 @@ knitr::knit_engines$set(upper = function(options) {
 })
 ```
 
-The key is that we apply the function `toupper` to the "code", and return the result as a single character string (by concatenating all lines of code by `\n`). Note that `toupper()` is applied only when the chunk option `eval = TRUE`, otherwise the original string is returned. This shows you how to make use of chunk options like `eval` inside the engine function. Similarly, you may consider adding `if (options$results == 'hide') return()` to the function body to hide the output when the chunk option `results = 'hide'`. Below is an example chunk that uses the `upper` engine, with its output:
+The key is that we apply the function `toupper` to the "code," and return the result as a single character string (by concatenating all lines of code by `\n`). Note that `toupper()` is applied only when the chunk option `eval = TRUE`, otherwise the original string is returned. This shows you how to make use of chunk options like `eval` inside the engine function. Similarly, you may consider adding `if (options$results == 'hide') return()` to the function body to hide the output when the chunk option `results = 'hide'`. Below is an example chunk that uses the `upper` engine, with its output:
 
 > ````md
 > ```{upper}`r ''`

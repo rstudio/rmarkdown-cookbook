@@ -22,7 +22,7 @@ We will address these questions in this chapter.
 
 ## Custom Word templates {#word-template}
 
-You can apply the styles defined in a Word template document to new Word documents generated from R Markdown. Such a template document is also called a "style reference document". The key is that you have to create this template document from Pandoc first, and change the style definitions in it later. Then pass the path of this template to the `reference_docx` option of `word_document`, e.g.,
+You can apply the styles defined in a Word template document to new Word documents generated from R Markdown. Such a template document is also called a "style reference document." The key is that you have to create this template document from Pandoc first, and change the style definitions in it later. Then pass the path of this template to the `reference_docx` option of `word_document`, e.g.,
 
 ```yaml
 ---

@@ -273,7 +273,7 @@ You do not want the text to be in a fenced code block (or the leading hashes). T
 # This is a header
 ````
 
-The solution to this problem is the chunk option `results = 'asis'`. This option tells **knitr** not to wrap your text output in verbatim code blocks, but treat it "as is". This can be particularly useful when you want to generate content dynamically from R code. For example, you may generate the list of column names of the `iris` data from the code chunk below with the option `results = 'asis'`:
+The solution to this problem is the chunk option `results = 'asis'`. This option tells **knitr** not to wrap your text output in verbatim code blocks, but treat it "as is." This can be particularly useful when you want to generate content dynamically from R code. For example, you may generate the list of column names of the `iris` data from the code chunk below with the option `results = 'asis'`:
 
 ```{r, iris-asis, results='asis'}
 cat(paste0('- `', names(iris), '`'), sep = '\n')
