@@ -39,7 +39,7 @@ output: pdf_document
 Roses are \textcolor{red}{red}, violets are \textcolor{blue}{blue}.
 ```
 
-In the above example, the first set of curly braces contains the desired text color and the second set of curly braces contains the text to which this color should be applied.
+In the above example, the first set of curly braces contains the desired text color, and the second set of curly braces contains the text to which this color should be applied.
 
 If you want to design an R Markdown document for multiple output formats, you should not embed raw HTML or LaTeX code in your document, because they will be ignored in the other output formats (e.g., LaTeX code will be ignored in HTML output, and HTML tags will be lost in LaTeX output). Next, we provide two possible methods to deal with this issue.
 
