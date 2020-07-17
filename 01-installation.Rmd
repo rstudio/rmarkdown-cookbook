@@ -46,7 +46,7 @@ rmarkdown::find_pandoc(version = '2.9.1')
 
 ## Install LaTeX (TinyTeX) for PDF reports {#install-latex}
 
-If you would like to create PDF documents from R Markdown, you will need to have a LaTeX\index{LaTeX} distribution installed. Although there are several traditional options including MiKTeX, MacTeX, and TeX Live, we recommend that R Markdown users install [TinyTeX.](https://yihui.org/tinytex/)
+If you would like to create PDF documents from R Markdown, you will need to have a LaTeX\index{LaTeX} distribution installed. Although there are several traditional options including MiKTeX\index{LaTeX!MiKTeX}, MacTeX, and TeX Live, we recommend that R Markdown users install [TinyTeX.](https://yihui.org/tinytex/)
 
 TinyTeX\index{LaTeX!TinyTeX} is a custom LaTeX distribution based on TeX Live that is relatively small in size, but functions well in most cases, especially for R users. Installing or running TinyTeX does not require sysadmin privileges.^[Actually, we recommend that you **do not** use your root privilege (i.e., `sudo`) to install TinyTeX on Linux or macOS, if you are the only user of your system.] You can install TinyTeX with the R package **tinytex**\index{LaTeX!tinytex} [@R-tinytex]:
 
@@ -105,4 +105,4 @@ tinytex::parse_packages(
 
 Once you know the package names, you can install them with the package manager of your LaTeX distribution.
 
-If you are using MiKTeX instead, it can also install missing packages automatically. During the installation of MiKTeX, be sure to check the setting "Always install missing packages on-the-fly." If you have already install it without this setting, [you can still change it in the MiKTeX Console.](https://github.com/rstudio/rmarkdown/issues/1285#issuecomment-374340175)
+If you are using MiKTeX\index{LaTeX!MiKTeX} instead, it can also install missing packages automatically. During the installation of MiKTeX, be sure to check the setting "Always install missing packages on-the-fly." If you have already install it without this setting, [you can still change it in the MiKTeX Console.](https://github.com/rstudio/rmarkdown/issues/1285#issuecomment-374340175)
