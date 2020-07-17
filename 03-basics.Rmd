@@ -6,7 +6,7 @@ For those seeking lower-level basics, please read Chapter 2 of the R Markdown De
 
 ## Code chunks and inline R code {#r-code}
 
-An R Markdown document consists of intermingled prose (narratives) and code. There are two types of code in an Rmd document: code chunks, and inline R code. Below is a quick example:
+An R Markdown document consists of intermingled prose (narratives) and code. There are two types of code in an Rmd document: code chunks\index{code chunk}, and inline R code. Below is a quick example:
 
 ````md
 ```{r}`r ''`
@@ -26,7 +26,7 @@ You can customize the behavior and output of code chunks through chunk options (
 Something exciting to appear here soon...
 
 <!--
-If you are not familiar with Markdown yet, or do not prefer writing Markdown code, RStudio v1.4 has included an experimental visual editor for Markdown documents, which feels similar to traditional WYSIWYG editors like Word, as shown in Figure \@ref(fig:visual-edit). You can find the full documentation at https://rstudio.github.io/visual-markdown-editing/.
+If you are not familiar with Markdown yet, or do not prefer writing Markdown code, RStudio\index{RStudio} v1.4 has included an experimental visual editor for Markdown documents, which feels similar to traditional WYSIWYG editors like Word, as shown in Figure \@ref(fig:visual-edit). You can find the full documentation at https://rstudio.github.io/visual-markdown-editing/.
 
 ```{r visual-edit, echo=FALSE, fig.cap="The visual Markdown editor in RStudio.", out.width='100%', fig.align='center'}
 knitr::include_graphics("images/visual-edit.png", dpi = NA)
