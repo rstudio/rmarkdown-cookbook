@@ -1,6 +1,6 @@
 # Output Hooks (\*) {#output-hooks}
 
-With the **knitr** package, you have control over every piece of output from your code chunks, such as source code, text output, messages, and plots. The control is achieved through "output hooks." Output hooks are a series of functions that take a piece of output as the input (typically a character vector), and return a character vector to be written to the output document. This may not be easy to understand for now, but hopefully you can see the idea more clearly with a small example below explaining how the output of a simple code chunk is rendered through **knitr**'s output hooks.
+With the **knitr** package, you have control over every piece of output from your code chunks, such as source code, text output, messages, and plots. The control is achieved through "output hooks."\index{output hooks} Output hooks are a series of functions that take a piece of output as the input (typically a character vector), and return a character vector to be written to the output document. This may not be easy to understand for now, but hopefully you can see the idea more clearly with a small example below explaining how the output of a simple code chunk is rendered through **knitr**'s output hooks.
 
 Consider this code chunk with one line of code:
 
@@ -40,7 +40,7 @@ So the final output of the above code chunk is:
 ```
 ````
 
-The actual hooks are more complicated than the two functions above, but the idea is the same. You may obtain the actual hooks from the object `knit_hooks` via the `get()` method, e.g.,
+The actual hooks are more complicated than the two functions above, but the idea is the same. You may obtain the actual hooks from the object `knit_hooks`\index{knitr!knit\_hooks} via the `get()` method, e.g.,
 
 ```{r, eval=FALSE}
 # for meaningful output, the code below should be executed
@@ -120,7 +120,7 @@ c("1 + 1", "if (TRUE) { # SECRET!!\n  1:10\n}")
 ```
 
 
-If you want to hide lines instead of expressions of R code, you will have to split `x` into individual lines. You may consider using the function `xfun::split_lines()`. The body of the hook function will be:
+If you want to hide lines instead of expressions of R code, you will have to split `x` into individual lines. You may consider using the function `xfun::split_lines()`\index{xfun!split\_lines()}. The body of the hook function will be:
 
 ```{r, eval=FALSE}
 x <- xfun::split_lines(x)  # split into individual lines
@@ -157,7 +157,7 @@ The full example is below:
 
 `r import_example('hook-number.Rmd')`
 
-The main trick in the above example is to determine the number of spaces needed before the comment on each line, so the comments can align to the right. The number depends on the widths of each line of code. We leave it to readers to digest the code in the hook function. Note that an internal function `knitr:::v_spaces()` is used to generate spaces of specified lengths, e.g.,
+The main trick in the above example is to determine the number of spaces needed before the comment on each line, so the comments can align to the right. The number depends on the widths of each line of code. We leave it to readers to digest the code in the hook function. Note that an internal function `knitr:::v_spaces()`\index{knitr!v\_spaces()} is used to generate spaces of specified lengths, e.g.,
 
 ```{r}
 knitr:::v_spaces(c(1, 3, 6, 0))
@@ -242,7 +242,7 @@ knitr::knit_hooks$set(output = function(x, options) {
 })
 ```
 
-The basic idea of the above hook function is that if the number of lines of the text output is greater than the threshold set in the chunk option `out.lines` (stored in the variable `n` in the function body), we only keep the first `n` lines and add `....` to indicate the output is truncated.
+The basic idea of the above hook function is that if the number of lines of the text output is greater than the threshold set in the chunk option `out.lines`\index{chunk option!out.lines} (stored in the variable `n` in the function body), we only keep the first `n` lines and add `....` to indicate the output is truncated.
 
 Now we can test the new `output` hook by setting the chunk option `out.lines = 4` on the chunk below:
 
@@ -250,13 +250,13 @@ Now we can test the new `output` hook by setting the chunk option `out.lines = 4
 print(cars)
 ```
 
-And you see four lines of output as expected. Since we have stored the original `output` hook in `hook_output`, we can restore it by calling the `set()` method again:
+And you see four lines of output as expected. Since we have stored the original `output` hook in `hook_output`, we can restore it by calling the `set()` method again\index{knitr!knit\_hooks:
 
 ```{r}
 knitr::knit_hooks$set(output = hook_output)
 ```
 
-As an exercise to readers, you may try to truncate the output in a different way: given the chunk option `out.lines` to determine the maximum number of lines, can you truncate the output in the middle instead of the end? For example, if `out.lines = 10`, you extract the first and last five lines, and add `....` in the middle like this:
+As an exercise to readers, you may try to truncate the output in a different way: given the chunk option `out.lines`\index{chunk option!out.lines} to determine the maximum number of lines, can you truncate the output in the middle instead of the end? For example, if `out.lines = 10`, you extract the first and last five lines, and add `....` in the middle like this:
 
 ```text
 ##    speed dist
@@ -276,7 +276,7 @@ Please note that the last line in the output (i.e., the argument `x` of the hook
 
 ## Output figures in the HTML5 format {#hook-html5}
 
-By default, plots in R Markdown are included in the tag `<img src="..." />` in a `<p>` or `<div>` tag in the HTML output. This example below shows how to use the HTML5 `<figure>` tag to display plots.
+By default, plots in R Markdown are included in the tag `<img src="..." />` in a `<p>` or `<div>` tag in the HTML output. This example below shows how to use the HTML5 `<figure>` tag\index{HTML!figure tag}\index{figure!HTML tag} to display plots.
 
 `r import_example('hook-html5.Rmd')`
 
@@ -286,7 +286,7 @@ The figure output is shown in Figure \@ref(fig:hook-html5). Note that we actuall
 knitr::include_graphics("images/hook-html5.png", dpi = NA)
 ```
 
-This example shows you what you can possibly do with the plot file path `x` in the `plot` hook. If all you need is to customize the style of figures, you do not have to use the HTML5 tags. Usually the default `plot` hook will output images in the HTML code like this:
+This example shows you what you can possibly do with the plot file path `x` in the `plot` hook\index{output hook!plot}. If all you need is to customize the style of figures, you do not have to use the HTML5 tags. Usually the default `plot` hook will output images in the HTML code like this:
 
 ```html
 <div class="figure">
