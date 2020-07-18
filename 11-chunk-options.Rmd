@@ -2,9 +2,9 @@
 
 As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** plays a critical role in R Markdown. In this chapter and the next three chapters, we show some recipes related to **knitr**.
 
-There are more than 50 chunk options that can be used to fine-tune the behavior of **knitr** when processing R chunks. Please refer to the online documentation at <https://yihui.org/knitr/options/> for the full list of options. `r if (knitr::is_latex_output()) 'For your convenience, we have also provided a copy of the documentation in Appendix \\@ref(full-options) of this book.'`
+There are more than 50 chunk options\index{chunk options} that can be used to fine-tune the behavior of **knitr** when processing R chunks. Please refer to the online documentation at <https://yihui.org/knitr/options/> for the full list of options. `r if (knitr::is_latex_output()) 'For your convenience, we have also provided a copy of the documentation in Appendix \\@ref(full-options) of this book.'`
 
-In the following sections, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()` in a code chunk (usually the first one in the document), e.g.,
+In the following sections, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()`\index{chunk options!set globally} in a code chunk (usually the first one in the document), e.g.,
 
 ````md
 ```{r, include=FALSE}`r ''`
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Use variables in chunk options {#chunk-variable}
 
-Usually chunk options take constant values (e.g., `fig.width = 6`), but they can actually take values from arbitrary R expressions, no matter how simple or complicated the expressions are. A special case is a variable passed to a chunk option (note that a variable is also an R expression). For example, you can define a figure width in a variable in the beginning of a document, and use it later in other code chunks, so you will be able to easily change the width in the future:
+Usually chunk options take constant values (e.g., `fig.width = 6`), but they can actually take values from arbitrary R expressions, no matter how simple or complicated the expressions are. A special case is a variable\index{chunk options!variable values} passed to a chunk option (note that a variable is also an R expression). For example, you can define a figure width in a variable in the beginning of a document, and use it later in other code chunks, so you will be able to easily change the width in the future:
 
 ````md
 ```{r}`r ''`
@@ -28,7 +28,7 @@ plot(cars)
 ```
 ````
 
-Below is an example of using an `if-else` statement in a chunk option:
+Below is an example of using an `if-else` statement in a chunk option\index{chunk options!with if else logic}:
 
 ````md
 ```{r}`r ''`
@@ -55,7 +55,7 @@ In case you do not know it, `require('package')` returns `TRUE` if the package i
 
 ## Do not stop on error {#opts-error}
 
-Sometimes you may want to show errors on purpose (e.g., in an R tutorial). By default, errors in the code chunks of an Rmd document will halt R. If you want to show the errors without stopping R, you may use the chunk option `error = TRUE`, e.g.,
+Sometimes you may want to show errors on purpose (e.g., in an R tutorial). By default, errors in the code chunks of an Rmd document will halt R. If you want to show the errors without stopping R, you may use the chunk option `error = TRUE`\index{chunk option!error}, e.g.,
 
 ````md
 ```{r, error=TRUE}`r ''`
@@ -73,7 +73,7 @@ In R Markdown, `error = FALSE` is the default, which means R should stop on erro
 
 ## Multiple graphical output formats for the same plot {#dev-vector}
 
-In most cases, you may want one image format for one plot, such as `png` or `pdf`. The image format is controlled by the chunk option `dev` (i.e., the graphical device to render the plots). This option can take a vector of device names, e.g.,
+In most cases, you may want one image format for one plot, such as `png` or `pdf`. The image format is controlled by the chunk option `dev`\index{chunk option!dev}\index{figure!graphical device} (i.e., the graphical device to render the plots). This option can take a vector of device names, e.g.,
 
 ````md
 ```{r, dev=c('png', 'pdf', 'svg', 'tiff')}`r ''`
@@ -87,7 +87,7 @@ Note that by default, plot files are typically deleted after the output document
 
 ## Cache time-consuming code chunks {#cache}
 
-When a code chunk is time-consuming to run, you may consider caching it via the chunk option `cache = TRUE`. When the cache is turned on, **knitr** will skip the execution of this code chunk if it has been executed before and nothing in the code chunk has changed since then. When you modify the code chunk (e.g., revise the code or the chunk options), the previous cache will be automatically invalidated, and **knitr** will cache the chunk again.
+When a code chunk is time-consuming to run, you may consider caching it via the chunk option `cache = TRUE`\index{chunk option!cache}\index{caching}. When the cache is turned on, **knitr** will skip the execution of this code chunk if it has been executed before and nothing in the code chunk has changed since then. When you modify the code chunk (e.g., revise the code or the chunk options), the previous cache will be automatically invalidated, and **knitr** will cache the chunk again.
 
 For a cached code chunk, its output and objects will be automatically loaded from the previous run, as if the chunk were executed again. Caching is often helpful when loading results is much faster than computing the results. However, there is no free lunch. Depending on your use case, you may need to learn more about how caching (especially [cache invalidation](https://yihui.org/en/2018/06/cache-invalidation/)) works, so you can take the full advantage of it without confusing yourself why sometimes **knitr** invalidates your cache too often and sometimes there is not enough invalidation.
 
@@ -101,7 +101,7 @@ d <- read.csv('my-precious.csv')
 ```
 ````
 
-You have to let **knitr** know if the data file has been changed. One way to do it is to add another chunk option `cache.extra = file.mtime('my-precious.csv')` or more rigorously, `cache.extra = tools::md5sum('my-precious.csv')`. The former means if the modification time of the file has been changed, we need to invalidate the cache. The latter means if the content of the file has been modified, we update the cache. Note that `cache.extra` is not a built-in **knitr** chunk option. You can use any other name for this option, as long as it does not conflict with built-in option names.
+You have to let **knitr** know if the data file has been changed. One way to do it is to add another chunk option `cache.extra = file.mtime('my-precious.csv')`\index{chunk option!cache.extra} or more rigorously, `cache.extra = tools::md5sum('my-precious.csv')`. The former means if the modification time of the file has been changed, we need to invalidate the cache. The latter means if the content of the file has been modified, we update the cache. Note that `cache.extra` is not a built-in **knitr** chunk option. You can use any other name for this option, as long as it does not conflict with built-in option names.
 
 Similarly, you can associate the cache with other information such as the R version (`cache.extra = getRversion()`), the date (`cache.extra = Sys.Date()`), or your operating system (`cache.extra = Sys.info()[['sysname']]`), so the cache can be properly invalidated when these conditions change.
 
@@ -118,11 +118,11 @@ if (file.exists('results.rds')) {
 }
 ```
 
-In this case, the only (and also simple) way to invalidate the cache is to delete the file `results.rds`. If you like this simple caching mechanism, you may use the function `xfun::cache_rds()` introduced in Section \@ref(cache-rds).
+In this case, the only (and also simple) way to invalidate the cache is to delete the file `results.rds`. If you like this simple caching mechanism, you may use the function `xfun::cache_rds()`\index{xfun!cache\_rds()} introduced in Section \@ref(cache-rds).
 
 ## Cache a code chunk for multiple output formats {#cache-path}
 
-When caching is turned on via the chunk option `cache = TRUE`, **knitr** will write R objects generated in a code chunk to a cache database, so they can be reloaded the next time. The path to the cache database is determined by the chunk option `cache.path`. By default, R Markdown uses different cache paths for different output formats, which means a time-consuming code chunk will be fully executed for each output format. This may be inconvenient, but there is a reason for this default behavior: the output of a code chunk can be dependent on the specific output format. For example, when you generate a plot, the output for the plot could be Markdown code like `![text](path/to/image.png)` when the output format is `word_document`, or HTML code like `<img src="path/to/image.png" />` when the output format is `html_document`.
+When caching is turned on via the chunk option `cache = TRUE`\index{chunk option!cache}\index{caching}, **knitr** will write R objects generated in a code chunk to a cache database, so they can be reloaded the next time. The path to the cache database is determined by the chunk option `cache.path`\index{chunk option!cache.path}. By default, R Markdown uses different cache paths for different output formats, which means a time-consuming code chunk will be fully executed for each output format. This may be inconvenient, but there is a reason for this default behavior: the output of a code chunk can be dependent on the specific output format. For example, when you generate a plot, the output for the plot could be Markdown code like `![text](path/to/image.png)` when the output format is `word_document`, or HTML code like `<img src="path/to/image.png" />` when the output format is `html_document`.
 
 When a code chunk does not have any side-effects (such as plots), it is safe to use the same cache database for all output formats, which can save you time. For example, when you read a large data object or run a time-consuming model, the result does not depend on the output format, so you can use the same cache database. You can specify the path to the database via the chunk option `cache.path` on a code chunk, e.g.,
 
@@ -135,7 +135,7 @@ By default, `cache.path = "INPUT_cache/FORMAT/"` in R Markdown, where `INPUT` is
 
 ## Cache large objects {#cache-lazy}
 
-When the chunk option `cache = TRUE`, cached objects will be lazy-loaded into the R session, which means an object will not be read from the cache database until it is actually used in the code. This can save you some memory when not all objects are used later in the document. For example, if you read a large data object but only use a subset in the subsequent analysis, the original data object will not be loaded from the cache database:
+When the chunk option `cache = TRUE`, cached objects will be lazy-loaded into the R session, which means an object will not be read from the cache database until it is actually used in the code\index{caching}. This can save you some memory when not all objects are used later in the document. For example, if you read a large data object but only use a subset in the subsequent analysis, the original data object will not be loaded from the cache database:
 
 ````md
 ```{r, read-data, cache=TRUE}`r ''`
@@ -157,7 +157,7 @@ Error in lazyLoadDBinsertVariable(vars[i], ...
 Execution halted
 ```
 
-If this problem occurs, you can try to turn off the lazy-loading via the chunk option `cache.lazy = FALSE`. All objects in this chunk will be immediately loaded into memory.
+If this problem occurs, you can try to turn off the lazy-loading via the chunk option `cache.lazy = FALSE`\index{chunk option!cache.lazy}. All objects in this chunk will be immediately loaded into memory.
 
 ## Hide code, text output, messages, or plots {#hide-one}
 
@@ -183,15 +183,15 @@ for (i in 1:5) warning('Here is the warning ', i)
 ```
 ````
 
-You can use negative indices, too. For example, `echo = -2` means to exclude the second expression of the source code in the output.
+You can use negative indices, too. For example, `echo = -2`\index{chunk option!echo} means to exclude the second expression of the source code in the output.
 
-Similarly, you can choose which plots to show or hide by using indices for the `fig.keep` option. For example, `fig.keep = 1:2` means to keep the first two plots. There are a few shortcuts for this option: `fig.keep = "first"` will only keep the first plot, `fig.keep = "last"` only keeps the last plot, and `fig.keep = "none"` discards all plots. Note that the two options `fig.keep = "none"` and `fig.show = "hide"` are different: the latter will generate plots but only hide them, and the former will not generate plot files at all.
+Similarly, you can choose which plots to show or hide by using indices for the `fig.keep` option\index{chunk option!fig.keep}. For example, `fig.keep = 1:2` means to keep the first two plots. There are a few shortcuts for this option: `fig.keep = "first"` will only keep the first plot, `fig.keep = "last"` only keeps the last plot, and `fig.keep = "none"` discards all plots. Note that the two options `fig.keep = "none"` and `fig.show = "hide"` are different: the latter will generate plots but only hide them, and the former will not generate plot files at all.
 
 For source code blocks in the `html_document` output, if you do not want to completely omit them (`echo = FALSE`), you may see Section \@ref(fold-show) for how to fold them on the page, and allow users to unfold them by clicking the unfolding buttons.
 
 ## Hide everything from a chunk {#hide-all}
 
-Sometimes we may want to execute a code chunk without showing any output at all. Instead of using separate options mentioned in Section \@ref(hide-one), we can suppress the entire output of the code chunk using a single option `include = FALSE`, e.g.,
+Sometimes we may want to execute a code chunk without showing any output at all. Instead of using separate options mentioned in Section \@ref(hide-one), we can suppress the entire output of the code chunk using a single option `include = FALSE`\index{chunk option!include}, e.g.,
 
 ````md
 ```{r, include=FALSE}`r ''`
@@ -203,7 +203,7 @@ With `include=FALSE`, the code chunk will be evaluated (unless `eval=FALSE`), bu
 
 ## Collapse text output blocks into source blocks {#opts-collapse}
 
-If you feel there is too much spacing between text output blocks and source code blocks in the output, you may consider collapsing the text output into the source blocks with the chunk option `collapse = TRUE`. This what the output looks like when `collapse = TRUE`:
+If you feel there is too much spacing between text output blocks and source code blocks in the output, you may consider collapsing the text output into the source blocks with the chunk option `collapse = TRUE`\index{chunk option!collapse}. This what the output looks like when `collapse = TRUE`:
 
 ```{r, test-collapse, collapse=TRUE}
 1 + 1
@@ -217,7 +217,7 @@ Below is the same chunk but it does not have the option `collapse = TRUE` (the d
 
 ## Reformat R source code {#opts-tidy}
 
-When you set the chunk option `tidy = TRUE`, the R source code will be reformatted by the `tidy_source()` function in the **formatR** package [@R-formatR]. The `tidy_source()` can reformat the code in several aspects, such as adding spaces around most operators, indenting the code properly, and replacing the assignment operator `=` with `<-`. The chunk option `tidy.opts` can be a list of arguments to be passed to `formatR::tidy_source()`, e.g.,
+When you set the chunk option `tidy = TRUE`\index{chunk option!tidy}, the R source code will be reformatted by the `tidy_source()` function in the **formatR** package\index{R package!formatR} [@R-formatR]. The `tidy_source()` can reformat the code in several aspects, such as adding spaces around most operators, indenting the code properly, and replacing the assignment operator `=` with `<-`. The chunk option `tidy.opts`\index{chunk option!tidy.opts} can be a list of arguments to be passed to `formatR::tidy_source()`, e.g.,
 
 `r import_example('tidy-opts.Rmd')`
 
@@ -237,7 +237,7 @@ The output:
 
 Please read the help page `?formatR::tidy_source` to know the possible arguments, and also see https://yihui.org/formatR/ for examples and limitations of this function.
 
-Alternatively, you may use the **styler** package [@R-styler] to reformat your R code if you set the chunk option `tidy = 'styler'`. The R code will be formatted with the function `styler::style_text()`. The **styler** package has richer features than **formatR**. For example, it can align function arguments and works with the pipe operator `%>%`. The chunk option `tidy.opts` can also be used to pass additional arguments to `styler::style_text()`, e.g.,
+Alternatively, you may use the **styler** package [@R-styler] to reformat your R code\index{R package!styler} if you set the chunk option `tidy = 'styler'`. The R code will be formatted with the function `styler::style_text()`. The **styler** package has richer features than **formatR**. For example, it can align function arguments and works with the pipe operator `%>%`. The chunk option `tidy.opts`\index{chunk option!tidy.opts} can also be used to pass additional arguments to `styler::style_text()`, e.g.,
 
 ````md
 ```{r, tidy='styler', tidy.opts=list(strict=FALSE)}`r ''`
@@ -273,7 +273,7 @@ You do not want the text to be in a fenced code block (or the leading hashes). T
 # This is a header
 ````
 
-The solution to this problem is the chunk option `results = 'asis'`. This option tells **knitr** not to wrap your text output in verbatim code blocks, but treat it "as is." This can be particularly useful when you want to generate content dynamically from R code. For example, you may generate the list of column names of the `iris` data from the code chunk below with the option `results = 'asis'`:
+The solution to this problem is the chunk option `results = 'asis'`\index{chunk option!results}. This option tells **knitr** not to wrap your text output in verbatim code blocks, but treat it "as is." This can be particularly useful when you want to generate content dynamically from R code. For example, you may generate the list of column names of the `iris` data from the code chunk below with the option `results = 'asis'`:
 
 ```{r, iris-asis, results='asis'}
 cat(paste0('- `', names(iris), '`'), sep = '\n')
@@ -315,7 +315,7 @@ The `cat()` function is not the only function that can generate text output. Ano
 
 <!-- https://stackoverflow.com/questions/15081212/remove-hashes-in-r-output-from-r-markdown-and-knitr -->
 
-By default, R code output will have two hashes `##` inserted in front of the text output. We can alter this behavior through the `comment` chunk option, which defaults to a character string `"##"`. We can use an empty string if we want to remove the hashes. For example:
+By default, R code output will have two hashes `##` inserted in front of the text output. We can alter this behavior through the `comment` chunk option\index{chunk option!comment}, which defaults to a character string `"##"`. We can use an empty string if we want to remove the hashes. For example:
 
 ````md
 ```{r, comment=""}`r ''`
@@ -335,7 +335,7 @@ If you remove the hashes via `comment = ""`, it will not be easy for you to run 
 ```{r, comment-hash, comment="", collapse=TRUE}
 ```
 
-One argument in favor of `comment = ""` is that it makes the text output look familiar to R console users. In the R console, you do not see hashes in the beginning of lines of text output. If you want to truly mimic the behavior of the R console, you can actually use `comment = ""` in conjunction with `prompt = TRUE`, e.g.,
+One argument in favor of `comment = ""` is that it makes the text output look familiar to R console users. In the R console, you do not see hashes in the beginning of lines of text output. If you want to truly mimic the behavior of the R console, you can actually use `comment = ""` in conjunction with `prompt = TRUE`\index{chunk option!prompt}, e.g.,
 
 ````md
 ```{r, comment="", prompt=TRUE}`r ''`
@@ -357,7 +357,7 @@ if (TRUE) {
 
 ## Add attributes to text output blocks (\*) {#attr-output}
 
-In Section \@ref(chunk-styling), we showed some examples of styling source and text output blocks based on the chunk options `class.source` and `class.output`. Actually, there are a wider range of similar options in **knitr**, such as `class.message`, `class.warning`, and `class.error`. These options can be used to add class names to the corresponding text output blocks, e.g., `class.error` adds classes to error messages when the chunk option `error = TRUE` (see Section \@ref(opts-error)). The most common application of these options may be styling the output blocks with CSS rules defined according to the class names, as demonstrated by the examples in Section \@ref(chunk-styling).
+In Section \@ref(chunk-styling), we showed some examples of styling source and text output blocks based on the chunk options `class.source`\index{chunk option!class.source} and `class.output`\index{chunk option!class.output}. Actually, there are a wider range of similar options in **knitr**, such as `class.message`\index{chunk option!class.message}, `class.warning`\index{chunk option!class.warning}, and `class.error`\index{chunk option!class.error}. These options can be used to add class names to the corresponding text output blocks, e.g., `class.error` adds classes to error messages when the chunk option `error = TRUE`\index{chunk option!error} (see Section \@ref(opts-error)). The most common application of these options may be styling the output blocks with CSS rules\index{CSS} defined according to the class names, as demonstrated by the examples in Section \@ref(chunk-styling).
 
 Typically, a text output block is essentially a fenced code block, and its Markdown source looks like this:
 
@@ -377,7 +377,7 @@ When the output format is HTML, it is usually^[It could also be converted to `<d
 
 The `class.*` options control the `class` attribute of the `<pre>` element, which is the container of the text output blocks that we mentioned above.
 
-In fact, the class is only one of the possible attribute of the `<pre>` element in HTML. An HTML element may have many other attributes, such as the width, height, and style, etc. The chunk options `attr.*`, including `attr.source`, `attr.output`, `attr.message`, `attr.warning`, and `attr.error`, allow you to add arbitrary attributes to the text output blocks. For example, with `attr.source = 'style="background: pink;"'`, you may change the background color of source blocks to pink. The corresponding fenced code block will be:
+In fact, the class is only one of the possible attribute of the `<pre>` element in HTML. An HTML element may have many other attributes, such as the width, height, and style, etc. The chunk options `attr.*`, including `attr.source`\index{chunk option!attr.source}, `attr.output`\index{chunk option!attr.output}, `attr.message`\index{chunk option!attr.message}, `attr.warning`\index{chunk option!attr.warning}, and `attr.error`\index{chunk option!attr.error}, allow you to add arbitrary attributes to the text output blocks. For example, with `attr.source = 'style="background: pink;"'`, you may change the background color of source blocks to pink. The corresponding fenced code block will be:
 
 ````md
 ```{style="background: pink;"}
@@ -401,9 +401,9 @@ These options are mostly useful to HTML output. There are cases in which the att
 
 ## Post-process plots (\*) {#fig-process}
 
-After a plot is generated from a code chunk, you can post-process the plot file via the chunk option `fig.process`, which should be a function that takes the file path as the input argument and returns a path to the processed plot file. This function can have an optional second argument `options`, which is a list of the current chunk options.
+After a plot is generated from a code chunk, you can post-process the plot file via the chunk option `fig.process`\index{chunk option!fig.process}\index{figure!post-processing}, which should be a function that takes the file path as the input argument and returns a path to the processed plot file. This function can have an optional second argument `options`, which is a list of the current chunk options.
 
-Below we show an example of adding an R logo to a plot using the extremely powerful **magick** package [@R-magick]. If you are not familiar with this package, we recommend that you read its online documentation or package vignette, which contains lots of examples. First, we define a function `add_logo()`:
+Below we show an example of adding an R logo to a plot using the extremely powerful **magick** package [@R-magick]\index{R package!magick}. If you are not familiar with this package, we recommend that you read its online documentation or package vignette, which contains lots of examples. First, we define a function `add_logo()`:
 
 ```{r}
 add_logo = function(path, options) {
@@ -449,9 +449,9 @@ pdf2png = function(path) {
 
 ## High-quality graphics (\*) {#graphical-device}
 
-The **rmarkdown** package has set reasonable default graphical devices for different output formats. For example, HTML output formats use the `png()` device, so **knitr** will generate PNG plot files, and PDF output formats use the `pdf()` device, etc. If you are not satisfied by the quality of the default graphical devices, you can change them via the chunk option `dev`. All possible devices supported by **knitr** are: `r knitr::combine_words(names(knitr:::auto_exts), before = '\x60"', after = '"\x60')`.
+The **rmarkdown** package has set reasonable default graphical devices for different output formats. For example, HTML output formats use the `png()` device, so **knitr** will generate PNG plot files, and PDF output formats use the `pdf()` device, etc. If you are not satisfied by the quality of the default graphical devices, you can change them via the chunk option `dev`\index{chunk option!dev}. All possible devices supported by **knitr** are: `r knitr::combine_words(names(knitr:::auto_exts), before = '\x60"', after = '"\x60')`.
 
-Usually a graphical device name is also a function name. If you want to know more about a device, you can read the R help page. For example, you can type `?svg` in the R console to know the details about the `svg` device, which is included in base R. Note that the `quartz_XXX` devices are based on the `quartz()` function, and they are only available on macOS. The `CairoXXX` devices are from the add-on R package **Cairo** [@R-Cairo], the `Cairo_XXX` devices are from the **cairoDevice** package [@R-cairoDevice], the `svglite` device is from the **svglite** package [@R-svglite], and `tikz` is a device in the **tikzDevice** package [@R-tikzDevice]. If you want to use devices from an add-on package, you have to install the package first.
+Usually a graphical device name is also a function name. If you want to know more about a device\index{figure!device}, you can read the R help page. For example, you can type `?svg` in the R console to know the details about the `svg` device, which is included in base R. Note that the `quartz_XXX` devices are based on the `quartz()` function, and they are only available on macOS. The `CairoXXX` devices are from the add-on R package **Cairo** [@R-Cairo], the `Cairo_XXX` devices are from the **cairoDevice** package [@R-cairoDevice], the `svglite` device is from the **svglite** package [@R-svglite], and `tikz` is a device in the **tikzDevice** package [@R-tikzDevice]. If you want to use devices from an add-on package, you have to install the package first.\index{R packages!graphics devices}
 
 Usually vector graphics have higher quality than raster graphics, and you can scale vector graphics without loss of quality. For HTML output, you may consider using `dev = "svg"` or `dev = "svglite"` for SVG plots. Note that SVG is a vector graphics format, and the default `png` device produces a raster graphics format.
 
@@ -481,15 +481,15 @@ tinytex::tlmgr_install(c('pgf', 'preview', 'xcolor'))
 
 Second, it is often significantly slower to render the plots, because this device generates a LaTeX file and has to compile it to PDF. If you feel the code chunk is time-consuming, you may enable caching by the chunk option `cache = TRUE` (see Section \@ref(cache)).
 
-For Figure \@ref(fig:dev-tikz), we also used the chunk option `fig.process = pdf2png`, where the function `pdf2png` is defined in Section \@ref(fig-process) to convert the PDF plot to PNG when the output format is not LaTeX. Without the conversion, you may not be able to view the PDF plot in the online version of this book in the web browser.
+For Figure \@ref(fig:dev-tikz), we also used the chunk option `fig.process = pdf2png`\index{chunk option!fig.process}, where the function `pdf2png` is defined in Section \@ref(fig-process) to convert the PDF plot to PNG when the output format is not LaTeX. Without the conversion, you may not be able to view the PDF plot in the online version of this book in the web browser.
 
 ## Step-by-step plots with low-level plotting functions (\*) {#low-plots}
 
 For R graphics, there are two types of plotting functions: high-level plotting functions create new plots, and low-level functions add elements to existing plots. You may see Chapter 12 (Graphical procedures) of the R manual ["An Introduction to R"](https://cran.r-project.org/doc/manuals/r-release/R-intro.html) for more information.
 
-By default, **knitr** does not show the intermediate plots when a series of low-level plotting functions are used to modify a previous plot. Only the last plot on which all low-level plotting changes have been made is shown.
+By default, **knitr** does not show the intermediate plots when a series of low-level plotting functions\index{figure!intermediate plots} are used to modify a previous plot. Only the last plot on which all low-level plotting changes have been made is shown.
 
-It can be useful to show the intermediate plots, especially for teaching purposes. You can set the chunk option `fig.keep = 'low'` to keep low-level plotting changes. For example, Figure \@ref(fig:low-plots-1) and Figure \@ref(fig:low-plots-2) are from a single code chunk with the chunk option `fig.keep = 'low'`, although they appear to be from two code chunks. We also assigned different figure captions to them with the chunk option `fig.cap = c('A scatterplot ...', 'Adding a regression line...')`.
+It can be useful to show the intermediate plots, especially for teaching purposes. You can set the chunk option `fig.keep = 'low'`\index{chunk option!fig.keep} to keep low-level plotting changes. For example, Figure \@ref(fig:low-plots-1) and Figure \@ref(fig:low-plots-2) are from a single code chunk with the chunk option `fig.keep = 'low'`, although they appear to be from two code chunks. We also assigned different figure captions to them with the chunk option `fig.cap = c('A scatterplot ...', 'Adding a regression line...')`.\index{chunk option!fig.cap}
 
 ```{r, low-plots, fig.cap=c('A scatterplot of the cars data.', 'Adding a regression line to an existing scatterplot.'), fig.keep='low'}
 par(mar = c(4, 4, .1, .1))
@@ -502,17 +502,17 @@ If you want to keep modifying a plot in a _different_ code chunk, please see Sec
 
 ## Customize the printing of objects in chunks (\*) {#opts-render}
 
-By default, objects in code chunks are printed through the `knitr::knit_print()` function, which is by and large just `print()` in base R. The `knit_print()` function is an S3 generic function, which means you can extend it by yourself by registering S3 methods on it. Below is an example that shows how to automatically print data frames as tables via `knitr::kable()`:
+By default, objects in code chunks are printed through the `knitr::knit_print()`\index{knitr!knit\_print()} function, which is by and large just `print()` in base R. The `knit_print()` function is an S3 generic function, which means you can extend it by yourself by registering S3 methods on it. Below is an example that shows how to automatically print data frames as tables via `knitr::kable()`:
 
 `r import_example('print-method.Rmd')`
 
-You can learn more about the `knit_print()` function in the **knitr** package vignette:
+You can learn more about the `knit_print()` function in the **knitr** package\index{R package!knitr} vignette:
 
 ```{r, eval=FALSE}
 vignette('knit_print', package = 'knitr')
 ```
 
-The **printr** package [@R-printr] has provided a few S3 methods to automatically print R objects as tables if possible. All you need is `library(printr)` in an R code chunk, and all methods will be automatically registered.
+The **printr** package\index{R package!printr} [@R-printr] has provided a few S3 methods to automatically print R objects as tables if possible. All you need is `library(printr)` in an R code chunk, and all methods will be automatically registered.
 
 If you find this technique too advanced for you, some R Markdown output formats such as `html_document` and `pdf_document` also provide an option `df_print`, which allows you to customize the printing behavior of data frames. For example, if you want to print data frames as tables via `knitr::kable()`, you may set the option:
 
@@ -526,7 +526,7 @@ output:
 
 Please see the help pages of the output format functions (e.g., `?rmarkdown::html_document`) to determine whether an output format supports the `df_print` option and, if so, what the possible values are. 
 
-In fact, you can completely replace the printing function `knit_print()` through the chunk option `render`, which can take any function to print objects. For example, if you want to print objects using the **pander** package, you may set the chunk option `render` to the function `pander::pander()`:
+In fact, you can completely replace the printing function `knit_print()` through the chunk option `render`, which can take any function to print objects. For example, if you want to print objects using the **pander** package\index{R package!pander}, you may set the chunk option `render` to the function `pander::pander()`:
 
 ````md
 ```{r, render=pander::pander}`r ''`
@@ -538,7 +538,7 @@ The `render` option gives you complete freedom on how to print your R objects.
 
 ## Option hooks (\*) {#option-hooks}
 
-Sometimes you may want to change certain chunk options dynamically according to the values of other chunk options. You may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. This function takes the list of options for the current chunk as the input argument, and should return the (potentially modified) list. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
+Sometimes you may want to change certain chunk options\index{chunk option!option hooks}\index{option hooks} dynamically according to the values of other chunk options. You may use the object `opts_hooks` to set up an _option hook_ to do it. An option hook is a function associated with the option and to be executed when a corresponding chunk option is not `NULL`. This function takes the list of options for the current chunk as the input argument, and should return the (potentially modified) list. For example, we can tweak the `fig.width` option so that it is always no smaller than `fig.height`:
 
 ```{r, eval=FALSE}
 knitr::opts_hooks$set(fig.width = function(options) {
