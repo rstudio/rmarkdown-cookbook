@@ -10,7 +10,7 @@ This chapter provides a few examples that can work for multiple formats. If a ce
 
 ## LaTeX or HTML output {#latex-html}
 
-LaTeX and HTML are two commonly used output formats. The function `knitr::is_latex_output()` tells you if the output format is LaTeX (including Pandoc output formats `latex` and `beamer`). Similarly, the function `knitr::is_html_output` tells you if the output format is HTML. By default, these Pandoc output formats are considered HTML formats: `markdown`, `epub`, `html`, `html4`, `html5`, `revealjs`, `s5`, `slideous`, and `slidy`. If you do not think a certain Pandoc format is HTML, you may use the `excludes` argument to exclude it, e.g.,
+LaTeX and HTML are two commonly used output formats. The function `knitr::is_latex_output()`\index{knitr!is\_latex\_output()} tells you if the output format is LaTeX (including Pandoc output formats `latex` and `beamer`). Similarly, the function `knitr::is_html_output`\index{knitr!is\_html\_output()} tells you if the output format is HTML. By default, these Pandoc output formats are considered HTML formats: `markdown`, `epub`, `html`, `html4`, `html5`, `revealjs`, `s5`, `slideous`, and `slidy`. If you do not think a certain Pandoc format is HTML, you may use the `excludes` argument to exclude it, e.g.,
 
 ```{r, collapse=TRUE}
 # do not treat markdown as an HTML format
@@ -21,7 +21,7 @@ If a certain output element can only be generated in LaTeX or HTML, you can use 
 
 `r import_example('latex-tiny.Rmd')`
 
-The key in the above example is the chunk option `include = knitr::is_latex_output()`. That is, the environment `\begin{tiny} \end{tiny}` is only included when the output format is LaTeX. The two tables in the example will look identical when the output format is not LaTeX.
+The key in the above example is the chunk option `include = knitr::is_latex_output()`\index{chunk option!include}. That is, the environment `\begin{tiny} \end{tiny}` is only included when the output format is LaTeX. The two tables in the example will look identical when the output format is not LaTeX.
 
 In Section \@ref(font-color), we used these functions to change the text color for HTML and LaTeX output. In Section \@ref(animation), we showed an animation example, which also used this trick. The code chunk that generated the animation for HTML output and static images for LaTeX output is like this:
 
@@ -49,7 +49,7 @@ if (knitr::is_latex_output()) {
 
 ## Display HTML widgets {#html-widgets}
 
-HTML widgets (https://htmlwidgets.org) are typically interactive JavaScript applications, which only work in HTML output. If you knit an Rmd document containing HTML widgets to a non-HTML format such as PDF or Word, you may get an error message like this:
+HTML widgets (https://htmlwidgets.org)\index{HTML!widgets} are typically interactive JavaScript applications, which only work in HTML output. If you knit an Rmd document containing HTML widgets to a non-HTML format such as PDF or Word, you may get an error message like this:
 
 ```md
 Error: Functions that produce HTML output found in document
@@ -64,7 +64,7 @@ Note however that the HTML output will not be visible in
 non-HTML formats.
 ```
 
-There is actually a better solution than the one mentioned in the above error message, but it involves extra packages. You can install the **webshot** package [@R-webshot] in R and also install PhantomJS:
+There is actually a better solution than the one mentioned in the above error message, but it involves extra packages. You can install the **webshot** package [@R-webshot]\index{R package!webshot} in R and also install PhantomJS\index{PhantomJS}:
 
 ```{r, eval=FALSE}
 install.packages('webshot')
@@ -75,7 +75,7 @@ Then if you knit an Rmd document with HTML widgets to a non-HTML format, the HTM
 
 ## Embed a web page {#include-url}
 
-If you have the **webshot** package [@R-webshot] and PhantomJS installed (see Section \@ref(html-widgets)), you can embed any web page in the output document through `knitr::include_url()`. When you pass a URL of a web page to this function in a code chunk, it will generate an `<iframe>` (inline frame) if the output format is HTML, and a screenshot of the web page for other output formats. You can view the actual page in the inline frame. For example, Figure \@ref(fig:include-url) should show you my homepage if you are reading the online version of this book, otherwise you will see a static screenshot instead.
+If you have the **webshot** package [@R-webshot]\index{R package!webshot} and PhantomJS\index{PhantomJS} installed (see Section \@ref(html-widgets)), you can embed any web page in the output document through `knitr::include_url()`\index{knitr!include\_url()}. When you pass a URL of a web page to this function in a code chunk, it will generate an `<iframe>` (inline frame)\index{HTML!iframe} if the output format is HTML, and a screenshot of the web page for other output formats. You can view the actual page in the inline frame. For example, Figure \@ref(fig:include-url) should show you my homepage if you are reading the online version of this book, otherwise you will see a static screenshot instead.
 
 \let\ooldhref\href
 \let\href\oldhref
@@ -88,11 +88,11 @@ knitr::include_url('https://yihui.org')
 
 Most chunk options related to figures also work for `knitr::include_url()`, such as `out.width` and `fig.cap`.
 
-If you have published a Shiny app publicly on a server, you can use `knitr::include_app()` to include it, which works in the same way as `include_url()`. [Section 2.11](https://bookdown.org/yihui/bookdown/web-pages-and-shiny-apps.html) of the **bookdown** book [@bookdown2016] contains more details about `include_app()` and `include_url()`.
+If you have published a Shiny app publicly on a server, you can use `knitr::include_app()`\index{knitr!include\_app()} to include it, which works in the same way as `include_url()`. [Section 2.11](https://bookdown.org/yihui/bookdown/web-pages-and-shiny-apps.html) of the **bookdown** book [@bookdown2016] contains more details about `include_app()` and `include_url()`.
 
 ## Multiple figures side-by-side {#figures-side}
 
-You can place multiple figures side-by-side using the `fig.show="hold"` along with the `out.width` option. In the example below, we have set `out.width="50%"` (see Figure \@ref(fig:figures-side) for the output):
+You can place multiple figures side-by-side using the `fig.show="hold"`\index{chunk option!fig.show} along with the `out.width` option\index{chunk option!out.width}. In the example below, we have set `out.width="50%"` (see Figure \@ref(fig:figures-side) for the output):
 
 `r import_example('figures-side.Rmd')`
 
@@ -119,7 +119,7 @@ For example, here is a Youtube video:</p>
 ```
 ````
 
-The attribute name is the Pandoc output format name. If you want to know the output format name, you may check the output of the code chunk below inside an Rmd document:
+The attribute name is the Pandoc output format name. If you want to know the output format name, you may check the output of the code chunk below inside an Rmd document\index{knitr!pandoc\_toc()}:
 
 ````md
 ```{r}`r ''`
@@ -144,7 +144,7 @@ In this section, we will explain how to create your own custom blocks for both P
 
 ### Syntax {#block-syntax}
 
-The syntax for custom blocks is based on Pandoc's [fenced `Div` blocks.](https://pandoc.org/MANUAL.html#divs-and-spans) `Div` blocks are very powerful, but there is a problem at the moment: they mainly work for HTML output and do not work for LaTeX output.
+The syntax for custom blocks is based on Pandoc's [fenced `Div` blocks.](https://pandoc.org/MANUAL.html#divs-and-spans) `Div` blocks\index{Div} are very powerful, but there is a problem at the moment: they mainly work for HTML output and do not work for LaTeX output.
 
 Since the version 1.16 of the **rmarkdown** package, it has been possible to convert `Div` blocks to both HTML and LaTeX. For HTML output, all attributes of the block will become attributes of the `<div>` tag. For example, a `Div` can have an ID (after `#`), one or multiple classes (class names are written after `.`), and other attributes. The following `Div` block
 
@@ -162,7 +162,7 @@ will be converted to the HTML code below:
 </div>
 ```
 
-For LaTeX output, the first class name will be used as the LaTeX environment name. You should also provide an attribute named `data-latex` in the `Div` block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
+For LaTeX output, the first class name will be used as the LaTeX environment name. You should also provide an attribute named `data-latex`\index{Div!LaTeX compatability} in the `Div` block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the `verbatim` environment in LaTeX, which does not have any arguments:
 
 ````md
 ::: {.verbatim data-latex=""}
@@ -229,7 +229,7 @@ Next we will demonstrate a few more advanced custom blocks that use custom CSS r
 
 First, we show how to include content in a shaded box. The box has a black background with an orange frame with rounded corners. The text in the box is in white.
 
-For HTML output, we define these rules in a CSS file. If you are unfamiliar with CSS, there are plenty of free online tutorials, e.g., https://www.w3schools.com/css/.
+For HTML output, we define these rules in a CSS file. If you are unfamiliar with CSS\index{CSS}, there are plenty of free online tutorials, e.g., https://www.w3schools.com/css/.
 
 ```{cat, class.source='css', engine.opts=list(file = 'css/box.css')}
 .blackbox {
@@ -244,7 +244,7 @@ For HTML output, we define these rules in a CSS file. If you are unfamiliar with
 }
 ```
 
-For LaTeX output, we create a new environment named `blackbox` and based on the LaTeX package **framed**, with a black background and white text:
+For LaTeX output, we create a new environment named `blackbox` and based on the LaTeX package **framed**\index{LaTeX package!framed}, with a black background and white text:
 
 ```{cat, class.source='latex', engine.opts=list(file = 'latex/blackbox.tex')}
 \usepackage{color}
@@ -258,7 +258,7 @@ For LaTeX output, we create a new environment named `blackbox` and based on the 
  {\end{shaded}}
 ```
 
-We used the **framed** package in this book because it is fairly lightweight, but it is not possible to draw a colored frame with rounded corners with this package. To achieve the latter, you will need more sophisticated LaTeX packages such as **tcolorbox** (https://ctan.org/pkg/tcolorbox), which offers a set of very flexible options for creating shaded boxes. You can find many examples in its documentation. The LaTeX environment below will create a shaded box of similar appearance to the above CSS example:
+We used the **framed** package in this book because it is fairly lightweight, but it is not possible to draw a colored frame with rounded corners with this package. To achieve the latter, you will need more sophisticated LaTeX packages such as **tcolorbox** (https://ctan.org/pkg/tcolorbox)\index{LaTeX package!tcolorbox}, which offers a set of very flexible options for creating shaded boxes. You can find many examples in its documentation. The LaTeX environment below will create a shaded box of similar appearance to the above CSS example:
 
 ```tex
 \usepackage{tcolorbox}
@@ -330,7 +330,7 @@ Thank you for noticing this **new notice**! Your noticing it has
 been noted, and _will be reported to the authorities_!
 :::
 
-For the HTML output, we can add an image to the box through the `background-image` property in CSS. We insert the image into the background, and add enough padding on the left-hand side to avoid the text overlapping with this image. If you are using local images, the file path to the images is provided relative to the CSS file. For example:
+For the HTML output, we can add an image to the box through the `background-image` property in CSS\index{CSS property!background-image}. We insert the image into the background, and add enough padding on the left-hand side to avoid the text overlapping with this image. If you are using local images, the file path to the images is provided relative to the CSS file. For example:
 
 ```css
 .infobox {
@@ -416,6 +416,6 @@ Thank you for noticing this **new notice**! Your noticing it has
 been noted, and _will be reported to the authorities_!
 :::
 
-Alternatively, you may use the LaTeX package [**awesomebox**](https://ctan.org/pkg/awesomebox) to generate boxes with icons in the PDF output. This package gives you a much larger number of icons to choose from. We give a brief example below, and please refer to the package documentation for the possible LaTeX environments and their arguments.
+Alternatively, you may use the LaTeX package [**awesomebox**](https://ctan.org/pkg/awesomebox)\index{LaTeX package!awesomebox} to generate boxes with icons in the PDF output. This package gives you a much larger number of icons to choose from. We give a brief example below, and please refer to the package documentation for the possible LaTeX environments and their arguments.
 
 `r import_example('awesomebox.Rmd')`
