@@ -79,7 +79,7 @@ The output style is shown in Figure \@ref(fig:chunk-border).
 knitr::include_graphics("images/chunk-border.png", dpi = NA)
 ```
 
-If you want all code blocks in the document to use the custom style, you can set `class.source` in the global **knitr** options\index{knitr!opt_chunk$set()}, e.g.,
+If you want all code blocks in the document to use the custom style, you can set `class.source` in the global **knitr** options, e.g.,
 
 ```{r, eval=FALSE}
 knitr::opts_chunk$set(class.source='watch-out')
@@ -206,7 +206,7 @@ As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source 
 xfun::pkg_load2(c('htmltools', 'mime'))
 ```
 
-Then you can use one of the functions `xfun::embed_file()`\index{xfun!embed_file()}, `xfun::embed_files()`\index{xfun!embed_files()}, or `xfun::embed_dir()`\index{xfun!embed_dir()} in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
+Then you can use one of the functions `xfun::embed_file()`\index{xfun!embed\_file()}, `xfun::embed_files()`\index{xfun!embed\_files()}, or `xfun::embed_dir()`\index{xfun!embed\_dir()} in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
 
 ````md
 ```{r echo=FALSE}`r ''`

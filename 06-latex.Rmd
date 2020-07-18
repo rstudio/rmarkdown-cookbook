@@ -69,7 +69,7 @@ output:
 
 Then the document will use the font ["Accanthis"](https://tug.org/FontCatalogue/accanthis/). You may see https://tug.org/FontCatalogue/ for a list of many other LaTeX font packages. If your LaTeX distribution is TinyTeX, the font packages should be automatically installed if they have not been installed (see Section \@ref(install-latex)).
 
-If you use the LaTeX engine `xelatex`\index{xelatex} or `lualatex`\index{lualatex}, you will be able to select fonts that are available on your local computer, and do not have to install additional LaTeX packages. YAML options like `mainfont`\index{YAML!mainfont}, `sansfont`\index{YAML!sansfont}, and `monofont`\index{YAML!monofont} can be used to specify the main font, sans serif font, and typewriter font, respectively, e.g.,
+If you use the LaTeX engine `xelatex` or `lualatex`, you will be able to select fonts that are available on your local computer, and do not have to install additional LaTeX packages. YAML options like `mainfont`\index{YAML!mainfont}, `sansfont`\index{YAML!sansfont}, and `monofont`\index{YAML!monofont} can be used to specify the main font, sans serif font, and typewriter font, respectively, e.g.,
 
 ```yaml
 mainfont: Arial
