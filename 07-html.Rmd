@@ -8,9 +8,9 @@ In this chapter, we introduce techniques to enhance your HTML output from R Mark
 
 We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. The [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [@blogdown2017] contains short tutorials on HTML, CSS, and JavaScript.
 
-For beginners, it is extremely important to understand selectors and precedence of rules in CSS, otherwise you may be confused why your custom CSS rules do not work as expected (they may not have enough precedence).
+For beginners, it is extremely important to understand selectors and precedence of rules in CSS, otherwise you may be confused why your custom CSS\index{CSS} rules do not work as expected (they may not have enough precedence).
 
-To include one or multiple custom stylesheets in an Rmd document, you can use the `css` option, e.g.,
+To include one or multiple custom stylesheets in an Rmd document, you can use the `css` option\index{output option!css}, e.g.,
 
 ```yaml
 output:
@@ -26,7 +26,7 @@ output:
     css: ["style-1.css", "style-2.css"]
 ```
 
-Alternatively, you can use a `css` code chunk to embed the CSS rules directly in your Rmd document, e.g.,
+Alternatively, you can use a `css` code chunk\index{language engine!css} to embed the CSS rules directly in your Rmd document, e.g.,
 
 ````md
 We embed a `css` code chunk here.
@@ -38,11 +38,11 @@ p {
 ```
 ````
 
-The chunk option `echo = FALSE` means the CSS code will not be displayed verbatim in the output, but a `<style>` tag containing the CSS code will be generated to the HTML output file.
+The chunk option `echo = FALSE`\index{chunk option!echo} means the CSS code will not be displayed verbatim in the output, but a `<style>` tag containing the CSS code will be generated to the HTML output file.
 
 ## Center section headings {#center-heading}
 
-As an application of the methods mentioned in Section \@ref(html-css), we can use CSS to adjust the alignment of headings. For example, you may center section headings of level 1, 2, and 3 with the CSS code below:
+As an application of the methods mentioned in Section \@ref(html-css), we can use CSS to adjust the alignment of headings\index{CSS property!text-align}. For example, you may center section headings of level 1, 2, and 3 with the CSS code below:
 
 ```css
 h1, h2, h3 {
@@ -56,9 +56,9 @@ Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
-We can customize the style of code chunks and their text output using the chunk options `class.source` and `class.output`, respectively. These options take character vectors of class names (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class.^[In this case, the rule would begin `.important` because in CSS, classes are prefixed with a `.`.] This can be useful when you want to highlight a certain code chunk or its text output.
+We can customize the style of code chunks and their text output using the chunk options `class.source`\index{chunk option!class.source} and `class.output`\index{chunk option!class.output}, respectively. These options take character vectors of class names\index{class!custom classes} (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class.^[In this case, the rule would begin `.important` because in CSS, classes are prefixed with a `.`.] This can be useful when you want to highlight a certain code chunk or its text output.
 
-By default, the HTML output of R Markdown includes the Bootstrap framework, which makes it easy for you to change the appearance of your code and output, because Bootstrap has predefined some [CSS classes for backgrounds:](https://getbootstrap.com/docs/3.4/css/#helper-classes): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.
+By default, the HTML output of R Markdown includes the Bootstrap framework\index{Bootstrap}, which makes it easy for you to change the appearance of your code and output, because Bootstrap has predefined some [CSS classes for backgrounds:](https://getbootstrap.com/docs/3.4/css/#helper-classes): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.\index{class!Bootstrap classes}\index{class!bg-primary}\index{class!bg-success}\index{class!bg-info}\index{class!bg-warning}\index{class!bg-danger}
 
 Below is an example using the chunk options `class.source = "bg-danger"` and `class.output = "bg-warning"`, and you can see its output in Figure \@ref(fig:chunk-bg).
 
@@ -79,7 +79,7 @@ The output style is shown in Figure \@ref(fig:chunk-border).
 knitr::include_graphics("images/chunk-border.png", dpi = NA)
 ```
 
-If you want all code blocks in the document to use the custom style, you can set `class.source` in the global **knitr** options, e.g.,
+If you want all code blocks in the document to use the custom style, you can set `class.source` in the global **knitr** options\index{knitr!opt_chunk$set()}, e.g.,
 
 ```{r, eval=FALSE}
 knitr::opts_chunk$set(class.source='watch-out')
@@ -87,13 +87,13 @@ knitr::opts_chunk$set(class.source='watch-out')
 
 You can apply multiple classes to the code blocks. For example, with `class.source = c("important", "warning")`, the code block will have two classes, "important" and "warning."
 
-If you want to decorate individual elements in code blocks instead of the whole blocks, you may consider using the **flair** package [@R-flair]. With this package, you can highlight different parts of your code (such as fixed strings, function names, and arguments) with custom styles (e.g., color, font size, and/or font weight).
+If you want to decorate individual elements in code blocks instead of the whole blocks, you may consider using the **flair** package\index{R package!flair} [@R-flair]. With this package, you can highlight different parts of your code (such as fixed strings, function names, and arguments) with custom styles (e.g., color, font size, and/or font weight).
 
 ## Scrollable code blocks (\*) {#html-scroll}
 
-When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format. This option will fold code blocks in the output and readers can unfold them by clicking a button (see Section \@ref(fold-show) for more details).
+When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format\index{output option!code\_fold}. This option will fold code blocks in the output and readers can unfold them by clicking a button (see Section \@ref(fold-show) for more details).
 
-The other possible solution is to make the code blocks scrollable within a fixed height when they are too long. This can be achieved by the CSS properties `max-height` and `overflow-y`. Below is a full example with the output in Figure \@ref(fig:html-scroll):
+The other possible solution is to make the code blocks scrollable within a fixed height when they are too long. This can be achieved by the CSS properties `max-height`\index{CSS property!max-height} and `overflow-y`\index{CSS property!overflow-y}. Below is a full example with the output in Figure \@ref(fig:html-scroll):
 
 `r import_example('html-scroll.Rmd')`
 
@@ -153,7 +153,7 @@ output:
 
 One natural way of organizing parallel sections in an HTML report is to use tabsets. This allows readers to view the content of different sections by clicking the tab titles instead of scrolling back and forth on the page.
 
-To turn sections into tabs, you can add a class attribute `.tabset` to the section header that is one level higher than the headers to be converted to tabs, e.g., adding the `.tabset` attribute to a level-2 header will convert all subsequent level-3 headers to tabs. Below is a full example:
+To turn sections into tabs, you can add a class attribute `.tabset`\index{tabset} to the section header that is one level higher than the headers to be converted to tabs, e.g., adding the `.tabset` attribute to a level-2 header will convert all subsequent level-3 headers to tabs. Below is a full example:
 
 `r import_example('html-tabs.Rmd')`
 
@@ -188,7 +188,7 @@ we can end the tabset and continue to write more paragraphs.
 
 ## Embed the Rmd source file in the HTML output file {#embed-rmd}
 
-When you share an HTML output page with others, they may want the Rmd source file, too. For example, they may want to change the Rmd source and compile the report by themselves. You can use the option `code_download` to embed a copy of the Rmd source file in the HTML output file:
+When you share an HTML output page with others, they may want the Rmd source file, too. For example, they may want to change the Rmd source and compile the report by themselves. You can use the option `code_download`\index{output option!code\_download} to embed a copy of the Rmd source file in the HTML output file:
 
 ```yaml
 output:
@@ -200,13 +200,13 @@ After the option is turned on, the HTML output page will contain a download butt
 
 ## Embed arbitrary files in the HTML output file {#embed-file}
 
-As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source document in the HTML output file. Sometimes the Rmd source file alone may not be enough to reproduce the report. For example, the report may need an external data file. There is a series of functions in the **xfun** package [@R-xfun] that enable you to embed arbitrary files in the HTML output file. To use these functions, make sure you have the following R packages available:
+As mentioned in Section \@ref(embed-rmd), we can embed a copy of the Rmd source document in the HTML output file. Sometimes the Rmd source file alone may not be enough to reproduce the report. For example, the report may need an external data file. There is a series of functions in the **xfun** package\index{R package!xfun} [@R-xfun] that enable you to embed arbitrary files in the HTML output file. To use these functions, make sure you have the following R packages available:
 
 ```{r, eval=FALSE}
 xfun::pkg_load2(c('htmltools', 'mime'))
 ```
 
-Then you can use one of the functions `xfun::embed_file()`, `xfun::embed_files()`, or `xfun::embed_dir()` in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
+Then you can use one of the functions `xfun::embed_file()`\index{xfun!embed_file()}, `xfun::embed_files()`\index{xfun!embed_files()}, or `xfun::embed_dir()`\index{xfun!embed_dir()} in an R code chunk to embed one or multiple files or an entire directory in the HTML output, e.g.,
 
 ````md
 ```{r echo=FALSE}`r ''`
@@ -230,11 +230,11 @@ xfun::embed_files(list.files('.', '[.](Rmd|csv)$'))
 
 For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, which a reader can click on the HTML page to download the embedded file.
 
-You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package [@R-downloadthis] has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
+You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package\index{R package!downloadthis} [@R-downloadthis] has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
 
 ## Use a custom HTML template (\*) {#html-template}
 
-We mentioned LaTeX templates in Section \@ref(latex-template). You can also specify a custom HTML template for Pandoc to convert Markdown to HTML. Below is a brief example template:
+We mentioned LaTeX templates in Section \@ref(latex-template). You can also specify a custom HTML template\index{template!HTML} for Pandoc to convert Markdown to HTML. Below is a brief example template:
 
 ```html
 <html>
@@ -287,7 +287,7 @@ draft: true
 ---
 ```
 
-To apply a template to an Rmd document, you can save the template to a file, and pass the file path to the `template` option of `html_document`, e.g.,
+To apply a template to an Rmd document, you can save the template to a file, and pass the file path to the `template` option of `html_document`\index{output option!template}, e.g.,
 
 ```yaml
 output:
@@ -299,7 +299,7 @@ The **rmarkdown** package uses a custom HTML template shipped with the package, 
 
 ## Include the content of an existing HTML file (\*) {#include-html}
 
-With the `includes` option of the `html_document` format (or any other formats that support this option), you can include the content of an existing HTML file into the HTML output document in three possible places: the `<head>` area, the beginning of `<body>`, and the end of `</body>`.
+With the `includes` option\index{output option!includes} of the `html_document` format (or any other formats that support this option), you can include the content of an existing HTML file into the HTML output document in three possible places: the `<head>` area, the beginning of `<body>`, and the end of `</body>`.
 
 ```yaml
 output:
@@ -358,7 +358,7 @@ If you want to include an Rmd or Markdown document instead of an HTML file, you 
 
 ## Add a custom browser icon {#favicon}
 
-Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon, to your HTML output.
+Section \@ref(include-html) demonstrates that we can inject additional code into the HTML head, body, or footer with the `includes` option of the `html_document` format. This technique can be used to add a custom browser icon, called a favicon\index{figure!favicon}, to your HTML output.
 
 Favicons are the website logos that are displayed in your browser's address bar, tab title, history, and bookmarks. For example, if you visit the CRAN website (https://cran.r-project.org) in Google Chrome, and look at the browser tab, you will see a small R logo. On mobile devices, favicons are also used in place of an App icon for websites that are pinned to the home screen.
 
@@ -368,7 +368,7 @@ To add a favicon to your HTML document, add the following line of code to a cust
 <link rel="shortcut icon" href="{path to favicon file}" />
 ```
 
-Recall that this file can be injected into the document `<head>` area using the YAML metadata:
+Recall that this file can be injected into the document `<head>` area using the YAML metadata\index{output option!includes}:
 
 ```yaml
 output:
@@ -428,7 +428,7 @@ The CSS selector `pre:not([class])` means all `<pre>` elements without the `clas
 
 ## Sharing HTML output on the web {#html-share}
 
-One appealing aspect of rendering R Markdown to HTML files is that it is very easy to host these files on the Internet and share them just as one shares any other website. This section briefly summarizes numerous options for sharing the HTML documents that you have created.
+One appealing aspect of rendering R Markdown to HTML files is that it is very easy to host these files on the Internet and share them just as one shares any other website. This section briefly summarizes numerous options for sharing the HTML\index{HTML hosting} documents that you have created.
 
 ### R-specific services
 
@@ -458,13 +458,13 @@ As a result, in addition to R-specific services, you may host your HTML document
 
 ## Improve accessibility of HTML pages {#html-accessibility}
 
-It is important to make your HTML output documents accessible to readers who are visually impaired or blind. These readers often have to use special tools, such as screen readers, to _hear_ instead of visually reading your documents. Usually, screen readers can only read out text, but not (raster) images. This means you need to provide enough text hints to screen readers. The good news is that with some small efforts, you can actually greatly enhance the accessibility of your documents. Jonathan Godfrey has provided some tips in the article at https://r-resources.massey.ac.nz/rmarkdown/ on making accessible R Markdown documents.^[JooYoung Seo has also published a post about a few R packages to help visually impaired users at https://jooyoungseo.com/post/ds4blind/. It is not directly related to R Markdown, but it can be helpful for you to learn how blind users read graphs.] Based on this article, we highlight some tips below for the convenience of the readers of this book:
+It is important to make your HTML output documents accessible\index{HTML!accessible} to readers who are visually impaired or blind. These readers often have to use special tools, such as screen readers, to _hear_ instead of visually reading your documents. Usually, screen readers can only read out text, but not (raster) images. This means you need to provide enough text hints to screen readers. The good news is that with some small efforts, you can actually greatly enhance the accessibility of your documents. Jonathan Godfrey has provided some tips in the article at https://r-resources.massey.ac.nz/rmarkdown/ on making accessible R Markdown documents.^[JooYoung Seo has also published a post about a few R packages to help visually impaired users at https://jooyoungseo.com/post/ds4blind/. It is not directly related to R Markdown, but it can be helpful for you to learn how blind users read graphs.] Based on this article, we highlight some tips below for the convenience of the readers of this book:
 
 - HTML documents are often more accessible than PDF.
 
 - Try to provide the Rmd source document along with the HTML output document if possible (e.g., Section \@ref(embed-rmd) demonstrates one way to do this). In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
 
-- Provide informative text tags to your graphics. At the useR! conference in 2014, Jonathan explained this issue to me in person. It was the first time that I had learned about the importance of the `alt` attribute of images on web pages.
+- Provide informative text tags to your graphics. At the useR! conference in 2014, Jonathan explained this issue to me in person. It was the first time that I had learned about the importance of the `alt` attribute of images on web pages/index{figure!alt text}.
 
     To understand this problem, first you have to know that images on web pages are generated by the HTML tag `<img />`. This tag has an `src` attribute, which points to the source of the image, e.g., `<img src="foo_figures/image.png" />`. Sighted readers can see the image, but it is hard for blind users to know anything about the image, because usually screen readers cannot read it, especially when it is a raster image (vector graphics can be better, such as SVG). In this case, it is helpful to provide a text hint, which screen readers can read out to the blind reader. This text hint can be provided in the `alt` attribute of the image, which stands for "alternate text."
     
@@ -488,7 +488,7 @@ We are not experts on accessibility, so we recommend that you read the original 
 
 ## For hardcore HTML users (\*) {#html-hardcore}
 
-In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.
+In Section \@ref(latex-hardcore), we mentioned that if you feel the constraint of Markdown (due to its simplicity) is too strong, you can embed code chunks in a pure LaTeX document instead of Markdown. Similarly, if you are familiar and comfortable with writing raw HTML code, you can intermingle code chunks with HTML, too. Such documents have the conventional filename extension `.Rhtml`.\index{HTML!Rhtml}
 
 In an `Rhtml` document, code chunks are embedded between `<!--begin.rcode` and `end.rcode-->`, and inline R expressions are embedded in `<!--rinline -->`. Below is a full `Rhtml` example. You can save it to a file named `test.Rhtml`, and use `knitr::knit("test.Rhtml")` to compile it. The output will be an HTML (`.html`) file. In RStudio, you can also hit the `Knit` button on the toolbar to compile the document.
 
