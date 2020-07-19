@@ -202,7 +202,7 @@ Sometimes you may want to keep the plot files. For example, some academic journa
  
 1. Enable caching for at least one code chunk (see Section \@ref(cache)). When caching is enabled, R Markdown will not delete the plot folder.
 
-1. Use the option `keep_md = TRUE`\index{output option!keep_md} if the output format supports this option, e.g.,
+1. Use the option `keep_md = TRUE`\index{output option!keep\_md} if the output format supports this option, e.g.,
 
     ```yaml
     output:
