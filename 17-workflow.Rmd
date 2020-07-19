@@ -4,7 +4,7 @@ In this chapter, we introduce some tips on working with individual R Markdown do
 
 ## Use RStudio keyboard shortcuts {#rstudio-shortcuts}
 
-The R Markdown format can be used with any editor of your choice, as long as R, the **rmarkdown** package, and Pandoc are installed. However, RStudio has a deep integration with R Markdown so you can work with R Markdown smoothly.
+The R Markdown format can be used with any editor of your choice, as long as R, the **rmarkdown** package, and Pandoc are installed. However, RStudio\index{RStudio!keyboard shortcuts} has a deep integration with R Markdown so you can work with R Markdown smoothly.
 
 Like any IDE (Integrated Development Environment), RStudio has keyboard shortcuts. A full list can be found under the menu `Tools -> Keyboard Shortcuts Help`. Some of the most useful shortcuts related to R Markdown are summarized in Table \@ref(tab:shortcuts).
 
@@ -54,13 +54,13 @@ Additionally, you can press `F7` to spell check your document. You can also rest
 
 ## Spell check R Markdown {#spell-check}
 
-If you use the RStudio IDE, you can press the key `F7` or click the menu `Edit -> Check Spelling` to spell check an Rmd document. Real-time spell checking has become available in RStudio v1.3, so you no longer need to manually trigger spell checking with this version or a greater version of RStudio.
+If you use the RStudio IDE\index{RStudio!spellcheck}, you can press the key `F7` or click the menu `Edit -> Check Spelling` to spell check an Rmd document. Real-time spell checking has become available in RStudio v1.3, so you no longer need to manually trigger spell checking with this version or a greater version of RStudio.
 
-If you do not use RStudio, the **spelling** package [@R-spelling] has a function `spell_check_files()`, which can check the spelling of common document formats, including R Markdown. When spell checking Rmd documents, it will skip code chunks and only check ordinary text.
+If you do not use RStudio, the **spelling** package\index{R package!spelling} [@R-spelling] has a function `spell_check_files()`, which can check the spelling of common document formats, including R Markdown. When spell checking Rmd documents, it will skip code chunks and only check ordinary text.
 
 ## Render R Markdown with `rmarkdown::render()` {#rmarkdown-render}
 
-If you do not use RStudio or any other IDEs, you need to know this fact: R Markdown documents are rendered through the function `rmarkdown::render()`. This means you can programmatically render an R Markdown document in any R script. For example, you could render a series of reports in a `for`-loop for each state of a country:
+If you do not use RStudio or any other IDEs, you need to know this fact: R Markdown documents are rendered through the function `rmarkdown::render()`\index{rmarkdown!render()}. This means you can programmatically render an R Markdown document in any R script. For example, you could render a series of reports in a `for`-loop for each state of a country:
 
 ```{r, eval=FALSE, tidy=FALSE}
 for (state in state.name) {
@@ -95,13 +95,13 @@ xfun::Rscript_call(
 )
 ```
 
-This method is similar to clicking the `Knit` button in RStudio, which also renders the Rmd document in a new R session. In case you need to render an Rmd document inside another Rmd document, we strongly recommend that you used this method instead of directly calling `rmarkdown::render()` in a code chunk, because `rmarkdown::render()` creates and relies on a lot of side-effects internally, which may affect rendering other Rmd documents in the same R session.
+This method is similar to clicking the `Knit` button in RStudio\index{RStudio!Knit button}, which also renders the Rmd document in a new R session. In case you need to render an Rmd document inside another Rmd document, we strongly recommend that you used this method instead of directly calling `rmarkdown::render()` in a code chunk, because `rmarkdown::render()` creates and relies on a lot of side-effects internally, which may affect rendering other Rmd documents in the same R session.
 
 The second argument of `xfun::Rscript_call()` takes a list of arguments to be passed to `rmarkdown::render`(). In fact, `xfun::Rscript_call` is a general-purpose function to call any R function (with arguments optionally) in a new R session. Please see its help page if you are interested.
 
 ## Parameterized reports {#parameterized-reports}
 
-In Section \@ref(rmarkdown-render), we mentioned one way to render a series of reports in a `for`-loop. In fact, `rmarkdown::render()` has an argument named `params` specifically designed for this task. You can parameterize your report through this argument. When you specify parameters for a report, you can use the variable `params` in your report. For example, if you call:
+In Section \@ref(rmarkdown-render), we mentioned one way to render a series of reports in a `for`-loop. In fact, `rmarkdown::render()`\index{rmarkdown!render()} has an argument named `params` specifically designed for this task. You can parameterize\index{parameter} your report through this argument. When you specify parameters for a report, you can use the variable `params` in your report. For example, if you call:
 
 ```{r, eval=FALSE, tidy=FALSE}
 for (state in state.name) {
@@ -135,7 +135,7 @@ params:
 ---
 ```
 
-Note that you can include as many parameters in the `params` YAML field or the `params` argument of `rmarkdown::render()`. If both the YAML field and the argument are present, the parameter values in the argument will override the corresponding parameters in YAML. For example, when we call `rmarkdown::render(..., params = list(state = 'Iowa', year = 2018)` on the previous example that has the `params` field, `params$state` will become `Iowa` (instead of `Nebraska`) and `params$year` will become `2018` (instead of `2019`) in the R Markdown document.
+Note that you can include as many parameters in the `params` YAML field\index{YAML!params} or the `params` argument of `rmarkdown::render()`. If both the YAML field and the argument are present, the parameter values in the argument will override the corresponding parameters in YAML. For example, when we call `rmarkdown::render(..., params = list(state = 'Iowa', year = 2018)` on the previous example that has the `params` field, `params$state` will become `Iowa` (instead of `Nebraska`) and `params$year` will become `2018` (instead of `2019`) in the R Markdown document.
 
 When rendering the same R Markdown document to a series of reports, you need to adjust the `output_file` argument of `rmarkdown::render()`, to make sure each report has its unique filename. Otherwise, you will accidentally override certain report files. For example, you can write a function to generate a report for each state and each year:
 
@@ -171,7 +171,7 @@ To start the GUI, you can call `rmarkdown::render()` with `params = 'ask'` if yo
 rmarkdown::render('input.Rmd', params = 'ask')
 ```
 
-If you use RStudio, you can click the menu `Knit with Parameters` behind the `Knit` button. Figure \@ref(fig:params-shiny) shows an example GUI for parameters.
+If you use RStudio, you can click the menu `Knit with Parameters`\index{RStudio!Knit with Parameters} behind the `Knit` button. Figure \@ref(fig:params-shiny) shows an example GUI for parameters.
 
 ```{r, params-shiny, echo=FALSE, fig.cap='Knit an R Markdown document with parameters that you can input from a GUI.'}
 knitr::include_graphics('images/params-shiny.png', dpi = NA)
@@ -181,13 +181,13 @@ For more information on parameterized reports, you may read [Chapter 15](https:/
 
 ## Customize the `Knit` button (\*) {#custom-knit}
 
-When you click the `Knit` button in RStudio, it will call the `rmarkdown::render()` function in a new R session and output a file of the same base name as the input file in the same directory. For example, knitting `example.Rmd` with the output format `html_document` will create an output file `example.html`.
+When you click the `Knit` button in RStudio\index{RStudio!Knit button}, it will call the `rmarkdown::render()` function in a new R session and output a file of the same base name as the input file in the same directory. For example, knitting `example.Rmd` with the output format `html_document` will create an output file `example.html`.
 
 There may be situations in which we want to customize how the document is rendered. For example, perhaps we would like the rendered document to contain the current date, or would like to output the compiled report into a different directory. Although we can achieve these goals by calling `rmarkdown::render()` (see Section \@ref(rmarkdown-render)) with the appropriate `output_file` argument, it can be inconvenient to have to rely on a custom call to `rmarkdown::render()` to compile your report.
 
 It is possible to control the behavior of the `Knit` button by providing the `knit` field within the YAML frontmatter of your document. The field takes a function with the main argument `input` (the path to the input Rmd document) and other arguments that are currently ignored. You can either write the source code of the function directly in the `knit` field, or put the function elsewhere (e.g., in an R package) and call the function in the `knit` field. If you routinely need the custom `knit` function, we would recommend that you put it in a package, instead of repeating its source code in every single R Markdown document.
 
-If you store the code directly within YAML, you must wrap the entire function in parentheses. If the source code has multiple lines, you have to indent all lines (except the first line) by at least two spaces. For example, if we want the output filename to include the date on which it is rendered, we could use the following YAML code:
+If you store the code directly within YAML, you must wrap the entire function in parentheses. If the source code has multiple lines, you have to indent all lines (except the first line) by at least two spaces. For example, if we want the output filename to include the date on which it is rendered, we could use the following YAML code\index{YAML!knit}:
 
 ```yaml
 ---
@@ -235,7 +235,7 @@ You may refer to the help page `?rmarkdown::render` to find out more ideas on ho
 
 ## Collaborate on Rmd documents through Google Drive {#google-drive}
 
-Based on the **googledrive** package [@R-googledrive], Emily Kothe provided a few wrapper functions in the **rmdrive** package, which is currently available only on GitHub at https://github.com/ekothe/rmdrive. At the time of writing, it still lacks rich documentation, so I recommend that you try Janosch Linkersdörfer's fork instead: https://github.com/januz/rmdrive (which is based on Ben Marwick's fork---if you still have not learned GIT, you may be motivated by these examples of freely forking and improving other people's GIT repositories).
+Based on the **googledrive** package\index{R package!googledrive} [@R-googledrive], Emily Kothe provided a few wrapper functions in the **rmdrive** package\index{R package!rmdrive}, which is currently available only on GitHub at https://github.com/ekothe/rmdrive. At the time of writing, it still lacks rich documentation, so I recommend that you try Janosch Linkersdörfer's fork instead: https://github.com/januz/rmdrive (which is based on Ben Marwick's fork---if you still have not learned GIT, you may be motivated by these examples of freely forking and improving other people's GIT repositories).
 
 The workflow with **rmdrive** is outlined below:
 
@@ -253,13 +253,13 @@ There is also a function `udpate_rmd()` in the package, which allows you to edit
 
 ## Organize an R Markdown project into a research website with **workflowr** {#workflowr}
 
-The **workflowr** package [@R-workflowr] can help you organize a (data analysis) project with a project template and the version control tool GIT. Every time you make a change to the project, you can log the change, and **workflowr** can build a website corresponding to that particular version of your project. This means that you will be able to view the full history of your analysis results. Although this package uses GIT as the backend for version control, you do not really have to be familiar with GIT. The package provides R functions that do the GIT operations under the hood, and you only need to call these R functions. Please see the package documentation for how to get started and more information.
+The **workflowr** package\index{R package!workflowr} [@R-workflowr] can help you organize a (data analysis) project with a project template\index{template!project} and the version control tool GIT. Every time you make a change to the project, you can log the change, and **workflowr** can build a website corresponding to that particular version of your project. This means that you will be able to view the full history of your analysis results. Although this package uses GIT as the backend for version control, you do not really have to be familiar with GIT. The package provides R functions that do the GIT operations under the hood, and you only need to call these R functions. Please see the package documentation for how to get started and more information.
 
 The main author of **workflowr**, John Blischak, has also put together a non-exhaustive list of R packages and guides related to the workflow of R projects, which can be found in this GitHub repo: https://github.com/jdblischak/r-project-workflows.
 
 ## Send Emails based on R Markdown {#blastula-email}
 
-With the **blastula** package [@R-blastula], you can render an Rmd document to the Email body and send the Email. To render an Rmd document to an Email, the document needs to use the output format `blastula::blastula_email`, e.g.,
+With the **blastula** package\index{R package!blastula}\index{email} [@R-blastula], you can render an Rmd document to the Email body and send the Email. To render an Rmd document to an Email, the document needs to use the output format `blastula::blastula_email`, e.g.,
 
 ````md
 ---
