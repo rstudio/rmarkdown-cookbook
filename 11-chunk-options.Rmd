@@ -2,9 +2,9 @@
 
 As illustrated in Figure \@ref(fig:rmdworkflow), the R package **knitr** plays a critical role in R Markdown. In this chapter and the next three chapters, we show some recipes related to **knitr**.
 
-There are more than 50 chunk options\index{chunk options} that can be used to fine-tune the behavior of **knitr** when processing R chunks. Please refer to the online documentation at <https://yihui.org/knitr/options/> for the full list of options. `r if (knitr::is_latex_output()) 'For your convenience, we have also provided a copy of the documentation in Appendix \\@ref(full-options) of this book.'`
+There are more than 50 chunk options\index{chunk option} that can be used to fine-tune the behavior of **knitr** when processing R chunks. Please refer to the online documentation at <https://yihui.org/knitr/options/> for the full list of options. `r if (knitr::is_latex_output()) 'For your convenience, we have also provided a copy of the documentation in Appendix \\@ref(full-options) of this book.'`
 
-In the following sections, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()`\index{chunk options!set globally} in a code chunk (usually the first one in the document), e.g.,
+In the following sections, we only show examples of applying chunk options to individual code chunks. However, please be aware of the fact that any chunk options can also be applied globally to a whole document, so you do not have to repeat the options in every single code chunk. To set chunk options globally, call `knitr::opts_chunk$set()`\index{chunk option!set globally} in a code chunk (usually the first one in the document), e.g.,
 
 ````md
 ```{r, include=FALSE}`r ''`
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Use variables in chunk options {#chunk-variable}
 
-Usually chunk options take constant values (e.g., `fig.width = 6`), but they can actually take values from arbitrary R expressions, no matter how simple or complicated the expressions are. A special case is a variable\index{chunk options!variable values} passed to a chunk option (note that a variable is also an R expression). For example, you can define a figure width in a variable in the beginning of a document, and use it later in other code chunks, so you will be able to easily change the width in the future:
+Usually chunk options take constant values (e.g., `fig.width = 6`), but they can actually take values from arbitrary R expressions, no matter how simple or complicated the expressions are. A special case is a variable\index{chunk option!variable values} passed to a chunk option (note that a variable is also an R expression). For example, you can define a figure width in a variable in the beginning of a document, and use it later in other code chunks, so you will be able to easily change the width in the future:
 
 ````md
 ```{r}`r ''`
@@ -28,7 +28,7 @@ plot(cars)
 ```
 ````
 
-Below is an example of using an `if-else` statement in a chunk option\index{chunk options!with if else logic}:
+Below is an example of using an `if-else` statement in a chunk option\index{chunk option!with if else logic}:
 
 ````md
 ```{r}`r ''`
