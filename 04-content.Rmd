@@ -530,7 +530,7 @@ equatiomatic::extract_eq(fit)
 equatiomatic::extract_eq(fit, use_coefs = TRUE)
 ```
 
-To display the actual math equations, you need the chunk option `results = "asis"`\index{chunk option!asis} (see Section \@ref(results-asis) for the meaning of this option), otherwise the equations will be displayed as normal text output.
+To display the actual math equations, you need the chunk option `results = "asis"`\index{chunk option!results} (see Section \@ref(results-asis) for the meaning of this option), otherwise the equations will be displayed as normal text output.
 
 Please read the documentation and follow the development of this package on GitHub if you are interested in knowing more about it.
 
