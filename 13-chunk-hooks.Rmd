@@ -1,16 +1,16 @@
 # Chunk Hooks (\*) {#chunk-hooks}
 
-A chunk hook is a function that is triggered by a chunk option when the value of this chunk option is not `NULL`. Chunk hooks provide a way for you to execute additional tasks beyond running the code in a chunk. For example, you may want to post-process plots (e.g., Section \@ref(crop-plot) and Section \@ref(optipng)), or record the time taken by a code chunk (Section \@ref(time-chunk)). Such tasks may not be essential to the computing or analysis in the report, but they can be useful for other purposes (e.g., enhance plots or help you identify the most time-consuming chunks).
+A chunk hook\index{chunk hook} is a function that is triggered by a chunk option when the value of this chunk option is not `NULL`. Chunk hooks provide a way for you to execute additional tasks beyond running the code in a chunk. For example, you may want to post-process plots (e.g., Section \@ref(crop-plot) and Section \@ref(optipng)), or record the time taken by a code chunk (Section \@ref(time-chunk)). Such tasks may not be essential to the computing or analysis in the report, but they can be useful for other purposes (e.g., enhance plots or help you identify the most time-consuming chunks).
 
 You can use chunk hooks purely for their side-effects (e.g., only printing out certain information to the console), or for their returned values, which will be written to the output document if the value is a character value.
 
-Like output hooks (see Chapter \@ref(output-hooks)), chunk hooks are also registered via the object `knitr::knit_hooks`. Please note that the names of output hooks are reserved by **knitr**, so you must not use these names for your custom chunk hooks:
+Like output hooks (see Chapter \@ref(output-hooks)), chunk hooks are also registered via the object `knitr::knit_hooks`\index{knitr!knit\_hooks}. Please note that the names of output hooks are reserved by **knitr**, so you must not use these names for your custom chunk hooks:
 
 ```{r}
 names(knitr:::.default.hooks)
 ```
 
-A chunk hook is associated with a chunk option of the same name. For example, you can register a chunk hook with the name `greet`:
+A chunk hook is associated with a chunk option\index{chunk option!chunk hook|see {chunk hook}} of the same name. For example, you can register a chunk hook with the name `greet`:
 
 ```{r}
 knitr::knit_hooks$set(greet = function(before) {
@@ -54,13 +54,13 @@ As we mentioned in the beginning of this chapter, non-character values returned 
 
 ## Crop plots {#crop-plot}
 
-The chunk hook `knitr::hook_pdfcrop()` can be used to crop PDF and other types of plot files, i.e., remove the extra margins in plots. To enable it, set this hook via `knit_hooks$set()` in a code chunk, and turn on the corresponding chunk option, e.g.,
+The chunk hook `knitr::hook_pdfcrop()`\index{knitr!hook\_pdfcrop()}\index{chunk hook!crop plot} can be used to crop PDF and other types of plot files, i.e., remove the extra margins in plots. To enable it, set this hook via `knit_hooks$set()`\index{knitr!knit\_hooks} in a code chunk, and turn on the corresponding chunk option, e.g.,
 
 ```{r}
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 ```
 
-Then you can use the chunk option `crop = TRUE` to crop plots in a code chunk.
+Then you can use the chunk option `crop = TRUE`\index{chunk option!crop} to crop plots in a code chunk.
 
 The hook `hook_pdfcrop()` calls the external program `pdfcrop` to crop PDF files. This program often comes with a LaTeX distribution (e.g., TeX Live or MiKTeX). You can check if it is available in your system via:
 
@@ -69,9 +69,9 @@ The hook `hook_pdfcrop()` calls the external program `pdfcrop` to crop PDF files
 Sys.which('pdfcrop')
 ```
 
-If you are using the LaTeX distribution TinyTeX (see Section \@ref(install-latex)), and `pdfcrop` is not available in your system, you may install it via `tinytex::tlmgr_install('pdfcrop')`.
+If you are using the LaTeX distribution TinyTeX (see Section \@ref(install-latex)), and `pdfcrop` is not available in your system, you may install it via `tinytex::tlmgr_install('pdfcrop')`\index{tinytex!tlmgr\_install()}.
 
-For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick] for cropping. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
+For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick]\index{R package!magick} for cropping. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
 
 ```{r, crop-no, crop=NULL, echo=FALSE, fig.cap='A plot that is not cropped.'}
 par(bg = 'gray', fg = 'yellow')
@@ -83,13 +83,13 @@ plot(cars)
 
 ## Optimize PNG plots {#optipng}
 
-If you have installed the program OptiPNG (http://optipng.sourceforge.net), you may use the hook `knitr::hook_optipng()` to optimize PNG plot files to a smaller size without losing the image quality.
+If you have installed the program OptiPNG (http://optipng.sourceforge.net)\index{OptiPNG}, you may use the hook `knitr::hook_optipng()`\index{knitr!hook\_optipng()} to optimize PNG plot files to a smaller size without losing the image quality\index{chunk hook!optimize PNG}\index{figure!optimize PNG}.
 
 ```{r, eval=FALSE}
 knitr::knit_hooks$set(optipng = knitr::hook_optipng)
 ```
 
-After you set up this hook, you can use the chunk option `optipng` to pass command-line arguments to OptiPNG, e.g., `optipng = '-o7'`. These command-line arguments are optional, which means you can just use `optipng = ''` to enable the hook for a code chunk. Please see the user manual on the website of OptiPNG to know the possible arguments.
+After you set up this hook, you can use the chunk option `optipng`\index{chunk option!optipng} to pass command-line arguments to OptiPNG, e.g., `optipng = '-o7'`. These command-line arguments are optional, which means you can just use `optipng = ''` to enable the hook for a code chunk. Please see the user manual on the website of OptiPNG to know the possible arguments.
 
 Note that macOS users can easily install OptiPNG with Homebrew (https://brew.sh): `brew install optipng`.
 
@@ -184,7 +184,7 @@ You can see that the code chunk was evaluated, and the chunk header was also add
 
 ## Embed an interactive 3D plot with rgl {#rgl-3d}
 
-The **rgl** package [@R-rgl] can be used to generate interactive 3D plots. These plots can still be interactive if they are saved to the WebGL format, which can be done through a hook function `rgl::hook_webgl()`. Below is an example that shows you how to set up **rgl** and **knitr** so 3D plots can be saved while preserving the interactivity:
+The **rgl** package [@R-rgl]\index{R package!rgl} can be used to generate interactive 3D plots. These plots can still be interactive if they are saved to the WebGL format\index{WebGL}, which can be done through a hook function `rgl::hook_webgl()`\index{chunk hook!WebGL plot}\index{figure!WebGL}. Below is an example that shows you how to set up **rgl** and **knitr** so 3D plots can be saved while preserving the interactivity:
 
 `r import_example('rgl-3d.Rmd')`
 
