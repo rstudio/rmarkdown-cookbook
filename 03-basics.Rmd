@@ -23,9 +23,9 @@ You can customize the behavior and output of code chunks through chunk options (
 
 ## Write Markdown in the RStudio visual editor {#rstudio-visual}
 
-Something exciting to appear here soon...
+<!-- TODO: remove this later -->
+`r if (!knitr::is_latex_output()) 'Something exciting to appear here soon...\n\n<!--'`
 
-<!--
 If you are not familiar with Markdown yet, or do not prefer writing Markdown code, RStudio\index{RStudio} v1.4 has included an experimental visual editor for Markdown documents, which feels similar to traditional WYSIWYG editors like Word, as shown in Figure \@ref(fig:visual-edit). You can find the full documentation at https://rstudio.github.io/visual-markdown-editing/.
 
 ```{r visual-edit, echo=FALSE, fig.cap="The visual Markdown editor in RStudio.", out.width='100%', fig.align='center'}
@@ -35,7 +35,8 @@ knitr::include_graphics("images/visual-edit.png", dpi = NA)
 With the visual editor, you can visually edit almost any Markdown elements supported by Pandoc, such as section headers, figures, tables, footnotes, and so on. That means you do not have remember the syntax for all elements. In case you forget the syntax for a certain element, you may use the RStudio toolbar (see Figure \@ref(fig:visual-edit)) or a keyboard shortcut to add or edit it.
 
 If you have already been a Markdown expert, you can still write your document in the source mode by clicking the rightmost button on the toolbar, which allows you to switch between the source mode and the visual mode.
--->
+
+`r if (!knitr::is_latex_output()) '-->'`
 
 ## Render an R script to a report {#spin}
 
