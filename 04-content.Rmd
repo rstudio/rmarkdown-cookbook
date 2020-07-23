@@ -629,6 +629,8 @@ You may also check out these packages for creating diagrams: **nomnoml** [@R-nom
 
 Some characters have special meanings in the Markdown syntax. If you want these characters verbatim, you have to escape them. For example, a pair of underscores surrounding text usually make the text italic. You need to escape the underscores if you want verbatim underscores instead of italic text. The way to escape a special character is to add a backslash before it, e.g., `I do not want \_italic text\_ here`. Similarly, if `#` does not indicate a section heading, you may write `\# This is not a heading`.
 
+As mentioned in Section \@ref(linebreaks), a sequence of whitespaces will be rendered as a single regular space. If you want to render the sequence of spaces literally, you need to escape each of them, e.g., `keep the social \ \ \ distance`. When a space is escaped, it is converted to a "non-breaking space", which means the line will not be wrapped at this space, e.g., `Mr.\ Dervieux`.
+
 ## Comment out text {#comments}
 
 <!-- https://stackoverflow.com/questions/17046518/comment-out-text-in-r-markdown -->
