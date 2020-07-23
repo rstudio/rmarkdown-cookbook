@@ -47,7 +47,7 @@ knitr::kable(head(mtcars[, 1:4]), 'latex')
 knitr::kable(head(mtcars[, 1:4]), 'rst')
 ```
 
-Please note that only the formats `pipe` and `simple` are portable, i.e., they work for any output document formats. Other table formats only work for specific output formats, e.g., `format = 'latex'` only works for LaTeX output documents. Using a specific table format will give you more control, at the price of sacrificing portability.
+Please note that only the formats `pipe` and `simple` are portable, i.e., they work for any output document format. Other table formats only work for specific output formats, e.g., `format = 'latex'` only works for LaTeX output documents. Using a specific table format will give you more control, at the price of sacrificing portability.
 
 If you only need one table format that is not the default format for a document, you can set the global R option `knitr.table.format`, e.g.,
 
