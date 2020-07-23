@@ -23,11 +23,11 @@ If you need a reminder in the basics of the Markdown language, the R Markdown ch
 ## Font color {#font-color}
 <!-- https://stackoverflow.com/questions/29067541/rmarkdown-how-to-change-the-font-color -->
 
-The Markdown syntax has no built-in method for changing text colors. We can use HTML and LaTeX syntax to change the formatting of words:
+The Markdown syntax has no built-in method for changing text colors\index{font color}. We can use HTML and LaTeX syntax to change the formatting of words:
 
-- For HTML, we can wrap the text in the `<span>` tag and set color with CSS, e.g., `<span style="color: red;">text</span>`.
+- For HTML, we can wrap the text in the `<span>` tag and set color with CSS, e.g., `<span style="color: red;">text</span>`\index{CSS property!color}.
 
-- For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the LaTeX package **xcolor**, which is included in Pandoc's default LaTeX template.
+- For PDF, we can use the LaTeX command `\textcolor{}{}`. This requires the LaTeX package **xcolor**\index{LaTeX package!xcolor}, which is included in Pandoc's default LaTeX template.
 
 As an example of changing the color in PDF text:
 
@@ -45,7 +45,7 @@ If you want to design an R Markdown document for multiple output formats, you sh
 
 ### Using an R function to write raw HTML or LaTeX code
 
-We can write a custom R function to insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output()` functions in **knitr** as follows:
+We can write a custom R function to insert the correct syntax depending on the output format using the `is_latex_output()` and `is_html_output()` functions in **knitr** \index{knitr!is\_latex\_output()}\index{knitr!is\_html\_output()} as follows:
 
 ```{r}
 colorize = function(x, color){
@@ -61,7 +61,7 @@ We can then use the code in an inline R expression `` `r knitr::inline_expr('col
 
 ### Using a Pandoc Lua filter (\*) {#lua-color}
 
-This method may be a little advanced for R users because it involves another programming language, Lua, but it is extremely powerful---you can programmatically modify Markdown elements via Pandoc's Lua filters (see Section \@ref(lua-filters)). Below is a full example:
+This method may be a little advanced for R users because it involves another programming language, Lua, but it is extremely powerful---you can programmatically modify Markdown elements via Pandoc's Lua filters\index{Lua filter} (see Section \@ref(lua-filters)). Below is a full example:
 
 `r import_example('font-color.Rmd')`
 
@@ -74,7 +74,7 @@ Compared to the previous method, the advantage of using the Lua filter is that y
 <!-- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 -->
 <!-- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks -->
 
-As mentioned in Section \@ref(linebreaks), whitespaces are often meaningless in Markdown. Markdown will also ignore spaces used for indentation by default. However, we may want to keep the indentation in certain cases, e.g., in verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The linebreaks and any leading spaces will be preserved in the output. For example:^[This is a limerick written by Claus Ekstrøm: https://yihui.org/en/2018/06/xaringan-math-limerick/.]
+As mentioned in Section \@ref(linebreaks), whitespaces are often meaningless in Markdown. Markdown will also ignore spaces used for indentation by default. However, we may want to keep the indentation in certain cases, e.g., in verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The linebreaks\index{line breaks} and any leading spaces will be preserved in the output. For example:^[This is a limerick written by Claus Ekstrøm: https://yihui.org/en/2018/06/xaringan-math-limerick/.]
 
 ```md
 | When dollars appear it's a sign
@@ -135,7 +135,7 @@ matrix(runif(100), ncol = 20)
 ```
 ````
 
-Not all R functions respect the `width` option. If this option does not work, your only choice may be to wrap the long lines of text. This is actually the default behavior of the `html_document` output format. If the HTML output format that you are using does not wrap the long lines, you may apply the CSS code below (see Section \@ref(html-css) for how):
+Not all R functions respect the `width` option. If this option does not work, your only choice may be to wrap the long lines of text. This is actually the default behavior of the `html_document` output format. If the HTML output format that you are using does not wrap the long lines, you may apply the CSS code\index{CSS property!white-space} below (see Section \@ref(html-css) for how):
 
 ```css
 pre code {
@@ -143,7 +143,7 @@ pre code {
 }
 ```
 
-For PDF output, it is trickier to wrap the lines. One solution is to use the LaTeX package **listings**, which can be enabled via the Pandoc argument `--listings`. Then you have to set an option for this package, and the setup code can be included from an external LaTeX file (see Section \@ref(latex-preamble) for how), e.g.,
+For PDF output, it is trickier to wrap the lines. One solution is to use the LaTeX package **listings**\index{LaTeX package!listings}, which can be enabled via the Pandoc argument `--listings`. Then you have to set an option for this package, and the setup code can be included from an external LaTeX file (see Section \@ref(latex-preamble) for how), e.g.,\index{output option!includes}
 
 ```yaml
 ---
@@ -173,7 +173,7 @@ knitr::include_graphics(c('images/wrap-none.png', 'images/wrap-listings.png'), d
 
 ## Control the size of plots/images {#figure-size}
 
-The size of plots made in R can be controlled by the chunk option `fig.width` and `fig.height` (in inches). Equivalently, you can use the `fig.dim` option to specify the width and height in a numeric vector of length 2, e.g., `fig.dim = c(8, 6)` means `fig.width = 8` and `fig.height = 6`. These options set the physical size of plots, and you can choose to display a different size in the output using chunk options `out.width` and `out.height`, e.g., `out.width = "50%"`.
+The size of plots\index{figure!size} made in R can be controlled by the chunk option `fig.width` \index{chunk option!fig.with} and `fig.height` \index{chunk option!fig.height} (in inches). Equivalently, you can use the `fig.dim` option \index{chunk option!fig.dim} to specify the width and height in a numeric vector of length 2, e.g., `fig.dim = c(8, 6)` means `fig.width = 8` and `fig.height = 6`. These options set the physical size of plots, and you can choose to display a different size in the output using chunk options `out.width`\index{chunk option!out.width} and `out.height`\index{chunk option!out.height}, e.g., `out.width = "50%"`.
 
 If a plot or an image is not generated from an R code chunk, you can include it in two ways:
 
@@ -185,7 +185,7 @@ If a plot or an image is not generated from an R code chunk, you can include it 
   ![A nice image.](foo/bar.png){width=50%}
   ```
 
-- Use the **knitr** function `knitr::include_graphics()` in a code chunk. You can use chunk options such as `out.width` and `out.height` for this chunk, e.g.,
+- Use the **knitr** function `knitr::include_graphics()`\index{knitr!include\_graphics()} in a code chunk. You can use chunk options such as `out.width` and `out.height` for this chunk, e.g.,
 
   ````md
   We include an external image with the R function:
@@ -199,13 +199,13 @@ We used the width `50%` in the above examples, which means half of the width of 
 
 ## Figure alignment {#fig-align}
 
-The chunk option `fig.align` specifies the alignment of figures. For example, you can center images with `fig.align = 'center'`, or right-align images with `fig.align = 'right'`. This option works for both HTML and LaTeX output, but may not work for other output formats (such as Word, unfortunately). It works for both plots drawn from R code chunks and external images included via `knitr::include_graphics()`.
+The chunk option `fig.align`\index{chunk option!fig.align} specifies the alignment of figures. For example, you can center images with `fig.align = 'center'`, or right-align images with `fig.align = 'right'`. This option works for both HTML and LaTeX output, but may not work for other output formats (such as Word, unfortunately). It works for both plots drawn from R code chunks and external images included via `knitr::include_graphics()`\index{knitr!include\_graphics()}.
 
 ## Verbatim code chunks
 
 Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate a verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
 
-Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` `` to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
+Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` ``\index{knitr!inline\_expr()} to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
 
 ````{r echo = FALSE, comment = NA}
 cat("```{r, eval=TRUE}`r ''`
@@ -257,7 +257,7 @@ I'd recommend the second way, because the first way is more or less a hack takin
 
 ## Line numbers for code blocks (\*) {#number-lines}
 
-You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"` or text output blocks via `attr.output = ".numberLines"` (see Section \@ref(attr-output) for more information on these options), e.g.,
+You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"`\index{chunk option!attr.source} or text output blocks via `attr.output = ".numberLines"`\index{chunk option!attr.output} (see Section \@ref(attr-output) for more information on these options), e.g.,
 
 ````md
 ```{r, attr.source='.numberLines'}`r ''`
@@ -277,7 +277,7 @@ if (TRUE) {
 }
 ```
 
-Note that for HTML output, you have to choose a syntax highlighting theme provided by Pandoc, which means the `highlight` option of the output format should not be `default` or `textmate`. You can use other values for this option listed on the help page `?rmarkdown::html_document`, e.g.,
+Note that for HTML output, you have to choose a syntax highlighting\index{syntax highlighting} theme\index{output option!highlight} provided by Pandoc, which means the `highlight` option of the output format should not be `default` or `textmate`. You can use other values for this option listed on the help page `?rmarkdown::html_document`, e.g.,
 
 ```yaml
 output:
@@ -319,7 +319,7 @@ Line numbers are not supported for Word output at the moment.
 
 Pandoc's Markdown supports the multi-column layout for slides but not other types of documents. In this recipe, we show how to use the multi-column layout in normal HTML documents and LaTeX documents. This recipe was inspired by Atsushi Yasumoto's solutions to the **knitr** issue https://github.com/yihui/knitr/issues/1743.
 
-The recipe will be much simpler if you only need to consider HTML output, because arranging HTML elements side by side is relatively simple via CSS. It will be even simpler if you only need to arrange the text output of a code chunk side by side. Below is the first example:
+The recipe will be much simpler if you only need to consider HTML output, because arranging HTML elements side by side is relatively simple via CSS\index{CSS}. It will be even simpler if you only need to arrange the text output of a code chunk side by side. Below is the first example:
 
 ````md
 ---
@@ -332,9 +332,9 @@ output: html_document
 ```
 ````
 
-The CSS attribute `display: inline-block;` means the output code blocks (i.e., the `<pre>` tags in HTML) should be displayed as inline elements. By default, these blocks are displayed as block-level elements (i.e., `display: block;`) and will occupy whole rows. The chunk option `collapse = TRUE` means the text output will be merged into the R source code block, so both the source and its text output will be placed in the same `<pre>` block.
+The CSS attribute `display: inline-block;` \index{CSS property!display} means the output code blocks (i.e., the `<pre>` tags in HTML) should be displayed as inline elements. By default, these blocks are displayed as block-level elements (i.e., `display: block;`) and will occupy whole rows. The chunk option `collapse = TRUE` means the text output will be merged into the R source code block, so both the source and its text output will be placed in the same `<pre>` block.
 
-If you want to arrange arbitrary content side by side in HTML output, you can use Pandoc's [fenced `Div`.](https://pandoc.org/MANUAL.html#divs-and-spans) The name "Div" comes from the HTML tag `<div>`, but you can interpret it as an arbitrary block or container. A `Div` starts and ends with three or more colons (e.g., `:::`). A `Div` with more colons can contain `Div`s with fewer colons. An important and useful feature of the fenced `Div` is that you can attach attributes to it. For example, you can apply the CSS attribute `display: flex;` to an outside container, so that the inside containers will be placed side by side:
+If you want to arrange arbitrary content side by side in HTML output, you can use Pandoc's [fenced `Div`.](https://pandoc.org/MANUAL.html#divs-and-spans)\index{Div}\index{Pandoc!Div| see {Div}} The name "Div" comes from the HTML tag `<div>`, but you can interpret it as an arbitrary block or container. A `Div` starts and ends with three or more colons (e.g., `:::`). A `Div` with more colons can contain `Div`s with fewer colons. An important and useful feature of the fenced `Div` is that you can attach attributes to it. For example, you can apply the CSS attribute `display: flex;` to an outside container, so that the inside containers will be placed side by side:
 
 `r import_example('multicol-html.Rmd')`
 

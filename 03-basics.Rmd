@@ -6,7 +6,7 @@ For those seeking lower-level basics, please read Chapter 2 of the R Markdown De
 
 ## Code chunks and inline R code {#r-code}
 
-An R Markdown document consists of intermingled prose (narratives) and code. There are two types of code in an Rmd document: code chunks, and inline R code. Below is a quick example:
+An R Markdown document consists of intermingled prose (narratives) and code. There are two types of code in an Rmd document: code chunks\index{code chunk}, and inline R code. Below is a quick example:
 
 ````md
 ```{r}`r ''`
@@ -26,7 +26,7 @@ You can customize the behavior and output of code chunks through chunk options (
 Something exciting to appear here soon...
 
 <!--
-If you are not familiar with Markdown yet, or do not prefer writing Markdown code, RStudio v1.4 has included an experimental visual editor for Markdown documents, which feels similar to traditional WYSIWYG editors like Word, as shown in Figure \@ref(fig:visual-edit). You can find the full documentation at https://rstudio.github.io/visual-markdown-editing/.
+If you are not familiar with Markdown yet, or do not prefer writing Markdown code, RStudio\index{RStudio} v1.4 has included an experimental visual editor for Markdown documents, which feels similar to traditional WYSIWYG editors like Word, as shown in Figure \@ref(fig:visual-edit). You can find the full documentation at https://rstudio.github.io/visual-markdown-editing/.
 
 ```{r visual-edit, echo=FALSE, fig.cap="The visual Markdown editor in RStudio.", out.width='100%', fig.align='center'}
 knitr::include_graphics("images/visual-edit.png", dpi = NA)
@@ -41,7 +41,7 @@ If you have already been a Markdown expert, you can still write your document in
 
 Even if you are a long-time R Markdown user, you may have missed another possibility. Dean Attali called it ["**knitr**'s best hidden gem"](https://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/). That is, you can render a pure R script to a report directly. If you use the RStudio IDE, the keyboard shortcut to render R scripts is the same as when you knit Rmd documents (`Ctrl / Cmd + Shift + K`).
 
-When rendering an R script to a report, the function `knitr::spin()` is called to convert the R script to an Rmd file first. This function is what Dean Attali called **knitr**'s best hidden gem. You will see all text and graphical output in the report.
+When rendering an R script to a report, the function `knitr::spin()`\index{knitr!spin()} is called to convert the R script to an Rmd file first. This function is what Dean Attali called **knitr**'s best hidden gem. You will see all text and graphical output in the report.
 
 If you want granular control over the elements in the report, below are a few syntax rules to help you:
 
@@ -51,7 +51,7 @@ If you want granular control over the elements in the report, below are a few sy
 
 - R code of the form `{{ code }}` is translated to an inline R expression in R Markdown. Please note that `{{ code }}` must be on its own line.
 
-- The YAML frontmatter can be written in the beginning of the R script in roxygen comments, too. Please watch out the indentation in YAML fields. It is very important. If you omit the indentation, the data structure expressed in your YAML will be different and incorrect. For example, the field `keep_tex: true` should be indented for two more spaces under `pdf_document` in the example below.
+- The YAML\index{YAML} frontmatter can be written in the beginning of the R script in roxygen comments, too. Please watch out the indentation in YAML fields. It is very important. If you omit the indentation, the data structure expressed in your YAML will be different and incorrect. For example, the field `keep_tex: true` should be indented for two more spaces under `pdf_document` in the example below.
 
 - Any text between `/*` and `*/` will be ignored (i.e., they are treated as true comments).
 
@@ -71,7 +71,7 @@ This method of generating reports can be particularly useful when you primarily 
 
 ## Convert R Markdown to R script {#purl}
 
-When you want to extract all R code from an R Markdown document, you can call the function `knitr::purl()`. Below is a simple Rmd example with the filename `purl.Rmd`:
+When you want to extract all R code from an R Markdown document, you can call the function `knitr::purl()`\index{knitr!purl()}. Below is a simple Rmd example with the filename `purl.Rmd`:
 
 `r import_example('purl.Rmd')`
 
@@ -115,7 +115,7 @@ output: html_notebook
 
 When you use this output format in RStudio, the `Knit` button on the toolbar will become the `Preview` button.
 
-The main advantage of using notebooks is that you can work on Rmd document _iteratively in the same R session_. You can run one code chunk at a time by clicking the green arrow button on each chunk, and you will see the text or plot output in the editor. When you click the `Preview` button on the toolbar, it only renders the Rmd document to an HTML output document containing the output of all code chunks that you have already executed. The `Preview` button does not execute any code chunks. By comparison, when you use other output formats and hit the `Knit` button, RStudio launches a new R session to compile the whole document (hence all code chunks are executed at once), which usually takes more time.
+The main advantage of using notebooks\index{RStudio!notebook} is that you can work on Rmd document _iteratively in the same R session_. You can run one code chunk at a time by clicking the green arrow button on each chunk, and you will see the text or plot output in the editor. When you click the `Preview` button on the toolbar, it only renders the Rmd document to an HTML output document containing the output of all code chunks that you have already executed. The `Preview` button does not execute any code chunks. By comparison, when you use other output formats and hit the `Knit` button, RStudio launches a new R session to compile the whole document (hence all code chunks are executed at once), which usually takes more time.
 
 If you do not like RStudio's default behavior of showing output of code chunks inline when you run them individually, you can uncheck the option "Show output inline for all R Markdown documents" from the menu `Tools -> Global Options -> R Markdown`. After that, when you run a code chunk, the output will be shown in the R console instead of inside the source editor. You can also set this option for an individual Rmd document in its YAML metadata:
 

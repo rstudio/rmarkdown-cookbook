@@ -12,11 +12,11 @@ The basic workflow structure for an R Markdown document is shown in Figure \@ref
 knitr::include_graphics("images/workflow.png", dpi = NA)
 ```
 
-The `.Rmd` document is the original format of the document. It contains a combination of YAML (metadata), text (narratives), and code chunks.
+The `.Rmd` document is the original format of the document. It contains a combination of YAML (metadata)\index{YAML}, text (narratives), and code chunks\index{code chunk}.
 
-First, the `knit()` function in **knitr** [@R-knitr] is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
+First, the `knit()` function in **knitr**\index{knitr} [@R-knitr] is used to execute all code embedded within the `.Rmd` file, and prepare the code output to be displayed within the output document. All these results are converted into the correct markup language to be contained within the temporary `.md` file.
 
-Then the `.md` file is processed by Pandoc, a multipurpose tool designed to convert files from one markup language to another. It takes any parameters specified within the YAML frontmatter of the document (e.g., `title`, `author`, and `date`) to convert the document to the output format specified in the `output` parameter (such as `html_document` for HTML output).
+Then the `.md` file is processed by Pandoc\index{Pandoc}, a multipurpose tool designed to convert files from one markup language to another. It takes any parameters specified within the YAML frontmatter of the document (e.g., `title`, `author`, and `date`) to convert the document to the output format specified in the `output` parameter (such as `html_document` for HTML output).
 
 If the output format is PDF, there is an additional layer of processing, as Pandoc will convert the intermediate `.md` file into an intermediate `.tex` file. This file is then processed by LaTeX to form the final PDF document. As we mentioned in Section \@ref(install-latex), the **rmarkdown** package calls the `latexmk()` function in the **tinytex** package [@R-tinytex], which in turn calls LaTeX to compile `.tex` to `.pdf`.
 
@@ -26,9 +26,9 @@ Robin Linacre has written a nice summary of the relationship between R Markdown,
 
 Note that not all R Markdown documents are eventually compiled through Pandoc. The intermediate `.md` file could be compiled by other Markdown renderers. Below are two examples:
 
-- The **xaringan** package [@R-xaringan] passes the `.md` output to a JavaScript library, which renders the Markdown content in the web browser.
+- The **xaringan**\index{xaringan} package [@R-xaringan] passes the `.md` output to a JavaScript library, which renders the Markdown content in the web browser.
 
-- The **blogdown** package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by an external site generator.
+- The **blogdown**\index{blogdown} package [@R-blogdown] supports the `.Rmarkdown` document format, which is knitted to `.markdown`, and this Markdown document is usually rendered to HTML by an external site generator.
 
 ## R Markdown anatomy {#rmarkdown-anatomy}
 
@@ -36,7 +36,7 @@ We can dig one level deeper by considering the different components of an R Mark
 
 ### YAML metadata
 
-The YAML metadata (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information that it contains can effect the code, content, and the rendering process. 
+The YAML metadata\index{YAML} (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information that it contains can effect the code, content, and the rendering process. 
 
 A typical YAML header looks like this, containing basic metadata about the document and rendering instructions:
 
@@ -78,7 +78,7 @@ params:
 
 The narrative textual elements of R Markdown may be simpler to understand than the YAML metadata and code chunks. Typically, this will feel quite a bit like writing in a text editor. However, this Markdown content can be more powerful and interesting than simple text---both in how its content is made, and how the document structure is made from it.
 
-While much of our narrative is human-written, many R Markdown documents will likely wish to reference the code and analysis being used. For this reason, Chapter \@ref(document-elements) demonstrates the many ways that code can help generate parts of the text, such as combining words into a list (Section \@ref(combine-words)) or writing a bibliography (Section \@ref(bibliography)). This conversion is handled by **knitr** as we convert from `.Rmd` to `.md`.
+While much of our narrative is human-written, many R Markdown documents will likely wish to reference the code and analysis being used. For this reason, Chapter \@ref(document-elements) demonstrates the many ways that code can help generate parts of the text, such as combining words into a list (Section \@ref(combine-words)) or writing a bibliography (Section \@ref(bibliography)). This conversion is handled by **knitr**\index{knitr} as we convert from `.Rmd` to `.md`.
 
 Our Markdown text can also provide structure to the document. While we do not have enough space here to review the Markdown syntax,^[Instead, for a review of the Markdown syntax, please see https://bookdown.org/yihui/bookdown/markdown-syntax.html.] one particularly relevant concept is section headers, which are denoted by one or more hashes (`#`) corresponding to different levels, e.g.,
 
@@ -102,7 +102,7 @@ The final interesting type of content that we might find in the textual part of 
 
 ### Code chunks
 
-Code chunks are the beating heart of our R Markdown. The code in these chunks is run by **knitr**, and its output is translated to Markdown to dynamically keep our reports in-sync with our current scripts and data. Each code chunk consists of a language engine (Chapter \@ref(other-languages)), an optional label, chunk options (Chapter \@ref(chunk-options)), and code.
+Code chunks\index{code chunk} are the beating heart of our R Markdown. The code in these chunks is run by **knitr**, and its output is translated to Markdown to dynamically keep our reports in-sync with our current scripts and data. Each code chunk consists of a language engine (Chapter \@ref(other-languages)), an optional label, chunk options (Chapter \@ref(chunk-options)), and code.
 
 To understand some of the modifications that we can make to code chunks, it is worth understanding the **knitr** process in slightly more detail. For each chunk, a **knitr** language engine gets three pieces of input: the knitting environment (`knitr::knit_global()`), the code input, and a list of chunk options. It returns the formatted representations of the code as well as its output. As a side-effect, the knitting environment may also be modified, e.g., new variables may have been created in this environment via the source code in the code chunk. This process is illustrated in Figure \@ref(fig:knitr-workflow).
 

@@ -16,7 +16,7 @@ First, let's reveal how a language engine works by registering a custom language
 
 ## Register a custom language engine (\*) {#custom-engine}
 
-You can register a custom language engine via the `knitr::knit_engines$set()` method, which accepts a function as its input, e.g.,
+You can register a custom language engine\index{language engine!custom} via the `knitr::knit_engines$set()`\index{knitr!knit\_engines} method, which accepts a function as its input, e.g.,
 
 ```{r, eval=FALSE}
 knitr::knit_engines$set(foo = function(options) {
@@ -47,7 +47,7 @@ knitr::knit_engines$set(upper = function(options) {
 })
 ```
 
-The key is that we apply the function `toupper` to the "code," and return the result as a single character string (by concatenating all lines of code by `\n`). Note that `toupper()` is applied only when the chunk option `eval = TRUE`, otherwise the original string is returned. This shows you how to make use of chunk options like `eval` inside the engine function. Similarly, you may consider adding `if (options$results == 'hide') return()` to the function body to hide the output when the chunk option `results = 'hide'`. Below is an example chunk that uses the `upper` engine, with its output:
+The key is that we apply the function `toupper` to the "code," and return the result as a single character string (by concatenating all lines of code by `\n`). Note that `toupper()` is applied only when the chunk option `eval = TRUE`\index{chunk option!eval}, otherwise the original string is returned. This shows you how to make use of chunk options like `eval` inside the engine function. Similarly, you may consider adding `if (options$results == 'hide') return()` to the function body to hide the output when the chunk option `results = 'hide'`\index{chunk option!results}. Below is an example chunk that uses the `upper` engine, with its output:
 
 > ````md
 > ```{upper}`r ''`
@@ -75,7 +75,7 @@ To fully understand the above engine function, you need to know that:
 
 1. Given Python code as a character string (`code` in the above function), we can execute the code via a command-line call `python -c 'code'`. That is what `system2()` does. We collect the (text) output by specifying `stdout = TRUE` in `system2()`.
 
-1. You can pass the chunk options, source code, and text output to the function `knitr::engine_output()` to generate the final output. This function deals with common chunk options like `echo = FALSE` and `results = 'hide'`, so you do not need to take care of these cases.
+1. You can pass the chunk options, source code, and text output to the function `knitr::engine_output()`\index{knitr!engine\_output()} to generate the final output. This function deals with common chunk options like `echo = FALSE` and `results = 'hide'`, so you do not need to take care of these cases.
 
 A lot of language engines in **knitr** are defined in this way (i.e., using `system2()` to execute commands corresponding to languages). If you are curious about the technical details, you may check out the source code of most language engines in the R source code here: https://github.com/yihui/knitr/blob/master/R/engine.R.
 
@@ -95,7 +95,7 @@ You can even override existing language engines via `knitr::knit_engines$set()`,
 
 ## Run Python code and interact with Python {#eng-python}
 
-We know you love Python, so let's make it super clear: R Markdown and **knitr** do support Python.
+We know you love Python, so let's make it super clear: R Markdown and **knitr** do support Python\index{language engine!python}\index{Python}.
 
 To add a Python code chunk to an R Markdown document, you can use the chunk header ```` ```{python}````, e.g.,
 
@@ -107,7 +107,7 @@ print("Hello Python!")
 
 You can add chunk options to the chunk header as usual, such as `echo = FALSE` or `eval = FALSE`. Plots drawn with the **matplotlib** package in Python are also supported.
 
-The Python support in R Markdown and **knitr** is based on the **reticulate** package [@R-reticulate], and one important feature of this package is that it allows the two-way communication between Python and R. For example, you may access or create Python variables from the R session via the object `py` in **reticulate**:
+The Python support in R Markdown and **knitr** is based on the **reticulate** package\index{R package!reticulate} [@R-reticulate], and one important feature of this package is that it allows the two-way communication between Python and R. For example, you may access or create Python variables from the R session via the object `py` in **reticulate**:
 
 `r import_example('python.Rmd')`
 
@@ -115,7 +115,7 @@ For more information about the **reticulate** package, you may see its documenta
 
 ## Execute content conditionally via the `asis` engine {#eng-asis}
 
-As its name indicates, the `asis` engine writes out the chunk content as is. The advantage of using this engine is that you can include some content conditionally---the display of the chunk content is decided by the chunk option `echo`. When `echo = FALSE`, the chunk will be hidden. Below is a simple example:
+As its name indicates, the `asis` engine\index{language engine!asis} writes out the chunk content as is. The advantage of using this engine is that you can include some content conditionally---the display of the chunk content is decided by the chunk option `echo`. When `echo = FALSE`, the chunk will be hidden. Below is a simple example:
 
 ````md
 ```{r}`r ''`
@@ -134,7 +134,7 @@ The text in the `asis` chunk will be displayed only if the condition `getRandomN
 
 ## Execute Shell scripts {#eng-bash}
 
-You can run Shell scripts via the `bash` or `sh` or `zsh` engine, depending on which shell you prefer. Below is a `bash` example, with the chunk header ```` ```{bash}````:
+You can run Shell scripts via the `bash` or `sh` or `zsh` engine\index{language engine!bash}\index{language engine!sh}\index{language engine!zsh}, depending on which shell you prefer. Below is a `bash` example, with the chunk header ```` ```{bash}````:
 
 ```{bash}
 ls *.Rmd | head -n 5
@@ -154,11 +154,11 @@ If you want to enable the `-l` argument globally for all `bash` chunks, you may 
 knitr::opts_chunk$set(engine.opts = list(bash = '-l'))
 ```
 
-You can also pass other arguments to `bash` by providing them as a character vector to the chunk option `engine.opts`.
+You can also pass other arguments to `bash` by providing them as a character vector to the chunk option `engine.opts`\index{chunk option!engine.opts}.
 
 ## Visualization with D3 {#d3}
 
-The R package **r2d3** [@R-r2d3] is an interface to D3 visualizations. This package can be used in R Markdown documents as well as other applications (e.g., Shiny). To use it in R Markdown, you can either call its function `r2d3()` in a code chunk, or use its `d3` engine. The latter requires you to understand the D3 library and JavaScript, which are beyond the scope of this book, and we will leave it to readers to learn them. Below is an example of using the `d3` engine to draw a bar chart:
+The R package **r2d3** [@R-r2d3]\index{R package!r2d3} is an interface to D3 visualizations. This package can be used in R Markdown documents as well as other applications (e.g., Shiny). To use it in R Markdown, you can either call its function `r2d3()` in a code chunk, or use its `d3` engine\index{language engine!D3}\index{D3}\index{figure!D3}. The latter requires you to understand the D3 library and JavaScript, which are beyond the scope of this book, and we will leave it to readers to learn them. Below is an example of using the `d3` engine to draw a bar chart:
 
 `r import_example('d3.Rmd')`
 
@@ -178,15 +178,15 @@ con = "my-file.txt")
 
 This problem has been greatly alleviated since R 4.0.0, because R started to support raw strings in `r"( )"` (see the help page `?Quotes`), and you do not need to remember all the rules about special characters. Even with raw strings, it can still be a little distracting for readers to see a long string written to a file explicitly in a code chunk.
 
-The `cat` engine in **knitr** has provided a way for you to present text content in a code chunk and/or write it to an external file, without thinking about all the rules about R's character strings (e.g., you need double backslashes when you need a literal backslash).
+The `cat` engine\index{language engine!cat} in **knitr** has provided a way for you to present text content in a code chunk and/or write it to an external file, without thinking about all the rules about R's character strings (e.g., you need double backslashes when you need a literal backslash).
 
-To write the chunk content to a file, specify the file path in the chunk option `engine.opts`, e.g., `engine.opts = list(file = 'path/to/file')`. Under the hood, the list of values specified in `engine.opts` will be passed to the function `base::cat()`, and `file` is one of the arguments of `base::cat()`.
+To write the chunk content to a file, specify the file path in the chunk option `engine.opts`\index{chunk option!engine.opts}, e.g., `engine.opts = list(file = 'path/to/file')`. Under the hood, the list of values specified in `engine.opts` will be passed to the function `base::cat()`, and `file` is one of the arguments of `base::cat()`.
 
 Next we will present three examples to illustrate the use of the `cat` engine.
 
 ### Write to a CSS file
 
-As shown in Section \@ref(chunk-styling), you can embed a `css` code chunk in an Rmd document to style elements with CSS. An alternative way is to provide a custom CSS file to Pandoc via the `css` option of some R Markdown output formats such as `html_document`. The `cat` engine can be used to write this CSS file from Rmd.
+As shown in Section \@ref(chunk-styling), you can embed a `css` code chunk in an Rmd document to style elements with CSS.\index{CSS}\index{language engine!css} An alternative way is to provide a custom CSS file to Pandoc via the `css` option of some R Markdown output formats such as `html_document`. The `cat` engine can be used to write this CSS file from Rmd.
 
 This example below shows how to generate a file `custom.css` from a chunk in the
 document, and pass the file path to the `css` option of the `html_document` format:
@@ -241,7 +241,7 @@ unlink('demo.yml')
 
 ## Run SAS code {#eng-sas}
 
-You may run SAS (https://www.sas.com) code using the `sas` engine. You need to either make sure the SAS executable is in your environment variable `PATH`, or (if you do not know what `PATH` means) provide the full path to the SAS executable via the chunk option `engine.path`, e.g., `engine.path = "C:\\Program Files\\SASHome\\x86\\SASFoundation\\9.3\\sas.exe"`. Below is an example to print out "Hello World":
+You may run SAS (https://www.sas.com) code using the `sas` engine\index{language engine!SAS}. You need to either make sure the SAS executable is in your environment variable `PATH`, or (if you do not know what `PATH` means) provide the full path to the SAS executable via the chunk option `engine.path`\index{chunk option!engine.path}, e.g., `engine.path = "C:\\Program Files\\SASHome\\x86\\SASFoundation\\9.3\\sas.exe"`. Below is an example to print out "Hello World":
 
 ````md
 ```{sas}`r ''`
@@ -253,7 +253,7 @@ run;
 
 ## Run Stata code {#eng-stata}
 
-You can run Stata (https://www.stata.com) code with the `stata` engine if you have installed Stata. Unless the `stata` executable can be found via the environment variable `PATH`, you need to specify the full path to the executable via the chunk option `engine.path`, e.g., `engine.path = "C:/Program Files (x86)/Stata15/StataSE-64.exe"`. Below is a quick example:
+You can run Stata (https://www.stata.com) code with the `stata` engine\index{language engine!stata} if you have installed Stata. Unless the `stata` executable can be found via the environment variable `PATH`, you need to specify the full path to the executable via the chunk option `engine.path`\index{chunk option!engine.path}, e.g., `engine.path = "C:/Program Files (x86)/Stata15/StataSE-64.exe"`. Below is a quick example:
 
 ````md
 ```{stata}`r ''`
@@ -262,11 +262,11 @@ summarize
 ```
 ````
 
-The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially extended it in the **Statamarkdown** package, which is available on GitHub at https://github.com/Hemken/Statamarkdown. You may find tutorials about this package by searching online for "Stata R Markdown."
+The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially extended it in the **Statamarkdown** package\index{R package!Statamarkdown}, which is available on GitHub at https://github.com/Hemken/Statamarkdown. You may find tutorials about this package by searching online for "Stata R Markdown."
 
 ## Create graphics with Asymptote {#eng-asy}
 
-Asymptote (https://asymptote.sourceforge.io) is a powerful language for vector graphics. You may write and run Asymptote code in R Markdown with the `asy` engine if you have installed Asymptote (see its website for instructions on the installation). Below is an example copied from the repository https://github.com/vectorgraphics/asymptote, and its output is shown in Figure \@ref(fig:elevation):
+Asymptote (https://asymptote.sourceforge.io) is a powerful language for vector graphics. You may write and run Asymptote code in R Markdown with the `asy` engine\index{Asymptote}\index{language engine!asy} if you have installed Asymptote (see its website for instructions on the installation). Below is an example copied from the repository https://github.com/vectorgraphics/asymptote, and its output is shown in Figure \@ref(fig:elevation):
 
 ```{asy, elevation, fig.cap='A 3D graph made with Asymptote.', cache=TRUE, fig.retina=1, eval=is.na(Sys.getenv('CI', NA))}
 import graph3;
@@ -342,9 +342,9 @@ unlink('sine.csv')
 
 ## Style HTML pages with Sass/SCSS {#eng-sass}
 
-Sass (https://sass-lang.com) is a CSS extension language that allows you to create CSS rules in much more flexible ways than you'd do with plain CSS. Please see its official documentation if you are interested in learning it.
+Sass (https://sass-lang.com) is a CSS extension language\index{CSS!Sass}\index{Sass} that allows you to create CSS rules in much more flexible ways than you'd do with plain CSS. Please see its official documentation if you are interested in learning it.
 
-The R package **sass** [@R-sass] can be used to compile Sass to CSS. Based on the **sass** package, **knitr** includes two language engines: `sass` and `scss` (corresponding to the Sass and SCSS syntax, respectively) to compile code chunks to CSS. Below is a `scss` code chunk, with the chunk header ```` ```{scss}````:
+The R package **sass** [@R-sass] \index{R package!sass}can be used to compile Sass to CSS. Based on the **sass** package, **knitr** includes two language engines: `sass`\index{language engine!sass} and `scss`\index{language engine!scss} (corresponding to the Sass and SCSS syntax, respectively) to compile code chunks to CSS. Below is a `scss` code chunk, with the chunk header ```` ```{scss}````:
 
 ```{scss}
 $font-stack: "Comic Sans MS", cursive, sans-serif;

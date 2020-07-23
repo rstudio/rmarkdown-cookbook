@@ -10,7 +10,7 @@ Tables are one of the primary ways in which we can communicate results in a repo
 
 ## The function `knitr::kable()` {#kable}
 
-The `kable()` function in **knitr** is a very simple table generator, and is simple by design. It only generates tables for strictly rectangular data such as matrices and data frames. You cannot heavily format the table cells or merge cells. However, this function does have a large number of arguments for you to customize the appearance of tables:
+The `kable()`\index{knitr!kable()} function in **knitr** is a very simple table generator, and is simple by design. It only generates tables for strictly rectangular data such as matrices and data frames. You cannot heavily format the table cells or merge cells. However, this function does have a large number of arguments for you to customize the appearance of tables:
 
 ```{r code=formatR::usage(knitr::kable, output=FALSE), eval=FALSE}
 ```
@@ -165,7 +165,7 @@ knitr::kable(d, format = 'latex', escape = TRUE)
 
 Other common special LaTeX characters include `#`, `%`, `&`, `{`, and `}`. Common special HTML characters include `&`, `<`, `>`, and `"`. You need to be cautious when generating tables with `escape = FALSE`, and make sure you are using the special characters in the right way. It is a very common mistake to use `escape = FALSE` and include `%` or `_` in column names or the caption of a LaTeX table without realizing that they are special.
 
-If you are not sure how to properly escape special characters, there are two internal helper functions in **knitr**. Below are some examples:
+If you are not sure how to properly escape special characters, there are two internal helper functions in **knitr**. Below are some examples:\index{knitr!escape\_latex()}\index{knitr!escape\_html()}
 
 ```{r}
 knitr:::escape_latex(c('100%', '# a comment', 'column_name'))
@@ -189,7 +189,7 @@ knitr::kable(
 
 Please note that this feature only works for HTML and PDF output.
 
-If you want to be able to customize each table individually when placing them side by side, you may use the `kables()` function (the plural form of `kable()`), and pass a list of `kable()` objects to it. For example, we change the column names in the left table and set the number of decimal places to zero in the right table in Table \@ref(tab:kables):
+If you want to be able to customize each table individually when placing them side by side, you may use the `kables()`\index{knitr!kables()} function (the plural form of `kable()`), and pass a list of `kable()` objects to it. For example, we change the column names in the left table and set the number of decimal places to zero in the right table in Table \@ref(tab:kables):
 
 ```{r, kables, tidy=FALSE}
 # data objects d1 and d2 are from the previous code chunk
@@ -220,7 +220,7 @@ for (i in 1:3) {
 ```
 ````
 
-You have to explicitly print the `kable()` results, and apply the chunk option `results = 'asis'`, e.g.,
+You have to explicitly print the `kable()` results, and apply the chunk option `results = 'asis'`\index{chunk option!results}, e.g.,
 
 ````md
 ```{r, results='asis'}`r ''`
@@ -311,7 +311,7 @@ knitr::kable(iris2, caption = 'A long long long caption!', caption.short = 'A sh
 
 The short caption goes into the square brackets of the `\caption[]{}` command in LaTeX, and is often used in the List of Tables of the PDF output document (if the short caption is not provided, the full caption is displayed there).
 
-If you are familiar with the LaTeX package [**booktabs**](https://ctan.org/pkg/booktabs) for publication quality tables, you can set `booktabs = TRUE`, e.g.,
+If you are familiar with the LaTeX package [**booktabs**](https://ctan.org/pkg/booktabs)\index{LaTeX package!booktabs} for publication quality tables, you can set `booktabs = TRUE`, e.g.,
 
 ```{r, render=if (!knitr::is_latex_output()) kat, comment='', class.output='tex'}
 iris3 = head(iris, 10)
@@ -352,7 +352,7 @@ If you want to customize tables generated via `knitr::kable(format = "html")`, t
 knitr::kable(mtcars[1:2, 1:2], table.attr = 'class="striped"', format = "html")
 ```
 
-We added a class `striped` to the table. However, a class name is not enough to change the appearance of a table. You have to define CSS rules for the class. For example, to make a striped table that has different colors for odd and even rows, you can add a light gray background to even or odd rows:
+We added a class `striped` to the table. However, a class name is not enough to change the appearance of a table. You have to define CSS\index{CSS!striped table} rules for the class. For example, to make a striped table that has different colors for odd and even rows, you can add a light gray background to even or odd rows:
 
 ```css
 .striped tr:nth-child(even) { background: #eee; }
@@ -379,7 +379,7 @@ knitr::include_graphics('images/striped-table.png', dpi = NA)
 
 ## The **kableExtra** package {#kableextra}
 
-The **kableExtra** package [@R-kableExtra] is designed to extend the basic functionality of tables produced using `knitr::kable()` (see Section \@ref(kable)). Since `knitr::kable()` is simple by design (please feel free to read this as "Yihui is lazy"), it definitely has a lot of missing features that are commonly seen in other packages, and **kableExtra** has filled the gap perfectly. The most amazing thing about **kableExtra** is that most of its table features work for both HTML and PDF formats (e.g., making striped tables like the one in Figure \@ref(fig:striped-table)).
+The **kableExtra** package [@R-kableExtra]\index{R package!kableExtra} is designed to extend the basic functionality of tables produced using `knitr::kable()` (see Section \@ref(kable)). Since `knitr::kable()` is simple by design (please feel free to read this as "Yihui is lazy"), it definitely has a lot of missing features that are commonly seen in other packages, and **kableExtra** has filled the gap perfectly. The most amazing thing about **kableExtra** is that most of its table features work for both HTML and PDF formats (e.g., making striped tables like the one in Figure \@ref(fig:striped-table)).
 
 This package can be installed from CRAN as usual, or you may try the development version on GitHub (https://github.com/haozhu233/kableExtra):
 
@@ -404,7 +404,7 @@ kable(iris) %>%
 
 ### Set the font size
 
-The function `kable_styling()` in **kableExtra** allows you to style the whole table. For example, you can specify the alignment of the table on the page, the width, and the font size of the table. Below is an example of using a smaller font size:
+The function `kable_styling()` in **kableExtra**\index{kableExtra!kable\_styling()} allows you to style the whole table. For example, you can specify the alignment of the table on the page, the width, and the font size of the table. Below is an example of using a smaller font size:
 
 ```{r, tidy=FALSE}
 kable(head(iris, 5), booktabs = TRUE) %>%
@@ -413,7 +413,7 @@ kable(head(iris, 5), booktabs = TRUE) %>%
 
 ### Style specific rows/columns
 
-The functions `row_spec()` and `column_spec()` can be used to style individual rows and columns, respectively. In the example below, we make the first row bold and italic, add a black background to the second and third rows while changing the font color to white, underline the fourth row and change its typeface, rotate the fifth row, and strike out the fifth column:
+The functions `row_spec()`\index{kableExtra!row\_spec()} and `column_spec()`\index{kableExtra!column\_spec()} can be used to style individual rows and columns, respectively. In the example below, we make the first row bold and italic, add a black background to the second and third rows while changing the font color to white, underline the fourth row and change its typeface, rotate the fifth row, and strike out the fifth column:
 
 ```{r, tidy=FALSE}
 kable(head(iris, 5), align = 'c', booktabs = TRUE) %>%
@@ -424,11 +424,11 @@ kable(head(iris, 5), align = 'c', booktabs = TRUE) %>%
   column_spec(5, strikeout = TRUE)
 ```
 
-Similarly, you can style individual cells with the `cell_spec()` function.
+Similarly, you can style individual cells with the `cell_spec()` function\index{kableExtra!cell\_spec()}.
 
 ### Group rows/columns
 
-Rows and columns can be grouped via the functions `pack_rows()` and `add_header_above()`, respectively. You can also collapse rows via `collapse_rows()`, so one cell can span multiple rows. Below is an example that shows a custom table header with grouped columns:
+Rows and columns can be grouped via the functions `pack_rows()`\index{kableExtra!pack\_rows()} and `add_header_above()`\index{kableExtra!add\_header\_above()}, respectively. You can also collapse rows via `collapse_rows()`\index{kableExtra!collapse\_rows()}, so one cell can span multiple rows. Below is an example that shows a custom table header with grouped columns:
 
 ```{r, tidy=FALSE}
 iris2 <- iris[1:5, c(1, 3, 2, 4, 5)]
@@ -451,7 +451,7 @@ kable(iris3[, 1:4], booktabs = TRUE) %>% pack_rows(
 
 ### Scaling down wide tables in LaTeX
 
-There are a few features that are specific to the HTML or LaTeX output format. For example, landscape pages only make sense in LaTeX, so the `landscape()` function in **kableExtra** only works for LaTeX output. Below we show an example to scale down a table to fit the page (otherwise it would be too wide):
+There are a few features that are specific to the HTML or LaTeX output format. For example, landscape pages only make sense in LaTeX, so the `landscape()` function\index{kableExtra!landscape()} in **kableExtra** only works for LaTeX output. Below we show an example to scale down a table to fit the page (otherwise it would be too wide):
 
 ```{r, tidy=FALSE}
 tab <- kable(tail(mtcars, 5), booktabs = TRUE)
@@ -464,7 +464,7 @@ You will not see any differences in the above two tables if you are viewing the 
 
 ## Other packages for creating tables {#table-other}
 
-There are many other R packages that can be used to generated tables. The main reason that I introduced `kable()` (Section \@ref(kable)) and **kableExtra** (Section \@ref(kableextra)) is not that they are better than other packages, but because I'm familiar with only them.^[Frankly speaking, I rarely use tables by myself, so I'm not highly motivated to learn how to create sophisticated tables.] Next I will list the packages that I'm aware of but not very familiar with. You can check them out by yourself, and decide which one fits your purpose best.
+There are many other R packages that can be used to generated tables\index{R package!table packages}. The main reason that I introduced `kable()` (Section \@ref(kable)) and **kableExtra** (Section \@ref(kableextra)) is not that they are better than other packages, but because I'm familiar with only them.^[Frankly speaking, I rarely use tables by myself, so I'm not highly motivated to learn how to create sophisticated tables.] Next I will list the packages that I'm aware of but not very familiar with. You can check them out by yourself, and decide which one fits your purpose best.
 
 - **flextable** [@R-flextable] and **huxtable** [@R-huxtable]: If you are looking for a table package that supports the widest range of output formats, **flextable** and **huxtable** are probably the two best choices. They all support HTML, LaTeX, and Office formats, and contain most common table features (e.g., conditional formatting). More information about **flextable** can be found at https://davidgohel.github.io/flextable/, and the documentation of **huxtable** is at https://hughjonesd.github.io/huxtable/.
 
