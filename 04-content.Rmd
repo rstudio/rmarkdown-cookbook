@@ -171,9 +171,9 @@ csl: biomed-central.csl
 ---
 ```
 
-To find your required formats, we recommend using [the Zotero website](https://www.zotero.org/styles), which makes it easy to search for and download your desired style.
+To find your required formats, we recommend using [the Zotero Style Repository](https://www.zotero.org/styles), which makes it easy to search for and download your desired style.
 
-CSL files can be tweaked to meet custom formatting requirements. For example, we can change the number of authors required before "et. al" is used to abbreviate them. This can be simplified through the use of visual editors such as the one available at http://editor.citationstyles.org.
+CSL files can be tweaked to meet custom formatting requirements. For example, we can change the number of authors required before "et al." is used to abbreviate them. This can be simplified through the use of visual editors such as the one available at https://editor.citationstyles.org.
 
 ### Add an item to bibliography without using it 
 
