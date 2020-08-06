@@ -19,6 +19,7 @@ monofont: "Source Code Pro"
 monofontoptions: "Scale=0.8"
 site: bookdown::bookdown_site
 github-repo: yihui/rmarkdown-cookbook
+cover-image: images/cover.png
 ---
 
 ```{r setup, include=FALSE}
@@ -96,8 +97,10 @@ options(bookdown.post.latex = function(x) {
 
 ```{asis, echo=!knitr::is_latex_output()}
 ::: {.infobox .caution}
-This book is currently a draft. It is expected to be published in November 2020 with Chapman & Hall/CRC. If you have any feedback, please feel free to [file an issue on GitHub](https://github.com/yihui/rmarkdown-cookbook/issues/new). Thank you!
+**Note**: This book is to be published by [Chapman & Hall/CRC](https://www.routledge.com/p/book/9780367563837). The online version of this book is free to read here (thanks to Chapman & Hall/CRC), and licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/). If you have any feedback, please feel free to [file an issue on GitHub](https://github.com/yihui/rmarkdown-cookbook/issues/new). Thank you!
 :::
+
+<p style="text-align: center;"><a href="https://www.routledge.com/p/book/9780367563837"><img src="images/cover.png" alt="The R Markdown cookbook cover" /></a></p>
 ```
 
 R Markdown is a powerful tool for combining analysis and reporting into the same document. Since the birth of the **rmarkdown** package [@R-rmarkdown] in early 2014, R Markdown has grown substantially from a package that supports a few output formats, to an extensive and diverse ecosystem that supports the creation of books, blogs, scientific articles, websites, and even resumes.
@@ -158,7 +161,7 @@ I came up with the idea of writing this cookbook after I published the *R Markdo
 
 David Keyes saved my life in Section \@ref(table-other), since he had written [a wonderful blog post](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) to introduce several R packages to create tables, with which I was not very familiar. Other online materials that have helped me a lot include: Holtz Yan's [post on some R Markdown tips,](https://holtzy.github.io/Pimp-my-rmd/) Nicholas Tierney's book ["R Markdown for Scientists",](https://rmd4sci.njtierney.com) Maëlle Salmon's [R Markdown course,](https://github.com/maelle/rmd_course_isglobal) Jennifer Thompson's [R Markdown course,](https://github.com/jenniferthompson/RepResearchRMarkdown) Emi Tanaka's [R Markdown workshop,](https://github.com/emitanaka/combine2019) Alison Hill's [R Markdown workshop](https://arm.rbind.io) (co-taught with me), and Alison Hill and Emi Tanaka's [R Markdown workshop.](https://ysc-rmarkdown.netlify.app)
 
-Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Krishnakumar Gopalakrishnan, Xiangyun Huang, Florian Kohrt, Romain Lesur, Jiaxiang Li, Song Li, Ulrik Lyngs, Matt Small, Jake Stephen, Atsushi Yasumoto, Hao Zhu, and John Zobolas.
+Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Krishnakumar Gopalakrishnan, Xiangyun Huang, Florian Kohrt, Romain Lesur, Jiaxiang Li, Song Li, Ulrik Lyngs, Matt Small, Jake Stephen, Atsushi Yasumoto, Hao Zhu, and John Zobolas. The marvelous cover artwork of this book [was designed by Allison Horst](https://github.com/yihui/rmarkdown-cookbook/issues/180) and the full cover was finalized by Kevin Craig.
 
 The original idea of this book was partially motivated from a remote talk that I delivered to the RaukR Summer School in 2018, in which I introduced some lesser known features of **knitr**. The audience seemed to like those short introductions of **knitr** features, which were like recipes. I'd like to thank the organizers of the summer school, including Marcin Kierczak and Sebastian Dilorenzo, for inviting me. I have given similar talks later at Genentech and [DahShu.](http://dahshu.org) I want to thank Michael Lawrence and Yuqing Zhang for the invitations, as well as the audience of these talks for their feedback. Paul Johnson published a very helpful critique of our book _R Markdown: the Definitive Guide_ on the journal _The American Statistician_ in 2020. He complained that the book lacked in-depth examples, therefore the definitive guide was not definitive enough. I truly appreciate and agree with his comments. I hope this new (cook)book could fill the gap.
 
