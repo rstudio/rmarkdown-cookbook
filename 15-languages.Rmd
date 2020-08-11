@@ -10,7 +10,7 @@ names(knitr::knit_engines$get())
 
 At the moment, most code chunks of non-R languages are executed independently. For example, all `bash` code chunks in the same document are executed separately in their own sessions, so a later `bash` code chunk cannot use variables created in a previous `bash` chunk, and the changed working directory (via `cd`) will not be persistent across different `bash` chunks. Only R, Python, and Julia code chunks are executed in the same session. Please note that all R code chunks are executed in the same R session, and all Python code chunks are executed in the same Python session, etc. The R session and the Python session are two different sessions, but it is possible to access or manipulate objects of one session from another session (see Section \@ref(eng-python)).
 
-[Section 2.7](https://bookdown.org/yihui/rmarkdown/language-engines.html) of the R Markdown Definitive Guide [@rmarkdown2018] has shown examples of using Python, Shell, SQL, Rcpp, Stan, JavaScript, CSS, Julia, C, and Fortran code in R Markdown. In this chapter, we will show more language engines, and you may find more examples in the repository at https://github.com/yihui/knitr-examples (look for filenames that contain the word "engine").
+[Section 2.7](https://bookdown.org/yihui/rmarkdown/language-engines.html) of the _R Markdown Definitive Guide_ [@rmarkdown2018] shows examples of using Python, Shell, SQL, Rcpp, Stan, JavaScript, CSS, Julia, C, and Fortran code in R Markdown. In this chapter, we will show more language engines, and you may find more examples in the repository at https://github.com/yihui/knitr-examples (look for filenames that contain the word "engine").
 
 First, let's reveal how a language engine works by registering a custom language engine.
 
@@ -27,7 +27,7 @@ knitr::knit_engines$set(foo = function(options) {
 
 This registers the `foo` engine, and you will be able to use a code chunk that starts with ```` ```{foo}````.
 
-The engine function has one argument `options`, which is a list of chunk options of the code chunk, among which you can access the source code of the chunk as a character vector in `options$code`. For example, for the code chunk:
+The engine function has one argument, `options`, which is a list of chunk options of the code chunk, among which you can access the source code of the chunk as a character vector in `options$code`. For example, for the code chunk:
 
 ````md
 ```{foo}`r ''`
@@ -71,7 +71,7 @@ knitr::knit_engines$set(py = function(options) {
 })
 ```
 
-To fully understand the above engine function, you need to know that:
+To fully understand the above engine function, you need to know the following:
 
 1. Given Python code as a character string (`code` in the above function), we can execute the code via a command-line call `python -c 'code'`. That is what `system2()` does. We collect the (text) output by specifying `stdout = TRUE` in `system2()`.
 
@@ -107,7 +107,7 @@ print("Hello Python!")
 
 You can add chunk options to the chunk header as usual, such as `echo = FALSE` or `eval = FALSE`. Plots drawn with the **matplotlib** package in Python are also supported.
 
-The Python support in R Markdown and **knitr** is based on the **reticulate** package\index{R package!reticulate} [@R-reticulate], and one important feature of this package is that it allows the two-way communication between Python and R. For example, you may access or create Python variables from the R session via the object `py` in **reticulate**:
+The Python support in R Markdown and **knitr** is based on the **reticulate** package\index{R package!reticulate} [@R-reticulate], and one important feature of this package is that it allows two-way communication between Python and R. For example, you may access or create Python variables from the R session via the object `py` in **reticulate**:
 
 `r import_example('python.Rmd')`
 
@@ -253,7 +253,7 @@ run;
 
 ## Run Stata code {#eng-stata}
 
-You can run Stata (https://www.stata.com) code with the `stata` engine\index{language engine!stata} if you have installed Stata. Unless the `stata` executable can be found via the environment variable `PATH`, you need to specify the full path to the executable via the chunk option `engine.path`\index{chunk option!engine.path}, e.g., `engine.path = "C:/Program Files (x86)/Stata15/StataSE-64.exe"`. Below is a quick example:
+You can run Stata (https://www.stata.com) code with the `stata` engine\index{language engine!stata} if you have installed Stata. Unless the `stata` executable can be found via the environment variable `PATH`, you need to specify the full path to the executable via the chunk option `engine.path`\index{chunk option!engine.path}, e.g., `engine.path = "C:/Program Files (x86)/Stata15/StataSE-64.exe"`. The following is a quick example:
 
 ````md
 ```{stata}`r ''`

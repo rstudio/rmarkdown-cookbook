@@ -1,5 +1,5 @@
 #' ---
-#' title: "A report generted from a pure R script"
+#' title: "A report generated from a pure R script"
 #' output:
 #'   pdf_document:
 #'     keep_tex: true

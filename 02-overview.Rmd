@@ -36,9 +36,9 @@ We can dig one level deeper by considering the different components of an R Mark
 
 ### YAML metadata
 
-The YAML metadata\index{YAML} (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information that it contains can effect the code, content, and the rendering process. 
+The YAML metadata\index{YAML} (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information that it contains can affect the code, content, and the rendering process. 
 
-A typical YAML header looks like this, containing basic metadata about the document and rendering instructions:
+A typical YAML header looks like this, and contains basic metadata about the document and rendering instructions:
 
 ```yaml
 ---
@@ -48,7 +48,7 @@ output: html_document
 ---
 ```
 
-In this case, the `title` and `author` fields are processed by Pandoc to set the values of template variables. With the default template, the title and author information will appear at the beginning of the resulting document. More details on how Pandoc uses information from the YAML header are included in the Pandoc Manual's section on the [YAML metadata block.](https://pandoc.org/MANUAL.html#extension-yaml_metadata_block)
+In this case, the `title` and `author` fields are processed by Pandoc to set the values of template variables. With the default template, the title and author information will appear at the beginning of the resulting document. More details on how Pandoc uses information from the YAML header are included in the Pandoc manual's section on the [YAML metadata block.](https://pandoc.org/MANUAL.html#extension-yaml_metadata_block)
 
 In contrast, the `output` field is used by **rmarkdown** to apply the output format function `rmarkdown::html_document()` in the rendering process. We can further influence the rendering process by passing arguments to the output format that we are specifying in `output`. For example, writing:
 
@@ -96,15 +96,15 @@ These headers give structure to our entire document as **rmarkdown** converts th
 ## Second-level header {#introduction .important .large}
 ```
 
-We can them access this section with many of the tools that you will learn, e.g., by referencing it with its ID or class. As examples, Section \@ref(cross-ref) demonstrates how to use section ID to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subsections.
+We can then access this section with many of the tools that you will learn, e.g., by referencing it with its ID or class. As examples, Section \@ref(cross-ref) demonstrates how to use the section ID to make cross-references throughout your document, and Section \@ref(html-tabs) introduces the `.tabset` class to help reorganize subsections.
 
 The final interesting type of content that we might find in the textual part of our R Markdown is raw content written specifically for our desired output format, e.g., raw LaTeX code for LaTeX output (Section \@ref(raw-latex)), raw HTML code for HTML output, and so on (Section \@ref(raw-content)). Raw content may help you achieve things that cannot be done with plain Markdown, but please keep in mind that it is usually ignored when the output format is a different format, e.g., raw LaTeX commands in Markdown will be ignored when the output format is HTML.
 
 ### Code chunks
 
-Code chunks\index{code chunk} are the beating heart of our R Markdown. The code in these chunks is run by **knitr**, and its output is translated to Markdown to dynamically keep our reports in-sync with our current scripts and data. Each code chunk consists of a language engine (Chapter \@ref(other-languages)), an optional label, chunk options (Chapter \@ref(chunk-options)), and code.
+Code chunks\index{code chunk} are the beating heart of our R Markdown. The code in these chunks is run by **knitr**, and its output is translated to Markdown to dynamically keep our reports in sync with our current scripts and data. Each code chunk consists of a language engine (Chapter \@ref(other-languages)), an optional label, chunk options (Chapter \@ref(chunk-options)), and code.
 
-To understand some of the modifications that we can make to code chunks, it is worth understanding the **knitr** process in slightly more detail. For each chunk, a **knitr** language engine gets three pieces of input: the knitting environment (`knitr::knit_global()`), the code input, and a list of chunk options. It returns the formatted representations of the code as well as its output. As a side-effect, the knitting environment may also be modified, e.g., new variables may have been created in this environment via the source code in the code chunk. This process is illustrated in Figure \@ref(fig:knitr-workflow).
+To understand some of the modifications that we can make to code chunks, it is worth understanding the **knitr** process in slightly more detail. For each chunk, a **knitr** language engine gets three pieces of input: the knitting environment (`knitr::knit_global()`), the code input, and a list of chunk options. It returns the formatted representations of the code as well as its output. As a side effect, the knitting environment may also be modified, e.g., new variables may have been created in this environment via the source code in the code chunk. This process is illustrated in Figure \@ref(fig:knitr-workflow).
 
 ```{r knitr-workflow, echo = FALSE, fig.cap = 'A flowchart of inputs and outputs to a language engine.', out.width = '100%', fig.dim=c(7, 3.5), fig.align='center', cache=TRUE}
 nomnoml::nomnoml(
@@ -125,7 +125,7 @@ We can modify this process by:
 
 - modifying chunk options, which can be global, local, or engine-specific;
 
-- and by using hooks (Chapter \@ref(output-hooks) and Chapter \@ref(chunk-hooks)) to further process the these inputs and outputs.
+- and by using hooks (Chapter \@ref(output-hooks) and Chapter \@ref(chunk-hooks)) to further process these inputs and outputs.
 
 For example, in Section \@ref(hook-hide), you will learn how to add a hook to post-process the code output to redact certain lines in the source code.
 
@@ -194,12 +194,12 @@ Let's summarize what we have seen so far and preview what is to come.
 
 Rendering R Markdown documents with **rmarkdown** consists of converting `.Rmd` to `.md` with **knitr**, and then `.md` to our desired output with Pandoc (typically).
 
-The `.Rmd` to `.md` step handles the execution and "translation" of all code within our report, so most changes to *content* involve editing the `.Rmd` with code for **knitr** to translate. Tools that we have to control over these steps include **knitr** chunk options and hooks.
+The `.Rmd`-to-`.md` step handles the execution and "translation" of all code within our report, so most changes to *content* involve editing the `.Rmd` with code for **knitr** to translate. Tools that we have control over these steps include **knitr** chunk options and hooks.
 
 Our `.md` is a plain text file with no formatting. This is where Pandoc comes in to convert to the final output format such as HTML, PDF, or Word. Along the way, we add structure and style. A wide range of tools to help us in this process include style sheets (CSS), raw LaTeX or HTML code, Pandoc templates, and Lua filters. By understanding the nested structure of an R Markdown document, and by thoughtfully using identifiers and classes, we can apply some of these tools selectively to targeted parts of our output.
 
 Finally, our YAML metadata may help us toggle any of these steps. Changing parameters can change how our code runs, changing metadata alters the text content, and changing output options provides the `render()` function with a different set of instructions.
 
-Of course, these are all rough heuristics and should not be taken as absolute facts. Ultimately, there is not a completely clear division of labor. Throughout this book, you will see that there are often multiple valid paths to achieving many of the outcomes described in this book, and these may enter different stages of the pipeline. For example, for the simple task of inserting in image in your document, you may either use the R code `knitr::include_graphics()`, which would execute in the `.Rmd` to `.md` stage, or directly use Markdown syntax (`![]()`). This may seem confusing, and sometimes different approaches will have different advantages. However, do not be concerned---if anything, this often means there are many valid ways to solve your problem, and you can follow whichever approach that makes the most sense to you.
+Of course, these are all rough heuristics and should not be taken as absolute facts. Ultimately, there is not a completely clear division of labor. Throughout this book, you will see that there are often multiple valid paths to achieving many of the outcomes described in this book, and these may enter different stages of the pipeline. For example, for the simple task of inserting in image in your document, you may either use the R code `knitr::include_graphics()`, which would execute in the `.Rmd` to `.md` stage, or directly use Markdown syntax (`![]()`). This may seem confusing, and sometimes different approaches will have different advantages. However, do not be concerned---if anything, this often means there are many valid ways to solve your problem, and you can follow whichever approach makes the most sense to you.
 
 And that's that! In the rest of the book, you can now color in this rough sketch with many more concrete examples of ways to modify all of the components that we have discussed to get the most value out of R Markdown.

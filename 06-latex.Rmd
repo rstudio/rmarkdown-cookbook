@@ -2,7 +2,7 @@
 
 For many authors, the main output of their work will be the PDF report, in which case they can utilize the powerful styling of LaTeX. In this chapter, we discuss approaches that can be used to customize PDF reports, such as including LaTeX code or packages in the preamble, using custom LaTeX templates, adding headers and footers, generating sub-figures, and writing raw LaTeX code in the document body.
 
-We want to offer a note of caution before we start, however. One benefit of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format but at the expense of this transferability. This problem is not unique to LaTeX, but all other output formats as well.
+We want to offer a note of caution before we start, however. One benefit of R Markdown is the fact that a single source document can create documents with multiple formats. By tailoring your work to a single output format, you may improve the appearance and performance of a single output format, but at the expense of this transferability. This problem is not unique to LaTeX, but all other output formats as well.
 
 ## Add LaTeX code to the preamble {#latex-preamble}
 
@@ -20,7 +20,7 @@ That is, you declare the document class in `\documentclass{}`, load certain LaTe
 
 If you want to add anything to the preamble, you have to use the `includes` option of `pdf_document`\index{output option!includes}. This option has three sub-options: `in_header`, `before_body`, and `after_body`. Each of them takes one or multiple file paths. The file(s) specified in `in_header` will be added to the preamble. The files specified in `before_body` and `after_body` are added before and after the document body, respectively.
 
-For example, below is a trick that turns hyperlinks on text into footnotes. This trick is useful when the PDF output document is printed on paper, because readers will not be able to click the links (generated from `\href{URL}{text}`) on paper but can see the URLs in footnotes. This trick displays both the text and URL.
+For example, below is a trick that turns hyperlinks in text into footnotes. This trick is useful when the PDF output document is printed on paper, because readers will not be able to click the links (generated from `\href{URL}{text}`) on paper but can see the URLs in footnotes. This trick displays both the text and URL.
 
 ```tex
 % you may want to save a copy of \href before redefining it
@@ -39,7 +39,7 @@ output:
 
 For this particular trick, you do not really have to implement it by yourself, but can simply set the YAML option `links-as-notes` to `true`\index{YAML!links-as-notes} because it is a built-in feature of Pandoc's default LaTeX template (see Section \@ref(latex-variables)).
 
-Another way to add code to the preamble is to pass it directly to the `header-includes` field in the YAML frontmatter\index{YAML!header-includes}. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated into multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
+Another way to add code to the preamble is to pass it directly to the `header-includes` field in the YAML frontmatter\index{YAML!header-includes}. We will show an example in Section \@ref(latex-logo). The advantage of using `header-includes` is that you can keep everything in one R Markdown document. However, if your report is to be generated in multiple output formats, we still recommend that you use the `includes` method, because the `header-includes` field is unconditional, and will be included in non-LaTeX output documents, too. By comparison, the `includes` option is only applied to the `pdf_document` format.
 
 ## Pandoc options for LaTeX output {#latex-variables}
 
@@ -56,7 +56,7 @@ fontsize: 12pt
 links-as-notes: true
 ```
 
-The meanings of these options should be clear if you have some knowledge about LaTeX. The `documentclass` option\index{YAML!documentclass} sets the document class, e.g., `article`, `book`, and `report`, etc. The `classoption` is a list of options to be passed to the document class, e.g., you can create a two-column document with the `twocolumn` option,^[This option changes the layout of the whole document, but if you want to switch back to the one-column mode from a certain point, you may insert a command `\onecolumn` at that point. If you want to continue the two-column mode, insert `\twocolumn`.] or the landscape layout with the `landscape` option (the default is the portrait layout). The `papersize`\index{YAML!papersize} option sets the paper size, e.g., `a4`, `paper`, or `a5`. The `linestretch`\index{YAML!linestretch} option sets the line spacing. The `fontsize`\index{YAML!fontsize} option sets the font size, e.g., `10pt`, `11pt`, or `12pt`. The `links-as-notes` option turns links on text to footnotes, which is useful when the PDF is printed on paper, because readers will not be able to click the links on paper but can see the URLs in footnotes.
+The meanings of these options should be clear if you have some knowledge about LaTeX. The `documentclass` option\index{YAML!documentclass} sets the document class, e.g., `article`, `book`, and `report`, etc. The `classoption` is a list of options to be passed to the document class, e.g., you can create a two-column document with the `twocolumn` option,^[This option changes the layout of the whole document, but if you want to switch back to the one-column mode from a certain point, you may insert a command `\onecolumn` at that point. If you want to continue the two-column mode, insert `\twocolumn`.] or the landscape layout with the `landscape` option (the default is the portrait layout). The `papersize`\index{YAML!papersize} option sets the paper size, e.g., `a4`, `paper`, or `a5`. The `linestretch`\index{YAML!linestretch} option sets the line spacing. The `fontsize`\index{YAML!fontsize} option sets the font size, e.g., `10pt`, `11pt`, or `12pt`. The `links-as-notes` option turns links in text to footnotes, which is useful when the PDF is printed on paper, because readers will not be able to click the links on paper but can see the URLs in footnotes.
 
 Changing fonts can be a little trickier. It depends on which LaTeX engine you are using. If you are using `pdflatex`\index{pdflatex}, which is usually the default engine for most LaTeX-based output formats, you may use the `fontfamily` option to select a LaTeX font package to be loaded in your document to change the font, e.g.,
 
@@ -67,7 +67,7 @@ output:
     latex_engine: pdflatex
 ```
 
-Then the document will use the font ["Accanthis"](https://tug.org/FontCatalogue/accanthis/). You may see https://tug.org/FontCatalogue/ for a list of many other LaTeX font packages. If your LaTeX distribution is TinyTeX, the font packages should be automatically installed if they have not been installed (see Section \@ref(install-latex)).
+Then the document will use the font [Accanthis.](https://tug.org/FontCatalogue/accanthis/) You may see https://tug.org/FontCatalogue/ for a list of many other LaTeX font packages. If your LaTeX distribution is TinyTeX and the required font packages have not been installed, they should be automatically installed when the document is compiled (see Section \@ref(install-latex)).
 
 If you use the LaTeX engine `xelatex` or `lualatex`, you will be able to select fonts that are available on your local computer, and do not have to install additional LaTeX packages. YAML options like `mainfont`\index{YAML!mainfont}, `sansfont`\index{YAML!sansfont}, and `monofont`\index{YAML!monofont} can be used to specify the main font, sans serif font, and typewriter font, respectively, e.g.,
 
@@ -101,7 +101,7 @@ An example output is shown in Figure \@ref(fig:latex-logo).
 knitr::include_graphics("images/latex-logo.png", dpi = NA)
 ```
 
-An alternative method that does not require a special LaTeX package (**titling**) is to just insert the image to the `title` field using the Markdown syntax\index{YAML!title}. For example:
+An alternative method that does not require a special LaTeX package (**titling**) is to just insert the image in the `title` field using the Markdown syntax\index{YAML!title}. For example:
 
 ```yaml
 title: |
@@ -130,7 +130,7 @@ output:
 ---
 ```
 
-If you need to specify options when loading the package, you can add a second-level to the list and provide the options as a list, e.g.,
+If you need to specify options when loading the package, you can add a second level to the list and provide the options as a list, e.g.,
 
 ```yaml
 output: 
@@ -153,11 +153,11 @@ The advantage of using the `extra_dependencies` argument over the `includes` arg
 
 ### Example packages
 
-There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprehensive TeX Archive Network](https://ctan.org) (CTAN). As some examples of LaTeX packages you could consider using within your report:
+There is an extensive community for LaTeX, and there are over 4,000 packages available through the [Comprehensive TeX Archive Network](https://ctan.org) (CTAN). Here are some examples of LaTeX packages you could consider using within your report:
 
-- [pdfpages](https://ctan.org/pkg/pdfpages): include full PDF pages from an external PDF document within your document.
-- [caption](https://ctan.org/pkg/caption): change the appearance of caption subtitles. For example, you can make the figure title italic or bold.
-- [fancyhdr](https://ctan.org/pkg/fancyhdr): change the style of running headers of all pages.
+- [pdfpages](https://ctan.org/pkg/pdfpages): Include full PDF pages from an external PDF document within your document.
+- [caption](https://ctan.org/pkg/caption): Change the appearance of caption subtitles. For example, you can make the figure title italic or bold.
+- [fancyhdr](https://ctan.org/pkg/fancyhdr): Change the style of running headers of all pages.
 
 ## Control the placement of figures {#figure-placement}
 
@@ -183,7 +183,7 @@ to the LaTeX code:
 \end{figure}
 ```
 
-The `figure` environment is a floating environment. You can read a detailed description of floats at https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions. In summary, floats are used as containers for things that cannot be broken over a page, such as tables and figures. If the figure or table can not be contained in the space left on the current page, LaTeX will try to place it at the top of the next page. If the figure is tall enough, it may occupy the whole next page, even if there is still space left for a few lines of text. The behavior can be controlled by different placement specifiers in square brackets after `\begin{figure}`, e.g., `\begin{figure}[b]`. Below is a list of possible specifiers:
+The `figure` environment is a floating environment. You can read a detailed description of floats at https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions. In summary, floats are used as containers for things that cannot be broken over a page, such as tables and figures. If the figure or table cannot be contained in the space left on the current page, LaTeX will try to place it at the top of the next page. If the figure is tall enough, it may occupy the whole next page, even if there is still space left for a few lines of text. The behavior can be controlled by different placement specifiers in square brackets after `\begin{figure}`, e.g., `\begin{figure}[b]`. Below is a list of possible specifiers:
 
 - `h`: Place the float _here_, i.e., approximately at the same point it occurs in the source text.
 - `t`: Position at the _top_ of the page.
@@ -210,13 +210,13 @@ We can use the chunk option `fig.pos`\index{chunk option!fig.pos} to control the
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
-In general, we do not recommend that users force LaTeX to stop floating figures. This solution was included in this book by popular demand,^[The related Stack Overflow question has been viewed for over 45,000 times: https://stackoverflow.com/q/16626462/559676.] but there could be some serious side-effects when LaTeX is unable to float figures.
+In general, we do not recommend that users force LaTeX to stop floating figures. This solution was included in this book by popular demand,^[The related Stack Overflow question has been viewed for over 45,000 times: https://stackoverflow.com/q/16626462/559676.] but there could be some serious side effects when LaTeX is unable to float figures.
 
-### Force floats forwards
+### Force floats forward
 
 <!-- https://tex.stackexchange.com/questions/15706/force-floats-to-be-typeset-after-their-occurrence-in-the-source-text -->
 
-An alternative to forcing all floats to be held is to force floating forwards in the text. This can remove a common issue, where a figure is shown at the top of the page before the relevant text comes. This can break the reading flow of a report. We can force the figure always to appear after the text by using the **flafter** LaTeX package\index{LaTeX package!flafter} as follows:
+An alternative to forcing all floats to be held is to force floating forward in the text. This can remove a common issue, where a figure is shown at the top of the page before the relevant text comes. This can break the reading flow of a report. We can force the figure to always appear after the text by using the **flafter** LaTeX package\index{LaTeX package!flafter} as follows:
 
 ```yaml
 output: 
@@ -261,7 +261,7 @@ If we have added these lines to a `.tex` file, we could include this file in the
 
 ## LaTeX sub-figures {#latex-subfigure}
 
-Sometimes you may want to include multiple images in a single figure environment. Sub-figures\index{figure!sub-figures} allow us to achieve this by arranging multiple images within a single environment and providing each with their own sub-caption.
+Sometimes you may want to include multiple images in a single figure environment. Sub-figures\index{figure!sub-figures} allow us to achieve this by arranging multiple images within a single environment and providing each with its own sub-caption.
 
 Sub-figures require the LaTeX package **subfig**\index{LaTeX package!subfig}. We can load it via the `extra_dependencies` YAML option\index{output option!extra\_dependencies} within the `pdf_document` output. For example:
 
@@ -332,7 +332,7 @@ output:
 
 ## Generate a LaTeX fragment {#latex-fragment}
 
-If you work primarily with pure LaTeX documents, you may still find R Markdown useful. Sometimes it may be more convenient to write in R Markdown and convert the document to a LaTeX fragment\index{LaTeX!fragment}, which can be included into other LaTeX documents.
+If you work primarily with pure LaTeX documents, you may still find R Markdown useful. Sometimes it may be more convenient to write in R Markdown and convert the document to a LaTeX fragment\index{LaTeX!fragment}, which can be included in other LaTeX documents.
 
 When you render an Rmd document to LaTeX, it generates a full LaTeX document that includes the `\documentclass{}`, `\begin{body}`, and `\end{body}`. A LaTeX fragment is basically the body of a full LaTeX document. To render a LaTeX fragment, you may use the `latex_fragment` output format, e.g.,
 
@@ -342,7 +342,7 @@ output: latex_fragment
 ---
 ```
 
-This will render a `.tex` file, e.g., `foo.Rmd` will render `foo.tex`, and you can use `\input{foo.tex}` to include this fragment into another LaTeX document.
+This will render a `.tex` file, e.g., `foo.Rmd` will render `foo.tex`, and you can use `\input{foo.tex}` to include this fragment in another LaTeX document.
 
 ## Add custom headers and footers (\*) {#latex-header}
 
@@ -369,7 +369,7 @@ For example, `\fancyhead[LE,RO]{Your Name}` will print the text "Your Name" on t
 - `\thepage`: the number of the current page.
 - `\thechapter`: the number of the current chapter.
 - `\thesection`: the number of the current section.
-- `\chaptername`: the the word "Chapter" in English, or its equivalent in the current language, or the text that the author specified by redefining this command.
+- `\chaptername`: the word "Chapter" in English, or its equivalent in the current language, or the text that the author specified by redefining this command.
 - `\leftmark`: the name and number of the current top-level structure in uppercase letters.
 - `\rightmark`: the name and number of the current next to top-level structure in uppercase letters.
 
@@ -403,7 +403,7 @@ $body$
 
 The value of `$body$` is the LaTeX code generated from the body of the Markdown document. For example, if the body text is `Hello **world**!` in Markdown, the value of `$body$` will be `Hello \textbf{world}!`.
 
-If the LaTeX customization methods in Sections \@ref(latex-preamble), \@ref(latex-variables), and \@ref(latex-extra) are not enough for you, you may try to use a custom template instead. A template allows you to use arbitrary LaTeX code in it, hence is much more flexible. To use a template, include the path of the template in the `template` option\index{output option!template} of `pdf_document`, e.g.,
+If the LaTeX customization methods in Sections \@ref(latex-preamble), \@ref(latex-variables), and \@ref(latex-extra) are not enough for you, you may try to use a custom template instead. A template allows you to use arbitrary LaTeX code in it, and hence is much more flexible. To use a template, include the path of the template in the `template` option\index{output option!template} of `pdf_document`, e.g.,
 
 ```yaml
 output:
@@ -413,7 +413,7 @@ output:
 
 The default LaTeX template of Pandoc can be found at https://github.com/jgm/pandoc/tree/master/data/templates (named `default.latex`). If you want to create your own template, you may want to start with this template.
 
-For the full list of Pandoc variables and their meanings (such as `$body$` and `$title$`), see Pandoc's manual at https://pandoc.org/MANUAL.html#templates. You can also use arbitrary custom variables, which are typically passed to the template from the YAML metadata. If you want to learn by examples, you may take a look the **MonashEBSTemplates** package\index{R package!MonashEBSTemplates} (https://github.com/robjhyndman/MonashEBSTemplates), which has provided several custom LaTeX templates. These templates are under the `inst/rmarkdown/templates/*/resources/` directories (here `*` denotes the template names). For example, the template for the output format `MonashEBSTemplates::memo` allows you to use a variable `branding` in the YAML metadata to control whether to include the brand logo of Monash University. This is achieved by an `if` statement in the template that looks like this:
+For the full list of Pandoc variables and their meanings (such as `$body$` and `$title$`), see Pandoc's manual at https://pandoc.org/MANUAL.html#templates. You can also use arbitrary custom variables, which are typically passed to the template from the YAML metadata. If you want to learn by examples, you may take a look at the **MonashEBSTemplates** package\index{R package!MonashEBSTemplates} (https://github.com/robjhyndman/MonashEBSTemplates), which has provided several custom LaTeX templates. These templates are under the `inst/rmarkdown/templates/*/resources/` directories (here `*` denotes the template names). For example, the template for the output format `MonashEBSTemplates::memo` allows you to use a variable `branding` in the YAML metadata to control whether to include the brand logo of Monash University. This is achieved by an `if` statement in the template that looks like this:
 
 ```latex
 $if(branding)$%

@@ -90,9 +90,9 @@ Most chunk options related to figures also work for `knitr::include_url()`, such
 
 If you have published a Shiny app publicly on a server, you can use `knitr::include_app()`\index{knitr!include\_app()} to include it, which works in the same way as `include_url()`. [Section 2.11](https://bookdown.org/yihui/bookdown/web-pages-and-shiny-apps.html) of the **bookdown** book [@bookdown2016] contains more details about `include_app()` and `include_url()`.
 
-## Multiple figures side-by-side {#figures-side}
+## Multiple figures side by side {#figures-side}
 
-You can place multiple figures side-by-side using the `fig.show="hold"`\index{chunk option!fig.show} along with the `out.width` option\index{chunk option!out.width}. In the example below, we have set `out.width="50%"` (see Figure \@ref(fig:figures-side) for the output):
+You can place multiple figures side by side using the `fig.show="hold"`\index{chunk option!fig.show} along with the `out.width` option\index{chunk option!out.width}. In the example below, we have set `out.width="50%"` (see Figure \@ref(fig:figures-side) for the output):
 
 `r import_example('figures-side.Rmd')`
 
@@ -134,11 +134,11 @@ Please note that raw content is only visible to a specific output format. For ex
 
 [Section 2.7](https://bookdown.org/yihui/bookdown/custom-blocks.html) of the **bookdown** book mentioned how we can use custom blocks in R Markdown to customize the appearance of blocks of content. This can be a useful way to make some content stand out from your report or book, to make sure that your readers take away the key points from your work. Examples of how these blocks could be used include:
 
-- Display a warning message to make sure users are using up-to-date packages before running your analysis;
+- display a warning message to make sure users are using up-to-date packages before running your analysis;
 
-- Add a link at the beginning of your document to your GitHub repository containing the source;
+- add a link at the beginning of your document to your GitHub repository containing the source;
 
-- Highlight key results and findings from your analysis.
+- highlight key results and findings from your analysis.
 
 In this section, we will explain how to create your own custom blocks for both PDF and HTML output. They can both use the same formatting syntax in the R Markdown document, but require different configurations.
 
@@ -146,7 +146,7 @@ In this section, we will explain how to create your own custom blocks for both P
 
 The syntax for custom blocks is based on Pandoc's [fenced `Div` blocks.](https://pandoc.org/MANUAL.html#divs-and-spans) `Div` blocks\index{Div} are very powerful, but there is a problem at the moment: they mainly work for HTML output and do not work for LaTeX output.
 
-Since the version 1.16 of the **rmarkdown** package, it has been possible to convert `Div` blocks to both HTML and LaTeX. For HTML output, all attributes of the block will become attributes of the `<div>` tag. For example, a `Div` can have an ID (after `#`), one or multiple classes (class names are written after `.`), and other attributes. The following `Div` block
+Since version 1.16 of the **rmarkdown** package, it has been possible to convert `Div` blocks to both HTML and LaTeX. For HTML output, all attributes of the block will become attributes of the `<div>` tag. For example, a `Div` can have an ID (after `#`), one or multiple classes (class names are written after `.`), and other attributes. The following `Div` block
 
 ```md
 ::: {#hello .greeting .message width="40%"}
@@ -199,7 +199,7 @@ its width is 50% of the width of its parent element.
 ::::
 ```
 
-Note that we nested the `minipage` block in the `center` block. You need more colons for a parent block to include a child block. In the above example, we used four colons (you can use five or more) for the `center` block. The two blocks will be converted to LaTeX code below:
+Note that we nested the `minipage` block in the `center` block. You need more colons for a parent block to include a child block. In the above example, we used four colons (you can use five or more) for the `center` block. The two blocks will be converted to the LaTeX code below:
 
 ```tex
 \begin{center}
@@ -364,7 +364,7 @@ Include the actual content here.
 ::::
 ```
 
-For the PDF output, we can create an `infobox` environment based on the `blackbox` environment defined in the previous example, and add the icon to the left side of the box. There are multiple ways of including images in a LaTeX environment. Here is only one of them (it does not precisely reproduce the box style defined in CSS above):
+For the PDF output, we can create an `infobox` environment based on the `blackbox` environment defined in the previous example, and add the icon to the left side of the box. There are multiple ways of including images in a LaTeX environment. Here is only one of them (it does not precisely reproduce the box style defined in the CSS above):
 
 ```{cat, class.source='tex', engine.opts=list(file = 'latex/infobox.tex')}
 \newenvironment{infobox}[1]
@@ -416,6 +416,6 @@ Thank you for noticing this **new notice**! Your noticing it has
 been noted, and _will be reported to the authorities_!
 :::
 
-Alternatively, you may use the LaTeX package [**awesomebox**](https://ctan.org/pkg/awesomebox)\index{LaTeX package!awesomebox} to generate boxes with icons in the PDF output. This package gives you a much larger number of icons to choose from. We give a brief example below, and please refer to the package documentation for the possible LaTeX environments and their arguments.
+Alternatively, you may use the LaTeX package [**awesomebox**](https://ctan.org/pkg/awesomebox)\index{LaTeX package!awesomebox} to generate boxes with icons in the PDF output. This package gives you a much larger number of icons to choose from. We give a brief example below: please refer to the package documentation for the possible LaTeX environments and their arguments.
 
 `r import_example('awesomebox.Rmd')`

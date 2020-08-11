@@ -29,6 +29,7 @@ redirect = function(from, to) {
 }
 
 redirect('r-markdown-components.html', 'rmarkdown-process.html')
+redirect('acknowledgements.html', 'acknowledgments.html')
 
 if (length(formats) > 1 && Sys.getenv('USER') == 'yihui') {
   bookdown::publish_book(account = 'yihui', server = 'bookdown.org')

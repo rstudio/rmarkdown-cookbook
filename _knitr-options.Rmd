@@ -13,7 +13,8 @@ txt = xfun::read_utf8(url)
 
 # remove YAML
 txt = txt[(which(txt == '---')[2] + 1):length(txt)]
-txt = sub('This page documents', 'This chapter describes', txt)
+txt = sub('This page documents', 'This appendix describes', txt)
+txt = sub('the "Code Decoration" section', 'Section \\@ref(code-decoration)', txt, fixed = TRUE)
 txt = sub('## Chunk Options', '## Chunk options {#chunk-options-full}', txt)
 txt = sub('## Package Options', '## Package options', txt)
 txt = sub('### Animation', '### Animation {#animation-options}', txt)

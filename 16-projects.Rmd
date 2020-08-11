@@ -13,7 +13,7 @@ source("your-script.R", local = knitr::knit_global())
 ```
 ````
 
-We recommend that you use the argument `local` in `source()` or `envir` in `sys.source()` explicitly to make sure the code is evaluated in the correct environment, i.e., `knitr::knit_global()`\index{knitr!knit\_global()}. The default values for them may not be the appropriate environment: you may end up creating variables in the wrong environment, and being surprised that why certain objects are not found in later code chunks.
+We recommend that you use the argument `local` in `source()` or `envir` in `sys.source()` explicitly to make sure the code is evaluated in the correct environment, i.e., `knitr::knit_global()`\index{knitr!knit\_global()}. The default values for them may not be the appropriate environment: you may end up creating variables in the wrong environment, and being surprised that certain objects are not found in later code chunks.
 
 Next in the R Markdown document, you can use objects created in these scripts (e.g., data objects or functions). This way will not only make your R Markdown document cleaner, but also make it more convenient for you to develop R code (e.g., debugging R code is often easier with pure R scripts than R Markdown).
 
@@ -102,7 +102,7 @@ Now we can use the code, e.g.,
 ```
 ````
 
-Note that we use `knitr::read_chunk()` mainly for its side-effect, so please make sure the code chunk in which we call this function is not cached (see Section \@ref(cache) for the explanation).
+Note that we use `knitr::read_chunk()` mainly for its side effect, so please make sure the code chunk in which you call this function is not cached (see Section \@ref(cache) for the explanation).
 
 Like methods introduced in Section \@ref(source-script) and Section \@ref(option-code), this method also gives you the flexibility of developing code in a separate environment.
 
@@ -248,7 +248,7 @@ There is no absolutely correct choice for the working directory. Each choice has
 
     The advantage of this approach is that you can freely move the Rmd file _together with_ its referenced files anywhere, as long as their relative locations remain the same. For the HTML page and image example above, the files `page.html` and `foo/bar.png` could be moved together to a different directory, such as `https://www.example.org/another/path/`, and you will not need to update the relative path in the `src` attribute of `<img />`.
 
-    Some users like to think relative paths in Rmd documents as "relative to the working directory of the R console," as opposed to "relative to the Rmd file." Therefore **knitr**'s default working directory feels confusing. The reason that I did not use the working directory of the R console as the default when I designed **knitr** was that users could use `setwd()` to change the working directory at any time. This working directory is not guaranteed to be stable. Each time they call `setwd()` in the console, there is a risk that the file paths in the Rmd document may become invalid. It could be surprising that the file paths depend on an external factor (`setwd()`), which is out of the control of the Rmd file. If you treat the Rmd file as "the center of the universe" when thinking of relative paths, the paths inside the Rmd file may be stabler.
+    Some users like to think of relative paths in Rmd documents as "relative to the working directory of the R console," as opposed to "relative to the Rmd file." Therefore **knitr**'s default working directory feels confusing. The reason that I did not use the working directory of the R console as the default when I designed **knitr** was that users could use `setwd()` to change the working directory at any time. This working directory is not guaranteed to be stable. Each time a user calls `setwd()` in the console, there is a risk that the file paths in the Rmd document may become invalid. It could be surprising that the file paths depend on an external factor (`setwd()`), which is out of the control of the Rmd file. If you treat the Rmd file as "the center of the universe" when thinking of relative paths, the paths inside the Rmd file may be stabler.
     
     Furthermore, if you do not want to think too hard on relative paths, you may enter a path in RStudio using its autocomplete, as shown in Figure \@ref(fig:rmd-relative). RStudio will try to autocomplete a path relative to the Rmd file.
 
@@ -256,7 +256,7 @@ There is no absolutely correct choice for the working directory. Each choice has
 
 - Using the project directory as the working directory requires an obvious assumption: you have to use a project (e.g., an RStudio project or a version control project) in the first place, which could be a disadvantage of this approach. The advantage of this type of working directory is that all relative paths in any Rmd document are relative to the project root directory, so you do not need to think where your Rmd file is located in the project or adjust the relative paths of other files accordingly. This type of working directory is advocated by the **here** package\index{R package!here} [@R-here], which provides the function `here::here()` to return an absolute path by resolving a relative path passed to it (remember that the relative path is relative to the project root). The disadvantage is that when you move the referenced file together with the Rmd file to another location in the project, you need to update the referenced path in the Rmd document. When you share the Rmd file with other people, you also have to share the whole project.
 
-    This type of paths are similar to absolute paths without the protocol or domain in HTML. For example, an image `<img src="/foo/bar.png" />` on the page `https://www.example.org/path/to/page.html` refers to the image under the root directory of the website, i.e., `https://www.example.org/foo/bar.png`. The leading `/` in the `src` attribute of the image indicates the root directory of the website. If you want to learn more (or further confuse yourself) about absolute and relative paths in HTML, please see [the Appendix B.1 of the **blogdown** book](https://bookdown.org/yihui/blogdown/html.html) [@blogdown2017].
+    These types of paths are similar to absolute paths without the protocol or domain in HTML. For example, an image `<img src="/foo/bar.png" />` on the page `https://www.example.org/path/to/page.html` refers to the image under the root directory of the website, i.e., `https://www.example.org/foo/bar.png`. The leading `/` in the `src` attribute of the image indicates the root directory of the website. If you want to learn more (or further confuse yourself) about absolute and relative paths in HTML, please see [Appendix B.1 of the **blogdown** book](https://bookdown.org/yihui/blogdown/html.html) [@blogdown2017].
 
 The working directory pain mainly arises from this question when dealing with relative paths: _relative to what?_ As we mentioned earlier, different people have different preferences, and there is not an absolutely right answer.
 
@@ -296,11 +296,11 @@ Note that you need to change the vignette title in both the `title` field and th
 
 1. Add `Suggests: knitr, rmarkdown` in `DESCRIPTION`.
 
-The vignette output format does not have to be HTML. It can also be PDF, so you can use `output: pdf_document`, too. Any other output formats that create HTML or PDF are also okay, such as `beamer_presentation` and `tufte::tufte_html`. However, currently R only recognizes HTML and PDF vignettes.
+The vignette output format does not have to be HTML. It can also be PDF, so you can use `output: pdf_document`, too. Any other output formats that create HTML or PDF are also okay, such as `beamer_presentation` and `tufte::tufte_html`. However, currently, R only recognizes HTML and PDF vignettes.
 
 ## R Markdown templates in R packages {#package-template}
 
-Figure \@ref(fig:package-vignette) of Section \@ref(package-vignette) illustrates the process of retrieving the editable "Package Vignette (HTML)" template from the **rmarkdown** package. This R Markdown file is pre-populated with the appropriate metadata for an R package vignette.\index{R package!R Markdown template}\index{template!R Markdown} 
+Figure \@ref(fig:package-vignette) of Section \@ref(package-vignette) illustrates the process of retrieving the editable Package Vignette (HTML) template from the **rmarkdown** package. This R Markdown file is pre-populated with the appropriate metadata for an R package vignette.\index{R package!R Markdown template}\index{template!R Markdown} 
 
 Similarly, any package may include R Markdown templates that package users can access through the RStudio IDE (as shown in the figure) or across any platform with the `rmarkdown::draft()`\index{rmarkdown!draft} function.
 
@@ -308,21 +308,21 @@ Similarly, any package may include R Markdown templates that package users can a
 
 Templates are a useful way to share custom structure, style, and content. There are many excellent examples of this "in the wild."\index{R package!R Markdown templates}
 
-Many templates add structure and style by pre-populating the YAML metadata. We already saw an example of this with the **rmarkdown** package's "Package Vignette (HTML)" template. Similarly, the **rmdformats** package [@R-rmdformats] provides a number of templates that pass different custom styling functions to the `output` option.
+Many templates add structure and style by pre-populating the YAML metadata. We already saw an example of this with the **rmarkdown** package's Package Vignette (HTML) template. Similarly, the **rmdformats** package [@R-rmdformats] provides a number of templates that pass different custom styling functions to the `output` option.
 
-Other templates demonstrate required document structures by the packages. For example, the **pagedown** package [@R-pagedown] includes numerous templates for posters, resumes, and other page layouts. Similarly, the **xaringan** package's "Ninja Presentation" template [@R-xaringan] demonstrates the syntax for many different slide formatting options. 
+Other templates demonstrate document structures that the packages require. For example, the **pagedown** package [@R-pagedown] includes numerous templates for posters, resumes, and other page layouts. Similarly, the **xaringan** package's Ninja Presentation template [@R-xaringan] demonstrates the syntax for many different slide formatting options. 
 
 Templates may also demonstrate package features and syntax. For example, both the **flexdashboard** package [@R-flexdashboard] and the **learnr** package [@R-learnr] include templates with code chunks that call functions from the packages to create a sample dashboard or tutorial, respectively.
 
-Similarly, templates may also include boilerplate content. For example, the **rticles** package [@R-rticles] provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals. Boilerplate content is also useful in in organizational settings, such as a team generating a quarterly reports. 
+Similarly, templates may also include boilerplate content. For example, the **rticles** package [@R-rticles] provides many such templates to align R Markdown output to the required style and content guidelines of different academic journals. Boilerplate content is also useful in organizational settings, such as a team generating quarterly reports. 
 
-### Template set-up
+### Template setup
 
-The **usethis** package [@R-usethis] has a helpful function for creating templates. Running `usethis::use_rmarkdown_template("Template Name")`\index{usethis!use\_rmarkdown\_template()} will automatically create the required directory structure and files (you should provide your own "Template Name").
+The **usethis** package [@R-usethis] has a helpful function for creating templates. Running `usethis::use_rmarkdown_template("Template Name")`\index{usethis!use\_rmarkdown\_template()} will automatically create the required directory structure and files (you should provide your own Template Name).
 
 If you wish to set up your template manually instead, create a subdirectory of the `inst/rmarkdown/templates` directory. Within this directory, you need to save at least two files:
 
-1. A file named `template.yaml`, which gives the RStudio IDE basic metadata such as a human-readable name for the template. At the minimum, this file should have the `name` and `description` fields, e.g.,
+1. A file named `template.yaml`, which gives the RStudio IDE basic metadata such as a human-readable name for the template. At a minimum, this file should have the `name` and `description` fields, e.g.,
 
     ```yaml
     name: Example Template
@@ -335,7 +335,7 @@ If you wish to set up your template manually instead, create a subdirectory of t
 
 Optionally, the `skeleton` folder may also include additional resources like style sheets or images used by your template. These files will be loaded to the user's computer along with the template.
 
-For more details on building custom R Markdown templates, please refer to the [RStudio Extensions](https://rstudio.github.io/rstudio-extensions/rmarkdown_templates.html) website and the [Document Templates chapter](https://bookdown.org/yihui/rmarkdown/document-templates.html) of the R Markdown Definitive Guide [@rmarkdown2018]. 
+For more details on building custom R Markdown templates, please refer to the [RStudio Extensions](https://rstudio.github.io/rstudio-extensions/rmarkdown_templates.html) website and the [Document Templates chapter](https://bookdown.org/yihui/rmarkdown/document-templates.html) of the _R Markdown Definitive Guide_ [@rmarkdown2018]. 
 
 ## Write books and long-form reports with **bookdown** {#bookdown}
 
@@ -392,7 +392,7 @@ The next two Rmd files are two chapters:
   This is chapter 2.
   ```
 
-To render these Rmd files, you should call `bookdown::render_book('index.Rmd')` instead of `rmarkdown::render()`. Under the hood, **bookdown** merges all Rmd files into a single Rmd by default and compile it. Files are merged in the alphabetical order. That is why we added numeric prefixes to filenames in the above example.
+To render these Rmd files, you should call `bookdown::render_book('index.Rmd')` instead of `rmarkdown::render()`. Under the hood, **bookdown** merges all Rmd files into a single Rmd by default and compiles it. Files are merged in alphabetical order. That is why we added numeric prefixes to filenames in the above example.
 
 There are a lot of settings that you can customize for a **bookdown** project. For a more comprehensive overview of **bookdown**, you may see Chapter 18 the **rmarkdown** book [@rmarkdown2018]. For the full documentation, see the **bookdown** book [@bookdown2016].
 

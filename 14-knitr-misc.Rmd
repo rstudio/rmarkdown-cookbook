@@ -33,7 +33,7 @@ Then we do the actual conversion:
 ```
 ````
 
-This is based on one of the main ideas of [Literate Programming,](https://en.wikipedia.org/wiki/Literate_programming) which was brought forward by Donald Knuth. The advantage of this technique is that you can split (complex) code into smaller parts, write each part in a separate code chunk, and explain them with narratives. All parts can be composed into the main code chunk to be executed.
+This is based on one of the main ideas of [Literate Programming,](https://en.wikipedia.org/wiki/Literate_programming) which was proposed by Donald Knuth. The advantage of this technique is that you can split (complex) code into smaller parts, write each part in a separate code chunk, and explain them with narratives. All parts can be composed into the main code chunk to be executed.
 
 For the above example, the first code chunk (with the label `f2c`) will become:
 
@@ -46,13 +46,13 @@ F2C <- function(x) {
 ```
 ````
 
-You can embed an arbitrary number of other code chunks in one code chunk. The embedding can also be recursive. For example, you may embed chunk A into chunk B, and chunk B into chunk C. Then chunk C will include code from chunk A via chunk B.
+You can embed an arbitrary number of other code chunks in one code chunk. The embedding can also be recursive. For example, you may embed chunk A in chunk B, and chunk B in chunk C. Then chunk C will include code from chunk A via chunk B.
 
 The marker `<<label>>` does not have to be on a separate line. It can be embedded anywhere in a code chunk.
 
 ### Use the same chunk label in another chunk {#same-label}
 
-If you want to use exactly the same code chunk twice or more times, you may define the chunk with a label, and create more code chunks with the same label but leave the chunk content empty, e.g.,
+If you want to use exactly the same code chunk two or more times, you may define the chunk with a label, and create more code chunks with the same label but leave the chunk content empty, e.g.,
 
 ````md
 Here is a code chunk that is not evaluated:
@@ -70,7 +70,7 @@ Now we actually evaluate it:
 
 We used the chunk label "chunk-one" twice in the above example, and the second chunk just reuses code from the first chunk.
 
-We recommend that you do not use this method to run a code chunk more than once to generate plots (or other files), because plot files created from a latter chunk may overwrite files from a previous chunk. It is okay if only one of such chunks uses the chunk option `eval = TRUE`, and all other chunks use `eval = FALSE`.
+We recommend that you do not use this method to run a code chunk more than once to generate plots (or other files), because plot files created from a later chunk may overwrite files from a previous chunk. It is okay if only one of such chunks uses the chunk option `eval = TRUE`, and all other chunks use `eval = FALSE`.
 
 ### Use reference labels (\*) {#ref-label}
 
@@ -108,7 +108,7 @@ There is an application of this chunk option in Section \@ref(code-appendix).
 
 ## Use an object before it is created (\*) {#load-cache}
 
-All code in a **knitr** document, including the code in code chunks and inline R expressions, is executed in the linear order from beginning to end. In theory, you cannot use a variable before it is assigned a value. However, in certain cases, we may want to mention the value of a variable earlier in the document. For example, it is common to present a result in the abstract of an article, but the result is actually computed later in the document. Below is an example that illustrates the idea but will not compile:
+All code in a **knitr** document, including the code in code chunks and inline R expressions, is executed in linear order from beginning to end. In theory, you cannot use a variable before it is assigned a value. However, in certain cases, we may want to mention the value of a variable earlier in the document. For example, it is common to present a result in the abstract of an article, but the result is actually computed later in the document. Below is an example that illustrates the idea but will not compile:
 
 ````md
 ---
@@ -153,7 +153,7 @@ saveRDS(mx, 'mean.rds')
 ```
 ````
 
-The first time when you compile this document, you will see the phrase "The value of `mx` is not available yet" in the abstract. Later when you compile it again, you will see the actual value of `mx`.
+The first time you compile this document, you will see the phrase "The value of `mx` is not available yet" in the abstract. Later, when you compile it again, you will see the actual value of `mx`.
 
 The function `knitr::load_cache()`\index{knitr!load\_cache()} is an alternative solution, which allows you to load the value of an object from a specific code chunk after the chunk has been cached\index{caching}. The idea is similar to the above example, but it will save you the effort of manually saving and loading an object, because the object is automatically saved to the cache database, and you only need to load it via `load_cache()`. Below is the simplified example:
 
@@ -228,7 +228,7 @@ You may see https://stackoverflow.com/a/46305297/559676 for an application of `f
 
 By default, **knitr** opens a new graphical device to record plots for each new code chunk. This brings a problem: you cannot easily modify a plot from a previous code chunk, because the previous graphical device has been closed. This is usually problematic for base R graphics (not so for grid graphics such as those created from **ggplot2** [@R-ggplot2] because plots can be saved to R objects). For example, if we draw a plot in one code chunk, and add a line to the plot in a later chunk, R will signal an error saying that a high-level plot has not been created, so it could not add the line.
 
-If you want the graphical device to remain open for all code chunks, you may set a **knitr** package option in the beginning of your document\index{knitr!opts\_knit}\index{knitr!global.device}\index{figure!global device:
+If you want the graphical device to remain open for all code chunks, you may set a **knitr** package option in the beginning of your document\index{knitr!opts\_knit}\index{knitr!global.device}\index{figure!global} device:
 
 ```{r, eval=FALSE}
 knitr::opts_knit$set(global.device = TRUE)
@@ -281,7 +281,7 @@ knitr::knit_expand(
 )
 ```
 
-This means if have an Rmd document that contains some dynamic parts in `{{ }}`, you may apply `knit_expand()` on the document, and then call `knit()` to compile it. For example, here is a template document named `template.Rmd`:
+This means that if you have an Rmd document that contains some dynamic parts in `{{ }}`, you may apply `knit_expand()` on the document, and then call `knit()` to compile it. For example, here is a template document named `template.Rmd`:
 
 ````md
 # Regression on {{i}}
@@ -344,7 +344,7 @@ options(knitr.duplicate.label = 'allow')
 
 If you want to allow duplicate labels in the main document instead of the child document, you have to set this option _before_ `knitr::knit()` is called. One possible way to achieve that is to set the option in your `~/.Rprofile` file (see the help page `?Rprofile` for more information).
 
-You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross-references. For example, in theory, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without error or warning messages), because the filenames of plots are determined by the chunk labels. With the option `knitr.duplicate.label = "allow"`, **knitr** will silently change the duplicate labels by adding numeric suffixes. For example, for the two code chunks:
+You should set this option with caution. As with most error messages, they are there for a reason. Allowing duplicate chunks can create silent problems with figures and cross references. For example, in theory, if two code chunks have the same label and both chunks generate plots, their plot files will overwrite each other (without error or warning messages), because the filenames of plots are determined by the chunk labels. With the option `knitr.duplicate.label = "allow"`, **knitr** will silently change the duplicate labels by adding numeric suffixes. For example, for the two code chunks:
 
 ````md
 ```{r, test}`r ''`
@@ -356,7 +356,7 @@ plot(10:1)
 ```
 ````
 
-The second label will be silently changed to `test-1`. This may avoid overwriting the plot from the chunk with the label `test`, but it also makes the chunk label unpredictable, so you may have difficulties in cross-referencing figures\index{crossreference} (see Section \@ref(cross-ref)), because the cross-references are also based on chunk labels.
+The second label will be silently changed to `test-1`. This may avoid overwriting the plot from the chunk with the label `test`, but it also makes the chunk label unpredictable, so you may have difficulties in cross-referencing figures\index{crossreference} (see Section \@ref(cross-ref)), because the cross references are also based on chunk labels.
 
 ## A more transparent caching mechanism {#cache-rds}
 
@@ -368,7 +368,7 @@ xfun::cache_rds({
 })
 ```
 
-The tricky thing about **knitr**'s caching is how it decides when to invalidate the cache. For `xfun::cache_rds()`, it is much clearer: the first time you pass an R expression to this function, it evaluates the expression and save the result to a `.rds` file; the next time you run `cache_rds()` again, it reads the `.rds` file and returns the result immediately without evaluating the expression again. The most obvious way to invalidate the cache is to delete the `.rds` file. If you do not want to manually delete it, you may call `xfun::cache_rds()` with the argument `rerun = TRUE`.
+The tricky thing about **knitr**'s caching is how it decides when to invalidate the cache. For `xfun::cache_rds()`, it is much clearer: the first time you pass an R expression to this function, it evaluates the expression and saves the result to a `.rds` file; the next time you run `cache_rds()` again, it reads the `.rds` file and returns the result immediately without evaluating the expression again. The most obvious way to invalidate the cache is to delete the `.rds` file. If you do not want to manually delete it, you may call `xfun::cache_rds()` with the argument `rerun = TRUE`.
 
 When `xfun::cache_rds()` is called inside a code chunk in a **knitr** source document, the path of the `.rds` file is determined by the chunk option `cache.path`/index{chunk option!cache.path} and the chunk label. For example, for a code chunk with the chunk label `foo` in the Rmd document `input.Rmd`:
 
@@ -381,7 +381,7 @@ res <- xfun::cache_rds({
 ```
 ````
 
-The path of the `.rds` file will be of the form `input_cache/FORMAT/foo_HASH.rds`, where `FORMAT` is the Pandoc output format name (e.g., `html` or `latex`), and `HASH` is a MD5 hash that contains 32 hexadecimal digits (consisting a-z and 0-9), e.g., `input_cache/html/foo_7a3f22c4309d400eff95de0e8bddac71.rds`.
+The path of the `.rds` file will be of the form `input_cache/FORMAT/foo_HASH.rds`, where `FORMAT` is the Pandoc output format name (e.g., `html` or `latex`), and `HASH` is an MD5 hash that contains 32 hexadecimal digits (consisting a-z and 0-9), e.g., `input_cache/html/foo_7a3f22c4309d400eff95de0e8bddac71.rds`.
 
 As documented on the help page `?xfun::cache_rds`, there are two common cases in which you may want to invalidate the cache: 1) the code in the expression to be evaluated has changed; 2) the code uses an external variable, and the value of that variable has changed. Next we will explain how these two ways of cache invalidation work, as well as how to keep multiple copies of the cache corresponding to different versions of the code.
 
@@ -481,7 +481,7 @@ The global variables are identified by `codetools::findGlobals()` when `hash = "
 
 ### Keep multiple copies of the cache
 
-Since the cache is typically used for time-consuming code, perhaps you should invalidate it conservatively. You might regret invalidating the cache too soon or aggressively, because in case you should need an older version of the cache again, you would have to wait for a long time for the computing to be redone.
+Since the cache is typically used for time-consuming code, perhaps you should invalidate it conservatively. You might regret invalidating the cache too soon or aggressively, because if you should need an older version of the cache again, you would have to wait for a long time for the computing to be redone.
 
 The `clean` argument of `cache_rds()` allows you to keep older copies of the cache if you set it to `FALSE`\index{caching!clean}. You can also set the global R option `options(xfun.cache_rds.clean = FALSE)` if you want this to be the default behavior throughout the entire R session. By default, `clean = TRUE` and `cache_rds()` will try to delete the older cache every time. Setting `clean = FALSE` can be useful if you are still experimenting with the code. For example, you can cache two versions of a linear model:
 
@@ -499,7 +499,7 @@ After you decide which model to use, you can set `clean = TRUE` again, or delete
 
 ### Comparison with **knitr**'s caching
 
-You may wonder when to use **knitr**'s caching (i.e., set the chunk option `cache = TRUE`), and when to use `xfun::cache_rds()` in a **knitr** source document. The biggest disadvantage of `xfun::cache_rds()` is that it does not cache side-effects (but only the value of the expression), whereas **knitr** does. Some side-effects may be useful, such as printed output or plots. For example, in the code below, the text output and the plot will be lost when `cache_rds()` loads the cache the next time, and only the value `1:10` will be returned:
+You may wonder when to use **knitr**'s caching (i.e., set the chunk option `cache = TRUE`), and when to use `xfun::cache_rds()` in a **knitr** source document. The biggest disadvantage of `xfun::cache_rds()` is that it does not cache side effects (but only the value of the expression), whereas **knitr** does. Some side effects may be useful, such as printed output or plots. For example, in the code below, the text output and the plot will be lost when `cache_rds()` loads the cache the next time, and only the value `1:10` will be returned:
 
 ```{r, eval=FALSE}
 xfun::cache_rds({
@@ -529,6 +529,6 @@ mean(x)
 ```
 ````
 
-Actually **knitr** caching is quite powerful and flexible, and its behavior can be tweaked in many ways. As its author, I often doubt if it is worth introducing these lesser-known features, because you may end up spending much more time on learning and understanding how the cache works than the time the actual computing takes.
+Actually, **knitr** caching is quite powerful and flexible, and its behavior can be tweaked in many ways. As its author, I often doubt if it is worth introducing these lesser-known features, because you may end up spending much more time on learning and understanding how the cache works than the time the actual computing takes.
 
 In case it is not clear, `xfun::cache_rds()` is a general way for caching the computing, and it works anywhere, whereas **knitr**'s caching only works in **knitr** documents.

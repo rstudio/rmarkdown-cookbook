@@ -10,11 +10,11 @@ The greatest strength of the Markdown language is that its simplicity makes it v
 
 However, this comes at a cost of customization. Many features of typical word processors are not directly available in Markdown, e.g.,
 
-- Changing the font size of a piece of text;
+- changing the font size of a piece of text;
 
-- Changing the font color of certain words;
+- changing the font color of certain words;
 
-- Specifying text alignment.
+- specifying text alignment.
 
 We leave it to you to decide whether such features are worth your effort. To some degree, Markdown reflects the philosophy of Stoicism: the "natural world" consists of plain text, and you should not be _controlled_ by the desire for (visual) pleasure. Anyway, this chapter offers some tips on how you can customize the appearance and styling of elements in an R Markdown document.
 
@@ -74,7 +74,7 @@ Compared to the previous method, the advantage of using the Lua filter is that y
 <!-- PROBLEM: https://stackoverflow.com/questions/47087557/indent-without-adding-a-bullet-point-or-number-in-rmarkdown/52570150#52570150 -->
 <!-- SOLUTION: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#line_blocks -->
 
-As mentioned in Section \@ref(linebreaks), whitespaces are often meaningless in Markdown. Markdown will also ignore spaces used for indentation by default. However, we may want to keep the indentation in certain cases, e.g., in verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The linebreaks\index{line breaks} and any leading spaces will be preserved in the output. For example:^[This is a limerick written by Claus Ekstrøm: https://yihui.org/en/2018/06/xaringan-math-limerick/.]
+As mentioned in Section \@ref(linebreaks), whitespaces are often meaningless in Markdown. Markdown will also ignore spaces used for indentation by default. However, we may want to keep the indentation in certain cases, e.g., in verses and addresses. In these situations, we can use line blocks by starting the line with a vertical bar (`|`). The line breaks\index{line breaks} and any leading spaces will be preserved in the output. For example:^[This is a limerick written by Claus Ekstrøm: https://yihui.org/en/2018/06/xaringan-math-limerick/.]
 
 ```md
 | When dollars appear it's a sign
@@ -93,7 +93,7 @@ The output is:
 |   been placed on a single long line
 
 
-The lines can be hard-wrapped in the Markdown source. If the continuation line begins with a space, the previous linebreak and the leading spaces on this line will be ignored as usual. For example:
+The lines can be hard-wrapped in the Markdown source. If the continuation line begins with a space, the previous line break and the leading spaces on this line will be ignored as usual. For example:
 
 ```md
 | Hiring Manager
@@ -111,11 +111,11 @@ The output is:
 > | 404 Not Found Road,
 >  Undefined 0x1234, NA
 
-You can see that the linebreak after "School of Ninja" was ignored.
+You can see that the line break after "School of Ninja" was ignored.
 
 ## Control the width of text output {#text-width}
 
-Sometimes the text output printed from R code may be too wide. If the output document has a fixed page width (e.g., PDF documents), the text output may exceed the page margin. See Figure \@ref(fig:wrap-text-1) for an example.
+Sometimes the text output printed from R code may be too wide. If the output document has a fixed page width (e.g., PDF documents), the text output may exceed the page margins. See Figure \@ref(fig:wrap-text-1) for an example.
 
 The R global option `width` can be used to control the width of printed text output from some R functions, and you may try a smaller value if the default is too large. This option typically indicates a rough number of characters per line (except for East Asian languages). For example:
 
@@ -135,7 +135,7 @@ matrix(runif(100), ncol = 20)
 ```
 ````
 
-Not all R functions respect the `width` option. If this option does not work, your only choice may be to wrap the long lines of text. This is actually the default behavior of the `html_document` output format. If the HTML output format that you are using does not wrap the long lines, you may apply the CSS code\index{CSS property!white-space} below (see Section \@ref(html-css) for how):
+Not all R functions respect the `width` option. If this option does not work, your only choice may be to wrap the long lines of text. This is actually the default behavior of the `html_document` output format. If the HTML output format that you are using does not wrap the long lines, you may apply the CSS code\index{CSS property!white-space} below (see Section \@ref(html-css) for instructions):
 
 ```css
 pre code {
@@ -205,7 +205,7 @@ The chunk option `fig.align`\index{chunk option!fig.align} specifies the alignme
 
 Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate a verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
 
-Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` ``\index{knitr!inline\_expr()} to the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
+Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` ``\index{knitr!inline\_expr()} in the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
 
 ````{r echo = FALSE, comment = NA}
 cat("```{r, eval=TRUE}`r ''`
@@ -241,7 +241,7 @@ This will show a verbatim inline R expression `` `r
 1+1` `` in the output.
 ```
 
-The trick works due to two reasons (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression. In the output document, you should see:
+The trick works for two reasons: (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression. In the output document, you should see:
 
 > This will show a verbatim inline R expression `` `r
 1+1` `` in the output.
@@ -257,7 +257,7 @@ I'd recommend the second way, because the first way is more or less a hack takin
 
 ## Line numbers for code blocks (\*) {#number-lines}
 
-You can add line numbers to either source code blocks via the chunk option `attr.source = ".numberLines"`\index{chunk option!attr.source} or text output blocks via `attr.output = ".numberLines"`\index{chunk option!attr.output} (see Section \@ref(attr-output) for more information on these options), e.g.,
+You can add line numbers to either source code blocks, via the chunk option `attr.source = ".numberLines"`\index{chunk option!attr.source}, or text output blocks, via `attr.output = ".numberLines"`\index{chunk option!attr.output} (see Section \@ref(attr-output) for more information on these options), e.g.,
 
 ````md
 ```{r, attr.source='.numberLines'}`r ''`
@@ -340,7 +340,7 @@ If you want to arrange arbitrary content side by side in HTML output, you can us
 
 In the above example, the outside `Div` (`::::`) contains two `Div`s (`:::`). You can certainly add more `Div`s inside. To learn more about the very powerful CSS attribute `display: flex;` (CSS Flexbox), you may read the guide at https://css-tricks.com/snippets/css/a-guide-to-flexbox/. The CSS Grid (`display: grid;`) is also very powerful and can be used in the above example, too. If you want to try it, you may change `display: flex;` to `display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;`. See the guide at https://css-tricks.com/snippets/css/complete-guide-grid/ if you want to learn more about the grid layout.
 
-It is trickier if you want the layout to work for both HTML and LaTeX output. We show a full example below that works for HTML document, LaTeX document, and Beamer presentation output:
+It is trickier if you want the layout to work for both HTML and LaTeX output. We show a full example below that works for HTML documents, LaTeX documents, and Beamer presentations:
 
 `r import_example('multicol.Rmd')`
 
@@ -358,6 +358,6 @@ For LaTeX output (`pdf_document`), we have to introduce some dirty hacks stored 
 
 The `col` environment is particularly complicated mainly because Pandoc starts a new paragraph for each `Div` in LaTeX output, and we have to remove these new paragraphs. Otherwise, the `Div`s cannot be placed side by side. The hacks were borrowed from https://tex.stackexchange.com/q/179016/9128.
 
-For Beamer output, we apply the same hacks in `columns.tex`. Please note that Pandoc has provided some special `Div`'s for [slide shows](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc), such as `::: {.columns}`, `::: {.column}`, and `::: {.incremental}`. Because they already have their special meanings, you must be careful _not_ to use these types of `Div`'s if you intend to convert a `Div` to a LaTeX environment in the way mentioned in this section. That is why we did not use the `Div` types `columns` or `column`, but chose to use `cols` and `col` instead.
+For Beamer output, we apply the same hacks in `columns.tex`. Please note that Pandoc has provided some special `Div`'s for [slide shows,](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc) such as `::: {.columns}`, `::: {.column}`, and `::: {.incremental}`. Because they already have their special meanings, you must be careful _not_ to use these types of `Div`'s if you intend to convert a `Div` to a LaTeX environment in the way mentioned in this section. That is why we did not use the `Div` types `columns` or `column`, but chose to use `cols` and `col` instead.
 
 For more information about fenced `Div`'s, please refer to Section \@ref(custom-blocks).

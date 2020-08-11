@@ -1,10 +1,10 @@
 # Workflow
 
-In this chapter, we introduce some tips on working with individual R Markdown documents as well as running your R Markdown projects. You may also check out [Chapter 30](https://r4ds.had.co.nz/r-markdown-workflow.html) of the book "R for Data Science" [@wickham2016], which briefly introduces some tips on using analysis notebooks (including R Markdown documents). Nicholas Tierney also discusses the workflow in the book ["R Markdown for Scientists."](https://rmd4sci.njtierney.com/workflow.html)
+In this chapter, we introduce some tips on working with individual R Markdown documents as well as running your R Markdown projects. You may also check out [Chapter 30](https://r4ds.had.co.nz/r-markdown-workflow.html) of the book _R for Data Science_ [@wickham2016], which briefly introduces some tips on using analysis notebooks (including R Markdown documents). Nicholas Tierney also discusses the workflow in the book [_R Markdown for Scientists_.](https://rmd4sci.njtierney.com/workflow.html)
 
 ## Use RStudio keyboard shortcuts {#rstudio-shortcuts}
 
-The R Markdown format can be used with any editor of your choice, as long as R, the **rmarkdown** package, and Pandoc are installed. However, RStudio\index{RStudio!keyboard shortcuts} has a deep integration with R Markdown so you can work with R Markdown smoothly.
+The R Markdown format can be used with any editor of your choice, as long as R, the **rmarkdown** package, and Pandoc are installed. However, RStudio\index{RStudio!keyboard shortcuts} is deeply integrated with R Markdown, so you can work with R Markdown smoothly.
 
 Like any IDE (Integrated Development Environment), RStudio has keyboard shortcuts. A full list can be found under the menu `Tools -> Keyboard Shortcuts Help`. Some of the most useful shortcuts related to R Markdown are summarized in Table \@ref(tab:shortcuts).
 
@@ -50,17 +50,17 @@ keyboard_table <- tibble::tribble(
 knitr::kable(keyboard_table, caption = "RStudio keyboard shortcuts related to R Markdown.", booktabs = TRUE)
 ```
 
-Additionally, you can press `F7` to spell check your document. You can also restart the R session by `Ctrl + Alt + F10` (or `Command + Option + F10` on macOS). Restarting regularly is helpful for reproducibility, because results are more likely to be reproducible if they are computed from a new R session. This can also be done through the dropdown menu "Restart R and Run All Chunks" behind the "Run" button on the toolbar.
+Additionally, you can press `F7` to spell-check your document. You can also restart the R session by `Ctrl + Alt + F10` (or `Command + Option + F10` on macOS). Restarting regularly is helpful for reproducibility, because results are more likely to be reproducible if they are computed from a new R session. This can also be done through the drop-down menu Restart R and Run All Chunks behind the Run button on the toolbar.
 
-## Spell check R Markdown {#spell-check}
+## Spell-check R Markdown {#spell-check}
 
-If you use the RStudio IDE\index{RStudio!spellcheck}, you can press the key `F7` or click the menu `Edit -> Check Spelling` to spell check an Rmd document. Real-time spell checking has become available in RStudio v1.3, so you no longer need to manually trigger spell checking with this version or a greater version of RStudio.
+If you use the RStudio IDE\index{RStudio!spellcheck}, you can press the `F7` key or click the menu `Edit -> Check Spelling` to spell-check an Rmd document. Real-time spell checking has become available in RStudio v1.3, so you no longer need to manually trigger spell checking with this version or a later version of RStudio.
 
 If you do not use RStudio, the **spelling** package\index{R package!spelling} [@R-spelling] has a function `spell_check_files()`, which can check the spelling of common document formats, including R Markdown. When spell checking Rmd documents, it will skip code chunks and only check ordinary text.
 
 ## Render R Markdown with `rmarkdown::render()` {#rmarkdown-render}
 
-If you do not use RStudio or any other IDEs, you need to know this fact: R Markdown documents are rendered through the function `rmarkdown::render()`\index{rmarkdown!render()}. This means you can programmatically render an R Markdown document in any R script. For example, you could render a series of reports in a `for`-loop for each state of a country:
+If you do not use RStudio or any other IDE, you need to know this fact: R Markdown documents are rendered through the function `rmarkdown::render()`\index{rmarkdown!render()}. This means you can programmatically render an R Markdown document in any R script. For example, you could render a series of reports in a `for`-loop for each state of a country:
 
 ```{r, eval=FALSE, tidy=FALSE}
 for (state in state.name) {
@@ -95,7 +95,7 @@ xfun::Rscript_call(
 )
 ```
 
-This method is similar to clicking the `Knit` button in RStudio\index{RStudio!Knit button}, which also renders the Rmd document in a new R session. In case you need to render an Rmd document inside another Rmd document, we strongly recommend that you used this method instead of directly calling `rmarkdown::render()` in a code chunk, because `rmarkdown::render()` creates and relies on a lot of side-effects internally, which may affect rendering other Rmd documents in the same R session.
+This method is similar to clicking the `Knit` button in RStudio\index{RStudio!Knit button}, which also renders the Rmd document in a new R session. In case you need to render an Rmd document inside another Rmd document, we strongly recommend that you use this method instead of directly calling `rmarkdown::render()` in a code chunk, because `rmarkdown::render()` creates and relies on a lot of side effects internally, which may affect rendering other Rmd documents in the same R session.
 
 The second argument of `xfun::Rscript_call()` takes a list of arguments to be passed to `rmarkdown::render`(). In fact, `xfun::Rscript_call` is a general-purpose function to call any R function (with arguments optionally) in a new R session. Please see its help page if you are interested.
 
@@ -109,7 +109,7 @@ for (state in state.name) {
 }
 ```
 
-Then in `input.Rmd`, the object `params` will be a list that contains the `state` variable:
+then in `input.Rmd`, the object `params` will be a list that contains the `state` variable:
 
 ````md
 ---
@@ -163,7 +163,7 @@ for (state in state.name) {
 
 At the end, you will get a series of report files like `Alabama-2000.pdf`, `Alabama-2001.pdf`, ..., `Wyoming-2019.pdf`, and `Wyoming-2020.pdf`.
 
-For parameterized reports, you can also input parameters interactively through a graphical user interface (GUI) created from Shiny. This requires you to provide a `params` field in YAML, and **rmarkdown** will automatically create the GUI using the appropriate input widgets for each parameter (e.g., a checkbox will be provided for a boolean parameter).
+For parameterized reports, you can also input parameters interactively through a graphical user interface (GUI) created from Shiny. This requires you to provide a `params` field in YAML, and **rmarkdown** will automatically create the GUI using the appropriate input widgets for each parameter (e.g., a checkbox will be provided for a Boolean parameter).
 
 To start the GUI, you can call `rmarkdown::render()` with `params = 'ask'` if you do not use RStudio:
 
@@ -177,7 +177,7 @@ If you use RStudio, you can click the menu `Knit with Parameters`\index{RStudio!
 knitr::include_graphics('images/params-shiny.png', dpi = NA)
 ```
 
-For more information on parameterized reports, you may read [Chapter 15](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) of the R Markdown Definitive Guide [@rmarkdown2018].
+For more information on parameterized reports, you may read [Chapter 15](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) of the _R Markdown Definitive Guide_ [@rmarkdown2018].
 
 ## Customize the `Knit` button (\*) {#custom-knit}
 
@@ -239,7 +239,7 @@ Based on the **googledrive** package\index{R package!googledrive} [@R-googledriv
 
 The workflow with **rmdrive** is outlined below:
 
-1. We assume there is a main author or contributor of the project, who is capable of using version control tools like GIT. The main author writes the initial version of the Rmd document, and upload it to Google Drive via the `upload_rmd()` function.
+1. We assume there is a main author or contributor of the project, who is capable of using version control tools like GIT. The main author writes the initial version of the Rmd document, and uploads it to Google Drive via the `upload_rmd()` function.
 
 1. The Rmd document in Google Drive is shared with other collaborators, who can make or suggest changes in Google Document.
 
@@ -257,9 +257,9 @@ The **workflowr** package\index{R package!workflowr} [@R-workflowr; @workflowr20
 
 The main author of **workflowr**, John Blischak, has also put together a non-exhaustive list of R packages and guides related to the workflow of R projects, which can be found in this GitHub repo: https://github.com/jdblischak/r-project-workflows.
 
-## Send Emails based on R Markdown {#blastula-email}
+## Send emails based on R Markdown {#blastula-email}
 
-With the **blastula** package\index{R package!blastula}\index{email} [@R-blastula], you can render an Rmd document to the Email body and send the Email. To render an Rmd document to an Email, the document needs to use the output format `blastula::blastula_email`, e.g.,
+With the **blastula** package\index{R package!blastula}\index{email} [@R-blastula], you can render an Rmd document to the email body and send the email. To render an Rmd document to an email, the document needs to use the output format `blastula::blastula_email`, e.g.,
 
 ````md
 ---
@@ -282,6 +282,6 @@ Sincerely,
 John
 ````
 
-This Rmd document should be rendered via the function `blastula::render_email()`, and the output can be passed to `blastula::smtp_send()`, which will send out the Email. Note that `smtp_send()` needs an Email server as well as your credentials.
+This Rmd document should be rendered via the function `blastula::render_email()`, and the output can be passed to `blastula::smtp_send()`, which will send out the email. Note that `smtp_send()` needs an email server as well as your credentials.
 
 If you use RStudio Connect, you can find more examples at https://solutions.rstudio.com/examples/blastula-overview/, including automated, conditional, and parameterized emails.

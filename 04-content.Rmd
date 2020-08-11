@@ -39,7 +39,7 @@ title: "An analysis of `r knitr::inline_expr('nrow(mtcars)')` cars"
 ---
 ```
 
-If your title depends on an R variable created later in the document, you may add the `title` field in a later YAML section, e.g.,
+If your title depends on an R variable created later in the document, you may add the `title` field in a later YAML section, e.g., the following:
 
 ````md
 ---
@@ -60,7 +60,7 @@ title: "Our market share is `r knitr::inline_expr('round(100 * share, 2)')`% now
 I feel `r knitr::inline_expr('if(share > 0.8) "happy" else "sad"')` about it.
 ````
 
-In the example above, we added the document title after we have created the variable `share`. The title works in this case because Pandoc can read any number of YAML sections in a document (and merge them).
+In the example above, we added the document title after we created the variable `share`. The title works in this case because Pandoc can read any number of YAML sections in a document (and merge them).
 
 You can also generate titles or any YAML fields dynamically from parameters in parameterized reports\index{YAML!parameters|see {parameter}}\index{parameter} (see Section \@ref(parameterized-reports)), e.g.,
 
@@ -79,7 +79,7 @@ We used the title as the example in this section, but the idea can be applied to
 
 ## Access the document metadata in R code {#document-metadata}
 
-When a Rmd document is compiled, all of its metadata in the YAML section\index{YAML} will be stored in the list object `rmarkdown::metadata`. For example, `rmarkdown::metadata$title` gives you the title of the document. You can use this `metadata` object in your R code, so that you do not need to hard-code information that has been provided in the YAML metadata. For example, when you send an email with the **blastula** package [@R-blastula]\index{R package!blastula} within an Rmd document, you may use the title of the document as the email subject, and get the sender information from the author field:
+When an Rmd document is compiled, all of its metadata in the YAML section\index{YAML} will be stored in the list object `rmarkdown::metadata`. For example, `rmarkdown::metadata$title` gives you the title of the document. You can use this `metadata` object in your R code, so that you do not need to hard-code information that has been provided in the YAML metadata. For example, when you send an email with the **blastula** package [@R-blastula]\index{R package!blastula} within an Rmd document, you may use the title of the document as the email subject, and get the sender information from the author field:
 
 ````md
 ---
@@ -171,11 +171,11 @@ csl: biomed-central.csl
 ---
 ```
 
-To find your required formats, we recommend using [the Zotero Style Repository](https://www.zotero.org/styles), which makes it easy to search for and download your desired style.
+To find your required formats, we recommend using [the Zotero Style Repository,](https://www.zotero.org/styles) which makes it easy to search for and download your desired style.
 
 CSL files can be tweaked to meet custom formatting requirements. For example, we can change the number of authors required before "et al." is used to abbreviate them. This can be simplified through the use of visual editors such as the one available at https://editor.citationstyles.org.
 
-### Add an item to bibliography without using it 
+### Add an item to a bibliography without using it 
 
 By default, the bibliography will only display items that are directly referenced in the document. If you want to include items in the bibliography without actually citing them in the body text, you can define a dummy `nocite` metadata field\index{YAML!nocite} and put the citations there.
 
@@ -187,7 +187,7 @@ nocite: |
 ```
 
 
-### Add all items to bibliography
+### Add all items to the bibliography
 
 If we do not wish to explicitly state all of the items within the bibliography but would still like to show them in our references, we can use the following syntax:
 
@@ -286,11 +286,11 @@ Cross-referencing\index{crossreference} is a useful way of directing your reader
 
 To use cross-references, you will need:
 
-- **A bookdown output format**: cross-referencing is not provided directly within the base **rmarkdown** package, but is provided as an extension in **bookdown** [@R-bookdown]. We must therefore use an output format from **bookdown** (e.g., `html_document2`, `pdf_document2`, and `word_document2`, etc.) in the YAML `output` field.
+- **A bookdown output format**: Cross-referencing is not provided directly within the base **rmarkdown** package, but is provided as an extension in **bookdown** [@R-bookdown]. We must therefore use an output format from **bookdown** (e.g., `html_document2`, `pdf_document2`, and `word_document2`, etc.) in the YAML `output` field.
 
-- **A caption to your figure (or table)**: figures without a caption will be included directly as images and will therefore not be a numbered figure.
+- **A caption to your figure (or table)**: Figures without a caption will be included directly as images and will therefore not be a numbered figure.
 
-- **A labeled code chunk**:\index{code chunk!label} this provides the identifier for referencing the figure generated by the chunk.
+- **A labeled code chunk**:\index{code chunk!label} This provides the identifier for referencing the figure generated by the chunk.
 
 After these conditions are met, we can make cross-references within the text using the syntax `\@ref(type:label)`, where `label` is the chunk label and `type` is the environment being referenced (e.g. `tab`, `fig`, or `eqn`). An example is provided below:
 
@@ -363,7 +363,7 @@ author: "John Doe, Jane Doe"
 ---
 ```
 
-Alternatively, if we wish for each entry to be on its own line, we can provide a list of entries to the YAML field. This can be useful if you wish to include further information about each author such as an Email address or institution, e.g.,
+Alternatively, if we wish each entry to be on its own line, we can provide a list of entries to the YAML field. This can be useful if you wish to include further information about each author such as an email address or institution, e.g.,
 
 ```yaml
 ---
@@ -389,7 +389,7 @@ Certain R Markdown templates will allow you to specify additional parameters dir
 install.packages('distill')
 ```
 
-You can use the Distill format with detailed author information, e.g.,
+you can use the Distill format with detailed author information, e.g.,
 
 ```yaml
 ---
@@ -439,7 +439,7 @@ Please read the help pages of the **bookdown** output format functions to see if
 
 ## Combine words into a comma-separated phrase {#combine-words}
 
-When you want to output a character vector for humans to read (e.g., `x <- c("apple", "banana", "cherry")`), you probably do not want something like `[1] "apple" "banana" "cherry"`, which is the normal way to print a vector in R. Instead, you may want a character string "`apple, banana, and cherry`". There is a base R function `paste()` that you can use to concatenate a character vector into a single string, e.g., `paste(x, collapse = ', ')`, and the output will be `"apple, banana, cherry"`. The problems are (1) the conjunction "and" is missing, and (2) when the vector only contains two elements, we should not use commas (e.g., the output should be `"apple and banana"` instead of `"apple, banana"`).
+When you want to output a character vector for humans to read (e.g., `x <- c("apple", "banana", "cherry")`), you probably do not want something like `[1] "apple" "banana" "cherry"`, which is the normal way to print a vector in R. Instead, you may want a character string "`apple, banana, and cherry`". There is a base R function, `paste()`, that you can use to concatenate a character vector into a single string, e.g., `paste(x, collapse = ', ')`, and the output will be `"apple, banana, cherry"`. The problems are (1) the conjunction "and" is missing, and (2) when the vector only contains two elements, we should not use commas (e.g., the output should be `"apple and banana"` instead of `"apple, banana"`).
 
 The function `knitr::combine_words()`\index{knitr!combine\_words()} can be used to concatenate words into a phrase regardless of the length of the character vector. Basically, for a single word, it will just return this word; for two words A and B, it returns `"A and B"`; for three or more words, it returns `"A, B, C, ..., Y, and Z"`. The function also has a few arguments that can customize the output. For example, if you want to output the words in pairs of backticks, you may use ``knitr::combine_words(x, before = '`')``. Below are more examples with different arguments, and please see the help page `?knitr::combine_words` if the meaning of any argument is not clear from the output here:
 
@@ -460,17 +460,17 @@ This function can be particularly handy when it is used in an inline R expressio
 This morning we had `r knitr::inline_expr("knitr::combine_words(v)")` for breakfast.
 ```
 
-## Preserve a large number of linebreaks {#linebreaks}
+## Preserve a large number of line breaks {#linebreaks}
 
-Markdown users may be surprised to realize that whitespaces\index{line breaks} (including linebreaks) are usually meaningless unless they are used in a verbatim environment (code blocks). Two or more spaces are the same as one space, and a linebreak is the same as a space. If you have used LaTeX or HTML before, you may not be surprised because the rule is the same in these languages.
+Markdown users may be surprised to realize that whitespaces\index{line breaks} (including line breaks) are usually meaningless unless they are used in a verbatim environment (code blocks). Two or more spaces are the same as one space, and a line break is the same as a space. If you have used LaTeX or HTML before, you may not be surprised because the rule is the same in these languages.
 
-In Markdown, we often use a blank line to separate elements such as paragraphs. To break a line without introducing a new paragraph, you have to use two trailing spaces. Sometimes you may want to break the lines for many times, especially when you write or quote poems or lyrics. Adding two spaces after each line manually is a tedious task. The function `blogdown:::quote_poem()`\index{blogdown!quote\_poem()} can do this task automatically, e.g.,
+In Markdown, we often use a blank line to separate elements such as paragraphs. To break a line without introducing a new paragraph, you have to use two trailing spaces. Sometimes you may want to break the lines many times, especially when you write or quote poems or lyrics. Adding two spaces after each line manually is a tedious task. The function `blogdown:::quote_poem()`\index{blogdown!quote\_poem()} can do this task automatically, e.g.,
 
 ```{r, collapse=TRUE}
 blogdown:::quote_poem(c('This line', 'should be', 'broken.'))
 ```
 
-If you use the RStudio IDE and have installed the package **blogdown** [@R-blogdown], you can select the text in which you want to preserve the linebreaks, and click the RStudio addin "Quote Poem"\index{RStudio!Quote Poem addin} in the drop-down menu "Addins" on the toolbar. For example, the text below (in a fenced code block) does not contain trailing spaces:
+If you use the RStudio IDE and have installed the package **blogdown** [@R-blogdown], you can select the text in which you want to preserve the line breaks, and click the RStudio addin "Quote Poem"\index{RStudio!Quote Poem addin} in the drop-down menu "Addins" on the toolbar. For example, the text below (in a fenced code block) does not contain trailing spaces:
 
 ```md
 Like Barley Bending
@@ -595,7 +595,7 @@ There are extensive controls that can be used to define the shape of nodes, colo
 
 ### Adding parameters to plots
 
-Graphviz substitution allows for mixing in R expressions into a Graphviz graph specification, without sacrificing readability. If you specify a substitution with `@@`, you must ensure there is a valid R expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object. The `@@` notation is immediately followed by a number, and that number should correspond to the number of the R expression footnote. Figure \@ref(fig:diagram-params) shows an example of embedding and evaluating R code in the diagram.
+Graphviz substitution allows for mixing R expressions into a Graphviz graph specification, without sacrificing readability. If you specify a substitution with `@@`, you must ensure there is a valid R expression for that substitution. The expressions are placed as footnotes and their evaluations must result in an R vector object. The `@@` notation is immediately followed by a number, and that number should correspond to the number of the R expression footnote. Figure \@ref(fig:diagram-params) shows an example of embedding and evaluating R code in the diagram.
 
 ```{r diagram-params, fig.cap="A diagram using parameters input from R.", fig.dim=c(6, 1), out.width="100%", crop=TRUE}
 DiagrammeR::grViz("
@@ -627,9 +627,9 @@ You may also check out these packages for creating diagrams: **nomnoml** [@R-nom
 
 ## Escape special characters {#special-chars}
 
-Some characters have special meanings in the Markdown syntax. If you want these characters verbatim, you have to escape them. For example, a pair of underscores surrounding text usually make the text italic. You need to escape the underscores if you want verbatim underscores instead of italic text. The way to escape a special character is to add a backslash before it, e.g., `I do not want \_italic text\_ here`. Similarly, if `#` does not indicate a section heading, you may write `\# This is not a heading`.
+Some characters have special meanings in the Markdown syntax. If you want these characters verbatim, you have to escape them. For example, a pair of underscores surrounding text usually makes the text italic. You need to escape the underscores if you want verbatim underscores instead of italic text. The way to escape a special character is to add a backslash before it, e.g., `I do not want \_italic text\_ here`. Similarly, if `#` does not indicate a section heading, you may write `\# This is not a heading`.
 
-As mentioned in Section \@ref(linebreaks), a sequence of whitespaces will be rendered as a single regular space. If you want to render the sequence of spaces literally, you need to escape each of them, e.g., `keep the social \ \ \ distance`. When a space is escaped, it is converted to a "non-breaking space", which means the line will not be wrapped at this space, e.g., `Mr.\ Dervieux`.
+As mentioned in Section \@ref(linebreaks), a sequence of whitespaces will be rendered as a single regular space. If you want to render the sequence of spaces literally, you need to escape each of them, e.g., `keep the social \ \ \ distance`. When a space is escaped, it is converted to a "non-breaking space," which means the line will not be wrapped at this space, e.g., `Mr.\ Dervieux`.
 
 ## Comment out text {#comments}
 
@@ -656,7 +656,7 @@ Note that this feature requires at least Pandoc 2.10. You may check your Pandoc 
 
 Unless the target readers are highly interested in the computational details while they read a report, you may not want to show the source code blocks in the report. For this purpose, you can set the chunk option `echo = FALSE`\index{chunk option!echo} to hide the source code instead, so readers will not be distracted by the program code for computing. However, the source code is still important for the sake of reproducible research. Sometimes readers may want to verify the computational correctness after they have finished reading the report. In this case, it can be a good idea to hold all code blocks in the body of the report, and display them at the end of a document (e.g., in an appendix).
 
-There is a simple method of extracting all code chunks in a document and put them together in a single code chunk using the chunk option `ref.label`\index{chunk option!ref.label} and the function `knitr::all_labels()`\index{knitr!all\_labels()}, e.g.,
+There is a simple method of extracting all code chunks in a document and putting them together in a single code chunk using the chunk option `ref.label`\index{chunk option!ref.label} and the function `knitr::all_labels()`\index{knitr!all\_labels()}, e.g.,
 
 ````md
 # Appendix: All code for this report
@@ -713,7 +713,7 @@ xfun:::tree(
 
 You can see that the Markdown content is represented in a recursive list. The label `t` stands for "type," and `c` stands for "content." Take the header for example. Its type is "Header", and its content has three sub-elements: the header level (`2`), the attributes (e.g., the ID is `section-one`), and the text content.
 
-After you are aware of the AST, you can modify it with the Lua programming language. Pandoc has a built-in Lua interpreter, so you do not need to install additional tools. The Lua scripts are called "Lua filters" for Pandoc. Next we give a quick example of raising the levels of headers by one, e.g., convert level-3 headers to level-2 headers. This may be useful when the top-level headers of your document are level-2 headers, but you want to start with level-1 headers instead.
+After you are aware of the AST, you can modify it with the Lua programming language. Pandoc has a built-in Lua interpreter, so you do not need to install additional tools. The Lua scripts are called "Lua filters" for Pandoc. Next we give a quick example of raising the levels of headers by one, e.g., convert level 3 headers to level 2 headers. This may be useful when the top-level headers of your document are level 2 headers, but you want to start with level 1 headers instead.
 
 First, we create a Lua script file named `raise-header.lua`, which contains a function named `Header`, indicating that we want to modify elements of the type "Header" (in general, you can use the type name as the function name to process elements of a certain type):
 
@@ -736,7 +736,7 @@ pandoc -t markdown --atx-headers \
   --lua-filter=raise-header.lua ast.md
 ```
 
-You can see that we have successfully converted `## Section One` to `# Section One`. You may feel this example is trivial, and wonder why not simply replacing `##` with `#` with a regular expression like:
+You can see that we have successfully converted `## Section One` to `# Section One`. You may feel this example is trivial, and wonder why not simply replace `##` with `#` with a regular expression like:
 
 ```{r, eval=FALSE}
 gsub('^##', '#', readLines('ast.md'))

@@ -1,8 +1,8 @@
 # About the Authors {#author .unnumbered}
 
-Yihui typed out most of the words in this book, which is the only justification for him to be the "first" author. Christophe has made substantial contribution to this book by helping Yihui organize all the GitHub issues and occasionally writing a few sections. Emily was originally a reviewer of this book. Since Yihui was not patient enough to deal with her lengthy comments, he invited her to become a co-author of this book (out of revenge) to feel his pain of having to deal with so many additional things when he thought he was pretty much done! Just kidding... No, he invited her out of full appreciation, because her comments were so helpful, yet Yihui lacked the time to do all the improvements that she suggested.
+Yihui typed out most of the words in this book, which is the only justification for him being the "first" author. Christophe has made substantial contribution to this book by helping Yihui organize all the GitHub issues and occasionally writing a few sections. Emily was originally a reviewer of this book. Since Yihui was not patient enough to deal with her lengthy comments, he invited her to become a co-author of this book (out of revenge) to feel his pain of having to deal with so many additional things when he thought he was pretty much done! Just kidding... No, he invited her out of full appreciation, because her comments were so helpful, yet Yihui lacked the time to do all the improvements that she suggested.
 
-When you see the pronoun "I" in this book, it refers to Yihui. Using "I" instead of "We" does not mean the co-authors were forgotten, but Yihui wanted to express certain opinions completely of his own. He certainly wants to appear smart, but in case he is actually silly, he wants to be silly alone.
+When you see the pronoun "I" in this book, it refers to Yihui. Using "I" instead of "We" does not mean the co-authors were forgotten, but Yihui wanted to express certain opinions completely on his own. He certainly wants to appear smart, but in case he is actually silly, he wants to be silly alone.
 
 ## Yihui Xie {-}
 
@@ -18,9 +18,9 @@ He has four hobbies: reading, writing (mostly blogging), cooking, and playing ba
 
 ## Christophe Dervieux {-}
 
-Christophe Dervieux is an active member of the R community, currently living in France. With a Master's degree in Energy and Economics, he started working with R as an analyst doing economic studies about market designs, before becoming a developer advocate and R admin, promoting R and supporting R users where he works.
+Christophe Dervieux is an active member of the R community, currently living in France. With a master's degree in energy and economics, he started working with R as an analyst doing economic studies about market designs, before becoming a developer advocate and R admin, promoting R and supporting R users where he works.
 
-He is interested in helping others get the most from R, and you can find him wandering in RStudio Community as a sustainer, or on several GitHub issue boards for various R packages. In both places, you may better recognize him by his shorter handle "cderv."
+He is interested in helping others get the most from R, and you can find him wandering in the RStudio Community as a sustainer, or on several GitHub issue boards for various R packages. In both places, you may better recognize him by his shorter handle "cderv."
 
 As an R developer, he is a contributor to several R packages, such as **bookdown**, **rmarkdown**, and **knitr**. He has also co-authored the **crrri** package. His own projects can be found on GitHub (https://github.com/cderv), and sometimes he shares his ideas on Twitter (https://twitter.com/chrisderv).
 
@@ -28,8 +28,8 @@ He does not like spicy food, but he enjoys playing badminton every week.
 
 ## Emily Riederer {-}
 
-Emily Riederer works in data science for the consumer finance industry where she leads a team to build analysis tools in R and cultivate an open science culture in industry. Previously, she studied Mathematics and Statistics at the University of North Carolina at Chapel Hill. 
+Emily Riederer works in data science for the consumer finance industry where she leads a team to build analysis tools in R and cultivate an open science culture in industry. Previously, she studied mathematics and statistics at the University of North Carolina at Chapel Hill. 
 
-Emily frequently discusses R on Twitter (https://twitter.com/emilyriederer) and her blog (https://emily.rbind.io) and shared projects, including her **projmgr** R package, on GitHub (https://github.com/emilyriederer). She has also served as a package reviewer for rOpenSci and a founding co-organizer of the annual satRday Chicago R conference. 
+Emily frequently discusses R on Twitter (https://twitter.com/emilyriederer) and in her blog (https://emily.rbind.io) and shared projects, including her **projmgr** R package, on GitHub (https://github.com/emilyriederer). She has also served as a package reviewer for rOpenSci and a founding co-organizer of the annual satRday Chicago R conference. 
 
 Emily's other interests include reading and weightlifting. She thinks she likes spicy food, but since she has only ever lived in the United States, she has been told that she does not really know what that actually means. 

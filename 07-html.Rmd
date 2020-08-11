@@ -6,7 +6,7 @@ In this chapter, we introduce techniques to enhance your HTML output from R Mark
 
 ## Apply custom CSS {#html-css}
 
-We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. The [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [@blogdown2017] contains short tutorials on HTML, CSS, and JavaScript.
+We strongly recommend that you learn some CSS and JavaScript if you wish to customize the appearance of HTML documents. [Appendix B](https://bookdown.org/yihui/blogdown/website-basics.html) of the **blogdown** book [@blogdown2017] contains short tutorials on HTML, CSS, and JavaScript.
 
 For beginners, it is extremely important to understand selectors and precedence of rules in CSS, otherwise you may be confused why your custom CSS\index{CSS} rules do not work as expected (they may not have enough precedence).
 
@@ -56,7 +56,7 @@ Please see Section \@ref(html-css) on how to apply the CSS to your Rmd document.
 
 <!-- https://stackoverflow.com/questions/41030477/changing-chunk-background-color-in-rmarkdown -->
 
-We can customize the style of code chunks and their text output using the chunk options `class.source`\index{chunk option!class.source} and `class.output`\index{chunk option!class.output}, respectively. These options take character vectors of class names\index{class!custom classes} (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class.^[In this case, the rule would begin `.important` because in CSS, classes are prefixed with a `.`.] This can be useful when you want to highlight a certain code chunk or its text output.
+We can customize the style of code chunks and their text output using the chunk options `class.source`\index{chunk option!class.source} and `class.output`\index{chunk option!class.output}, respectively. These options take character vectors of class names\index{class!custom classes} (see Section \@ref(attr-output) for more information). For example, when `class.source = "important"`, the HTML element containing the code chunk in the output will have a class `important`. Then you can define CSS rules for this class.^[In this case, the rule would begin `.important` because in CSS, classes are prefixed with a period (`.`).] This can be useful when you want to highlight a certain code chunk or its text output.
 
 By default, the HTML output of R Markdown includes the Bootstrap framework\index{Bootstrap}, which makes it easy for you to change the appearance of your code and output, because Bootstrap has predefined some [CSS classes for backgrounds:](https://getbootstrap.com/docs/3.4/css/#helper-classes): `"bg-primary"`, `"bg-success"`, `"bg-info"`, `"bg-warning"`, and `"bg-danger"`.\index{class!Bootstrap classes}\index{class!bg-primary}\index{class!bg-success}\index{class!bg-info}\index{class!bg-warning}\index{class!bg-danger}
 
@@ -101,7 +101,7 @@ The other possible solution is to make the code blocks scrollable within a fixed
 knitr::include_graphics("images/html-scroll.png", dpi = NA)
 ```
 
-In the above example, we defined a global maximum height of 300px for all code blocks. Remember that code blocks are placed in `<pre>` tags in the HTML output. Then we limited the height of `<pre>` blocks with `class` attributes to 100px. That is what the CSS selector `pre[class]` means. By default, text output will be contained in `<pre> </pre>`, and R code blocks are contained in `<pre class="r"> </pre>` (note that the `<pre>` tag has a `class` attribute here).
+In the above example, we defined a global maximum height of 300px for all code blocks. Remember that code blocks are placed in `<pre>` tags in the HTML output. Then we limited the height of `<pre>` blocks to 100px with `class` attributes. That is what the CSS selector `pre[class]` means. By default, text output will be contained in `<pre> </pre>`, and R code blocks are contained in `<pre class="r"> </pre>` (note that the `<pre>` tag has a `class` attribute here).
 
 The height of the text output from the second R code chunk is also 100px. That is because we assigned a custom class name `scroll-100` to the output, and defined the maximum height to be 100px.
 
@@ -228,7 +228,7 @@ You can also provide the list of files programmatically, e.g.,
 xfun::embed_files(list.files('.', '[.](Rmd|csv)$'))
 ```
 
-For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, which a reader can click on the HTML page to download the embedded file.
+For multiple files, they are first compressed to a zip file, and the zip file will be embedded. These functions return a link, on which a reader can click on the HTML page to download the embedded file.
 
 You can learn more technical details behind these functions from the help page `?xfun::embed_file` or the blog post at https://yihui.org/en/2018/07/embed-file/. Based on the same idea, the **downloadthis** package\index{R package!downloadthis} [@R-downloadthis] has implemented download buttons, so that users can click buttons to download files instead of links. If you prefer using buttons, you may consider using this package.
 
@@ -299,7 +299,7 @@ The **rmarkdown** package uses a custom HTML template shipped with the package, 
 
 ## Include the content of an existing HTML file (\*) {#include-html}
 
-With the `includes` option\index{output option!includes} of the `html_document` format (or any other formats that support this option), you can include the content of an existing HTML file into the HTML output document in three possible places: the `<head>` area, the beginning of `<body>`, and the end of `</body>`.
+With the `includes` option\index{output option!includes} of the `html_document` format (or any other formats that support this option), you can include the content of an existing HTML file in the HTML output document in three possible places: the `<head>` area, the beginning of `<body>`, and the end of `</body>`.
 
 ```yaml
 output:
@@ -328,7 +328,7 @@ xfun::file_string('file.html')
 ````
 `````
 
-Please note that you must not include the content of a full HTML file into another HTML file, but can only include an HTML fragment. A full HTML file contains the `<html>` tag, which cannot be embedded in another `<html>` tag. Below is an invalid HTML document when a full HTML document is included in another HTML document:
+Please note that you must not include the content of a full HTML file in another HTML file, but can only include an HTML fragment. A full HTML file contains the `<html>` tag, which cannot be embedded in another `<html>` tag. Below is an invalid HTML document when a full HTML document is included in another HTML document:
 
 ```html
 <html>
@@ -450,7 +450,7 @@ When R Markdown is rendered to the HTML output format, the result may be treated
 
 As a result, in addition to R-specific services, you may host your HTML document on many freely available static website hosting services. Commonly used options in the R community are: 
 
-- [**GitHub Pages**](https://pages.github.com) makes is particularly easy to publish Markdown and HTML content straight from a GitHub repository. You may specify whether to host content from either the main branch's root, a `docs/` directory on the main branch, or a specific `gh-pages` branch. Publishing new content can be as simple as pushing new HTML files to your repository via GIT.
+- [**GitHub Pages**](https://pages.github.com) makes it particularly easy to publish Markdown and HTML content straight from a GitHub repository. You may specify whether to host content from either the main branch's root, a `docs/` directory on the main branch, or a specific `gh-pages` branch. Publishing new content can be as simple as pushing new HTML files to your repository via GIT.
 
 - [**GitLab Pages**](https://docs.gitlab.com/ce/user/project/pages/) offers similar functionality to GitHub Pages for GitLab repositories. GitLab deploys content stores in the `public/` directory of a repository. To build and publish content, you must provide a YAML file, `.gitlab-ci.yml` with instructions, but GitLab provides many helpful templates. For an example of hosting rendered HTML content, please see https://gitlab.com/pages/plain-html/-/tree/master. 
 
@@ -464,7 +464,7 @@ It is important to make your HTML output documents accessible\index{HTML!accessi
 
 - Try to provide the Rmd source document along with the HTML output document if possible (e.g., Section \@ref(embed-rmd) demonstrates one way to do this). In case anything in the HTML document is not accessible, the blind reader may be able to figure it out from the Rmd source, or fix it in the source.
 
-- Provide informative text tags to your graphics. At the useR! conference in 2014, Jonathan explained this issue to me in person. It was the first time that I had learned about the importance of the `alt` attribute of images on web pages/index{figure!alt text}.
+- Provide informative text tags to your graphics. At the useR! conference in 2014, Jonathan explained this issue to me in person. It was the first time that I had learned about the importance of the `alt` attribute of images on web pages\index{figure!alt text}.
 
     To understand this problem, first you have to know that images on web pages are generated by the HTML tag `<img />`. This tag has an `src` attribute, which points to the source of the image, e.g., `<img src="foo_figures/image.png" />`. Sighted readers can see the image, but it is hard for blind users to know anything about the image, because usually screen readers cannot read it, especially when it is a raster image (vector graphics can be better, such as SVG). In this case, it is helpful to provide a text hint, which screen readers can read out to the blind reader. This text hint can be provided in the `alt` attribute of the image, which stands for "alternate text."
     

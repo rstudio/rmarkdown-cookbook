@@ -2,7 +2,7 @@
 
 A chunk hook\index{chunk hook} is a function that is triggered by a chunk option when the value of this chunk option is not `NULL`. Chunk hooks provide a way for you to execute additional tasks beyond running the code in a chunk. For example, you may want to post-process plots (e.g., Section \@ref(crop-plot) and Section \@ref(optipng)), or record the time taken by a code chunk (Section \@ref(time-chunk)). Such tasks may not be essential to the computing or analysis in the report, but they can be useful for other purposes (e.g., enhance plots or help you identify the most time-consuming chunks).
 
-You can use chunk hooks purely for their side-effects (e.g., only printing out certain information to the console), or for their returned values, which will be written to the output document if the value is a character value.
+You can use chunk hooks purely for their side effects (e.g., only printing out certain information to the console), or for their returned values, which will be written to the output document if the value is a character value.
 
 Like output hooks (see Chapter \@ref(output-hooks)), chunk hooks are also registered via the object `knitr::knit_hooks`\index{knitr!knit\_hooks}. Please note that the names of output hooks are reserved by **knitr**, so you must not use these names for your custom chunk hooks:
 

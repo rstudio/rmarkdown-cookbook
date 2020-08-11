@@ -52,7 +52,7 @@ knitr::knit_hooks$get('output')
 
 Unless you are truly interested in making contributions to the **knitr** package, we do not recommend that you read the source code of these built-in hooks. If you are interested, this code can be found in the scripts named in the form `hooks-*.R` at https://github.com/yihui/knitr/tree/master/R (e.g., `hooks-md.R` contains hooks for R Markdown documents). As a **knitr** user, it usually suffices if you know how to create custom output hooks by taking advantage of the built-in hooks. You will learn that in several examples in this chapter, and we show the basic idea below.
 
-A custom output hook is registered through the `set()` method of `knit_hooks`. Because this method will override the existing default hook, we recommend that you save a copy of existing hook, process the output elements in your own way, and pass the results to the default hook. The usual syntax is:
+A custom output hook is registered through the `set()` method of `knit_hooks`. Because this method will override the existing default hook, we recommend that you save a copy of an existing hook, process the output elements in your own way, and pass the results to the default hook. The usual syntax is:
 
 ```{r, eval=FALSE}
 # using local() is optional here (we just want to avoid creating unnecessary global variables like `hook_old`)
@@ -66,7 +66,7 @@ local({
 })
 ```
 
-Here `NAME` is the name of the hook, which can be one of the following values:
+Here, `NAME` is the name of the hook, which can be one of the following values:
 
 - `source`: processing the source code.
 
@@ -218,7 +218,7 @@ options$attr.output <- c(
 knitr::include_graphics('images/hook-scroll.png', dpi = NA)
 ```
 
-You can use the similar trick in the `source` hook to limit the height of source code blocks.
+You can use a similar trick in the `source` hook to limit the height of source code blocks.
 
 ## Truncate text output {#hook-truncate}
 
@@ -242,7 +242,7 @@ knitr::knit_hooks$set(output = function(x, options) {
 })
 ```
 
-The basic idea of the above hook function is that if the number of lines of the text output is greater than the threshold set in the chunk option `out.lines`\index{chunk option!out.lines} (stored in the variable `n` in the function body), we only keep the first `n` lines and add `....` to indicate the output is truncated.
+The basic idea of the above hook function is that if the number of lines of the text output is greater than the threshold set in the chunk option `out.lines`\index{chunk option!out.lines} (stored in the variable `n` in the function body), we only keep the first `n` lines and add an ellipsis (`....`) to indicate the output is truncated.
 
 Now we can test the new `output` hook by setting the chunk option `out.lines = 4` on the chunk below:
 
@@ -256,7 +256,7 @@ And you see four lines of output as expected. Since we have stored the original 
 knitr::knit_hooks$set(output = hook_output)
 ```
 
-As an exercise to readers, you may try to truncate the output in a different way: given the chunk option `out.lines`\index{chunk option!out.lines} to determine the maximum number of lines, can you truncate the output in the middle instead of the end? For example, if `out.lines = 10`, you extract the first and last five lines, and add `....` in the middle like this:
+As an exercise for readers, you may try to truncate the output in a different way: given the chunk option `out.lines`\index{chunk option!out.lines} to determine the maximum number of lines, can you truncate the output in the middle instead of the end? For example, if `out.lines = 10`, you extract the first and last five lines, and add `....` in the middle like this:
 
 ```text
 ##    speed dist
