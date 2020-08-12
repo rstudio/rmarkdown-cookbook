@@ -370,7 +370,7 @@ xfun::cache_rds({
 
 The tricky thing about **knitr**'s caching is how it decides when to invalidate the cache. For `xfun::cache_rds()`, it is much clearer: the first time you pass an R expression to this function, it evaluates the expression and saves the result to a `.rds` file; the next time you run `cache_rds()` again, it reads the `.rds` file and returns the result immediately without evaluating the expression again. The most obvious way to invalidate the cache is to delete the `.rds` file. If you do not want to manually delete it, you may call `xfun::cache_rds()` with the argument `rerun = TRUE`.
 
-When `xfun::cache_rds()` is called inside a code chunk in a **knitr** source document, the path of the `.rds` file is determined by the chunk option `cache.path`/index{chunk option!cache.path} and the chunk label. For example, for a code chunk with the chunk label `foo` in the Rmd document `input.Rmd`:
+When `xfun::cache_rds()` is called inside a code chunk in a **knitr** source document, the path of the `.rds` file is determined by the chunk option `cache.path`\index{chunk option!cache.path} and the chunk label. For example, for a code chunk with the chunk label `foo` in the Rmd document `input.Rmd`:
 
 ````md
 ```{r, foo}`r ''`

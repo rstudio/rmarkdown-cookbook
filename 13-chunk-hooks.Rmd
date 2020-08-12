@@ -83,7 +83,7 @@ plot(cars)
 
 ## Optimize PNG plots {#optipng}
 
-If you have installed the program OptiPNG (http://optipng.sourceforge.net)\index{OptiPNG}, you may use the hook `knitr::hook_optipng()`\index{knitr!hook\_optipng()} to optimize PNG plot files to a smaller size without losing the image quality\index{chunk hook!optimize PNG}\index{figure!optimize PNG}.
+If you have installed the program OptiPNG (<http://optipng.sourceforge.net>)\index{OptiPNG}, you may use the hook `knitr::hook_optipng()`\index{knitr!hook\_optipng()} to optimize PNG plot files to a smaller size without losing the image quality\index{chunk hook!optimize PNG}\index{figure!optimize PNG}.
 
 ```{r, eval=FALSE}
 knitr::knit_hooks$set(optipng = knitr::hook_optipng)

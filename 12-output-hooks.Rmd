@@ -250,7 +250,7 @@ Now we can test the new `output` hook by setting the chunk option `out.lines = 4
 print(cars)
 ```
 
-And you see four lines of output as expected. Since we have stored the original `output` hook in `hook_output`, we can restore it by calling the `set()` method again\index{knitr!knit\_hooks:
+And you see four lines of output as expected. Since we have stored the original `output` hook in `hook_output`, we can restore it by calling the `set()` method again\index{knitr!knit\_hooks}:
 
 ```{r}
 knitr::knit_hooks$set(output = hook_output)
