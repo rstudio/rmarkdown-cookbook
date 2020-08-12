@@ -73,11 +73,12 @@ If you are using the LaTeX distribution TinyTeX (see Section \@ref(install-latex
 
 For non-PDF plot files such as PNG or JPEG files, this hook function calls the R package **magick** [@R-magick]\index{R package!magick} for cropping. You need to make sure this R package has been installed. Figure \@ref(fig:crop-no) shows a plot that is not cropped, and Figure \@ref(fig:crop-yes) shows the same plot but has been cropped.
 
-```{r, crop-no, crop=NULL, echo=FALSE, fig.height=4, fig.cap='A plot that is not cropped.', out.extra='', resize.command='framebox'}
+```{r, crop-no, crop=NULL, echo=FALSE, fig.height=4, fig.cap='A plot that is not cropped.', out.extra=if (knitr::is_latex_output()) '', resize.command='framebox'}
+if (!knitr::is_latex_output()) par(bg = 'gray', fg = 'yellow')
 plot(cars)
 ```
 
-```{r, crop-yes, crop=TRUE, echo=FALSE, fig.height=4, fig.cap='A plot that is cropped.', ref.label='crop-no', out.extra='', resize.command='framebox'}
+```{r, crop-yes, crop=TRUE, echo=FALSE, fig.height=4, fig.cap='A plot that is cropped.', ref.label='crop-no', out.extra=if (knitr::is_latex_output()) '', resize.command='framebox'}
 ```
 
 ## Optimize PNG plots {#optipng}
