@@ -234,17 +234,20 @@ Why four backticks? That is because you have to use at least N+1 backticks to wr
 
 ### Show a verbatim inline expression
 
-There are multiple ways to show a verbatim inline expression. The first way is to break the inline expression after `` `r``, e.g.,
+There are multiple ways to show a verbatim inline expression. 
+
+The first way is to break the inline expression after `` `r``, e.g.,
 
 ```md
 This will show a verbatim inline R expression `` `r
 1+1` `` in the output.
 ```
-
-The trick works for two reasons: (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression. In the output document, you should see:
+In the output document, you should see:
 
 > This will show a verbatim inline R expression `` `r
 1+1` `` in the output.
+
+The trick works for two reasons: (1) a single line break is often the same as a space to Markdown parsers (by comparison, two consecutive line breaks means starting a new paragraph); (2) **knitr** requires a space after `` `r `` to parse it; if the space is missing, it will not be treated as an inline expression.
 
 Another way to show a verbatim inline R expression is to wrap the R code in `knitr::inline_expr()`, e.g.,
 

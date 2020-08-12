@@ -687,7 +687,7 @@ You can also filter code chunks using the arguments of `knitr::all_labels()`. Fo
 
 \index{Pandoc!Lua filter|see  {Lua filter}}
 
-Technically, this section may be a little advanced, but once you learn the Pandoc abstract syntax tree (AST), you will have the power of manipulating any Markdown elements with the programming language called Lua.
+Technically, this section may be a little advanced, but once you learn the how your R Markdown content is translated into the Pandoc abstract syntax tree (AST), you will have the power of manipulating any Markdown elements with the programming language called Lua.
 
 Basically, when Pandoc reads a Markdown file, the content will be parsed into an AST. Pandoc allows you to modify this AST with Lua scripts\index{Lua filter}. We use the following simple Markdown file (named `ast.md`) to show what the AST means:
 
@@ -697,21 +697,21 @@ Basically, when Pandoc reads a Markdown file, the content will be parsed into an
 Hello world!
 ```
 
-The file contains a header and a paragraph. It may be easier for R users to understand the AST if we convert the file to the JSON format:
+This file contains a header and a paragraph. After Pandoc parses this content, it may be easier for R users to understand the resulting AST if we convert the file to the JSON format:
 
 ```{sh}
 pandoc -f markdown -t json -o ast.json ast.md
 ```
 
-Then read the JSON file into R, and print out the data structure:
+Then read the JSON file into R, and print out the data structure. 
+
+When you do this, you will see that the Markdown content is represented in a recursive list. The label `t` stands for "type," and `c` stands for "content." Take the header for example. Its type is "Header", and its content has three sub-elements: the header level (`2`), the attributes (e.g., the ID is `section-one`), and the text content.
 
 ```{r, comment='', tidy=FALSE}
 xfun:::tree(
   jsonlite::fromJSON('ast.json', simplifyVector = FALSE)
 )
 ```
-
-You can see that the Markdown content is represented in a recursive list. The label `t` stands for "type," and `c` stands for "content." Take the header for example. Its type is "Header", and its content has three sub-elements: the header level (`2`), the attributes (e.g., the ID is `section-one`), and the text content.
 
 After you are aware of the AST, you can modify it with the Lua programming language. Pandoc has a built-in Lua interpreter, so you do not need to install additional tools. The Lua scripts are called "Lua filters" for Pandoc. Next we give a quick example of raising the levels of headers by one, e.g., convert level 3 headers to level 2 headers. This may be useful when the top-level headers of your document are level 2 headers, but you want to start with level 1 headers instead.
 
