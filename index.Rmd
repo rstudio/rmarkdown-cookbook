@@ -14,7 +14,6 @@ graphics: yes
 lot: yes
 lof: yes
 fontsize: 11pt
-mainfont: "Crimson Text"
 monofont: "Source Code Pro"
 monofontoptions: "Scale=0.8"
 site: bookdown::bookdown_site
