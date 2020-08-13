@@ -4,8 +4,15 @@ Besides the R language, many other languages are supported in R Markdown through
 
 In **knitr**, each language is supported through a language engine. Language engines are essentially functions that take the source code and options of a chunk as the input, and return a character string as the output. They are managed through the object `knitr::knit_engines`. You may check the existing engines via:
 
-```{r}
+```{r, eval=FALSE}
 names(knitr::knit_engines$get())
+```
+```{r, echo=FALSE}
+# remove engines registered by bookdown
+engs = names(knitr::knit_engines$get())
+i = match('theorem', engs)
+if (!is.na(i)) engs = head(engs, i - 1)
+engs
 ```
 
 At the moment, most code chunks of non-R languages are executed independently. For example, all `bash` code chunks in the same document are executed separately in their own sessions, so a later `bash` code chunk cannot use variables created in a previous `bash` chunk, and the changed working directory (via `cd`) will not be persistent across different `bash` chunks. Only R, Python, and Julia code chunks are executed in the same session. Please note that all R code chunks are executed in the same R session, and all Python code chunks are executed in the same Python session, etc. The R session and the Python session are two different sessions, but it is possible to access or manipulate objects of one session from another session (see Section \@ref(eng-python)).
@@ -16,7 +23,7 @@ First, let's reveal how a language engine works by registering a custom language
 
 ## Register a custom language engine (\*) {#custom-engine}
 
-You can register a custom language engine\index{language engine!custom} via the `knitr::knit_engines$set()`\index{knitr!knit\_engines} method, which accepts a function as its input, e.g.,
+You can register a custom language engine\index{language engine!custom} via the method `knitr::knit_engines$set()`\index{knitr!knit\_engines}. It accepts a function as its input, e.g.,
 
 ```{r, eval=FALSE}
 knitr::knit_engines$set(foo = function(options) {
@@ -27,7 +34,7 @@ knitr::knit_engines$set(foo = function(options) {
 
 This registers the `foo` engine, and you will be able to use a code chunk that starts with ```` ```{foo}````.
 
-The engine function has one argument, `options`, which is a list of chunk options of the code chunk, among which you can access the source code of the chunk as a character vector in `options$code`. For example, for the code chunk:
+The engine function has one argument, `options`, which is a list of chunk options of the code chunk. You can access the source code of the chunk as a character vector in `options$code`. For example, for the code chunk:
 
 ````md
 ```{foo}`r ''`
@@ -59,7 +66,7 @@ The key is that we apply the function `toupper` to the "code," and return the re
 > Hello, **knitr** engines!
 > ```
 
-Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see Section \@ref(eng-python)).] named `py`. This engine is implemented by simply calling the `python` command via `system2()`:
+Next we show an example of an alternative Python engine^[In practice, you should use the built-in `python` engine instead, which is based on the **reticulate** package and supports Python code chunks much better (see Section \@ref(eng-python)).] named `py`. This engine is implemented by simply calling the `python` command via the R function `system2()`:
 
 ```{r, tidy=FALSE}
 knitr::knit_engines$set(py = function(options) {
@@ -91,7 +98,7 @@ Now we can use the new engine `py`, e.g.,
 > print(1 + 1)
 > ```
 
-You can even override existing language engines via `knitr::knit_engines$set()`, if you are sure that your versions are necessary or better than the existing ones. Usually we do not recommend that you do this because it may surprise users who are familiar with existing engines, but we want to make you aware of this possibility anyway.
+You can even override existing language engines in **knitr** via `knitr::knit_engines$set()`, if you are sure that your versions are necessary or better than the existing ones. Usually we do not recommend that you do this because it may surprise users who are familiar with existing engines, but we want to make you aware of this possibility anyway.
 
 ## Run Python code and interact with Python {#eng-python}
 
@@ -232,7 +239,7 @@ b:
 To show the file `demo.yml` is really generated, we can try to read it into R with the **yaml** package [@R-yaml]:
 
 ```{r}
-str(yaml::read_yaml('demo.yml'))
+xfun::tree(yaml::read_yaml('demo.yml'))
 ```
 
 ```{r, include=FALSE}

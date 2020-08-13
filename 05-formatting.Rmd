@@ -234,9 +234,7 @@ Why four backticks? That is because you have to use at least N+1 backticks to wr
 
 ### Show a verbatim inline expression
 
-There are multiple ways to show a verbatim inline expression. 
-
-The first way is to break the inline expression after `` `r``, e.g.,
+There are multiple ways to show a verbatim inline expression. The first way is to break the inline expression after `` `r``, e.g.,
 
 ```md
 This will show a verbatim inline R expression `` `r

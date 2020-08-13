@@ -339,9 +339,9 @@ For more details on building custom R Markdown templates, please refer to the [R
 
 ## Write books and long-form reports with **bookdown** {#bookdown}
 
-The **bookdown** package [@R-bookdown]\index{R package!bookdown} is designed for creating long-form documents\index{book} that are composed of multiple R Markdown documents. For example, if you want to write a book like this one, you can write each chapter in its own Rmd file and use **bookdown** to compile them.
+The **bookdown** package [@R-bookdown]\index{R package!bookdown} is designed for creating long-form documents\index{book} that are composed of multiple R Markdown documents. For example, if you want to write a book, you can write each chapter in its own Rmd file, and use **bookdown** to compile these Rmd files into a book.
 
-For RStudio users, the easiest way to get started is to create a **bookdown** project\index{RStudio!bookdown project} with the IDE by selecting `File -> New Project -> New Directory -> Book Project using bookdown`. You can preview this approach in Figure \@ref(fig:bookdown-project).
+For RStudio users, the easiest way to get started is to create a **bookdown** project\index{RStudio!bookdown project} with the IDE by selecting `File -> New Project -> New Directory -> Book Project using bookdown`, as you can see from Figure \@ref(fig:bookdown-project).
 
 If you do not use RStudio or if you prefer to work from the console, you may produce the same result by calling the function `bookdown:::bookdown_skeleton('your-book-dir')`.
 
