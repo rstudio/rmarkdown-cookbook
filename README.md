@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/yihui/rmarkdown-cookbook.svg?branch=master)](https://travis-ci.org/yihui/rmarkdown-cookbook)
 
-This book is currently a draft. We plan to publish it around August 2020 with Chapman & Hall/CRC. 
+This repository contains the source files of the book _R Markdown Cookbook_, to be published in October 2020 by Chapman & Hall/CRC.
 
-It is currently available online at https://bookdown.org/yihui/rmarkdown-cookbook/
+You may also read the free online version at <https://bookdown.org/yihui/rmarkdown-cookbook/>.
 
 ## Contributions
 
