@@ -6,7 +6,7 @@ bibliography:
   - packages.bib
   - literature.bib
 biblio-style: apalike
-description: The R Markdown ecosystem spans a wide variety of use cases and outputs, including books, blogs, scientific articles, and websites. As a result, it's hard to learn completely, so novices and experts alike do not know all that these packages have to offer. This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis.
+description: This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis.
 documentclass: krantz
 link-citations: yes
 colorlinks: yes
