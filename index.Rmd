@@ -6,7 +6,7 @@ bibliography:
   - packages.bib
   - literature.bib
 biblio-style: apalike
-description: Examples, tips, and tricks of using R Markdown.
+description: This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis.
 documentclass: krantz
 link-citations: yes
 colorlinks: yes
