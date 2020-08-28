@@ -38,7 +38,7 @@ if (knitr::is_html_output()) {
 }
 
 # packages only available on Github
-remote_pkgs = c(equatiomatic = 'datalorax')
+remote_pkgs = c(character())  # e.g., c(equatiomatic = 'datalorax')
 
 lapply(c(
   'remotes', 'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
