@@ -383,7 +383,7 @@ If you want to ensure that each browser or platform on which your document is vi
 
 ## Use the `<details>` disclosure element {#details-tag}
 
-As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_folding: true` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important. We can fold it initially, and, if the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
+As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_folding: hide` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important. We can fold it initially, and, if the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
 
 ```{r, details-tag, echo=FALSE, fig.show='hold', fig.cap='Wrap text output in the details element.', out.width=if(knitr::is_latex_output()) '100%'}
 knitr::include_graphics(c('images/details-closed.png', 'images/details-open.png'), dpi = NA)
