@@ -91,7 +91,7 @@ If you want to decorate individual elements in code blocks instead of the whole 
 
 ## Scrollable code blocks (\*) {#html-scroll}
 
-When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_fold` option in the `html_document` format\index{output option!code\_fold}. This option will fold code blocks in the output and readers can unfold them by clicking a button (see Section \@ref(fold-show) for more details).
+When you have large amounts of code and/or verbatim text output to display on an HTML page, it may be desirable to limit their heights. Otherwise the page may look overwhelmingly lengthy, and it will be difficult for those who do not want to read the details in the code or its text output to skip these parts. There are multiple ways to solve this problem. One solution is to use the `code_folding` option in the `html_document` format\index{output option!code\_folding}. This option will fold code blocks in the output and readers can unfold them by clicking a button (see Section \@ref(fold-show) for more details).
 
 The other possible solution is to make the code blocks scrollable within a fixed height when they are too long. This can be achieved by the CSS properties `max-height`\index{CSS property!max-height} and `overflow-y`\index{CSS property!overflow-y}. Below is a full example with the output in Figure \@ref(fig:html-scroll):
 
@@ -114,7 +114,7 @@ If code blocks in the output document are potentially distracting to readers, yo
 ```yaml
 output:
   html_document:
-    code_fold: hide
+    code_folding: hide
 ```
 
 You can also choose to unfold all code blocks initially (so readers can choose to fold them later):
@@ -122,7 +122,7 @@ You can also choose to unfold all code blocks initially (so readers can choose t
 ```yaml
 output:
   html_document:
-    code_fold: show
+    code_folding: show
 ```
 
 If you fold all code blocks initially, you can specify certain blocks to be unfolded initially with the chunk option `class.source = "fold-show"`, e.g.,
@@ -383,7 +383,7 @@ If you want to ensure that each browser or platform on which your document is vi
 
 ## Use the `<details>` disclosure element {#details-tag}
 
-As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_fold: true` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important. We can fold it initially, and, if the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
+As mentioned in Section \@ref(html-scroll), we can fold source code chunks via the option `code_folding: hide` in the `html_document` format. Currently it is not possible to fold output blocks, but we can use some JavaScript tricks to make output foldable, too. This can be useful especially when the output is relatively long but not very important. We can fold it initially, and, if the reader is interested, they can unfold it to view the content. Figure \@ref(fig:details-tag) shows an example: you may click on the "Details" button to unfold the output.
 
 ```{r, details-tag, echo=FALSE, fig.show='hold', fig.cap='Wrap text output in the details element.', out.width=if(knitr::is_latex_output()) '100%'}
 knitr::include_graphics(c('images/details-closed.png', 'images/details-open.png'), dpi = NA)
