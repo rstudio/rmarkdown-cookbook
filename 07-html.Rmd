@@ -291,7 +291,7 @@ To apply a template to an Rmd document, you can save the template to a file, and
 
 ```yaml
 output:
-  html_output:
+  html_document:
     template: my-template.html
 ```
 
