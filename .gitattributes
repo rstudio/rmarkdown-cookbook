@@ -1,2 +1,2 @@
-**/*.tex linguist-vendored
-**/*.cls linguist-vendored
+*.tex linguist-vendored
+*.cls linguist-vendored
