@@ -19,7 +19,7 @@ c('remotes', 'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
   'kableExtra', 'blogdown', 'jsonlite', 'nomnoml', 'bookdown', 'tinytex')
 ```
 
-Additionally, the following packages are referenced in the book. If you do not have them installed, the book will still build, but there references will be incomplete and you will receive warnings in the console. 
+Additionally, the following packages are referenced in the book. If you do not have them installed, the book will still build, but there references will be incomplete and you will receive numerous messages in the console of the form "pandoc-citeproc: reference R-{package name} not found". 
 
 ```
 refd_pkgs <- 
