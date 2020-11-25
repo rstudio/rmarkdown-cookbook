@@ -65,7 +65,7 @@ More about `tinytex` and troubleshooting missing LaTeX packages can be found in 
 
 ### Other System Dependencies
 
-For Windows users, the section of the book on the [Asymptote language engine](https://bookdown.org/yihui/rmarkdown-cookbook/eng-asy.html) does not build properly so it will be skipped. For users with other operating systems, this section will be skipped if Asymptote is not installed on your computer. If they wish to build this section, they must download and install the [Asymptote software](https://asymptote.sourceforge.io/) from its website. After you install it, you may confirm that it is on your system's path by running the terminal command `where asy`.
+For Windows users, the section of the book on the [Asymptote language engine](https://bookdown.org/yihui/rmarkdown-cookbook/eng-asy.html) does not build properly so it will be skipped. For users with other operating systems, this section will be skipped if Asymptote is not installed on your computer. If they wish to build this section, they must download and install the [Asymptote software](https://asymptote.sourceforge.io/) from its website. After you install it, you may confirm that it is on your system's path by running the terminal command `where asy` or `Sys.which("asy")` from within R.
 
 ## Building the Book
 
@@ -74,5 +74,4 @@ Once you have set up all needed dependencies, there are multiple ways to build t
 If you currently use `make` (or set it up following [Software Carpentry's instructions](https://swcarpentry.github.io/make-novice/)), you may type `make gitbook` in the terminal. 
 
 Otherwise, you may preview the book by running `bookdown::render_book()` in the R console or, if you are using RStudio, clicking on `Addins > Preview Book`. 
-
 

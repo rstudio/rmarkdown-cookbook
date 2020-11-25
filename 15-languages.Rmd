@@ -273,17 +273,20 @@ The `stata` engine in **knitr** is quite limited. Doug Hemken has substantially 
 
 ## Create graphics with Asymptote {#eng-asy}
 
-```{r echo = FALSE, warning = FALSE}
-check_not_windows <- (Sys.info()['sysname'] != 'Windows')
-check_has_asymptote <- (system("which asy", intern = TRUE) == 0)
-check_ci <- is.na(Sys.getenv('CI', NA))
-eval_asy <- (check_not_windows & check_has_asymptote & check_ci)
-if (!eval_asy) warning("System set-up not compatible with Asymptote, so chunks with asy engine will be skipped.")
+```{r include = FALSE}
+eval_asy <- function() {
+	check_not_windows <- Sys.info()['sysname'] != 'Windows'
+	check_has_asymptote <- nzchar(Sys.which("asy"))
+	eval_asy <- check_not_windows & check_has_asymptote
+	if (!eval_asy) 
+		warning("System set-up not compatible with Asymptote, so chunks with asy engine will be skipped.")
+	eval_asy
+}
 ```
 
 Asymptote (https://asymptote.sourceforge.io) is a powerful language for vector graphics. You may write and run Asymptote code in R Markdown with the `asy` engine\index{Asymptote}\index{language engine!asy} if you have installed Asymptote (see its website for instructions on the installation). Below is an example copied from the repository https://github.com/vectorgraphics/asymptote, and its output is shown in Figure \@ref(fig:elevation):
 
-```{asy, elevation, fig.cap='A 3D graph made with Asymptote.', cache=TRUE, fig.retina=1, eval=eval_asy}
+```{asy, elevation, fig.cap='A 3D graph made with Asymptote.', cache=TRUE, fig.retina=1, eval=eval_asy()}
 import graph3;
 import grid3;
 import palette;
