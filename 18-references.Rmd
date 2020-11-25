@@ -25,6 +25,7 @@ knitr::write_bib(c(
 'distill',
 'downloadthis',
 'DT',
+'equatiomatic',
 'ezknitr',
 'flair',
 'flexdashboard',
