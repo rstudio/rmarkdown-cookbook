@@ -1,10 +1,10 @@
 # Contributing
 
-Thank you for considering contributing to the R Markdown Cookbook
+Thank you for considering contributing to the R Markdown Cookbook.
 
 These instructions describe the steps and system requirements needed to build this book. 
 
-When contribution to the book, it is a good practice to build it locally to ensure that any modifications that you have made worked as expected. However, please do not include the built HTML or PDF in your pull request. It is easier to merge in plain text R, Markdown, and R Markdown files and to only reknit the book on the master branch. 
+When contribution to the book, it is a good practice to build it locally to ensure that any modifications that you have made worked as expected. However, please do not include the built HTML in your pull request. It is easier to merge in plain text R, Markdown, and R Markdown files and to only reknit the book on the master branch. 
 
 ## System Requirements
 
