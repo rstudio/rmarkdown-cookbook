@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for considering contributing to the R Markdown C
+Thank you for considering contributing to the R Markdown Cookbook
 
 These instructions describe the steps and system requirements needed to build this book. 
 
@@ -74,4 +74,3 @@ Once you have set up all needed dependencies, there are multiple ways to build t
 If you currently use `make` (or set it up following [Software Carpentry's instructions](https://swcarpentry.github.io/make-novice/)), you may type `make gitbook` in the terminal. 
 
 Otherwise, you may preview the book by running `bookdown::render_book()` in the R console or, if you are using RStudio, clicking on `Addins > Preview Book`. 
-
