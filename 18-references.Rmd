@@ -43,7 +43,7 @@ pkgs <- c(
   'here',
   'huxtable',
   'kableExtra',
-  'knitcitations',
+  # currently off CRAN: 'knitcitations',
   'knitr',
   'learnr',
   'magick',
