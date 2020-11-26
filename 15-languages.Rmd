@@ -329,7 +329,7 @@ writeLines(paste(x, y, sep = ','), 'sine.csv')
 
 Then read it in Asymptote, and draw a graph based on the data as shown in Figure \@ref(fig:sine-curve) (below is an `asy` code chunk):
 
-```{asy, sine-curve, fig.cap='Pass data from R to Asymptote to draw a graph.', cache=TRUE, fig.retina=1, eval=eval_asy}
+```{asy, sine-curve, fig.cap='Pass data from R to Asymptote to draw a graph.', cache=TRUE, fig.retina=1, eval=eval_asy()}
 import graph;
 size(400,300,IgnoreAspect);
 settings.prc = false;
