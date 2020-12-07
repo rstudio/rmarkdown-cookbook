@@ -43,7 +43,7 @@ pkgs <- c(
   'here',
   'huxtable',
   'kableExtra',
-  # currently off CRAN: 'knitcitations',
+  'knitcitations',
   'knitr',
   'learnr',
   'magick',
@@ -93,7 +93,7 @@ pkgs <- c(
 # install packages if missing
 lapply(pkgs, function(pkg) {
     if (system.file(package = pkg) != '') return()
-    install.packages(pkg) 
+    install.packages(pkg, repos = "http://cran.us.r-project.org") 
     }
 )
 
