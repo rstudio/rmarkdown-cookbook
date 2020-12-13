@@ -9,4 +9,4 @@ language:
   ui:
     chapter_name: "Chapter "
 edit: "https://github.com/yihui/rmarkdown-cookbook/edit/master/%s"
-
+before_chapter_script: "utils.R"

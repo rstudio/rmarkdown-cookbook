@@ -520,7 +520,7 @@ Some users may ask, "Since the fenced code block preserves whitespaces, why not 
 
 ## Convert models to equations {#equatiomatic}
 
-The **equatiomatic** package\index{R package!equatiomatic} (https://github.com/datalorax/equatiomatic) developed by Daniel Anderson et al. provides a convenient and automatic way to show the equations corresponding to models fitted in R. We show a few brief examples below:
+The **equatiomatic** package\index{R package!equatiomatic} [@R-equatiomatic] (https://github.com/datalorax/equatiomatic) developed by Daniel Anderson et al. provides a convenient and automatic way to show the equations corresponding to models fitted in R. We show a few brief examples below:
 
 ```{r, results='asis'}
 fit <- lm(mpg ~ cyl + disp, mtcars)

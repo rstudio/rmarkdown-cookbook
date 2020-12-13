@@ -50,7 +50,7 @@ If you would like to create PDF documents from R Markdown, you will need to have
 
 TinyTeX\index{LaTeX!TinyTeX} is a custom LaTeX distribution based on TeX Live that is relatively small in size, but functions well in most cases, especially for R users. Installing or running TinyTeX does not require sysadmin privileges.^[Actually, we recommend that you **do not** use your root privilege (i.e., `sudo`) to install TinyTeX on Linux or macOS, if you are the only user of your system.] You can install TinyTeX with the R package **tinytex**\index{LaTeX!tinytex} [@R-tinytex]:
 
-```{r eval=FALSE}
+```{r eval=!nzchar(tinytex::tinytex_root())}
 tinytex::install_tinytex()
 # to uninstall TinyTeX, run tinytex::uninstall_tinytex() 
 ```
