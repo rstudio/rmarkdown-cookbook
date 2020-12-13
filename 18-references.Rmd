@@ -93,7 +93,7 @@ pkgs <- c(
 # install packages if missing
 lapply(pkgs, function(pkg) {
     if (system.file(package = pkg) != '') return()
-    install.packages(pkg, repos = "http://cran.us.r-project.org") 
+    install.packages(pkg, repos = "https://cloud.r-project.org/") 
     }
 )
 
