@@ -20,12 +20,6 @@ The TinyTex LaTeX distribution is required to build the book. This is installed 
 
 Additionally, the `pgf`, `preview`, and `xcolor` packages are required to build [11-chunk-options.Rmd](https://github.com/yihui/rmarkdown-cookbook/blob/master/11-chunk-options.Rmd) and will be installed as needed when running that chapter. 
 
-### Fonts
-
-To make the "Build All" button (described below) work, you will need the [Alegraya font family](https://fonts.google.com/specimen/Alegreya) from Google Fonts. For Windows 10, you may follow the instructions [here](https://winaero.com/how-to-install-and-use-google-fonts-in-windows-10/) to download (or find similar instructions for your OS).
-
-Importantly, on Windows, be sure to install the font to your system instead of simply your account.
-
 ### Other System Dependencies
 
 For Windows users, the section of the book on the [Asymptote language engine](https://bookdown.org/yihui/rmarkdown-cookbook/eng-asy.html) does not build properly so it will be skipped. For users with other operating systems, this section will be skipped if Asymptote is not installed on your computer. If they wish to build this section, they must download and install the [Asymptote software](https://asymptote.sourceforge.io/) from its website. After you install it, you may confirm that it is on your system's path by running the terminal command `where asy` or `Sys.which("asy")` from within R.
