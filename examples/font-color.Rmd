@@ -17,7 +17,7 @@ Span = function(el)
   -- if no color attribute, return unchange
   if color == nil then return el end
   
-  -- tranform to <span style="color: red;"></span>
+  -- transform to <span style="color: red;"></span>
   if FORMAT:match 'html' then
     -- remove color attributes
     el.attributes['color'] = nil
