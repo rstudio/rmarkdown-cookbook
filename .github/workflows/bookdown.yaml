@@ -42,8 +42,7 @@ jobs:
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install tinytex
-        uses: actions/checkout@master
-        uses: r-lib/actions/setup-tinytex@v1
+        uses: r-lib/actions/setup-tinytex@master
         run: tlmgr --version
 
       - name: Build site
