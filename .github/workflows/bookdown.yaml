@@ -42,7 +42,7 @@ jobs:
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Build site
-        run: Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
+        run: make gitbook
 
       - name: Install npm
         uses: actions/setup-node@v1
