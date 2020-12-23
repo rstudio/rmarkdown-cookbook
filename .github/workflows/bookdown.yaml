@@ -43,7 +43,7 @@ jobs:
 
       - name: Build site
         run: |
-          R -e 'install.packages("bookdown", "knitr", "xfun", "rmarkdown")'
+          R -e 'install.packages(c("bookdown", "knitr", "xfun", "rmarkdown"))'
           make gitbook
 
       - name: Install npm
