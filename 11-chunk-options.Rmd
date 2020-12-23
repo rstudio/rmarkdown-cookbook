@@ -457,7 +457,7 @@ Usually, vector graphics have higher quality than raster graphics, and you can s
 
 For PDF output, if you are really picky about the typeface in your plots, you may use `dev = "tikz"`, because it offers native support for LaTeX, which means all elements in a plot, including text and symbols, are rendered in high quality through LaTeX. Figure \@ref(fig:dev-tikz) shows an example of writing LaTeX math expressions in an R plot rendered with the chunk option `dev = "tikz"`.
 
-```{r, dev-tikz, dev='tikz', tidy=FALSE, fig.cap='A plot rendered via the tikz device.', fig.dim=c(6, 4), fig.align='center', fig.process=pdf2png, cache=TRUE}
+```{r, eval = FALSE, dev-tikz, dev='tikz', tidy=FALSE, fig.cap='A plot rendered via the tikz device.', fig.dim=c(6, 4), fig.align='center', fig.process=pdf2png, cache=TRUE}
 par(mar = c(4, 4, 2, .1))
 curve(dnorm, -3, 3, xlab = '$x$', ylab = '$\\phi(x)$',
       main = 'The density function of $N(0, 1)$')
