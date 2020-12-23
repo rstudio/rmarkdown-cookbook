@@ -42,7 +42,9 @@ jobs:
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Build site
-        run: make gitbook
+        run: |
+          R -e 'install.packages("bookdown", "knitr", "xfun", "rmarkdown")'
+          make gitbook
 
       - name: Install npm
         uses: actions/setup-node@v1
