@@ -47,7 +47,7 @@ jobs:
       - name: Build site
         run: |
           R -e 'install.packages(c("bookdown", "knitr", "xfun", "rmarkdown", "tinytex"))'
-          R -e 'tinytex::tlmgr_install("preview")'
+          R -e 'tinytex::tlmgr_install(c('pgf', 'preview', 'xcolor', 'grfext'))'
           make gitbook
 
       - name: Install npm
