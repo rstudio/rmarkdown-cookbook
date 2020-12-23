@@ -83,6 +83,8 @@ options(bookdown.post.latex = function(x) {
 })
 ```
 
+Delete me
+
 # Preface {-}
 
 ```{asis, echo=!knitr::is_latex_output()}
