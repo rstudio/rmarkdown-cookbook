@@ -8,7 +8,7 @@ output:
 The chunk below will be written to `custom.css`, which
 will be used during the Pandoc conversion.
 
-```{cat, engine.opts = list(file = "my_custom.css")}
+```{cat, engine.opts = list(file = "custom.css")}
 h2 {
   color: blue;
 }
