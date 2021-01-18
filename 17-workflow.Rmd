@@ -249,7 +249,7 @@ The workflow with **rmdrive** is outlined below:
 
 The collaborative editing can be either synchronous or asynchronous in Google Drive. Multiple people can edit the same document at the same time, or wait for other people to finish their editing first.
 
-There is also a function `udpate_rmd()` in the package, which allows you to edit the Rmd document locally, and upload the local Rmd document to Google Drive. You probably should never want to run this function, because it will completely overwrite the document in Google Drive. The main author may want to warn collaborators about this in advance. Ideally, all collaborators should only edit the document in Google Drive and not locally. It is okay to preview the edited document locally via `render_rmd()`, though (note that `render_rmd()` automatically downloads the document before rendering it).
+There is also a function `update_rmd()` in the package, which allows you to edit the Rmd document locally, and upload the local Rmd document to Google Drive. You probably should never want to run this function, because it will completely overwrite the document in Google Drive. The main author may want to warn collaborators about this in advance. Ideally, all collaborators should only edit the document in Google Drive and not locally. It is okay to preview the edited document locally via `render_rmd()`, though (note that `render_rmd()` automatically downloads the document before rendering it).
 
 ## Organize an R Markdown project into a research website with **workflowr** {#workflowr}
 
