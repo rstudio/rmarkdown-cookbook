@@ -123,7 +123,7 @@ The attribute name is the Pandoc output format name. If you want to know the out
 
 ````md
 ```{r}`r ''`
-knitr:::pandoc_to()
+knitr::pandoc_to()
 ```
 ````
 
