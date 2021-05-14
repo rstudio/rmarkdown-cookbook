@@ -25,7 +25,7 @@ cover-image: images/cover.png
 ```{r setup, include=FALSE}
 set.seed(0728)
 
-knitr::opts_chunk$set(tidy = TRUE)
+knitr::opts_chunk$set(tidy = TRUE, webshot = "webshot")
 
 if (knitr::is_html_output()) {
   # ignore percentage widths for HTML output, unless they are used for multiple
