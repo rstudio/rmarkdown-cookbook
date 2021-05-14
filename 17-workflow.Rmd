@@ -284,4 +284,4 @@ John
 
 This Rmd document should be rendered via the function `blastula::render_email()`, and the output can be passed to `blastula::smtp_send()`, which will send out the email. Note that `smtp_send()` needs an email server as well as your credentials.
 
-If you use RStudio Connect, you can find more examples at https://solutions.rstudio.com/examples/blastula-overview/, including automated, conditional, and parameterized emails.
+If you use RStudio Connect, you can find more examples at https://solutions.rstudio.com/r/blastula/, including automated, conditional, and parameterized emails.
