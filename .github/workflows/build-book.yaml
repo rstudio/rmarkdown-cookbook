@@ -34,20 +34,38 @@ jobs:
           # install full prebuilt version
           TINYTEX_INSTALLER: TinyTeX
 
-      - name: Cache packages
+      - name: Install pak and query dependencies
+        run: |
+          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
+          saveRDS(pak::local_dev_deps_tree(), ".github/r-depends.rds")
+        shell: Rscript {0}
+
+      - name: Cache R packages
         uses: actions/cache@v2
         with:
-          path: $HOME/.local/share/renv
-          # This is both files that contains packages to install
-          key: ${{ runner.os }}-r-renv-1-${{ hashFiles('index.Rmd', '18-references.Rmd') }}
-          restore-keys: |
-            ${{ runner.os }}-r-renv-1-
-            ${{ runner.os }}-r-renv-
-            ${{ runner.os }}-r-
+          path: |
+            ${{ env.R_LIBS_USER }}/*
+            !${{ env.R_LIBS_USER }}/pak
+          key: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
+          restore-keys: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-
+
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          pak::local_system_requirements(execute = TRUE)
+        shell: Rscript {0}
+
+      - name: Install dependencies
+        run: |
+          pak::local_install_dev_deps(upgrade = TRUE)
+        shell: Rscript {0}
+
+      - name: Install phantomjs
+        run: |
+          webshot::install_phantomjs()
+        shell: Rscript {0}
 
       - name: Build book
         run: |
-          renv::activate()
-          renv::install("bookdown")
           bookdown::render_book(quiet = FALSE)
         shell: Rscript {0}
