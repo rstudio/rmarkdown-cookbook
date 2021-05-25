@@ -91,7 +91,7 @@ pkgs <- c(
 )
 
 # Warn to add new deps in DESCRIPTION
-pkg2 <- setdiff(pkgs, c("stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"))
+pkg2 <- setdiff(pkgs, knitr:::.base.pkgs)
 in_desc <-  pkg2 %in% desc::desc_get_deps()$package
 if (any(!in_desc)) warning("To add to DESCRIPTION: ", paste0(pkg2[!in_desc], collapse = ", "))
 
