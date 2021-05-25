@@ -90,9 +90,10 @@ pkgs <- c(
   # JavaScript: 'DataTables'
 )
 
-# install packages if missing
-in_desc <- pkgs %in% desc::desc_get_deps()$package
-if (any(!in_desc)) warning("To add to DESCRIPTION: ", paste0(pkgs[!in_desc], collapse = ", "))
+# Warn to add new deps in DESCRIPTION
+pkg2 <- setdiff(pkgs, c("stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"))
+in_desc <-  pkg2 %in% desc::desc_get_deps()$package
+if (any(!in_desc)) warning("To add to DESCRIPTION: ", paste0(pkg2[!in_desc], collapse = ", "))
 
 # automatically create a bib database for R packages
 knitr::write_bib(pkgs, file = 'packages.bib', lib.loc = c(.libPaths(), '~/R-tmp'))
