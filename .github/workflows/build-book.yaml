@@ -57,7 +57,7 @@ jobs:
 
       - name: Install missing system dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libcairo2-dev
+        run: sudo apt-get install -y libgtk2.0-dev
 
       - name: Install dependencies
         run: |
