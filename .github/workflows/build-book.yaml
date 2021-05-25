@@ -55,6 +55,10 @@ jobs:
           pak::local_system_requirements(execute = TRUE)
         shell: Rscript {0}
 
+      - name: Install missing system dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libcairo2-dev
+
       - name: Install dependencies
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
