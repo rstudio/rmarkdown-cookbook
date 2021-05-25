@@ -68,7 +68,13 @@ jobs:
           webshot::install_phantomjs()
         shell: Rscript {0}
 
-      - name: Build book
-        run: |
-          bookdown::render_book(quiet = FALSE)
-        shell: Rscript {0}
+      - name: Build Gitbook
+        if: github.event_name == 'pull_request'
+        run: make gitbook
+
+      - name: Build and Deploy all book
+        # if: github.event_name == 'push'
+        env:
+          CONNECT_API_KEY: ${{ secrets.RSC_BOOKDOWN_ORG_TOKEN }}
+          # CONTENT_ID: 3
+        run: make all
