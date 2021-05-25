@@ -9,6 +9,11 @@ addons:
     - libpoppler-cpp-dev
     - libmagick++-dev
     - asymptote
+    - libgit2-dev
+    - libharfbuzz-dev
+    - libfribidi-dev
+    - libgit2-dev
+    - libglu1-mesa-dev
 
 services:
   - xvfb
