@@ -10,6 +10,7 @@
 ```{r include=FALSE, tidy=FALSE, warning = FALSE}
 # list cited packages
 pkgs <- c(
+  .packages(),
   'animation',
   'blastula',
   'blogdown',
