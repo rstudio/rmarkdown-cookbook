@@ -79,4 +79,6 @@ Imports:
     xtable,
     yaml,
     ztable
+Suggests:
+    rsconnect
 Encoding: UTF-8
