@@ -12,8 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      #
-      RENV_CONFIG_REPOS_OVERRIDE: https://packagemanager.rstudio.com/cran/__linux__/focal/latest
+      RSPM: https://packagemanager.rstudio.com/cran/__linux__/focal/latest
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
