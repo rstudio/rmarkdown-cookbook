@@ -45,5 +45,9 @@ jobs:
             ${{ runner.os }}-r-renv-
             ${{ runner.os }}-r-
 
-      - name: Build site
-        run: Rscript -e 'renv::activate(); bookdown::render_book("index.Rmd", quiet = FALSE)'
+      - name: Build book
+        run: |
+          renv::activate()
+          renv::install("bookdown")
+          bookdown::render_book(quiet = FALSE)
+        shell: Rscript {0}
