@@ -14,8 +14,6 @@ graphics: yes
 lot: yes
 lof: yes
 fontsize: 11pt
-monofont: "Source Code Pro"
-monofontoptions: "Scale=0.8"
 site: bookdown::bookdown_site
 github-repo: yihui/rmarkdown-cookbook
 url: 'https\://bookdown.org/yihui/rmarkdown-cookbook/'
