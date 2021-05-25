@@ -12,6 +12,7 @@ Imports:
     cairoDevice,
     condformat,
     dagitty,
+    desc,
     diagram,
     DiagrammeR,
     distill,
