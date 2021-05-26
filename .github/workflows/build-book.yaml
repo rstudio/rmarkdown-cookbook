@@ -1,0 +1,103 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+name: build-book
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      RSPM: https://packagemanager.rstudio.com/cran/__linux__/focal/latest
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup R
+        id: install-r
+        uses: r-lib/actions/setup-r@v1
+
+      - name: Setup pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.13'
+
+      - name: Install TinyTeX
+        uses: r-lib/actions/setup-tinytex@v1
+        env:
+          # install full prebuilt version
+          TINYTEX_INSTALLER: TinyTeX
+
+      - name: Install pak and query dependencies
+        run: |
+          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
+          saveRDS(pak::local_dev_deps_tree(), ".github/r-depends.rds")
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.R_LIBS_USER }}/*
+            !${{ env.R_LIBS_USER }}/pak
+          key: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
+          restore-keys: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-
+
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          pak::local_system_requirements(execute = TRUE)
+        shell: Rscript {0}
+
+      - name: Install missing system dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libgtk2.0-dev asymptote
+
+      - name: Install dependencies
+        run: |
+          pak::local_install_dev_deps(upgrade = TRUE)
+        shell: Rscript {0}
+
+      - name: Install phantomjs
+        run: |
+          webshot::install_phantomjs()
+        shell: Rscript {0}
+
+      - name: Build Gitbook
+        if: github.event_name == 'pull_request'
+        run: make gitbook
+
+      - name: Build and Deploy all book
+        # if: github.event_name == 'push'
+        env:
+          CONNECT_API_KEY: ${{ secrets.RSC_BOOKDOWN_ORG_TOKEN }}
+          CONTENT_ID: 7b3dedfa-fd98-45dd-bec4-75d915fb27dd
+        run: make all
+
+      - uses: actions/github-script@v3
+        env:
+          URL: https://bookdown.org/yihui/rmarkdown-cookbook/
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: "success",
+              target_url: "${{ env.URL}}",
+              description: "Book deployed!",
+              context: "bookdown.org"
+            })
+
+      - name: Upload book folder for debug
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: book-dir
+          path: _book
