@@ -1,7 +1,7 @@
 Type: Book
-Package: placeholder
-Title: Does not matter.
-Version: 0.0.1
+Package: rmarkdowncookbook
+Title: R Markdown Cookbook
+Version: 1.0.1
 Imports: 
     animation,
     blastula,
