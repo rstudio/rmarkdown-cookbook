@@ -13,3 +13,6 @@ gitbook:
 
 pdf2:
 	BOOKDOWN_FULL_PDF=false Rscript --quiet _render.R "bookdown::pdf_book"
+
+clean:
+	Rscript -e 'bookdown::clean_book(TRUE)'

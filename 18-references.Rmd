@@ -7,7 +7,7 @@
 # References {-}
 '`
 
-```{r include=FALSE, tidy=FALSE}
+```{r include=FALSE, tidy=FALSE, warning = FALSE}
 # list cited packages
 pkgs <- c(
   .packages(),
@@ -90,12 +90,10 @@ pkgs <- c(
   # JavaScript: 'DataTables'
 )
 
-# install packages if missing
-lapply(pkgs, function(pkg) {
-    if (system.file(package = pkg) != '') return()
-    install.packages(pkg, repos = "https://cloud.r-project.org/") 
-    }
-)
+# Warn to add new deps in DESCRIPTION
+pkg2 <- setdiff(pkgs, knitr:::.base.pkgs)
+in_desc <-  pkg2 %in% desc::desc_get_deps()$package
+if (any(!in_desc)) warning("To add to DESCRIPTION: ", paste0(pkg2[!in_desc], collapse = ", "))
 
 # automatically create a bib database for R packages
 knitr::write_bib(pkgs, file = 'packages.bib', lib.loc = c(.libPaths(), '~/R-tmp'))

@@ -35,22 +35,6 @@ if (knitr::is_html_output()) {
   })
 }
 
-# packages only available on Github
-remote_pkgs = c(character())  # e.g., c(equatiomatic = 'datalorax')
-
-lapply(c(
-  'remotes', 'webshot', 'DiagrammeR', 'stargazer', 'gt', 'flextable', 'formatR',
-  'equatiomatic', 'gifski', 'magick', 'pdftools', 'tikzDevice', 'xaringan',
-  'kableExtra', 'blogdown', 'jsonlite', 'nomnoml'
-  ), function(pkg) {
-    if (system.file(package = pkg) != '') return()
-    repo = remote_pkgs[pkg]
-    if (is.na(repo)) install.packages(pkg) else {
-      remotes::install_github(paste(repo, pkg, sep = '/'))
-    }
-  }
-)
-
 # screenshot HTML widgets
 if (is.null(webshot:::find_phantom())) webshot::install_phantomjs()
 

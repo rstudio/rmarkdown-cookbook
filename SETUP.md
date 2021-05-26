@@ -10,15 +10,45 @@ When contribution to the book, it is a good practice to build it locally to ensu
 
 ### R Packages
 
-To render the book, you must first install the `bookdown` R package. 
+For this book, dependencies are required to execute R chunks and to generate references of others packages mentioned. Dependencies are tracked using a DESCRIPTION files. 
 
-Additional dependencies are installed automatically the first time you buid the book. Packages that are used within the book are listed in the [index.Rmd](https://github.com/yihui/rmarkdown-cookbook/blob/master/index.Rmd) file, and packages referenced in the book (and used to generate their own references) are listed in the [18-references.Rmd](https://github.com/yihui/rmarkdown-cookbook/blob/master/18-references.Rmd) file. 
+To render the book, you can install the required packages using **renv**, **remotes** or **pak**
+
+#### Using **renv**
+
+This project contains a lockfile that you can use to reinstall packages in a project library, separated from your other global packages installation. 
+
+```r
+install.packages('renv')
+renv::activate()
+renv::restore()
+```
+
+#### Using **remotes**
+
+```r
+install.packages("remotes")
+remotes::install_deps(".")
+```
+
+#### Using **pak**
+
+**pak** benefits from a caching mechanism of installed packages and offers fast installation.
+
+```r
+install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
+pak::local_install_dev_deps(upgrade = TRUE)
+```
+
+This methods is used in CI. 
 
 ### LaTeX Packages
 
-The TinyTex LaTeX distribution is required to build the book. This is installed on the first render of [01-installation.Rmd](https://github.com/yihui/rmarkdown-cookbook/blob/master/18-references.Rmd) if not already installed (which can be done with `tinytex::install_tinytex()`).
+The TinyTeX LaTeX distribution is required to build the book. This can be done using `tinytex::install_tinytex()`. 
 
-Additionally, the `pgf`, `preview`, and `xcolor` packages are required to build [11-chunk-options.Rmd](https://github.com/yihui/rmarkdown-cookbook/blob/master/11-chunk-options.Rmd) and will be installed as needed when running that chapter. 
+This command will be run on the first render of [01-installation.Rmd](https://github.com/yihui/rmarkdown-cookbook/blob/master/01-installation.Rmd) TinyTeX is not already installed.
+
+Other required LaTeX packages should be installed automatically during the build of the book. Know required packages are the `pgf`, `preview`, and `xcolor` packages used in [11-chunk-options.Rmd](https://github.com/yihui/rmarkdown-cookbook/blob/master/11-chunk-options.Rmd) and they will be installed as needed when running that chapter. 
 
 ### Other System Dependencies
 
