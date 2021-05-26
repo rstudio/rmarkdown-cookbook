@@ -73,7 +73,7 @@ jobs:
         run: make gitbook
 
       - name: Build and Deploy all book
-        # if: github.event_name == 'push'
+        if: github.event_name == 'push'
         env:
           CONNECT_API_KEY: ${{ secrets.RSC_BOOKDOWN_ORG_TOKEN }}
           CONTENT_ID: 7b3dedfa-fd98-45dd-bec4-75d915fb27dd
