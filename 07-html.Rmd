@@ -169,7 +169,19 @@ You can add another attribute `.tabset-pills` to the upper-level section header 
 ## Results {.tabset .tabset-pills}
 ```
 
-By default, the first tab is active (i.e., displayed). If you want a different tab to be displayed initially, you may add the attribute `.active` to it.
+By default, the first tab is active (i.e., displayed). If you want a different tab to be displayed initially, you may add the attribute `.active` to it: in the example below, the second tab (Context) will be active (i.e., displayed) when opening or refreshing the document.
+
+```md
+## Results {.tabset}
+
+### One Thing
+
+Sentences.
+
+### Context {.active}
+
+Other sentences.
+```
 
 To end the tabset, you need to start a new section header of the upper level. The new section header can be empty, e.g.,
 
