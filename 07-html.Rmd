@@ -171,7 +171,7 @@ You can add another attribute `.tabset-pills` to the upper-level section header 
 
 By default, the first tab is active (i.e., displayed). 
 If you want a different tab to be displayed initially, you may add the attribute `.active` to it: 
-in the example below, the second tab (Tables) will be active (i.e., displayed) when opening or refreshing the document.
+in the example below, the second tab (Context) will be active (i.e., displayed) when opening or refreshing the document.
 
 ```md
 ## Results {.tabset}
