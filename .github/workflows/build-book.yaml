@@ -80,6 +80,7 @@ jobs:
         run: make all
 
       - uses: actions/github-script@v3
+        if: github.event_name == 'push'
         env:
           URL: https://bookdown.org/yihui/rmarkdown-cookbook/
         with:
