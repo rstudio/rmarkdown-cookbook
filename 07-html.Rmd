@@ -169,7 +169,26 @@ You can add another attribute `.tabset-pills` to the upper-level section header 
 ## Results {.tabset .tabset-pills}
 ```
 
-By default, the first tab is active (i.e., displayed). If you want a different tab to be displayed initially, you may add the attribute `.active` to it.
+By default, the first tab is active (i.e., displayed). 
+If you want a different tab to be displayed initially, you may add the attribute `.active` to it: 
+in the example below, the second tab (Tables) will be active (i.e., displayed) when opening or refreshing the document.
+
+```md
+## Results {.tabset}
+
+### Plots
+
+We show a scatter plot in this section.
+
+```{r, fig.dim=c(5, 3)}
+par(mar = c(4, 4, .5, .1))
+plot(mpg ~ hp, data = mtcars, pch = 19)
+```
+
+### Tables {.active}
+
+We show the data in this tab.
+```
 
 To end the tabset, you need to start a new section header of the upper level. The new section header can be empty, e.g.,
 
