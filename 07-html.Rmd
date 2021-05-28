@@ -176,18 +176,13 @@ in the example below, the second tab (Tables) will be active (i.e., displayed) w
 ```md
 ## Results {.tabset}
 
-### Plots
+### One Thing
 
-We show a scatter plot in this section.
+Sentences.
 
-```{r, fig.dim=c(5, 3)}`r ''`
-par(mar = c(4, 4, .5, .1))
-plot(mpg ~ hp, data = mtcars, pch = 19)
-```
+### Context {.active}
 
-### Tables {.active}
-
-We show the data in this tab.
+Other sentences.
 ```
 
 To end the tabset, you need to start a new section header of the upper level. The new section header can be empty, e.g.,
