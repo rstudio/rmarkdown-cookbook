@@ -180,7 +180,7 @@ in the example below, the second tab (Tables) will be active (i.e., displayed) w
 
 We show a scatter plot in this section.
 
-```{r, fig.dim=c(5, 3)}
+```{r, fig.dim=c(5, 3)}`r ''`
 par(mar = c(4, 4, .5, .1))
 plot(mpg ~ hp, data = mtcars, pch = 19)
 ```
