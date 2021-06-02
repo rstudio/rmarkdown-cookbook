@@ -149,7 +149,7 @@ The syntax for custom blocks is based on Pandoc's [fenced `Div` blocks.](https:/
 Since version 1.16 of the **rmarkdown** package, it has been possible to convert `Div` blocks to both HTML and LaTeX. For HTML output, all attributes of the block will become attributes of the `<div>` tag. For example, a `Div` can have an ID (after `#`), one or multiple classes (class names are written after `.`), and other attributes. The following `Div` block
 
 ```md
-::: {#hello .greeting .message width="40%"}
+::: {#hello .greeting .message style="color: red;"}
 Hello **world**!
 :::
 ```
@@ -157,7 +157,7 @@ Hello **world**!
 will be converted to the HTML code below:
 
 ```html
-<div id="hello" class="greeting message" width="40%">
+<div id="hello" class="greeting message" style="color: red;">
   Hello <strong>world</strong>!
 </div>
 ```
