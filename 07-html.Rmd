@@ -147,6 +147,16 @@ output:
 ```
 ````
 
+```{r, include = FALSE}
+foldable_engine <- c("r", "python", "bash", "sql", "cpp", "stan", "julia")
+foldable_engine <- knitr::combine_words(sprintf("`%s`", foldable_engine))
+```
+
+`code_folding` will control the hide and show behavior for R code chunks but also for some other languages by default (`r foldable_engine`). If this is a limitation for you, it can be extended to apply to any language code source block by adding the class `foldable` via the chunk option `class.source`, or even setting it globally so that it applies on any code chunk using `knitr::opts_chunk$set(class.source = "foldable")`.
+
+
+`r import_example("knitr-foldable-class.Rmd")`
+
 ## Put content in tabs {#html-tabs}
 
 <!--https://stackoverflow.com/questions/38062706/rmarkdown-tabbed-and-untabbed-headings-->
