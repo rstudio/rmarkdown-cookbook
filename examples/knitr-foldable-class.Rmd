@@ -1,0 +1,23 @@
+---
+title: Hide CSS code chunk
+output: 
+  html_document:
+    code_folding: hide
+---
+
+This is a CSS chunk using the `css` chunk engine, and it can't be hidden even if
+`code_folding = 'hide'`.
+
+```{css}
+pre {
+  background-color: lightblue;
+}
+```
+
+But it can if you add the `foldable` class to the chunk source code. 
+
+```{css, class.source = 'foldable'}
+pre.foldable {
+  background-color: lightgreen;
+}
+```
