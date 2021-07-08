@@ -72,7 +72,7 @@ Next we show an example of an alternative Python engine^[In practice, you should
 knitr::knit_engines$set(py = function(options) {
   code <- paste(options$code, collapse = '\n')
   out  <- system2(
-    'python3', c('-c', shQuote(code)), stdout = TRUE
+    'python', c('-c', shQuote(code)), stdout = TRUE
   )
   knitr::engine_output(options, code, out)
 })
