@@ -75,6 +75,7 @@ pkgs <- c(
   'tangram',
   'tikzDevice',
   'tinytex',
+  'trackdown',
   'tufte',
   'usethis',
   'webshot',
