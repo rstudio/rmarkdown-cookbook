@@ -235,7 +235,7 @@ You may refer to the help page `?rmarkdown::render` to find out more ideas on ho
 
 ## Collaborate on Rmd documents through Google Drive with trackdown {#google-drive}
 
-The **trackdown** package offers a simple solution for collaborative writing and editing of R Markdown (or Sweave) documents. Based on the **googledrive** package\index{R package!googledrive} [@R-googledrive],  **trackdown** allows to upload the local `.Rmd` (or `.Rnw`) file as a plain-text file to Google Drive. By taking advantage of the easily readable Markdown (or LaTeX) syntax and the well-known online interface offered by Google Docs, collaborators can easily contribute to the writing and editing process. After integrating all authors’ contributions, the final document can be downloaded and rendered locally.
+The **trackdown** package\index{R package!trackdown} [@R-trackdown] offers a simple solution for collaborative writing and editing of R Markdown (or Sweave) documents. Based on the **googledrive** package\index{R package!googledrive} [@R-googledrive],  **trackdown** allows to upload the local `.Rmd` (or `.Rnw`) file as a plain-text file to Google Drive. By taking advantage of the easily readable Markdown (or LaTeX) syntax and the well-known online interface offered by Google Docs, collaborators can easily contribute to the writing and editing process. After integrating all authors’ contributions, the final document can be downloaded and rendered locally.
 
 Currently, **trackdown** is available only on GitHub at https://github.com/ekothe/trackdown. The package documentation is available at https://ekothe.github.io/trackdown/.
 
@@ -249,6 +249,8 @@ During the collaborative writing/editing of an `.Rmd` (or `.Rnw`) document, it i
 Thus, the workflow’s main idea is simple: Upload the `.Rmd` (or `.Rnw`) document to Google Drive to collaboratively write/edit the narrative text in Google Docs; download the document locally to continue working on the code while harnessing the power of Git for version control and collaboration. This iterative process of uploading to and downloading from Google Drive continues until the desired results are obtained (See Figure \@ref(fig:trakdown1)). The workflow can be summarized as:
 
 > Collaborative **code** writing using **Git** & collaborative writing of **narrative text** using **Google Docs**
+
+For a detailed example of the workflow see  https://ekothe.github.io/trackdown/articles/trackdown-workflow.html.
 
 ```{r trakdown1, echo = FALSE, fig.cap = "trackdown workflow, collaborative code writing is done locally using Git whereas collaborative writing of the narrative text is done online using Google Docs", out.width='100%'}
 knitr::include_graphics("images/trackdown1.png", dpi = NA)
@@ -280,59 +282,6 @@ Google Docs offers users a familiar, intuitive, and free web-based interface tha
 Moreover, Google Docs allows anyone to contribute to the writing/editing of the document. No programming experience is required, users can just focus on writing/editing the narrative text.
 
 Note that not all collaborators have to have a Google account (although this is recommended to utilize all Google Docs features). Only the person who manages the **trackdown** workflow needs to have a Google account to upload files to Google Drive. Other collaborators can be invited to contribute to the document using a shared link.
-
-### Workflow Example
-
-Suppose you want to collaborate with your colleagues on the writing of an R Markdown document, e.g., to prepare a submission to a scientific journal. If you are the most experienced among your colleagues in the usage of R and programming in general, you should take responsibility for managing and organizing the workflow.
-
-#### Upload File {-}
-
-You create the initial document, for example `My-Report.Rmd`, and upload the file to Google Drive using the function `upload_file()`:
-
-```{r, echo = TRUE, eval = FALSE}
-library(trackdown)
-update_file(file = "path-to-file/My-Report.Rmd", 
-            hide_code = TRUE)
-```
-
-By executing this command, the `My-Report.Rmd` file is uploaded from your local computer to your Google Drive. Note that `trackdown` adds some simple instructions and reminders on top of the document and, by specifying the argument `hide_code = TRUE` (default is `FALSE`), the header code (YAML) and code chunks are removed from the document displaying instead placeholders of type "[[document-header]]" and "[[chunk-\<name\>]]" (See Figure \@ref(fig:trakdown2)). This allows collaborators to focus on the narrative text. 
-
-```{r trakdown2, echo = FALSE, fig.cap = "When uploading a document from your local computer to your Google Drive, `trackdown` adds some simple instructions and reminders on top of the document and, by specifying the argument `hide_code = TRUE` (default is `FALSE`), the header code (YAML) and code chunks are removed and substituted by placeholders.", out.width='100%'}
-knitr::include_graphics("images/trackdown2.png", dpi = NA)
-```
-
-
-#### Collaborate {-}
-
-After uploading your document to Google Drive, you can now share a link to the document with your colleagues and invite them to collaborate on the writing of the narrative text. Google Docs offers a familiar, intuitive, and free web-based interface that allows multiple users to simultaneously write/edit the same document. In Google Docs it is possible to: track changes (incl. accepting/rejecting suggestions); add comments to suggest and discuss changes; check spelling and grammar errors (See Figure \@ref(fig:trakdown3)).
-
-```{r trakdown3, echo = FALSE, fig.cap = "Example of collaboration in Google Docs using suggestions and comments.", out.width='100%'}
-knitr::include_graphics("images/trackdown3.png", dpi = NA)
-```
-
-
-#### Download File {-}
-
-At some point, you will want to add some code to the document to include figures, tables, and/or analysis results. This should not be done in Google Docs, instead, you should first download the document. Accept/reject all changes made to the document in Google Docs, then download the edited version of the document from Google Drive using the function `download_file()`:
-
-```{r, echo = TRUE, eval = FALSE}
-download_file(file = "path-to-file/My-Report.Rmd")
-```
-
-Note that downloading the file from Google Drive will overwrite the local file. 
-
-#### Update File {-}
-
-Once you added the required code chunks, further editing of the narrative text may be necessary. In this case, you first update the file in Google Drive with your local version of the document using the function `update_file()`:
-
-```{r, echo = TRUE, eval = FALSE}
-update_file(file = "path-to-file/My-Report.Rmd", 
-            hide_code = TRUE)
-```
-
-By executing this command, the document in Google Drive is updated with your latest local changes. Now you and your colleagues can continue to collaborate on the writing of the document. Note that updating the file in Google Drive will overwrite its current content.
-
-This iterative process of updating the file in Google Drive and downloading it locally continues until the desired results are obtained.
 
 ## Organize an R Markdown project into a research website with **workflowr** {#workflowr}
 
