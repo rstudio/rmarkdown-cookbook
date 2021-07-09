@@ -1,6 +1,6 @@
 # R Markdown Cookbook
 
-[![Build Status](https://travis-ci.com/yihui/rmarkdown-cookbook.svg?branch=master)](https://travis-ci.com/yihui/rmarkdown-cookbook)
+[![build-book](https://github.com/yihui/rmarkdown-cookbook/actions/workflows/build-book.yaml/badge.svg)](https://github.com/yihui/rmarkdown-cookbook/actions/workflows/build-book.yaml)
 
 This repository contains the source files of the book _R Markdown Cookbook_, to be published in October 2020 by Chapman & Hall/CRC.
 
