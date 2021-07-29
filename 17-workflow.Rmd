@@ -233,23 +233,55 @@ knit: myPackage::knit_with_date
 
 You may refer to the help page `?rmarkdown::render` to find out more ideas on how you could customize your `knit` function behind the `Knit` button in RStudio.
 
-## Collaborate on Rmd documents through Google Drive {#google-drive}
+## Collaborate on Rmd documents through Google Drive with trackdown {#google-drive}
 
-Based on the **googledrive** package\index{R package!googledrive} [@R-googledrive], Emily Kothe provided a few wrapper functions in the **rmdrive** package\index{R package!rmdrive}, which is currently available only on GitHub at https://github.com/ekothe/rmdrive. At the time of writing, it still lacks rich documentation, so I recommend that you try Janosch Linkersdörfer's fork instead: https://github.com/januz/rmdrive (which is based on Ben Marwick's fork---if you still have not learned GIT, you may be motivated by these examples of freely forking and improving other people's GIT repositories).
+The **trackdown** package\index{R package!trackdown} [@R-trackdown] offers a simple solution for collaborative writing and editing of R Markdown (or Sweave) documents. Based on the **googledrive** package\index{R package!googledrive} [@R-googledrive],  **trackdown** allows to upload the local `.Rmd` (or `.Rnw`) file as a plain-text file to Google Drive. By taking advantage of the easily readable Markdown (or LaTeX) syntax and the well-known online interface offered by Google Docs, collaborators can easily contribute to the writing and editing process. After integrating all authors’ contributions, the final document can be downloaded and rendered locally.
 
-The workflow with **rmdrive** is outlined below:
+Currently, **trackdown** is available only on GitHub at https://github.com/ekothe/trackdown. The package documentation is available at https://ekothe.github.io/trackdown/.
 
-1. We assume there is a main author or contributor of the project, who is capable of using version control tools like GIT. The main author writes the initial version of the Rmd document, and uploads it to Google Drive via the `upload_rmd()` function.
+### The trackdown Workflow
 
-1. The Rmd document in Google Drive is shared with other collaborators, who can make or suggest changes in Google Document.
+During the collaborative writing/editing of an `.Rmd` (or `.Rnw`) document, it is important to employ different workflows for computer code and narrative text:
 
-1. The main author can accept suggested changes, and download/preview the Rmd document locally via `render_rmd()`. Other collaborators can also do this by themselves if they have modified code chunks and want to see the new results.
+- **Code** - Collaborative code writing is done most efficiently by following a traditional **Git**-based workflow using an online repository (e.g., GitHub or GitLab).
+- **Narrative Text** - Collaborative writing of narrative text is done most efficiently using **Google Docs** which provides a familiar and simple online interface that allows multiple users to simultaneously write/edit the same document.
 
-1. If satisfied, the main author can commit changes to the GIT repository.
+Thus, the workflow’s main idea is simple: Upload the `.Rmd` (or `.Rnw`) document to Google Drive to collaboratively write/edit the narrative text in Google Docs; download the document locally to continue working on the code while harnessing the power of Git for version control and collaboration. This iterative process of uploading to and downloading from Google Drive continues until the desired results are obtained (See Figure \@ref(fig:trakdown1)). The workflow can be summarized as:
 
-The collaborative editing can be either synchronous or asynchronous in Google Drive. Multiple people can edit the same document at the same time, or wait for other people to finish their editing first.
+> Collaborative **code** writing using **Git** & collaborative writing of **narrative text** using **Google Docs**
 
-There is also a function `update_rmd()` in the package, which allows you to edit the Rmd document locally, and upload the local Rmd document to Google Drive. You probably should never want to run this function, because it will completely overwrite the document in Google Drive. The main author may want to warn collaborators about this in advance. Ideally, all collaborators should only edit the document in Google Drive and not locally. It is okay to preview the edited document locally via `render_rmd()`, though (note that `render_rmd()` automatically downloads the document before rendering it).
+For a detailed example of the workflow see  https://ekothe.github.io/trackdown/articles/trackdown-workflow.html.
+
+```{r trakdown1, echo = FALSE, fig.cap = "trackdown workflow, collaborative code writing is done locally using Git whereas collaborative writing of the narrative text is done online using Google Docs", out.width='100%'}
+knitr::include_graphics("images/trackdown1.png", dpi = NA)
+```
+
+#### Functions and Special Features{-}
+
+**trackdown** offers different functions to manage the workflow:
+
+- `upload_file()` uploads a file for the first time to Google Drive.
+- `update_file()` updates the content of an existing file in Google Drive with the contents of a local file.
+- `download_file()` downloads the edited version of a file from Google Drive and updates the local version.
+- `render_file()` downloads a file from Google Drive and renders it locally.
+
+Moreover, **trackdown** offers additional features to facilitate the collaborative writing and editing of documents in Google Docs. In particular, it is possible to:
+
+- **Hide Code:** Code in the header of the document (YAML header or LaTeX preamble) and code chunks are removed from the document when uploading to Google Drive and are automatically restored during download. This prevents collaborators from inadvertently making changes to the code which might corrupt the file and allows them to focus on the narrative text.
+- **Upload Output:** The actual output document (i.e., the rendered file) can be uploaded to Google Drive in conjunction with the `.Rmd` (or `.Rnw`) document. This helps collaborators to evaluate the overall layout including figures and tables and allows them to add comments to suggest and discuss changes.
+- **Use Google Drive shared drives:** The documents can be uploaded to either a personal Google Drive or to a shared drive to facilitate collaboration.
+
+#### Advantages of Google Docs {-}
+
+Google Docs offers users a familiar, intuitive, and free web-based interface that allows multiple users to simultaneously write/edit the same document. In Google Docs it is possible to:
+
+- track changes (incl. accepting/rejecting suggestions)
+- add comments to suggest and discuss changes
+- check spelling and grammar errors (potentially integrating third-party services like Grammarly)
+
+Moreover, Google Docs allows anyone to contribute to the writing/editing of the document. No programming experience is required, users can just focus on writing/editing the narrative text.
+
+Note that not all collaborators have to have a Google account (although this is recommended to utilize all Google Docs features). Only the person who manages the **trackdown** workflow needs to have a Google account to upload files to Google Drive. Other collaborators can be invited to contribute to the document using a shared link.
 
 ## Organize an R Markdown project into a research website with **workflowr** {#workflowr}
 

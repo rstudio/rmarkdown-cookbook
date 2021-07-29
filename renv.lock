@@ -1608,6 +1608,18 @@
       "RemoteSha": "0.31",
       "Hash": "25b572f764f3c19fef9aac33b5724f3d"
     },
+    "trackdown": {
+      "Package": "trackdown",
+      "Version": "0.1.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "trackdown",
+      "RemoteUsername": "ekothe",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "6841b69e8f9559dab9bc6544e0c629b78df64442",
+      "Hash": "5ee1bbe7cadf782236922aca377e3220"
+    },
     "tufte": {
       "Package": "tufte",
       "Version": "0.10",
