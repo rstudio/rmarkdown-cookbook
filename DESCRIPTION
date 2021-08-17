@@ -82,6 +82,4 @@ Imports:
     ztable
 Suggests:
     rsconnect
-Remotes:
-    github::ekothe/trackdown
 Encoding: UTF-8

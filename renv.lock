@@ -309,10 +309,10 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "2.5.0",
+      "Version": "3.0.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "a94ba44cee3ea571e813721e64184172"
+      "Hash": "e3ae5d68dea0c55a12ea12a9fda02e61"
     },
     "clipr": {
       "Package": "clipr",
@@ -587,10 +587,10 @@
     },
     "gargle": {
       "Package": "gargle",
-      "Version": "1.1.0",
+      "Version": "1.2.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "bc3bc77ea458de0a6efe94e8e7e9c641"
+      "Hash": "9d234e6a87a6f8181792de6dc4a00e39"
     },
     "gdtools": {
       "Package": "gdtools",
@@ -711,10 +711,10 @@
     },
     "googledrive": {
       "Package": "googledrive",
-      "Version": "1.0.1",
+      "Version": "2.0.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "79ba5d18133290a69b7c135dc3dfef1a"
+      "Hash": "c3a25adbbfbb03f12e6f88c5fb1f3024"
     },
     "govdown": {
       "Package": "govdown",
@@ -1610,15 +1610,10 @@
     },
     "trackdown": {
       "Package": "trackdown",
-      "Version": "0.1.0",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "trackdown",
-      "RemoteUsername": "ekothe",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "6841b69e8f9559dab9bc6544e0c629b78df64442",
-      "Hash": "5ee1bbe7cadf782236922aca377e3220"
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "9dd20b7663c8781810b8507e5a6e91de"
     },
     "tufte": {
       "Package": "tufte",

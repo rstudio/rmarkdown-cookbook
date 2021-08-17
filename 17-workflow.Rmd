@@ -237,7 +237,17 @@ You may refer to the help page `?rmarkdown::render` to find out more ideas on ho
 
 The **trackdown** package\index{R package!trackdown} [@R-trackdown] offers a simple solution for collaborative writing and editing of R Markdown (or Sweave) documents. Based on the **googledrive** package\index{R package!googledrive} [@R-googledrive],  **trackdown** allows to upload the local `.Rmd` (or `.Rnw`) file as a plain-text file to Google Drive. By taking advantage of the easily readable Markdown (or LaTeX) syntax and the well-known online interface offered by Google Docs, collaborators can easily contribute to the writing and editing process. After integrating all authors’ contributions, the final document can be downloaded and rendered locally.
 
-Currently, **trackdown** is available only on GitHub at https://github.com/ekothe/trackdown. The package documentation is available at https://ekothe.github.io/trackdown/.
+You can install **trackdown** from CRAN, or you may try the development version on GitHub (https://github.com/claudiozandonella/trackdown):
+```{r, echo=TRUE, eval=FALSE}
+# install from CRAN
+install.packages("trackdown")
+
+# install the development version
+remotes::install_github("claudiozandonella/trackdown",
+                        build_vignettes = TRUE)
+```
+
+The package documentation is available at https://claudiozandonella.github.io/trackdown/.
 
 ### The trackdown Workflow
 
