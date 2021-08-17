@@ -313,7 +313,7 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "e3ae5d68dea0c55a12ea12a9fda02e61"
-      },
+    },
     "clipr": {
       "Package": "clipr",
       "Version": "0.7.1",
@@ -589,7 +589,7 @@
       "Package": "gargle",
       "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "9d234e6a87a6f8181792de6dc4a00e39"
     },
     "gdtools": {
@@ -713,7 +713,7 @@
       "Package": "googledrive",
       "Version": "2.0.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "c3a25adbbfbb03f12e6f88c5fb1f3024"
     },
     "govdown": {
@@ -1612,7 +1612,7 @@
       "Package": "trackdown",
       "Version": "1.0.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "9dd20b7663c8781810b8507e5a6e91de"
     },
     "tufte": {
