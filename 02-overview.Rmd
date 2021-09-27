@@ -36,7 +36,7 @@ We can dig one level deeper by considering the different components of an R Mark
 
 ### YAML metadata
 
-The YAML metadata\index{YAML} (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information that it contains can affect the code, content, and the rendering process. 
+The YAML metadata\index{YAML} (also called the YAML header) is processed in many stages of the rendering process and can influence the final document in many different ways. It is placed at the very beginning of the document and is read by each of Pandoc, **rmarkdown**, and **knitr**. Along the way, the information that it contains can affect the code, content, and the rendering process. 
 
 A typical YAML header looks like this, and contains basic metadata about the document and rendering instructions:
 
