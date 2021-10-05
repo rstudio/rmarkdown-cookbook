@@ -237,7 +237,7 @@ The output:
 
 Please read the help page `?formatR::tidy_source` to know the possible arguments, and also see https://yihui.org/formatR/ for examples and limitations of this function.
 
-Alternatively, you may use the **styler** package [@R-styler] to reformat your R code\index{R package!styler} if you set the chunk option `tidy = 'styler'`. The R code will be formatted with the function `styler::style_text()`. The **styler** package has richer features than **formatR**. For example, it can align function arguments and works with the pipe operator `%>%`. The chunk option `tidy.opts`\index{chunk option!tidy.opts} can also be used to pass additional arguments to `styler::style_text()`, e.g.,
+Alternatively, you may use the **styler** package [@R-styler] to reformat your R code\index{R package!styler} if you set the chunk option `tidy = 'styler'`. The R code will be formatted with the function `styler::style_text()`. The **styler** package has richer features than **formatR**. For example, it can preserve alignment and works with tidyverse syntax such as `%>%`, `!!` or `{{`. The chunk option `tidy.opts`\index{chunk option!tidy.opts} can also be used to pass additional arguments to `styler::style_text()`, e.g.,
 
 ````md
 ```{r, tidy='styler', tidy.opts=list(strict=FALSE)}`r ''`
