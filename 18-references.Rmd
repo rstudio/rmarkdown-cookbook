@@ -17,7 +17,6 @@ pkgs <- c(
   'bookdown',
   'broom',
   'Cairo',
-  'cairoDevice',
   'condformat',
   'dagitty',
   'diagram',

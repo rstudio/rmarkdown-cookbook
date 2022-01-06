@@ -9,7 +9,6 @@ Imports:
     bookdown,
     broom,
     Cairo,
-    cairoDevice,
     condformat,
     dagitty,
     desc,
