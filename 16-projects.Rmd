@@ -23,32 +23,19 @@ Note that we used `include = FALSE`\index{chunk option!include} in the above exa
 
 There is a disadvantage of the `source()` method in Section \@ref(source-script). That is, you will not be able to see the source code by default. You can use `source(..., echo = TRUE)`, but the source code will not be properly syntax highlighted. Besides, you need to be careful about the `local` argument of `source()`, as mentioned in Section \@ref(source-script). In this section, we introduce an alternative method that does not have these problems.
 
-Basically, when you have one or more external scripts, you may read them and pass the content to the `code` option\index{chunk option!code} of a chunk. The `code` option can take a character vector and treat it as the content of the code chunk. Below we show a few examples.
+Basically, when you have one or more external scripts, you may read them via the `file` option\index{chunk option!file} of a chunk. The `file` option can take a character vector of file paths. Below we show a few examples.
 
-- The `code` option can take a character vector of source code. For example:
-
-    ````md
-    ```{r, code=c('1 + 1', 'if (TRUE) plot(cars)')}`r ''`
-    ```
-    ````
-
-- You can also read an external file:
+- You can read one external file:
 
     ````md
-    ```{r, code=xfun::read_utf8('your-script.R')}`r ''`
+    ```{r, file='your-script.R'}`r ''`
     ```
     ````
 
 - You can read as many scripts as you want:
 
     ````md
-    ```{r, include=FALSE}`r ''`
-    read_files <- function(files) {
-      unlist(lapply(files, xfun::read_utf8))
-    }
-    ```
-
-    ```{r, code=read_files(c('one.R', 'two.R'))}`r ''`
+    ```{r, file=c('one.R', 'two.R')}`r ''`
     ```
     ````
 
@@ -57,18 +44,18 @@ You can read scripts of other languages, too. See Chapter \@ref(other-languages)
 - Read a Python script:
 
     ````md
-    ```{python, code=xfun::read_utf8('script.py')}`r ''`
+    ```{python, file='script.py'}`r ''`
     ```
     ````
 
 - Read a C++ file:
 
     ````md
-    ```{Rcpp, code=xfun::read_utf8('file.cpp')}`r ''`
+    ```{Rcpp, file='source.cpp'}`r ''`
     ```
     ````
 
-With the `code` option, you can develop complicated code in your favorite editor, and read it into a code chunk of an R Markdown document.
+With the `file` option, you can develop complicated code in your favorite editor, and read it into a code chunk of an R Markdown document.
 
 ## Read multiple code chunks from an external script (\*) {#read-chunk}
 
