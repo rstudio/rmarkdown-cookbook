@@ -205,32 +205,79 @@ The chunk option `fig.align`\index{chunk option!fig.align} specifies the alignme
 
 Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate a verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
 
-Unfortunately, we cannot wrap the code chunk in another layer of backticks, but instead we must make the code chunk invalid within the source code by inserting `` `r knitr::inline_expr("''")` ``\index{knitr!inline\_expr()} in the chunk header. This will be evaluated as an inline expression to _an empty string_ by **knitr**. For this example, the following "code chunk" in the source document:
+The `verbatim` engine will take any type of R Markdown valid content and output it as-is in the resulting document. By adding one more backtick in the upper layer than the inside content, a whole code chunk including the chunk header can be included. 
 
-````{r echo = FALSE, comment = NA}
-cat("```{r, eval=TRUE}`r ''`
+`````{verbatim}
+````{verbatim}
+```{r, eval=TRUE}
 1 + 1
-```")
+```
 ````
+`````
 
-will be rendered as:
+will be rendered as: 
 
-````
-```{r, eval=TRUE}`r ''`
+````{verbatim}
+```{r, eval=TRUE}
 1 + 1
 ```
 ````
 
-in the output. The inline expression is gone because it is substituted by an empty string. However, that is only the first step. To show something verbatim in the output, the syntax in Markdown is to wrap it in a code block (indent by four spaces or use backtick fences). This will be the actual source if you want to see the output above:
+in the output. You have to use at least N+1 backticks to wrap up N backticks, so four backticks here for the chunk header with the `verbatim` engine. 
 
-```{r echo = FALSE, comment = NA}
-cat("````
-```{r, eval=TRUE}`r ''`
+The content of the chunk will be placed in a fenced code block with class `default`, meaning not specific highlighting applied. You can set the `lang` chunk option to use a different language. For example, 
+
+`````{verbatim}
+````{verbatim, lang = "markdown"}
+We can output arbitrary content **verbatim**.
+
+```{r}
 1 + 1
-```\n````")
 ```
 
-Why four backticks? That is because you have to use at least N+1 backticks to wrap up N backticks.
+The content can contain inline code like
+`r pi * 5^2`, too.
+````
+`````
+
+will result in the markdown source file as 
+
+`````{verbatim, lang = "markdown"}
+````markdown
+We can output arbitrary content **verbatim**.
+
+```{r}
+1 + 1
+```
+
+The content can contain inline code like
+`r pi * 5^2`, too.
+````
+`````
+
+which will apply highlighting for markdown language on the code chunk in the output.
+
+If the content you want to include verbatim is already in a file, you can use the `embed` engine instead. Here is an example of the CSS we are using to create boxes in this book: 
+
+```{embed, file = "css/box.css"}
+```
+
+The syntax for the above inclusion in our Rmd source file is 
+
+````{verbatim, lang = "markdown"}
+```{embed, file = "css/box.css"}
+```
+````
+
+Another syntax for it is to pass the file as chunk body: 
+
+````{verbatim, lang = "markdown"}
+```{embed}
+"css/box.css"
+```
+````
+
+The `embed` engine is based on the `verbatim` engine. By default, the `lang` option is set based on the extension of the file you include. It can be modified using `lang` directly as chunk option. 
 
 ### Show a verbatim inline expression
 
