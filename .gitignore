@@ -7,7 +7,6 @@ _book/*
 _bookdown_files/*
 packages.bib
 *-tikzDictionary
-css/box.css
 latex/blackbox.tex
 latex/infobox.tex
 
