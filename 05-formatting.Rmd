@@ -205,7 +205,7 @@ The chunk option `fig.align`\index{chunk option!fig.align} specifies the alignme
 
 Typically we write code chunks and inline expressions that we want to be parsed and evaluated by **knitr**. However, if you are trying to write a tutorial on using **knitr**, you may need to generate a verbatim code chunk or inline expression that is _not_ parsed by **knitr**, and we want to display the content of the chunk header. 
 
-The `verbatim` engine will take any type of R Markdown valid content and output it as-is in the resulting document. By adding one more backtick in the upper layer than the inside content, a whole code chunk including the chunk header can be included. 
+The `verbatim` engine can take any R Markdown content and output it as-is in the resulting document. By using more backticks on the outer fences than the backticks in the inner content, a whole code chunk including the chunk header can be included in a `verbatim` chunk. For example,
 
 `````{verbatim}
 ````{verbatim}
@@ -223,9 +223,9 @@ will be rendered as:
 ```
 ````
 
-in the output. You have to use at least N+1 backticks to wrap up N backticks, so four backticks here for the chunk header with the `verbatim` engine. 
+in the output. You have to use at least `N+1` backticks to wrap up `N` backticks. We are using four backticks here for the `verbatim` chunk because the inner chunk header contains three backticks.
 
-The content of the chunk will be placed in a fenced code block with class `default`, meaning not specific highlighting applied. You can set the `lang` chunk option to use a different language. For example, 
+The content of the `verbatim` chunk will be placed in a fenced code block with the class `default`, meaning no syntax highlighting will be applied. You can set the `lang` chunk option to use a different syntax highlighting language name. For example, 
 
 `````{verbatim}
 ````{verbatim, lang = "markdown"}
@@ -240,7 +240,7 @@ The content can contain inline code like
 ````
 `````
 
-will result in the markdown source file as 
+will result in the Markdown source file as 
 
 `````{verbatim, lang = "markdown"}
 ````markdown
@@ -255,9 +255,9 @@ The content can contain inline code like
 ````
 `````
 
-which will apply highlighting for markdown language on the code chunk in the output.
+The verbatim content will be syntax highlighted using the `markdown` language in the output.
 
-If the content you want to include verbatim is already in a file, you can use the `embed` engine instead. Here is an example of the CSS we are using to create boxes in this book: 
+If the content you want to include verbatim is in a file, you can use the `embed` engine instead. Here is an example of the CSS code from Section \@ref(block-shaded):
 
 ```{embed, file = "css/box.css"}
 ```
