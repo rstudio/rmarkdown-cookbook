@@ -231,17 +231,7 @@ First, we show how to include content in a shaded box. The box has a black backg
 
 For HTML output, we define these rules in a CSS file. If you are unfamiliar with CSS\index{CSS}, there are plenty of free online tutorials, e.g., https://www.w3schools.com/css/.
 
-```{cat, class.source='css', engine.opts=list(file = 'css/box.css')}
-.blackbox {
-  padding: 1em;
-  background: black;
-  color: white;
-  border: 2px solid orange;
-  border-radius: 10px;
-}
-.center {
-  text-align: center;
-}
+```{embed, file = 'css/box.css'}
 ```
 
 For LaTeX output, we create a new environment named `blackbox` and based on the LaTeX package **framed**\index{LaTeX package!framed}, with a black background and white text:
