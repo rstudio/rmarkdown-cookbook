@@ -146,7 +146,7 @@ For those familiar with LaTeX, this is equivalent to the following LaTeX code:
 ```tex
 \usepackage[labelfont={bf}]{caption} 
 \usepackage[unicode=true, breaklinks=true]{hyperref}
-\userpackage{lmodern}
+\usepackage{lmodern}
 ```
 
 The advantage of using the `extra_dependencies` argument over the `includes` argument introduced in Section \@ref(latex-preamble) is that you do not need to include an external file, so your Rmd document can be self-contained.
