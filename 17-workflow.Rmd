@@ -260,7 +260,7 @@ Thus, the workflow’s main idea is simple: Upload the `.Rmd` (or `.Rnw`) docume
 
 > Collaborative **code** writing using **Git** & collaborative writing of **narrative text** using **Google Docs**
 
-For a detailed example of the workflow see  https://ekothe.github.io/trackdown/articles/trackdown-workflow.html.
+For a detailed example of the workflow see  https://claudiozandonella.github.io/trackdown/articles/trackdown-workflow.html.
 
 ```{r trakdown1, echo = FALSE, fig.cap = "trackdown workflow, collaborative code writing is done locally using Git whereas collaborative writing of the narrative text is done online using Google Docs", out.width='100%'}
 knitr::include_graphics("images/trackdown1.png", dpi = NA)
