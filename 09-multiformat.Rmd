@@ -49,7 +49,7 @@ if (knitr::is_latex_output()) {
 
 ## Display HTML widgets {#html-widgets}
 
-HTML widgets (<https://htmlwidgets.org>)\index{HTML!widgets} are typically interactive JavaScript applications, which only work in HTML output. If you knit an Rmd document containing HTML widgets to a non-HTML format such as PDF or Word, you may get an error message like this:
+HTML widgets (<https://www.htmlwidgets.org>)\index{HTML!widgets} are typically interactive JavaScript applications, which only work in HTML output. If you knit an Rmd document containing HTML widgets to a non-HTML format such as PDF or Word, you may get an error message like this:
 
 ```md
 Error: Functions that produce HTML output found in document
