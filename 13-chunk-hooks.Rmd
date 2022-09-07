@@ -95,7 +95,7 @@ knitr::knit_hooks$set(optipng = knitr::hook_optipng)
 
 After you set up this hook, you can use the chunk option `optipng`\index{chunk option!optipng} to pass command-line arguments to OptiPNG, e.g., `optipng = '-o7'`. These command-line arguments are optional, which means you can just use `optipng = ''` to enable the hook for a code chunk. Please see the user manual on the website of OptiPNG to know the possible arguments.
 
-Note that macOS users can easily install OptiPNG with Homebrew (https://brew.sh): `brew install optipng`.
+OptiPNG can be easily installed on macOS with Homebrew (https://brew.sh): `brew install optipng`, and on Windows using Scoop (https://scoop.sh/): `scoop install optipng`.
 
 ## Report how much time each chunk takes to run {#time-chunk}
 
