@@ -187,7 +187,7 @@ There may be situations in which we want to customize how the document is render
 
 It is possible to control the behavior of the `Knit` button by providing the `knit` field within the YAML frontmatter of your document. The field takes a function with the main argument `input` (the path to the input Rmd document) and other arguments that are currently ignored. You can either write the source code of the function directly in the `knit` field, or put the function elsewhere (e.g., in an R package) and call the function in the `knit` field. If you routinely need the custom `knit` function, we would recommend that you put it in a package, instead of repeating its source code in every single R Markdown document.
 
-If you store the code directly within YAML, you must wrap the entire function in parentheses. If the source code has multiple lines, you have to indent all lines (except the first line) by at least two spaces. For example, if we want the output filename to include the date on which it is rendered, we could use the following YAML code\index{YAML!knit}:
+If you store the code directly within YAML, you must wrap the entire function in parentheses. If the source code has multiple lines, you have to indent all lines (except the first line) by at least two spaces. For example, if we want the output filename to include the date on which it is rendered, we could use the following YAML  code\index{YAML!knit} in the Rmd document header:
 
 ```yaml
 ---
@@ -215,8 +215,7 @@ knit_with_date <- function(input, ...) {
   rmarkdown::render(
     input,
     output_file = paste0(
-        xfun::sans_ext(input), '-', Sys.Date(), '.',
-        xfun::file_ext(input)
+        xfun::sans_ext(input), '-', Sys.Date(), '.'
     ),
     envir = globalenv()
   )
