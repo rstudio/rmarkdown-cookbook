@@ -82,3 +82,4 @@ Imports:
 Suggests:
     rsconnect
 Encoding: UTF-8
+Remotes: datalorax/equatiomatic, r-for-educators/flair
