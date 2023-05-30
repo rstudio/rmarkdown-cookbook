@@ -13,7 +13,7 @@ local({
     n <- nchar(x, 'width')
     i <- seq_along(x)  # line numbers
     n <- n + nchar(i)
-    s <- knitr:::v_spaces(max(n) - n)
+    s <- strrep(' ', max(n) - n)
     x <- paste(x, s, '  # ', i, sep = '', collapse = '\n')
     hook_source(x, options)
   })
