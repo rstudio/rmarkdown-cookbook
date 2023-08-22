@@ -15,7 +15,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
@@ -57,7 +57,7 @@ jobs:
           CONTENT_ID: 7b3dedfa-fd98-45dd-bec4-75d915fb27dd
         run: make all
 
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v6
         if: github.event_name == 'push'
         env:
           URL: https://bookdown.org/yihui/rmarkdown-cookbook/
@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload book folder for debug
         if: failure()
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v3
         with:
           name: book-dir
           path: _book
