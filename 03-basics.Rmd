@@ -35,9 +35,9 @@ If you are already a Markdown expert, you can still write your document in the s
 
 ## Render an R script to a report {#spin}
 
-Even if you are a long-time R Markdown user, you may have missed another possibility. Dean Attali called it ["**knitr**'s best hidden gem".](https://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/) That is, you can render a pure R script to a report directly. If you use the RStudio IDE, the keyboard shortcut to render R scripts is the same as when you knit Rmd documents (`Ctrl / Cmd + Shift + K`).
+Even if you are a long-time R Markdown user, you may have missed another possibility. Dean Attali called it ["**knitr**'s best hidden gem".](https://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/) That is, you can render a pure R script to a report directly. If you use the RStudio IDE, the keyboard shortcut to render R scripts is the same as when you knit Rmd documents (`Ctrl / Cmd + Shift + K`). Or equivalently, you can call `rmarkdown::render()` on the R script.
 
-When rendering an R script to a report, the function `knitr::spin()`\index{knitr!spin()} is called to convert the R script to an Rmd file first. This function is what Dean Attali called **knitr**'s best hidden gem. You will see all text and graphical output in the report.
+When rendering an R script to a report via `rmarkdown::render()`, the function `knitr::spin()`\index{knitr!spin()} is called under the hood to convert the R script to an Rmd file first. This function is what Dean Attali called **knitr**'s best hidden gem. You will see all text and graphical output in the report.
 
 If you want granular control over the elements in the report, below are a few syntax rules to help you:
 
