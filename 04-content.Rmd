@@ -732,7 +732,7 @@ end
 Then we can pass this script to Pandoc via the argument `--lua-filter`, e.g.,
 
 ```{sh, comment=''}
-pandoc -t markdown --atx-headers \
+pandoc -t markdown --markdown-headings=atx \
   --lua-filter=raise-header.lua ast.md
 ```
 
