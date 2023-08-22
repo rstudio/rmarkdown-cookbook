@@ -110,9 +110,10 @@ knitr::knit_hooks$set(time_it = local({
       now <<- Sys.time()
     } else {
       # calculate the time difference after a chunk
-      res <- difftime(Sys.time(), now)
+      res <- difftime(Sys.time(), now, units = "secs")
       # return a character string to show the time
-      paste('Time for this code chunk to run:', res)
+      paste('Time for this code chunk to run:', 
+            round(res, 2), 'seconds')
     }
   }})
 )
