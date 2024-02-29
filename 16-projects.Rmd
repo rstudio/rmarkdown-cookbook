@@ -4,18 +4,17 @@ When you work on larger projects or reports, you may not want to put all text an
 
 ## Source external R scripts {#source-script}
 
-If your R Markdown document has a large amount of code, you may consider putting some code in external R scripts, and run these scripts via `source()`\index{source()} or `sys.source()`\index{sys.source()}, e.g.,
+If your R Markdown document has a large amount of code, you may consider putting some code in external R scripts, and running these scripts with `source()`\index{source()}[^sys-source]. This not only makes your R Markdown document cleaner, but can also make it more convenient to develop R code since (e.g.) debugging R code is often easier in pure R scripts.
 
 ````md
 ```{r, include=FALSE}`r ''`
-source("your-script.R", local = knitr::knit_global())
-# or sys.source("your-script.R", envir = knitr::knit_global())
+source("your-script.R", local = TRUE)
 ```
 ````
 
-We recommend that you use the argument `local` in `source()` or `envir` in `sys.source()` explicitly to make sure the code is evaluated in the correct environment, i.e., `knitr::knit_global()`\index{knitr!knit\_global()}. The default values for them may not be the appropriate environment: you may end up creating variables in the wrong environment, and being surprised that certain objects are not found in later code chunks.
+[^sys-source]: We don't recomend ever using `sys.source()` as it is designed specifically for internal use by base R.
 
-Next in the R Markdown document, you can use objects created in these scripts (e.g., data objects or functions). This way will not only make your R Markdown document cleaner, but also make it more convenient for you to develop R code (e.g., debugging R code is often easier with pure R scripts than R Markdown).
+We recommend using the `local = TRUE` argument to `source()`. The default behaviour is to evaluate the code in the global environment, which can cause confusion. Usually, knitr will evaluate code in a child of the global environment, so any assignments in the source file will be overridden by assignments in **earlier** chunks. `local = TRUE` forces `source()` to evaluate in the correct environment, avoiding any problems.
 
 Note that we used `include = FALSE`\index{chunk option!include} in the above example because we only want to execute the script without showing any output. If you do want output, you may remove this chunk option, or use the options in Section \@ref(hide-one) to selectively hide or show different types of output.
 
