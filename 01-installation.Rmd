@@ -41,7 +41,7 @@ As you can see in the above code chunk, several ways exist to find a version of 
 This function needs to be called outside of the Rmd document, as **rmarkdown** may use the Pandoc version information before knitting with code cells execution happens. 
 
 
-If you want an Rmd document to be compiled by a specific version of Pandoc installed on your computer, the **pandoc** package will help. [@R-pandoc]\index{R package!pandoc}
+If you want an Rmd document to be compiled by a specific version of Pandoc installed on your computer, the **pandoc** package [@R-pandoc]\index{R package!pandoc} will help.
 This package is designed to help test R code with different Pandoc versions. It allows installing and managing several Pandoc binary versions on the system and easily switching between versions. The function `pandoc::with_pandoc_version()` can help to render a document with a specific version of Pandoc, e.g., the following will render the document with Pandoc 2.9.1:
 
 ```r
@@ -54,7 +54,7 @@ pandoc::with_pandoc_version(
 The **pandoc** package works by default with its Pandoc binaries installation. See `?pandoc::pandoc_install()` for installation instructions of 2.9.1 in the example and, more generally, the [Get Started](https://cderv.github.io/pandoc/articles/pandoc.html) article.
 
 
-For use with the Knit button in RStudio (See Section \ref(custom-knit) about Knit button customization.), you can also customize the behavior like this: 
+For use with the Knit button in RStudio (See Section \@ref(custom-knit) about Knit button customization.), you can also customize the behavior like this: 
 
 
 ````yaml
