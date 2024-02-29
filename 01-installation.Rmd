@@ -19,30 +19,49 @@ If you need to create PDF output, you may need to install LaTeX\index{LaTeX} (Se
 
 ## Use a Pandoc version not bundled with the RStudio IDE {#install-pandoc}
 
-The RStudio IDE has bundled a version of Pandoc\index{Pandoc}, so you do not need to install Pandoc by yourself if you are using the RStudio IDE. However, the bundled version is often not the latest, or may not be the exact version that you want. You can choose to install a separate copy of Pandoc by yourself. Please keep in mind that the bundled version may be more thoroughly tested with R Markdown, because most RStudio users may just use the bundled version. If you want to go with a different version (especially a higher version), you might run into problems that have not been discovered by other R Markdown users or developers.
+The RStudio IDE has bundled a version of Pandoc\index{Pandoc}, so you do not need to install Pandoc by yourself if you use the RStudio IDE. However, for some advanced usage, the bundled version may differ from the exact version you want. You can choose to install a separate copy of Pandoc by yourself. Please remember that the bundled version may be more thoroughly tested with R Markdown, because most RStudio users may just use the bundled version. If you want to go with a different version (especially a higher version), you might run into problems that other R Markdown users or developers have yet to discover.
 
-There are detailed instructions on how to install Pandoc on different platforms on the Pandoc website at https://pandoc.org/installing.html. If you have installed Pandoc by yourself and want to use that specific version, you may inform the **rmarkdown** package by calling the function `rmarkdown::find_pandoc()`, e.g.,
+Some configurations are required if you have installed a specific Pandoc version by yourself. 
+
+First, before running `rmarkdown::render()`, you may inform the **rmarkdown** package by calling the function `rmarkdown::find_pandoc()` in the same R session, e.g.,
 
 ```{r, eval=FALSE}
-# to find a specific version
+# to find a specific version (e.g., if lower version on PATH)
 rmarkdown::find_pandoc(version = '2.9.1')
 
-# to find Pandoc under a specific directory
+# to find Pandoc under a specific directory (e.g., if a specific version cannot be in PATH)
 rmarkdown::find_pandoc(dir = '~/Downloads/Pandoc')
 
-# ignore the previously found Pandoc and search again
+# ignore the previously found Pandoc and search again (i.e., opt out of the caching mechanism).
 rmarkdown::find_pandoc(cache = FALSE)
 ```
 
-As you can see in the above code chunk, there are several ways to find a version of Pandoc. By default, `rmarkdown::find_pandoc()` tries to find the highest version of Pandoc in your system. Once found, the version information is cached, and you can invalidate the cache with `cache = FALSE`. Please see the help page `?rmarkdown::find_pandoc` for the potential directories under which the `pandoc` executable may be found.
+As you can see in the above code chunk, several ways exist to find a version of Pandoc. By default, `rmarkdown::find_pandoc()` tries to find your system's highest version of Pandoc. Once found, the version information is cached, and you can invalidate the cache with `cache = FALSE`. Please see the help page `?rmarkdown::find_pandoc` for the potential directories where the `pandoc` executable may be found.
 
-This function can be called either inside or outside an Rmd document. If you want an Rmd document to be compiled by a specific version of Pandoc installed on your computer, you may call this function in any code chunk in the document, e.g., in a setup chunk:
+This function needs to be called outside of the Rmd document, as **rmarkdown** may use the Pandoc version information before knitting with code cells execution happens. 
 
-````md
-```{r, setup, include=FALSE}`r ''`
-rmarkdown::find_pandoc(version = '2.9.1')
+
+If you want an Rmd document to be compiled by a specific version of Pandoc installed on your computer, the **pandoc** package will help. [@R-pandoc]\index{R package!pandoc}
+This package is designed to help test R code with different Pandoc versions. It allows installing and managing several Pandoc binary versions on the system and easily switching between versions. The function `pandoc::with_pandoc_version()` can help to render a document with a specific version of Pandoc, e.g., the following will render the document with Pandoc 2.9.1:
+
+```r
+pandoc::with_pandoc_version(
+  version = '2.9.1',
+  rmarkdown::render('input.Rmd')
+)
 ```
+
+The **pandoc** package works by default with its Pandoc binaries installation. See `?pandoc::pandoc_install()` for installation instructions of 2.9.1 in the example and, more generally, the [Get Started](https://cderv.github.io/pandoc/articles/pandoc.html) article.
+
+
+For use with the Knit button in RStudio (See Section \ref(custom-knit) about Knit button customization.), you can also customize the behavior like this: 
+
+
+````yaml
+knit: (function(input, ...) { pandoc::with_pandoc_version("2.9.1", rmarkdown::render(input)) })
 ````
+
+`pandoc::with_pandoc_version()` is a wrapper for `rmarkdown::find_pandoc()`, so you could also get inspiration from it to use your own version. See `?pandoc::with_pandoc_version()` for more details.
 
 ## Install LaTeX (TinyTeX) for PDF reports {#install-latex}
 

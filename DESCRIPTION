@@ -45,6 +45,7 @@ Imports:
     officer,
     pagedown,
     pander,
+    pandoc,
     pdftools,
     pixiedust,
     pkgdown,
