@@ -51,6 +51,7 @@ pkgs <- c(
   'officer',
   'pagedown',
   'pander',
+  'pandoc',
   'pixiedust',
   'pkgdown',
   'printr',
