@@ -324,7 +324,7 @@ This will generate the date dynamically each time you knit your document, e.g., 
 
 - `%B %Y`: `r format(Sys.time(), '%B %Y')`
 - `%d/%m/%y`: `r format(Sys.time(), '%d/%m/%y')`
-- `%a/%d/%b`: `r format(Sys.time(), '%a %d %b')`
+- `%a/%d/%b`: `r format(Sys.time(), '%a/%d/%b')`
 
 A full table of POSIXct formats is shown in Table \@ref(tab:date-format).
 
