@@ -50,9 +50,9 @@ We can write a custom R function to insert the correct syntax depending on the o
 ```{r}
 colorize = function(x, color){
   # handle colors such as '#00FF22'
-  if (str_detect(color, "^#[a-fA-F0-9]+") && knitr::is_latex_output()) {
+  if (stringr::str_detect(color, "^#[a-fA-F0-9]+") && knitr::is_latex_output()) {
     sprintf("\\textcolor[HTML]{%s}{%s}",
-            str_extract(color, "^#([a-fA-F0-9]+)", group = 1), x)
+            stringr::str_extract(color, "^#([a-fA-F0-9]+)", group = 1), x)
   }
   # ...or color names like 'red'
   else if (knitr::is_latex_output()) {
