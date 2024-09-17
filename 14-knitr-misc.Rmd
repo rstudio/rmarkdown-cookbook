@@ -48,7 +48,7 @@ F2C <- function(x) {
 
 You can embed an arbitrary number of other code chunks in one code chunk. The embedding can also be recursive. For example, you may embed chunk A in chunk B, and chunk B in chunk C. Then chunk C will include code from chunk A via chunk B.
 
-The marker `<<label>>` does not have to be on a separate line. It can be embedded anywhere in a code chunk.
+The marker `<<label>>` has to be on a separate line. Only white spaces are allowed before and after the marker.
 
 ### Use the same chunk label in another chunk {#same-label}
 
