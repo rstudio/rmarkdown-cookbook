@@ -106,7 +106,11 @@ Code chunks\index{code chunk} are the beating heart of our R Markdown. The code 
 
 To understand some of the modifications that we can make to code chunks, it is worth understanding the **knitr** process in slightly more detail. For each chunk, a **knitr** language engine gets three pieces of input: the knitting environment (`knitr::knit_global()`), the code input, and a list of chunk options. It returns the formatted representations of the code as well as its output. As a side effect, the knitting environment may also be modified, e.g., new variables may have been created in this environment via the source code in the code chunk. This process is illustrated in Figure \@ref(fig:knitr-workflow).
 
-```{r knitr-workflow, echo = FALSE, fig.cap = 'A flowchart of inputs and outputs to a language engine.', fig.dim=c(7, 3.5), fig.align='center', cache=TRUE}
+```{r knitr-workflow, echo = FALSE, fig.cap = 'A flowchart of inputs and outputs to a language engine.', fig.align='center'}
+knitr::include_graphics('images/knitr-workflow.jpg', dpi = NA)
+```
+
+<!--
 nomnoml::nomnoml(
   "
   [<frame>Code chunk|
@@ -117,7 +121,7 @@ nomnoml::nomnoml(
   [Language Engine]->[Formatted Output]
   [Language Engine]->[(Modified) Environment]
   ]")
-```
+-->
 
 We can modify this process by:
 
