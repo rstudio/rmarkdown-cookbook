@@ -23,7 +23,7 @@ cover-image: images/cover.png
 ```{r setup, include=FALSE}
 set.seed(0728)
 
-knitr::opts_chunk$set(tidy = TRUE, webshot = "webshot")
+knitr::opts_chunk$set(tidy = TRUE, webshot = "webshot2")
 
 if (knitr::is_html_output()) {
   # ignore percentage widths for HTML output, unless they are used for multiple
@@ -34,9 +34,6 @@ if (knitr::is_html_output()) {
     options
   })
 }
-
-# screenshot HTML widgets
-if (is.null(webshot:::find_phantom())) webshot::install_phantomjs()
 
 options(bookdown.post.latex = function(x) {
   # substitute nonbreaking spaces in \texttt{} with normal spaces

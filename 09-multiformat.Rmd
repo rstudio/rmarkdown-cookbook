@@ -64,18 +64,17 @@ Note however that the HTML output will not be visible in
 non-HTML formats.
 ```
 
-There is actually a better solution than the one mentioned in the above error message, but it involves extra packages. You can install the **webshot** package [@R-webshot]\index{R package!webshot} in R and also install PhantomJS\index{PhantomJS}:
+There is actually a better solution than the one mentioned in the above error message, but it involves extra packages. You can install the **webshot2** package [@R-webshot2]\index{R package!webshot2} in R and also install Google Chrome or any other Chromium-based browser if you do not have such a browser installed:
 
 ```{r, eval=FALSE}
-install.packages('webshot')
-webshot::install_phantomjs()
+install.packages('webshot2')
 ```
 
 Then if you knit an Rmd document with HTML widgets to a non-HTML format, the HTML widgets will be displayed as static screenshots. The screenshots are automatically taken in **knitr**. [Section 2.10](https://bookdown.org/yihui/bookdown/html-widgets.html) of the **bookdown** book contains more information on finer control over the screenshots.
 
 ## Embed a web page {#include-url}
 
-If you have the **webshot** package [@R-webshot]\index{R package!webshot} and PhantomJS\index{PhantomJS} installed (see Section \@ref(html-widgets)), you can embed any web page in the output document through `knitr::include_url()`\index{knitr!include\_url()}. When you pass a URL of a web page to this function in a code chunk, it will generate an `<iframe>` (inline frame)\index{HTML!iframe} if the output format is HTML, and a screenshot of the web page for other output formats. You can view the actual page in the inline frame. For example, Figure \@ref(fig:include-url) should show you my homepage if you are reading the online version of this book, otherwise you will see a static screenshot instead.
+If you have the **webshot2** package [@R-webshot2]\index{R package!webshot} and Chrome installed (see Section \@ref(html-widgets)), you can embed any web page in the output document through `knitr::include_url()`\index{knitr!include\_url()}. When you pass a URL of a web page to this function in a code chunk, it will generate an `<iframe>` (inline frame)\index{HTML!iframe} if the output format is HTML, and a screenshot of the web page for other output formats. You can view the actual page in the inline frame. For example, Figure \@ref(fig:include-url) should show you my homepage if you are reading the online version of this book, otherwise you will see a static screenshot instead.
 
 \let\ooldhref\href
 \let\href\oldhref

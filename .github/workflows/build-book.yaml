@@ -39,12 +39,7 @@ jobs:
 
       - name: Install missing system dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libgtk2.0-dev asymptote
-
-      - name: Install phantomjs
-        run: |
-          webshot::install_phantomjs()
-        shell: Rscript {0}
+        run: sudo apt-get install -y libgtk2.0-dev asymptote chromium-browser
 
       - name: Build Gitbook
         if: github.event_name == 'pull_request'

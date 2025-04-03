@@ -54,7 +54,7 @@ Other required LaTeX packages should be installed automatically during the build
 
 For Windows users, the section of the book on the [Asymptote language engine](https://bookdown.org/yihui/rmarkdown-cookbook/eng-asy.html) does not build properly so it will be skipped. For users with other operating systems, this section will be skipped if Asymptote is not installed on your computer. If they wish to build this section, they must download and install the [Asymptote software](https://asymptote.sourceforge.io/) from its website. After you install it, you may confirm that it is on your system's path by running the terminal command `where asy` or `Sys.which("asy")` from within R.
 
-Phantom JS is also required for use with the **webshot** package. This is automatically installed on the first run of `index.Rmd`, but if you wish you may pre-install it with the command `webshot::install_phantomjs()`.
+Chrome is also required for use with the **webshot2** package.
 
 ## Building the Book
 

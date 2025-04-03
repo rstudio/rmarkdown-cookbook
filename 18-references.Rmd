@@ -78,7 +78,7 @@ pkgs <- c(
   'trackdown',
   'tufte',
   'usethis',
-  'webshot',
+  'webshot2',
   'workflowr',
   'xaringan',
   'xfun',
