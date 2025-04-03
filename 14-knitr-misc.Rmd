@@ -360,6 +360,8 @@ The second label will be silently changed to `test-1`. This may avoid overwritin
 
 ## A more transparent caching mechanism {#cache-rds}
 
+**Note**: A new caching mechanism [`xfun::cache_exec()`](https://git.yihui.org/xfun/manual.html#sec:man-cache_exec) has been introduced to supersede the `xfun::cache_rds()` introduced in this section. You are now recommended to use `xfun::cache_exec()`, which is also transparent and yet still flexible.
+
 If you feel the caching mechanism of **knitr** introduced in Section \@ref(cache) is too complicated (it is!), you may consider a simpler caching mechanism\index{caching} based on the function `xfun::cache_rds()`\index{xfun!cache\_rds()}, e.g.,
 
 ```{r, eval=FALSE}
