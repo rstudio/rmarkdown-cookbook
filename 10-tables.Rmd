@@ -165,11 +165,11 @@ knitr::kable(d, format = 'latex', escape = TRUE)
 
 Other common special LaTeX characters include `#`, `%`, `&`, `{`, and `}`. Common special HTML characters include `&`, `<`, `>`, and `"`. You need to be cautious when generating tables with `escape = FALSE`, and make sure you are using the special characters in the right way. It is a very common mistake to use `escape = FALSE` and include `%` or `_` in column names or the caption of a LaTeX table without realizing that they are special.
 
-If you are not sure how to properly escape special characters, there are two internal helper functions in **knitr**. Below are some examples:\index{knitr!escape\_latex()}\index{knitr!escape\_html()}
+If you are not sure how to properly escape special characters, there are helper functions in **knitr** and **xfun**. Below are some examples:\index{knitr!escape\_latex()}\index{xfun!html\_escape()}
 
 ```{r}
 knitr:::escape_latex(c('100%', '# a comment', 'column_name'))
-knitr:::escape_html(c('<address>', 'x = "character"', 'a & b'))
+xfun::html_escape(c('<address>', 'x = "character"', 'a & b'))
 ```
 
 ### Multiple tables side by side
