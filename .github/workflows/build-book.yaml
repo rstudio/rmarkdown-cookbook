@@ -39,7 +39,7 @@ jobs:
 
       - name: Install missing system dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libgtk2.0-dev asymptote chromium-browser
+        run: sudo apt-get install -y libgtk2.0-dev asymptote
 
       - name: Build Gitbook
         if: github.event_name == 'pull_request'
