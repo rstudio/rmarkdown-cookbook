@@ -171,7 +171,11 @@ print(y)
 
 When writing this document, we might think of each piece as linear with independent sections of text and code following in a sequence one after the other. However, what we are actually doing is creating a set of nested containers that conceptually^[In reality, there are many more containers than shown. For example, for a knitted code chunk, the code and output exist in separate containers that share a common parent.] looks more like Figure \@ref(fig:rmd-containers).
 
-```{r rmd-containers, echo = FALSE, fig.cap = 'A simple R Markdown document illustrated as a set of nested containers.', out.width = '50%', fig.align='center', cache=TRUE}
+```{r rmd-containers, echo = FALSE, fig.cap = 'A simple R Markdown document illustrated as a set of nested containers.', out.width = '50%', fig.align='center'}
+knitr::include_graphics('images/rmd-containers.jpg', dpi = NA)
+```
+
+<!--
 nomnoml::nomnoml(
   "
   [Title (Level 1)|
@@ -180,7 +184,7 @@ nomnoml::nomnoml(
     [Section Y (Level 2)| - Text | - Code (chunk-y) ]
 
   ]")
-```
+-->
 
 Two key features of this diagram are (1) every section of text or code is its own discrete container, and (2) containers can be nested within one another. This nesting is particularly apparent if you are authoring your R Markdown document in the RStudio IDE and expand the document outline.
 
