@@ -21,24 +21,3 @@ redirect = function(from, to) {
 
 redirect('r-markdown-components.html', 'rmarkdown-process.html')
 redirect('acknowledgements.html', 'acknowledgments.html')
-
-
-if (length(formats) > 1) {
-  if (!is.na(Sys.getenv('CI', NA))) {
-    xfun::pkg_load2("rsconnect")
-    # On CI connect to server, using API KEY and deploy using appId
-    rsconnect::addConnectServer('https://bookdown.org', 'bookdown.org')
-    rsconnect::connectApiUser(
-      account = 'GHA', server = 'bookdown.org',
-      apiKey = Sys.getenv('CONNECT_API_KEY')
-    )
-    rsconnect::deploySite(
-      appId = Sys.getenv('CONTENT_ID'),
-      server = 'bookdown.org',
-      render = 'none', logLevel = 'verbose',
-      forceUpdate = TRUE)
-  } else if (Sys.getenv('USER') == 'yihui') {
-    # for local deployment when rsconnect/ is available
-    bookdown::publish_book('rmarkdown-cookbook', server = 'bookdown.org', render = 'none')
-  }
-}
