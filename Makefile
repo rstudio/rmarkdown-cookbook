@@ -1,6 +1,6 @@
 all:
 	rm -f _book/*.html &&\
-	BOOKDOWN_FULL_PDF=false Rscript --quiet _render.R
+	BOOKDOWN_FULL_PDF=false xvfb-run Rscript --quiet _render.R
 
 pdf:
 	Rscript --quiet _render.R "bookdown::pdf_book" &&\
