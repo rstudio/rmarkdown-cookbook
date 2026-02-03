@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9.6 Custom blocks (*) | R Markdown Cookbook</title>
+  <meta name="description" content="This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9.6 Custom blocks (*) | R Markdown Cookbook" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/yihui/rmarkdown-cookbook//images/cover.png" />
+  <meta property="og:description" content="This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis." />
+  <meta name="github-repo" content="yihui/rmarkdown-cookbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9.6 Custom blocks (*) | R Markdown Cookbook" />
+  
+  <meta name="twitter:description" content="This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis." />
+  <meta name="twitter:image" content="https://bookdown.org/yihui/rmarkdown-cookbook//images/cover.png" />
+
+<meta name="author" content="Yihui Xie, Christophe Dervieux, Emily Riederer" />
+
+
+<meta name="date" content="2026-02-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="raw-content.html"/>
+<link rel="next" href="tables.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/box.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Markdown Cookbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="how-to-read-this-book.html"><a href="how-to-read-this-book.html"><i class="fa fa-check"></i>How to read this book</a></li>
+<li class="chapter" data-level="" data-path="structure-of-the-book.html"><a href="structure-of-the-book.html"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="software-info.html"><a href="software-info.html"><i class="fa fa-check"></i>Software information and conventions</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>About the Authors</a>
+<ul>
+<li class="chapter" data-level="" data-path="yihui-xie.html"><a href="yihui-xie.html"><i class="fa fa-check"></i>Yihui Xie</a></li>
+<li class="chapter" data-level="" data-path="christophe-dervieux.html"><a href="christophe-dervieux.html"><i class="fa fa-check"></i>Christophe Dervieux</a></li>
+<li class="chapter" data-level="" data-path="emily-riederer.html"><a href="emily-riederer.html"><i class="fa fa-check"></i>Emily Riederer</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1</b> Installation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="install-pandoc.html"><a href="install-pandoc.html"><i class="fa fa-check"></i><b>1.1</b> Use a Pandoc version not bundled with the RStudio IDE</a></li>
+<li class="chapter" data-level="1.2" data-path="install-latex.html"><a href="install-latex.html"><i class="fa fa-check"></i><b>1.2</b> Install LaTeX (TinyTeX) for PDF reports</a></li>
+<li class="chapter" data-level="1.3" data-path="install-latex-pkgs.html"><a href="install-latex-pkgs.html"><i class="fa fa-check"></i><b>1.3</b> Install missing LaTeX packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conceptual-overview.html"><a href="conceptual-overview.html"><i class="fa fa-check"></i><b>2</b> Conceptual Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="rmarkdown-process.html"><a href="rmarkdown-process.html"><i class="fa fa-check"></i><b>2.1</b> What happens when we render?</a></li>
+<li class="chapter" data-level="2.2" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html"><i class="fa fa-check"></i><b>2.2</b> R Markdown anatomy</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#yaml-metadata"><i class="fa fa-check"></i><b>2.2.1</b> YAML metadata</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#narrative"><i class="fa fa-check"></i><b>2.2.2</b> Narrative</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#code-chunks"><i class="fa fa-check"></i><b>2.2.3</b> Code chunks</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#document-body"><i class="fa fa-check"></i><b>2.2.4</b> Document body</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="what-to-change.html"><a href="what-to-change.html"><i class="fa fa-check"></i><b>2.3</b> What can we change to change the results?</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="r-code.html"><a href="r-code.html"><i class="fa fa-check"></i><b>3.1</b> Code chunks and inline R code</a></li>
+<li class="chapter" data-level="3.2" data-path="rstudio-visual.html"><a href="rstudio-visual.html"><i class="fa fa-check"></i><b>3.2</b> Write Markdown in the RStudio visual editor</a></li>
+<li class="chapter" data-level="3.3" data-path="spin.html"><a href="spin.html"><i class="fa fa-check"></i><b>3.3</b> Render an R script to a report</a></li>
+<li class="chapter" data-level="3.4" data-path="purl.html"><a href="purl.html"><i class="fa fa-check"></i><b>3.4</b> Convert R Markdown to R script</a></li>
+<li class="chapter" data-level="3.5" data-path="notebook.html"><a href="notebook.html"><i class="fa fa-check"></i><b>3.5</b> R Markdown Notebooks</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="document-elements.html"><a href="document-elements.html"><i class="fa fa-check"></i><b>4</b> Document Elements</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pagebreaks.html"><a href="pagebreaks.html"><i class="fa fa-check"></i><b>4.1</b> Insert page breaks</a></li>
+<li class="chapter" data-level="4.2" data-path="dynamic-yaml.html"><a href="dynamic-yaml.html"><i class="fa fa-check"></i><b>4.2</b> Set the document title dynamically</a></li>
+<li class="chapter" data-level="4.3" data-path="document-metadata.html"><a href="document-metadata.html"><i class="fa fa-check"></i><b>4.3</b> Access the document metadata in R code</a></li>
+<li class="chapter" data-level="4.4" data-path="unnumbered-sections.html"><a href="unnumbered-sections.html"><i class="fa fa-check"></i><b>4.4</b> Unnumbered sections</a></li>
+<li class="chapter" data-level="4.5" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>4.5</b> Bibliographies and citations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="bibliography.html"><a href="bibliography.html#changing-citation-style"><i class="fa fa-check"></i><b>4.5.1</b> Changing citation style</a></li>
+<li class="chapter" data-level="4.5.2" data-path="bibliography.html"><a href="bibliography.html#add-an-item-to-a-bibliography-without-using-it"><i class="fa fa-check"></i><b>4.5.2</b> Add an item to a bibliography without using it</a></li>
+<li class="chapter" data-level="4.5.3" data-path="bibliography.html"><a href="bibliography.html#add-all-items-to-the-bibliography"><i class="fa fa-check"></i><b>4.5.3</b> Add all items to the bibliography</a></li>
+<li class="chapter" data-level="4.5.4" data-path="bibliography.html"><a href="bibliography.html#include-appendix-after-bibliography"><i class="fa fa-check"></i><b>4.5.4</b> Include appendix after bibliography (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="write-bib.html"><a href="write-bib.html"><i class="fa fa-check"></i><b>4.6</b> Generate R package citations</a></li>
+<li class="chapter" data-level="4.7" data-path="cross-ref.html"><a href="cross-ref.html"><i class="fa fa-check"></i><b>4.7</b> Cross-referencing within documents</a></li>
+<li class="chapter" data-level="4.8" data-path="update-date.html"><a href="update-date.html"><i class="fa fa-check"></i><b>4.8</b> Update the date automatically</a></li>
+<li class="chapter" data-level="4.9" data-path="multiple-authors.html"><a href="multiple-authors.html"><i class="fa fa-check"></i><b>4.9</b> Multiple authors in a document</a></li>
+<li class="chapter" data-level="4.10" data-path="figure-number.html"><a href="figure-number.html"><i class="fa fa-check"></i><b>4.10</b> Numbered figure captions</a></li>
+<li class="chapter" data-level="4.11" data-path="combine-words.html"><a href="combine-words.html"><i class="fa fa-check"></i><b>4.11</b> Combine words into a comma-separated phrase</a></li>
+<li class="chapter" data-level="4.12" data-path="linebreaks.html"><a href="linebreaks.html"><i class="fa fa-check"></i><b>4.12</b> Preserve a large number of line breaks</a></li>
+<li class="chapter" data-level="4.13" data-path="equatiomatic.html"><a href="equatiomatic.html"><i class="fa fa-check"></i><b>4.13</b> Convert models to equations</a></li>
+<li class="chapter" data-level="4.14" data-path="animation.html"><a href="animation.html"><i class="fa fa-check"></i><b>4.14</b> Create an animation from multiple R plots</a></li>
+<li class="chapter" data-level="4.15" data-path="diagrams.html"><a href="diagrams.html"><i class="fa fa-check"></i><b>4.15</b> Create diagrams</a>
+<ul>
+<li class="chapter" data-level="4.15.1" data-path="diagrams.html"><a href="diagrams.html#basic-diagrams"><i class="fa fa-check"></i><b>4.15.1</b> Basic diagrams</a></li>
+<li class="chapter" data-level="4.15.2" data-path="diagrams.html"><a href="diagrams.html#adding-parameters-to-plots"><i class="fa fa-check"></i><b>4.15.2</b> Adding parameters to plots</a></li>
+<li class="chapter" data-level="4.15.3" data-path="diagrams.html"><a href="diagrams.html#other-packages-for-making-diagrams"><i class="fa fa-check"></i><b>4.15.3</b> Other packages for making diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="4.16" data-path="special-chars.html"><a href="special-chars.html"><i class="fa fa-check"></i><b>4.16</b> Escape special characters</a></li>
+<li class="chapter" data-level="4.17" data-path="comments.html"><a href="comments.html"><i class="fa fa-check"></i><b>4.17</b> Comment out text</a></li>
+<li class="chapter" data-level="4.18" data-path="toc-unlisted.html"><a href="toc-unlisted.html"><i class="fa fa-check"></i><b>4.18</b> Omit a heading in the table of contents</a></li>
+<li class="chapter" data-level="4.19" data-path="code-appendix.html"><a href="code-appendix.html"><i class="fa fa-check"></i><b>4.19</b> Put together all code in the appendix (*)</a></li>
+<li class="chapter" data-level="4.20" data-path="lua-filters.html"><a href="lua-filters.html"><i class="fa fa-check"></i><b>4.20</b> Manipulate Markdown via Pandoc Lua filters (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="formatting.html"><a href="formatting.html"><i class="fa fa-check"></i><b>5</b> Formatting</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="font-color.html"><a href="font-color.html"><i class="fa fa-check"></i><b>5.1</b> Font color</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="font-color.html"><a href="font-color.html#using-an-r-function-to-write-raw-html-or-latex-code"><i class="fa fa-check"></i><b>5.1.1</b> Using an R function to write raw HTML or LaTeX code</a></li>
+<li class="chapter" data-level="5.1.2" data-path="font-color.html"><a href="font-color.html#lua-color"><i class="fa fa-check"></i><b>5.1.2</b> Using a Pandoc Lua filter (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="indent-text.html"><a href="indent-text.html"><i class="fa fa-check"></i><b>5.2</b> Indent text</a></li>
+<li class="chapter" data-level="5.3" data-path="text-width.html"><a href="text-width.html"><i class="fa fa-check"></i><b>5.3</b> Control the width of text output</a></li>
+<li class="chapter" data-level="5.4" data-path="figure-size.html"><a href="figure-size.html"><i class="fa fa-check"></i><b>5.4</b> Control the size of plots/images</a></li>
+<li class="chapter" data-level="5.5" data-path="fig-align.html"><a href="fig-align.html"><i class="fa fa-check"></i><b>5.5</b> Figure alignment</a></li>
+<li class="chapter" data-level="5.6" data-path="verbatim-code-chunks.html"><a href="verbatim-code-chunks.html"><i class="fa fa-check"></i><b>5.6</b> Verbatim code chunks</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="verbatim-code-chunks.html"><a href="verbatim-code-chunks.html#show-a-verbatim-inline-expression"><i class="fa fa-check"></i><b>5.6.1</b> Show a verbatim inline expression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="number-lines.html"><a href="number-lines.html"><i class="fa fa-check"></i><b>5.7</b> Line numbers for code blocks (*)</a></li>
+<li class="chapter" data-level="5.8" data-path="multi-column.html"><a href="multi-column.html"><i class="fa fa-check"></i><b>5.8</b> Multi-column layout (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="latex-output.html"><a href="latex-output.html"><i class="fa fa-check"></i><b>6</b> LaTeX Output</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="latex-preamble.html"><a href="latex-preamble.html"><i class="fa fa-check"></i><b>6.1</b> Add LaTeX code to the preamble</a></li>
+<li class="chapter" data-level="6.2" data-path="latex-variables.html"><a href="latex-variables.html"><i class="fa fa-check"></i><b>6.2</b> Pandoc options for LaTeX output</a></li>
+<li class="chapter" data-level="6.3" data-path="latex-logo.html"><a href="latex-logo.html"><i class="fa fa-check"></i><b>6.3</b> Add logo to title page</a></li>
+<li class="chapter" data-level="6.4" data-path="latex-extra.html"><a href="latex-extra.html"><i class="fa fa-check"></i><b>6.4</b> Include additional LaTeX packages</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="latex-extra.html"><a href="latex-extra.html#loading-latex-packages"><i class="fa fa-check"></i><b>6.4.1</b> Loading LaTeX packages</a></li>
+<li class="chapter" data-level="6.4.2" data-path="latex-extra.html"><a href="latex-extra.html#example-packages"><i class="fa fa-check"></i><b>6.4.2</b> Example packages</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="figure-placement.html"><a href="figure-placement.html"><i class="fa fa-check"></i><b>6.5</b> Control the placement of figures</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="figure-placement.html"><a href="figure-placement.html#floating-environments"><i class="fa fa-check"></i><b>6.5.1</b> Floating environments</a></li>
+<li class="chapter" data-level="6.5.2" data-path="figure-placement.html"><a href="figure-placement.html#prevent-figures-from-floating"><i class="fa fa-check"></i><b>6.5.2</b> Prevent figures from floating</a></li>
+<li class="chapter" data-level="6.5.3" data-path="figure-placement.html"><a href="figure-placement.html#force-floats-forward"><i class="fa fa-check"></i><b>6.5.3</b> Force floats forward</a></li>
+<li class="chapter" data-level="6.5.4" data-path="figure-placement.html"><a href="figure-placement.html#adjust-latex-placement-rules"><i class="fa fa-check"></i><b>6.5.4</b> Adjust LaTeX placement rules (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="latex-subfigure.html"><a href="latex-subfigure.html"><i class="fa fa-check"></i><b>6.6</b> LaTeX sub-figures</a></li>
+<li class="chapter" data-level="6.7" data-path="latex-unicode.html"><a href="latex-unicode.html"><i class="fa fa-check"></i><b>6.7</b> Render documents containing Unicode characters</a></li>
+<li class="chapter" data-level="6.8" data-path="latex-fragment.html"><a href="latex-fragment.html"><i class="fa fa-check"></i><b>6.8</b> Generate a LaTeX fragment</a></li>
+<li class="chapter" data-level="6.9" data-path="latex-header.html"><a href="latex-header.html"><i class="fa fa-check"></i><b>6.9</b> Add custom headers and footers (*)</a></li>
+<li class="chapter" data-level="6.10" data-path="latex-template.html"><a href="latex-template.html"><i class="fa fa-check"></i><b>6.10</b> Use a custom Pandoc LaTeX template (*)</a></li>
+<li class="chapter" data-level="6.11" data-path="raw-latex.html"><a href="raw-latex.html"><i class="fa fa-check"></i><b>6.11</b> Write raw LaTeX code</a></li>
+<li class="chapter" data-level="6.12" data-path="latex-hardcore.html"><a href="latex-hardcore.html"><i class="fa fa-check"></i><b>6.12</b> For hardcore LaTeX users (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="html-output.html"><a href="html-output.html"><i class="fa fa-check"></i><b>7</b> HTML Output</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="html-css.html"><a href="html-css.html"><i class="fa fa-check"></i><b>7.1</b> Apply custom CSS</a></li>
+<li class="chapter" data-level="7.2" data-path="center-heading.html"><a href="center-heading.html"><i class="fa fa-check"></i><b>7.2</b> Center section headings</a></li>
+<li class="chapter" data-level="7.3" data-path="chunk-styling.html"><a href="chunk-styling.html"><i class="fa fa-check"></i><b>7.3</b> Style code blocks and text output</a></li>
+<li class="chapter" data-level="7.4" data-path="html-scroll.html"><a href="html-scroll.html"><i class="fa fa-check"></i><b>7.4</b> Scrollable code blocks (*)</a></li>
+<li class="chapter" data-level="7.5" data-path="fold-show.html"><a href="fold-show.html"><i class="fa fa-check"></i><b>7.5</b> Fold all code blocks but show some initially</a></li>
+<li class="chapter" data-level="7.6" data-path="html-tabs.html"><a href="html-tabs.html"><i class="fa fa-check"></i><b>7.6</b> Put content in tabs</a></li>
+<li class="chapter" data-level="7.7" data-path="embed-rmd.html"><a href="embed-rmd.html"><i class="fa fa-check"></i><b>7.7</b> Embed the Rmd source file in the HTML output file</a></li>
+<li class="chapter" data-level="7.8" data-path="embed-file.html"><a href="embed-file.html"><i class="fa fa-check"></i><b>7.8</b> Embed arbitrary files in the HTML output file</a></li>
+<li class="chapter" data-level="7.9" data-path="html-template.html"><a href="html-template.html"><i class="fa fa-check"></i><b>7.9</b> Use a custom HTML template (*)</a></li>
+<li class="chapter" data-level="7.10" data-path="include-html.html"><a href="include-html.html"><i class="fa fa-check"></i><b>7.10</b> Include the content of an existing HTML file (*)</a></li>
+<li class="chapter" data-level="7.11" data-path="favicon.html"><a href="favicon.html"><i class="fa fa-check"></i><b>7.11</b> Add a custom browser icon</a></li>
+<li class="chapter" data-level="7.12" data-path="details-tag.html"><a href="details-tag.html"><i class="fa fa-check"></i><b>7.12</b> Use the <code>&lt;details&gt;</code> disclosure element</a></li>
+<li class="chapter" data-level="7.13" data-path="html-share.html"><a href="html-share.html"><i class="fa fa-check"></i><b>7.13</b> Sharing HTML output on the web</a>
+<ul>
+<li class="chapter" data-level="7.13.1" data-path="html-share.html"><a href="html-share.html#r-specific-services"><i class="fa fa-check"></i><b>7.13.1</b> R-specific services</a></li>
+<li class="chapter" data-level="7.13.2" data-path="html-share.html"><a href="html-share.html#static-website-services"><i class="fa fa-check"></i><b>7.13.2</b> Static website services</a></li>
+</ul></li>
+<li class="chapter" data-level="7.14" data-path="html-accessibility.html"><a href="html-accessibility.html"><i class="fa fa-check"></i><b>7.14</b> Improve accessibility of HTML pages</a></li>
+<li class="chapter" data-level="7.15" data-path="html-hardcore.html"><a href="html-hardcore.html"><i class="fa fa-check"></i><b>7.15</b> For hardcore HTML users (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="word.html"><a href="word.html"><i class="fa fa-check"></i><b>8</b> Word</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="word-template.html"><a href="word-template.html"><i class="fa fa-check"></i><b>8.1</b> Custom Word templates</a></li>
+<li class="chapter" data-level="8.2" data-path="word-redoc.html"><a href="word-redoc.html"><i class="fa fa-check"></i><b>8.2</b> The two-way workflow between R Markdown and Word</a></li>
+<li class="chapter" data-level="8.3" data-path="word-officedown.html"><a href="word-officedown.html"><i class="fa fa-check"></i><b>8.3</b> Style individual elements</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multi-formats.html"><a href="multi-formats.html"><i class="fa fa-check"></i><b>9</b> Multiple Output Formats</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="latex-html.html"><a href="latex-html.html"><i class="fa fa-check"></i><b>9.1</b> LaTeX or HTML output</a></li>
+<li class="chapter" data-level="9.2" data-path="html-widgets.html"><a href="html-widgets.html"><i class="fa fa-check"></i><b>9.2</b> Display HTML widgets</a></li>
+<li class="chapter" data-level="9.3" data-path="include-url.html"><a href="include-url.html"><i class="fa fa-check"></i><b>9.3</b> Embed a web page</a></li>
+<li class="chapter" data-level="9.4" data-path="figures-side.html"><a href="figures-side.html"><i class="fa fa-check"></i><b>9.4</b> Multiple figures side by side</a></li>
+<li class="chapter" data-level="9.5" data-path="raw-content.html"><a href="raw-content.html"><i class="fa fa-check"></i><b>9.5</b> Write raw content (*)</a></li>
+<li class="chapter" data-level="9.6" data-path="custom-blocks.html"><a href="custom-blocks.html"><i class="fa fa-check"></i><b>9.6</b> Custom blocks (*)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="custom-blocks.html"><a href="custom-blocks.html#block-syntax"><i class="fa fa-check"></i><b>9.6.1</b> Syntax</a></li>
+<li class="chapter" data-level="9.6.2" data-path="custom-blocks.html"><a href="custom-blocks.html#block-shaded"><i class="fa fa-check"></i><b>9.6.2</b> Adding a shaded box</a></li>
+<li class="chapter" data-level="9.6.3" data-path="custom-blocks.html"><a href="custom-blocks.html#block-image"><i class="fa fa-check"></i><b>9.6.3</b> Including icons</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>10</b> Tables</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="kable.html"><a href="kable.html"><i class="fa fa-check"></i><b>10.1</b> The function <code>knitr::kable()</code></a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="kable.html"><a href="kable.html#kable-formats"><i class="fa fa-check"></i><b>10.1.1</b> Supported table formats</a></li>
+<li class="chapter" data-level="10.1.2" data-path="kable.html"><a href="kable.html#change-column-names"><i class="fa fa-check"></i><b>10.1.2</b> Change column names</a></li>
+<li class="chapter" data-level="10.1.3" data-path="kable.html"><a href="kable.html#specify-column-alignment"><i class="fa fa-check"></i><b>10.1.3</b> Specify column alignment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="kable.html"><a href="kable.html#kable-caption"><i class="fa fa-check"></i><b>10.1.4</b> Add a table caption</a></li>
+<li class="chapter" data-level="10.1.5" data-path="kable.html"><a href="kable.html#format-numeric-columns"><i class="fa fa-check"></i><b>10.1.5</b> Format numeric columns</a></li>
+<li class="chapter" data-level="10.1.6" data-path="kable.html"><a href="kable.html#display-missing-values"><i class="fa fa-check"></i><b>10.1.6</b> Display missing values</a></li>
+<li class="chapter" data-level="10.1.7" data-path="kable.html"><a href="kable.html#escape-special-characters"><i class="fa fa-check"></i><b>10.1.7</b> Escape special characters</a></li>
+<li class="chapter" data-level="10.1.8" data-path="kable.html"><a href="kable.html#multiple-tables-side-by-side"><i class="fa fa-check"></i><b>10.1.8</b> Multiple tables side by side</a></li>
+<li class="chapter" data-level="10.1.9" data-path="kable.html"><a href="kable.html#generate-multiple-tables-from-a-for-loop"><i class="fa fa-check"></i><b>10.1.9</b> Generate multiple tables from a <code>for</code>-loop (*)</a></li>
+<li class="chapter" data-level="10.1.10" data-path="kable.html"><a href="kable.html#customize-latex-tables"><i class="fa fa-check"></i><b>10.1.10</b> Customize LaTeX tables (*)</a></li>
+<li class="chapter" data-level="10.1.11" data-path="kable.html"><a href="kable.html#customize-html-tables"><i class="fa fa-check"></i><b>10.1.11</b> Customize HTML tables (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="kableextra.html"><a href="kableextra.html"><i class="fa fa-check"></i><b>10.2</b> The <strong>kableExtra</strong> package</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="kableextra.html"><a href="kableextra.html#set-the-font-size"><i class="fa fa-check"></i><b>10.2.1</b> Set the font size</a></li>
+<li class="chapter" data-level="10.2.2" data-path="kableextra.html"><a href="kableextra.html#style-specific-rowscolumns"><i class="fa fa-check"></i><b>10.2.2</b> Style specific rows/columns</a></li>
+<li class="chapter" data-level="10.2.3" data-path="kableextra.html"><a href="kableextra.html#group-rowscolumns"><i class="fa fa-check"></i><b>10.2.3</b> Group rows/columns</a></li>
+<li class="chapter" data-level="10.2.4" data-path="kableextra.html"><a href="kableextra.html#scaling-down-wide-tables-in-latex"><i class="fa fa-check"></i><b>10.2.4</b> Scaling down wide tables in LaTeX</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="table-other.html"><a href="table-other.html"><i class="fa fa-check"></i><b>10.3</b> Other packages for creating tables</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chunk-options.html"><a href="chunk-options.html"><i class="fa fa-check"></i><b>11</b> Chunk Options</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chunk-variable.html"><a href="chunk-variable.html"><i class="fa fa-check"></i><b>11.1</b> Use variables in chunk options</a></li>
+<li class="chapter" data-level="11.2" data-path="opts-error.html"><a href="opts-error.html"><i class="fa fa-check"></i><b>11.2</b> Do not stop on error</a></li>
+<li class="chapter" data-level="11.3" data-path="dev-vector.html"><a href="dev-vector.html"><i class="fa fa-check"></i><b>11.3</b> Multiple graphical output formats for the same plot</a></li>
+<li class="chapter" data-level="11.4" data-path="cache.html"><a href="cache.html"><i class="fa fa-check"></i><b>11.4</b> Cache time-consuming code chunks</a></li>
+<li class="chapter" data-level="11.5" data-path="cache-path.html"><a href="cache-path.html"><i class="fa fa-check"></i><b>11.5</b> Cache a code chunk for multiple output formats</a></li>
+<li class="chapter" data-level="11.6" data-path="cache-lazy.html"><a href="cache-lazy.html"><i class="fa fa-check"></i><b>11.6</b> Cache large objects</a></li>
+<li class="chapter" data-level="11.7" data-path="hide-one.html"><a href="hide-one.html"><i class="fa fa-check"></i><b>11.7</b> Hide code, text output, messages, or plots</a></li>
+<li class="chapter" data-level="11.8" data-path="hide-all.html"><a href="hide-all.html"><i class="fa fa-check"></i><b>11.8</b> Hide everything from a chunk</a></li>
+<li class="chapter" data-level="11.9" data-path="opts-collapse.html"><a href="opts-collapse.html"><i class="fa fa-check"></i><b>11.9</b> Collapse text output blocks into source blocks</a></li>
+<li class="chapter" data-level="11.10" data-path="opts-tidy.html"><a href="opts-tidy.html"><i class="fa fa-check"></i><b>11.10</b> Reformat R source code</a></li>
+<li class="chapter" data-level="11.11" data-path="results-asis.html"><a href="results-asis.html"><i class="fa fa-check"></i><b>11.11</b> Output text as raw Markdown content (*)</a></li>
+<li class="chapter" data-level="11.12" data-path="opts-comment.html"><a href="opts-comment.html"><i class="fa fa-check"></i><b>11.12</b> Remove leading hashes in text output</a></li>
+<li class="chapter" data-level="11.13" data-path="attr-output.html"><a href="attr-output.html"><i class="fa fa-check"></i><b>11.13</b> Add attributes to text output blocks (*)</a></li>
+<li class="chapter" data-level="11.14" data-path="fig-process.html"><a href="fig-process.html"><i class="fa fa-check"></i><b>11.14</b> Post-process plots (*)</a></li>
+<li class="chapter" data-level="11.15" data-path="graphical-device.html"><a href="graphical-device.html"><i class="fa fa-check"></i><b>11.15</b> High-quality graphics (*)</a></li>
+<li class="chapter" data-level="11.16" data-path="low-plots.html"><a href="low-plots.html"><i class="fa fa-check"></i><b>11.16</b> Step-by-step plots with low-level plotting functions (*)</a></li>
+<li class="chapter" data-level="11.17" data-path="opts-render.html"><a href="opts-render.html"><i class="fa fa-check"></i><b>11.17</b> Customize the printing of objects in chunks (*)</a></li>
+<li class="chapter" data-level="11.18" data-path="option-hooks.html"><a href="option-hooks.html"><i class="fa fa-check"></i><b>11.18</b> Option hooks (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="output-hooks.html"><a href="output-hooks.html"><i class="fa fa-check"></i><b>12</b> Output Hooks (*)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="hook-hide.html"><a href="hook-hide.html"><i class="fa fa-check"></i><b>12.1</b> Redact source code</a></li>
+<li class="chapter" data-level="12.2" data-path="hook-number.html"><a href="hook-number.html"><i class="fa fa-check"></i><b>12.2</b> Add line numbers to source code</a></li>
+<li class="chapter" data-level="12.3" data-path="hook-scroll.html"><a href="hook-scroll.html"><i class="fa fa-check"></i><b>12.3</b> Scrollable text output</a></li>
+<li class="chapter" data-level="12.4" data-path="hook-truncate.html"><a href="hook-truncate.html"><i class="fa fa-check"></i><b>12.4</b> Truncate text output</a></li>
+<li class="chapter" data-level="12.5" data-path="hook-html5.html"><a href="hook-html5.html"><i class="fa fa-check"></i><b>12.5</b> Output figures in the HTML5 format</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="chunk-hooks.html"><a href="chunk-hooks.html"><i class="fa fa-check"></i><b>13</b> Chunk Hooks (*)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="crop-plot.html"><a href="crop-plot.html"><i class="fa fa-check"></i><b>13.1</b> Crop plots</a></li>
+<li class="chapter" data-level="13.2" data-path="optipng.html"><a href="optipng.html"><i class="fa fa-check"></i><b>13.2</b> Optimize PNG plots</a></li>
+<li class="chapter" data-level="13.3" data-path="time-chunk.html"><a href="time-chunk.html"><i class="fa fa-check"></i><b>13.3</b> Report how much time each chunk takes to run</a></li>
+<li class="chapter" data-level="13.4" data-path="show-header.html"><a href="show-header.html"><i class="fa fa-check"></i><b>13.4</b> Show the chunk header in the output</a></li>
+<li class="chapter" data-level="13.5" data-path="rgl-3d.html"><a href="rgl-3d.html"><i class="fa fa-check"></i><b>13.5</b> Embed an interactive 3D plot with rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="knitr-misc.html"><a href="knitr-misc.html"><i class="fa fa-check"></i><b>14</b> Miscellaneous knitr Tricks</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="reuse-chunks.html"><a href="reuse-chunks.html"><i class="fa fa-check"></i><b>14.1</b> Reuse code chunks</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="reuse-chunks.html"><a href="reuse-chunks.html#embed-chunk"><i class="fa fa-check"></i><b>14.1.1</b> Embed one chunk in another chunk (*)</a></li>
+<li class="chapter" data-level="14.1.2" data-path="reuse-chunks.html"><a href="reuse-chunks.html#same-label"><i class="fa fa-check"></i><b>14.1.2</b> Use the same chunk label in another chunk</a></li>
+<li class="chapter" data-level="14.1.3" data-path="reuse-chunks.html"><a href="reuse-chunks.html#ref-label"><i class="fa fa-check"></i><b>14.1.3</b> Use reference labels (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="load-cache.html"><a href="load-cache.html"><i class="fa fa-check"></i><b>14.2</b> Use an object before it is created (*)</a></li>
+<li class="chapter" data-level="14.3" data-path="knit-exit.html"><a href="knit-exit.html"><i class="fa fa-check"></i><b>14.3</b> Exit knitting early</a></li>
+<li class="chapter" data-level="14.4" data-path="fig-chunk.html"><a href="fig-chunk.html"><i class="fa fa-check"></i><b>14.4</b> Generate a plot and display it elsewhere</a></li>
+<li class="chapter" data-level="14.5" data-path="global-device.html"><a href="global-device.html"><i class="fa fa-check"></i><b>14.5</b> Modify a plot in a previous code chunk</a></li>
+<li class="chapter" data-level="14.6" data-path="opts-template.html"><a href="opts-template.html"><i class="fa fa-check"></i><b>14.6</b> Save a group of chunk options and reuse them (*)</a></li>
+<li class="chapter" data-level="14.7" data-path="knit-expand.html"><a href="knit-expand.html"><i class="fa fa-check"></i><b>14.7</b> Use <code>knitr::knit_expand()</code> to generate Rmd source</a></li>
+<li class="chapter" data-level="14.8" data-path="duplicate-label.html"><a href="duplicate-label.html"><i class="fa fa-check"></i><b>14.8</b> Allow duplicate labels in code chunks (*)</a></li>
+<li class="chapter" data-level="14.9" data-path="cache-rds.html"><a href="cache-rds.html"><i class="fa fa-check"></i><b>14.9</b> A more transparent caching mechanism</a>
+<ul>
+<li class="chapter" data-level="14.9.1" data-path="cache-rds.html"><a href="cache-rds.html#invalidate-the-cache-by-changing-code-in-the-expression"><i class="fa fa-check"></i><b>14.9.1</b> Invalidate the cache by changing code in the expression</a></li>
+<li class="chapter" data-level="14.9.2" data-path="cache-rds.html"><a href="cache-rds.html#invalidate-the-cache-by-changes-in-global-variables"><i class="fa fa-check"></i><b>14.9.2</b> Invalidate the cache by changes in global variables</a></li>
+<li class="chapter" data-level="14.9.3" data-path="cache-rds.html"><a href="cache-rds.html#keep-multiple-copies-of-the-cache"><i class="fa fa-check"></i><b>14.9.3</b> Keep multiple copies of the cache</a></li>
+<li class="chapter" data-level="14.9.4" data-path="cache-rds.html"><a href="cache-rds.html#comparison-with-knitrs-caching"><i class="fa fa-check"></i><b>14.9.4</b> Comparison with <strong>knitr</strong>’s caching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="other-languages.html"><a href="other-languages.html"><i class="fa fa-check"></i><b>15</b> Other Languages</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="custom-engine.html"><a href="custom-engine.html"><i class="fa fa-check"></i><b>15.1</b> Register a custom language engine (*)</a></li>
+<li class="chapter" data-level="15.2" data-path="eng-python.html"><a href="eng-python.html"><i class="fa fa-check"></i><b>15.2</b> Run Python code and interact with Python</a></li>
+<li class="chapter" data-level="15.3" data-path="eng-asis.html"><a href="eng-asis.html"><i class="fa fa-check"></i><b>15.3</b> Execute content conditionally via the <code>asis</code> engine</a></li>
+<li class="chapter" data-level="15.4" data-path="eng-bash.html"><a href="eng-bash.html"><i class="fa fa-check"></i><b>15.4</b> Execute Shell scripts</a></li>
+<li class="chapter" data-level="15.5" data-path="d3.html"><a href="d3.html"><i class="fa fa-check"></i><b>15.5</b> Visualization with D3</a></li>
+<li class="chapter" data-level="15.6" data-path="eng-cat.html"><a href="eng-cat.html"><i class="fa fa-check"></i><b>15.6</b> Write the chunk content to a file via the <code>cat</code> engine</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="eng-cat.html"><a href="eng-cat.html#write-to-a-css-file"><i class="fa fa-check"></i><b>15.6.1</b> Write to a CSS file</a></li>
+<li class="chapter" data-level="15.6.2" data-path="eng-cat.html"><a href="eng-cat.html#include-latex-code-in-the-preamble"><i class="fa fa-check"></i><b>15.6.2</b> Include LaTeX code in the preamble</a></li>
+<li class="chapter" data-level="15.6.3" data-path="eng-cat.html"><a href="eng-cat.html#write-yaml-data-to-a-file-and-also-display-it"><i class="fa fa-check"></i><b>15.6.3</b> Write YAML data to a file and also display it</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="eng-sas.html"><a href="eng-sas.html"><i class="fa fa-check"></i><b>15.7</b> Run SAS code</a></li>
+<li class="chapter" data-level="15.8" data-path="eng-stata.html"><a href="eng-stata.html"><i class="fa fa-check"></i><b>15.8</b> Run Stata code</a></li>
+<li class="chapter" data-level="15.9" data-path="eng-asy.html"><a href="eng-asy.html"><i class="fa fa-check"></i><b>15.9</b> Create graphics with Asymptote</a>
+<ul>
+<li class="chapter" data-level="15.9.1" data-path="eng-asy.html"><a href="eng-asy.html#generate-data-in-r-and-read-it-in-asymptote"><i class="fa fa-check"></i><b>15.9.1</b> Generate data in R and read it in Asymptote</a></li>
+</ul></li>
+<li class="chapter" data-level="15.10" data-path="eng-sass.html"><a href="eng-sass.html"><i class="fa fa-check"></i><b>15.10</b> Style HTML pages with Sass/SCSS</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="managing-projects.html"><a href="managing-projects.html"><i class="fa fa-check"></i><b>16</b> Managing Projects</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="source-script.html"><a href="source-script.html"><i class="fa fa-check"></i><b>16.1</b> Source external R scripts</a></li>
+<li class="chapter" data-level="16.2" data-path="option-code.html"><a href="option-code.html"><i class="fa fa-check"></i><b>16.2</b> Read external scripts into a chunk</a></li>
+<li class="chapter" data-level="16.3" data-path="read-chunk.html"><a href="read-chunk.html"><i class="fa fa-check"></i><b>16.3</b> Read multiple code chunks from an external script (*)</a></li>
+<li class="chapter" data-level="16.4" data-path="child-document.html"><a href="child-document.html"><i class="fa fa-check"></i><b>16.4</b> Child documents (*)</a></li>
+<li class="chapter" data-level="16.5" data-path="keep-files.html"><a href="keep-files.html"><i class="fa fa-check"></i><b>16.5</b> Keep the plot files</a></li>
+<li class="chapter" data-level="16.6" data-path="working-directory.html"><a href="working-directory.html"><i class="fa fa-check"></i><b>16.6</b> The working directory for R code chunks</a></li>
+<li class="chapter" data-level="16.7" data-path="package-vignette.html"><a href="package-vignette.html"><i class="fa fa-check"></i><b>16.7</b> R package vignettes</a></li>
+<li class="chapter" data-level="16.8" data-path="package-template.html"><a href="package-template.html"><i class="fa fa-check"></i><b>16.8</b> R Markdown templates in R packages</a>
+<ul>
+<li class="chapter" data-level="16.8.1" data-path="package-template.html"><a href="package-template.html#template-use-cases"><i class="fa fa-check"></i><b>16.8.1</b> Template use-cases</a></li>
+<li class="chapter" data-level="16.8.2" data-path="package-template.html"><a href="package-template.html#template-setup"><i class="fa fa-check"></i><b>16.8.2</b> Template setup</a></li>
+</ul></li>
+<li class="chapter" data-level="16.9" data-path="bookdown.html"><a href="bookdown.html"><i class="fa fa-check"></i><b>16.9</b> Write books and long-form reports with <strong>bookdown</strong></a></li>
+<li class="chapter" data-level="16.10" data-path="blogdown.html"><a href="blogdown.html"><i class="fa fa-check"></i><b>16.10</b> Build websites with <strong>blogdown</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>17</b> Workflow</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="rstudio-shortcuts.html"><a href="rstudio-shortcuts.html"><i class="fa fa-check"></i><b>17.1</b> Use RStudio keyboard shortcuts</a></li>
+<li class="chapter" data-level="17.2" data-path="spell-check.html"><a href="spell-check.html"><i class="fa fa-check"></i><b>17.2</b> Spell-check R Markdown</a></li>
+<li class="chapter" data-level="17.3" data-path="rmarkdown-render.html"><a href="rmarkdown-render.html"><i class="fa fa-check"></i><b>17.3</b> Render R Markdown with <code>rmarkdown::render()</code></a></li>
+<li class="chapter" data-level="17.4" data-path="parameterized-reports.html"><a href="parameterized-reports.html"><i class="fa fa-check"></i><b>17.4</b> Parameterized reports</a></li>
+<li class="chapter" data-level="17.5" data-path="custom-knit.html"><a href="custom-knit.html"><i class="fa fa-check"></i><b>17.5</b> Customize the <code>Knit</code> button (*)</a></li>
+<li class="chapter" data-level="17.6" data-path="google-drive.html"><a href="google-drive.html"><i class="fa fa-check"></i><b>17.6</b> Collaborate on Rmd documents through Google Drive with trackdown</a>
+<ul>
+<li class="chapter" data-level="17.6.1" data-path="google-drive.html"><a href="google-drive.html#the-trackdown-workflow"><i class="fa fa-check"></i><b>17.6.1</b> The trackdown Workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="17.7" data-path="workflowr.html"><a href="workflowr.html"><i class="fa fa-check"></i><b>17.7</b> Organize an R Markdown project into a research website with <strong>workflowr</strong></a></li>
+<li class="chapter" data-level="17.8" data-path="blastula-email.html"><a href="blastula-email.html"><i class="fa fa-check"></i><b>17.8</b> Send emails based on R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Markdown Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="custom-blocks" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Custom blocks (*)<a href="custom-blocks.html#custom-blocks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<!-- https://stackoverflow.com/questions/36293511/creating-custom-blocks-in-rstudios-bookdown -->
+<p><a href="https://bookdown.org/yihui/bookdown/custom-blocks.html">Section 2.7</a> of the <strong>bookdown</strong> book mentioned how we can use custom blocks in R Markdown to customize the appearance of blocks of content. This can be a useful way to make some content stand out from your report or book, to make sure that your readers take away the key points from your work. Examples of how these blocks could be used include:</p>
+<ul>
+<li><p>display a warning message to make sure users are using up-to-date packages before running your analysis;</p></li>
+<li><p>add a link at the beginning of your document to your GitHub repository containing the source;</p></li>
+<li><p>highlight key results and findings from your analysis.</p></li>
+</ul>
+<p>In this section, we will explain how to create your own custom blocks for both PDF and HTML output. They can both use the same formatting syntax in the R Markdown document, but require different configurations.</p>
+<div id="block-syntax" class="section level3 hasAnchor" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> Syntax<a href="custom-blocks.html#block-syntax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The syntax for custom blocks is based on Pandoc’s <a href="https://pandoc.org/MANUAL.html#divs-and-spans">fenced <code>Div</code> blocks.</a> <code>Div</code> blocks are very powerful, but there is a problem at the moment: they mainly work for HTML output and do not work for LaTeX output.</p>
+<p>Since version 1.16 of the <strong>rmarkdown</strong> package, it has been possible to convert <code>Div</code> blocks to both HTML and LaTeX. For HTML output, all attributes of the block will become attributes of the <code>&lt;div&gt;</code> tag. For example, a <code>Div</code> can have an ID (after <code>#</code>), one or multiple classes (class names are written after <code>.</code>), and other attributes. The following <code>Div</code> block</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb199-1"><a href="custom-blocks.html#cb199-1" aria-hidden="true" tabindex="-1"></a>::: {#hello .greeting .message style=&quot;color: red;&quot;}</span>
+<span id="cb199-2"><a href="custom-blocks.html#cb199-2" aria-hidden="true" tabindex="-1"></a>Hello **world**!</span>
+<span id="cb199-3"><a href="custom-blocks.html#cb199-3" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
+<p>will be converted to the HTML code below:</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb200-1"><a href="custom-blocks.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;hello&quot;</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;greeting message&quot;</span> <span class="er">style</span><span class="ot">=</span><span class="st">&quot;color: red;&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb200-2"><a href="custom-blocks.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  Hello <span class="kw">&lt;strong&gt;</span>world<span class="kw">&lt;/strong&gt;</span>!</span>
+<span id="cb200-3"><a href="custom-blocks.html#cb200-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span></code></pre></div>
+<p>For LaTeX output, the first class name will be used as the LaTeX environment name. You should also provide an attribute named <code>data-latex</code> in the <code>Div</code> block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the <code>verbatim</code> environment in LaTeX, which does not have any arguments:</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb201-1"><a href="custom-blocks.html#cb201-1" aria-hidden="true" tabindex="-1"></a>::: {.verbatim data-latex=&quot;&quot;}</span>
+<span id="cb201-2"><a href="custom-blocks.html#cb201-2" aria-hidden="true" tabindex="-1"></a>We show some _verbatim_ text here.</span>
+<span id="cb201-3"><a href="custom-blocks.html#cb201-3" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
+<p>Its LaTeX output will be:</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb202-1"><a href="custom-blocks.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">verbatim</span>}</span>
+<span id="cb202-2"><a href="custom-blocks.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="vs">We show some \emph{verbatim} text here.</span></span>
+<span id="cb202-3"><a href="custom-blocks.html#cb202-3" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">verbatim</span>}</span></code></pre></div>
+<p>When the block is converted to HTML, the HTML code will be:</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb203-1"><a href="custom-blocks.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;verbatim&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb203-2"><a href="custom-blocks.html#cb203-2" aria-hidden="true" tabindex="-1"></a>We show some <span class="kw">&lt;em&gt;</span>verbatim<span class="kw">&lt;/em&gt;</span> text here.</span>
+<span id="cb203-3"><a href="custom-blocks.html#cb203-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span></code></pre></div>
+<p>The second example uses the <code>center</code> and <code>minipage</code> environments to display some text in a centered box of half of the page width.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb204-1"><a href="custom-blocks.html#cb204-1" aria-hidden="true" tabindex="-1"></a>:::: {.center data-latex=&quot;&quot;}</span>
+<span id="cb204-2"><a href="custom-blocks.html#cb204-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-3"><a href="custom-blocks.html#cb204-3" aria-hidden="true" tabindex="-1"></a>::: {.minipage data-latex=&quot;{.5\linewidth}&quot;}</span>
+<span id="cb204-4"><a href="custom-blocks.html#cb204-4" aria-hidden="true" tabindex="-1"></a>This paragraph will be centered on the page, and</span>
+<span id="cb204-5"><a href="custom-blocks.html#cb204-5" aria-hidden="true" tabindex="-1"></a>its width is 50% of the width of its parent element.</span>
+<span id="cb204-6"><a href="custom-blocks.html#cb204-6" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb204-7"><a href="custom-blocks.html#cb204-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-8"><a href="custom-blocks.html#cb204-8" aria-hidden="true" tabindex="-1"></a>::::</span></code></pre></div>
+<p>Note that we nested the <code>minipage</code> block in the <code>center</code> block. You need more colons for a parent block to include a child block. In the above example, we used four colons (you can use five or more) for the <code>center</code> block. The two blocks will be converted to the LaTeX code below:</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb205-1"><a href="custom-blocks.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">center</span>}</span>
+<span id="cb205-2"><a href="custom-blocks.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">minipage</span>}{.5<span class="fu">\linewidth</span>}</span>
+<span id="cb205-3"><a href="custom-blocks.html#cb205-3" aria-hidden="true" tabindex="-1"></a>This paragraph will be centered on the page, and</span>
+<span id="cb205-4"><a href="custom-blocks.html#cb205-4" aria-hidden="true" tabindex="-1"></a>its width is 50<span class="fu">\%</span> of the width of its parent element.</span>
+<span id="cb205-5"><a href="custom-blocks.html#cb205-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">minipage</span>}</span>
+<span id="cb205-6"><a href="custom-blocks.html#cb205-6" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">center</span>}</span></code></pre></div>
+<p>It is up to the user to define the appearance of their <code>&lt;div&gt;</code> blocks via CSS for the HTML output. Similarly, for LaTeX output, you may use the command <code>\newenvironment</code> to define the environment if it has not been defined, or <code>\renewenvironment</code> to redefine an existing environment in LaTeX. In the LaTeX definitions, you can decide on the appearance of these blocks in PDF. These customizations will normally be contained in their own files such as <code>style.css</code> or <code>preamble.tex</code>, and then included within the YAML options:</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb206-1"><a href="custom-blocks.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb206-2"><a href="custom-blocks.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb206-3"><a href="custom-blocks.html#cb206-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb206-4"><a href="custom-blocks.html#cb206-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">css</span><span class="kw">:</span><span class="at"> style.css</span></span>
+<span id="cb206-5"><a href="custom-blocks.html#cb206-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf_document</span><span class="kw">:</span></span>
+<span id="cb206-6"><a href="custom-blocks.html#cb206-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb206-7"><a href="custom-blocks.html#cb206-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">in_header</span><span class="kw">:</span><span class="at"> preamble.tex</span></span>
+<span id="cb206-8"><a href="custom-blocks.html#cb206-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>Next we will demonstrate a few more advanced custom blocks that use custom CSS rules and LaTeX environments. You may find an additional example in Section <a href="multi-column.html#multi-column">5.8</a>, in which we arranged multiple blocks in a multi-column layout.</p>
+</div>
+<div id="block-shaded" class="section level3 hasAnchor" number="9.6.2">
+<h3><span class="header-section-number">9.6.2</span> Adding a shaded box<a href="custom-blocks.html#block-shaded" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, we show how to include content in a shaded box. The box has a black background with an orange frame with rounded corners. The text in the box is in white.</p>
+<p>For HTML output, we define these rules in a CSS file. If you are unfamiliar with CSS, there are plenty of free online tutorials, e.g., <a href="https://www.w3schools.com/css/" class="uri">https://www.w3schools.com/css/</a>.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb207-1"><a href="custom-blocks.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.blackbox</span> {</span>
+<span id="cb207-2"><a href="custom-blocks.html#cb207-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span>: <span class="dv">1</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb207-3"><a href="custom-blocks.html#cb207-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background</span>: <span class="cn">black</span><span class="op">;</span></span>
+<span id="cb207-4"><a href="custom-blocks.html#cb207-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></span>
+<span id="cb207-5"><a href="custom-blocks.html#cb207-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border</span>: <span class="dv">2</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">orange</span><span class="op">;</span></span>
+<span id="cb207-6"><a href="custom-blocks.html#cb207-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-radius</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb207-7"><a href="custom-blocks.html#cb207-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb207-8"><a href="custom-blocks.html#cb207-8" aria-hidden="true" tabindex="-1"></a><span class="fu">.center</span> {</span>
+<span id="cb207-9"><a href="custom-blocks.html#cb207-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb207-10"><a href="custom-blocks.html#cb207-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>For LaTeX output, we create a new environment named <code>blackbox</code> and based on the LaTeX package <strong>framed</strong>, with a black background and white text:</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode latex latex"><code class="sourceCode latex"><span id="cb208-1"><a href="custom-blocks.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">color</span>}</span>
+<span id="cb208-2"><a href="custom-blocks.html#cb208-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">framed</span>}</span>
+<span id="cb208-3"><a href="custom-blocks.html#cb208-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\setlength</span>{<span class="fu">\fboxsep</span>}{.8em}</span>
+<span id="cb208-4"><a href="custom-blocks.html#cb208-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-5"><a href="custom-blocks.html#cb208-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\newenvironment</span>{blackbox}{</span>
+<span id="cb208-6"><a href="custom-blocks.html#cb208-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\definecolor</span>{shadecolor}{rgb}{0, 0, 0}  <span class="co">% black</span></span>
+<span id="cb208-7"><a href="custom-blocks.html#cb208-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\color</span>{white}</span>
+<span id="cb208-8"><a href="custom-blocks.html#cb208-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\begin</span>{<span class="ex">shaded</span>}}</span>
+<span id="cb208-9"><a href="custom-blocks.html#cb208-9" aria-hidden="true" tabindex="-1"></a> {<span class="kw">\end</span>{<span class="ex">shaded</span>}}</span></code></pre></div>
+<p>We used the <strong>framed</strong> package in this book because it is fairly lightweight, but it is not possible to draw a colored frame with rounded corners with this package. To achieve the latter, you will need more sophisticated LaTeX packages such as <strong>tcolorbox</strong> (<a href="https://ctan.org/pkg/tcolorbox" class="uri">https://ctan.org/pkg/tcolorbox</a>), which offers a set of very flexible options for creating shaded boxes. You can find many examples in its documentation. The LaTeX environment below will create a shaded box of similar appearance to the above CSS example:</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb209-1"><a href="custom-blocks.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">tcolorbox</span>}</span>
+<span id="cb209-2"><a href="custom-blocks.html#cb209-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-3"><a href="custom-blocks.html#cb209-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\newtcolorbox</span>{blackbox}{</span>
+<span id="cb209-4"><a href="custom-blocks.html#cb209-4" aria-hidden="true" tabindex="-1"></a>  colback=black,</span>
+<span id="cb209-5"><a href="custom-blocks.html#cb209-5" aria-hidden="true" tabindex="-1"></a>  colframe=orange,</span>
+<span id="cb209-6"><a href="custom-blocks.html#cb209-6" aria-hidden="true" tabindex="-1"></a>  coltext=white,</span>
+<span id="cb209-7"><a href="custom-blocks.html#cb209-7" aria-hidden="true" tabindex="-1"></a>  boxsep=5pt,</span>
+<span id="cb209-8"><a href="custom-blocks.html#cb209-8" aria-hidden="true" tabindex="-1"></a>  arc=4pt}</span></code></pre></div>
+<p>Now we can use our custom box in both PDF and HTML output formats. The source code of the box is:</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb210-1"><a href="custom-blocks.html#cb210-1" aria-hidden="true" tabindex="-1"></a>:::: {.blackbox data-latex=&quot;&quot;}</span>
+<span id="cb210-2"><a href="custom-blocks.html#cb210-2" aria-hidden="true" tabindex="-1"></a>::: {.center data-latex=&quot;&quot;}</span>
+<span id="cb210-3"><a href="custom-blocks.html#cb210-3" aria-hidden="true" tabindex="-1"></a>**NOTICE!**</span>
+<span id="cb210-4"><a href="custom-blocks.html#cb210-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb210-5"><a href="custom-blocks.html#cb210-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-6"><a href="custom-blocks.html#cb210-6" aria-hidden="true" tabindex="-1"></a>Thank you for noticing this **new notice**! Your noticing it has</span>
+<span id="cb210-7"><a href="custom-blocks.html#cb210-7" aria-hidden="true" tabindex="-1"></a>been noted, and _will be reported to the authorities_!</span>
+<span id="cb210-8"><a href="custom-blocks.html#cb210-8" aria-hidden="true" tabindex="-1"></a>::::</span></code></pre></div>
+<p>The output is:</p>
+<div class="blackbox">
+<div class="center">
+<p><strong>NOTICE!</strong></p>
+</div>
+<p>Thank you for noticing this <strong>new notice</strong>! Your noticing it has
+been noted, and <em>will be reported to the authorities</em>!</p>
+</div>
+</div>
+<div id="block-image" class="section level3 hasAnchor" number="9.6.3">
+<h3><span class="header-section-number">9.6.3</span> Including icons<a href="custom-blocks.html#block-image" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can make custom blocks even more visually appealing by including images in them. Images can also be an effective way to convey the content of the block. For the following example, we assume that we are working within a directory structure below, which is a simplified version of what is used to build this book:</p>
+<pre class="text"><code>directory/
+├── your-report.Rmd
+├── style.css
+├── preamble.tex
+└── images/ 
+      └── ├── important.png
+          ├── note.png
+          └── caution.png</code></pre>
+<p>We show the source code and output of the example before we explain how everything works:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb212-1"><a href="custom-blocks.html#cb212-1" aria-hidden="true" tabindex="-1"></a>::: {.infobox .caution data-latex=&quot;{caution}&quot;}</span>
+<span id="cb212-2"><a href="custom-blocks.html#cb212-2" aria-hidden="true" tabindex="-1"></a>**NOTICE!**</span>
+<span id="cb212-3"><a href="custom-blocks.html#cb212-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb212-4"><a href="custom-blocks.html#cb212-4" aria-hidden="true" tabindex="-1"></a>Thank you for noticing this **new notice**! Your noticing it has</span>
+<span id="cb212-5"><a href="custom-blocks.html#cb212-5" aria-hidden="true" tabindex="-1"></a>been noted, and _will be reported to the authorities_!</span>
+<span id="cb212-6"><a href="custom-blocks.html#cb212-6" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
+<p>The output is:</p>
+<div class="infobox caution">
+<p><strong>NOTICE!</strong></p>
+<p>Thank you for noticing this <strong>new notice</strong>! Your noticing it has
+been noted, and <em>will be reported to the authorities</em>!</p>
+</div>
+<p>For the HTML output, we can add an image to the box through the <code>background-image</code> property in CSS. We insert the image into the background, and add enough padding on the left-hand side to avoid the text overlapping with this image. If you are using local images, the file path to the images is provided relative to the CSS file. For example:</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb213-1"><a href="custom-blocks.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.infobox</span> {</span>
+<span id="cb213-2"><a href="custom-blocks.html#cb213-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span>: <span class="dv">1</span><span class="dt">em</span> <span class="dv">1</span><span class="dt">em</span> <span class="dv">1</span><span class="dt">em</span> <span class="dv">4</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb213-3"><a href="custom-blocks.html#cb213-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-bottom</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb213-4"><a href="custom-blocks.html#cb213-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border</span>: <span class="dv">2</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">orange</span><span class="op">;</span></span>
+<span id="cb213-5"><a href="custom-blocks.html#cb213-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-radius</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb213-6"><a href="custom-blocks.html#cb213-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background</span>: <span class="cn">#f5f5f5</span> <span class="dv">5</span><span class="dt">px</span> <span class="dv">center</span>/<span class="dv">3</span><span class="dt">em</span> <span class="dv">no-repeat</span><span class="op">;</span></span>
+<span id="cb213-7"><a href="custom-blocks.html#cb213-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb213-8"><a href="custom-blocks.html#cb213-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-9"><a href="custom-blocks.html#cb213-9" aria-hidden="true" tabindex="-1"></a><span class="fu">.caution</span> {</span>
+<span id="cb213-10"><a href="custom-blocks.html#cb213-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-image</span>: <span class="fu">url(</span><span class="st">&quot;images/caution.png&quot;</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb213-11"><a href="custom-blocks.html#cb213-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Note that we used two class names, <code>.infobox</code> and <code>.caution</code>, on the outer block. The <code>infobox</code> class will be used to define the shaded box with a colored border, and the <code>caution</code> class will be used to include the image. The advantage of using two classes is that we can define more blocks with different icons without repeating the setup of the shaded box. For example, if we need a <code>warning</code> box, we only need to define the following CSS rule without repeating rules in <code>.infobox</code>:</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb214-1"><a href="custom-blocks.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.warning</span> {</span>
+<span id="cb214-2"><a href="custom-blocks.html#cb214-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-image</span>: <span class="fu">url(</span><span class="st">&quot;images/warning.png&quot;</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb214-3"><a href="custom-blocks.html#cb214-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Then you can create a <code>warning</code> box with the Markdown source code below:</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb215-1"><a href="custom-blocks.html#cb215-1" aria-hidden="true" tabindex="-1"></a>:::: {.infobox .warning data-latex=&quot;warning&quot;}</span>
+<span id="cb215-2"><a href="custom-blocks.html#cb215-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-3"><a href="custom-blocks.html#cb215-3" aria-hidden="true" tabindex="-1"></a>Include the actual content here.</span>
+<span id="cb215-4"><a href="custom-blocks.html#cb215-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-5"><a href="custom-blocks.html#cb215-5" aria-hidden="true" tabindex="-1"></a>::::</span></code></pre></div>
+<p>For the PDF output, we can create an <code>infobox</code> environment based on the <code>blackbox</code> environment defined in the previous example, and add the icon to the left side of the box. There are multiple ways of including images in a LaTeX environment. Here is only one of them (it does not precisely reproduce the box style defined in the CSS above):</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode tex tex"><code class="sourceCode latex"><span id="cb216-1"><a href="custom-blocks.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\newenvironment</span>{infobox}[1]</span>
+<span id="cb216-2"><a href="custom-blocks.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb216-3"><a href="custom-blocks.html#cb216-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\begin</span>{<span class="ex">itemize</span>}</span>
+<span id="cb216-4"><a href="custom-blocks.html#cb216-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\renewcommand</span>{<span class="ex">\labelitemi</span>}{</span>
+<span id="cb216-5"><a href="custom-blocks.html#cb216-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\raisebox</span>{-.7<span class="fu">\height</span>}[0pt][0pt]{</span>
+<span id="cb216-6"><a href="custom-blocks.html#cb216-6" aria-hidden="true" tabindex="-1"></a>      {<span class="fu">\setkeys</span>{Gin}{width=3em,keepaspectratio}</span>
+<span id="cb216-7"><a href="custom-blocks.html#cb216-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">\includegraphics</span>{<span class="ex">images/#1</span>}}</span>
+<span id="cb216-8"><a href="custom-blocks.html#cb216-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb216-9"><a href="custom-blocks.html#cb216-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb216-10"><a href="custom-blocks.html#cb216-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\setlength</span>{<span class="fu">\fboxsep</span>}{1em}</span>
+<span id="cb216-11"><a href="custom-blocks.html#cb216-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\begin</span>{<span class="ex">blackbox</span>}</span>
+<span id="cb216-12"><a href="custom-blocks.html#cb216-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\item</span></span>
+<span id="cb216-13"><a href="custom-blocks.html#cb216-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb216-14"><a href="custom-blocks.html#cb216-14" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb216-15"><a href="custom-blocks.html#cb216-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\end</span>{<span class="ex">blackbox</span>}</span>
+<span id="cb216-16"><a href="custom-blocks.html#cb216-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\end</span>{<span class="ex">itemize</span>}</span>
+<span id="cb216-17"><a href="custom-blocks.html#cb216-17" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<p>Below we show more example blocks with different icons:</p>
+<div class="infobox warning">
+<p><strong>NOTICE!</strong></p>
+<p>Thank you for noticing this <strong>new notice</strong>! Your noticing it has
+been noted, and <em>will be reported to the authorities</em>!</p>
+</div>
+<div class="infobox note">
+<p><strong>NOTICE!</strong></p>
+<p>Thank you for noticing this <strong>new notice</strong>! Your noticing it has
+been noted, and <em>will be reported to the authorities</em>!</p>
+</div>
+<div class="infobox important">
+<p><strong>NOTICE!</strong></p>
+<p>Thank you for noticing this <strong>new notice</strong>! Your noticing it has
+been noted, and <em>will be reported to the authorities</em>!</p>
+</div>
+<div class="infobox tip">
+<p><strong>NOTICE!</strong></p>
+<p>Thank you for noticing this <strong>new notice</strong>! Your noticing it has
+been noted, and <em>will be reported to the authorities</em>!</p>
+</div>
+<p>Alternatively, you may use the LaTeX package <a href="https://ctan.org/pkg/awesomebox"><strong>awesomebox</strong></a> to generate boxes with icons in the PDF output. This package gives you a much larger number of icons to choose from. We give a brief example below: please refer to the package documentation for the possible LaTeX environments and their arguments.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb217-1"><a href="custom-blocks.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb217-2"><a href="custom-blocks.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Awesome Boxes</span></span>
+<span id="cb217-3"><a href="custom-blocks.html#cb217-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span></span>
+<span id="cb217-4"><a href="custom-blocks.html#cb217-4" aria-hidden="true" tabindex="-1"></a><span class="co">  pdf_document:</span></span>
+<span id="cb217-5"><a href="custom-blocks.html#cb217-5" aria-hidden="true" tabindex="-1"></a><span class="co">    extra_dependencies: awesomebox</span></span>
+<span id="cb217-6"><a href="custom-blocks.html#cb217-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb217-7"><a href="custom-blocks.html#cb217-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-8"><a href="custom-blocks.html#cb217-8" aria-hidden="true" tabindex="-1"></a>A note box:</span>
+<span id="cb217-9"><a href="custom-blocks.html#cb217-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-10"><a href="custom-blocks.html#cb217-10" aria-hidden="true" tabindex="-1"></a>::: {.noteblock data-latex=&quot;&quot;}</span>
+<span id="cb217-11"><a href="custom-blocks.html#cb217-11" aria-hidden="true" tabindex="-1"></a>Thank you for noticing this **new notice**! Your noticing it has</span>
+<span id="cb217-12"><a href="custom-blocks.html#cb217-12" aria-hidden="true" tabindex="-1"></a>been noted, and _will be reported to the authorities_!</span>
+<span id="cb217-13"><a href="custom-blocks.html#cb217-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb217-14"><a href="custom-blocks.html#cb217-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-15"><a href="custom-blocks.html#cb217-15" aria-hidden="true" tabindex="-1"></a>We define an R function <span class="in">`box_args()`</span> to generate the arguments</span>
+<span id="cb217-16"><a href="custom-blocks.html#cb217-16" aria-hidden="true" tabindex="-1"></a>for the box:</span>
+<span id="cb217-17"><a href="custom-blocks.html#cb217-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-18"><a href="custom-blocks.html#cb217-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb217-19"><a href="custom-blocks.html#cb217-19" aria-hidden="true" tabindex="-1"></a><span class="in">box_args &lt;- function(</span></span>
+<span id="cb217-20"><a href="custom-blocks.html#cb217-20" aria-hidden="true" tabindex="-1"></a><span class="in">  vrulecolor = &#39;white&#39;,</span></span>
+<span id="cb217-21"><a href="custom-blocks.html#cb217-21" aria-hidden="true" tabindex="-1"></a><span class="in">  hrule = c(&#39;\\abLongLine&#39;, &#39;\\abShortLine&#39;, &#39;&#39;),</span></span>
+<span id="cb217-22"><a href="custom-blocks.html#cb217-22" aria-hidden="true" tabindex="-1"></a><span class="in">  title = &#39;&#39;, vrulewidth = &#39;0pt&#39;,</span></span>
+<span id="cb217-23"><a href="custom-blocks.html#cb217-23" aria-hidden="true" tabindex="-1"></a><span class="in">  icon = &#39;Bomb&#39;, iconcolor = &#39;black&#39;</span></span>
+<span id="cb217-24"><a href="custom-blocks.html#cb217-24" aria-hidden="true" tabindex="-1"></a><span class="in">) {</span></span>
+<span id="cb217-25"><a href="custom-blocks.html#cb217-25" aria-hidden="true" tabindex="-1"></a><span class="in">  hrule &lt;- match.arg(hrule)</span></span>
+<span id="cb217-26"><a href="custom-blocks.html#cb217-26" aria-hidden="true" tabindex="-1"></a><span class="in">  sprintf(</span></span>
+<span id="cb217-27"><a href="custom-blocks.html#cb217-27" aria-hidden="true" tabindex="-1"></a><span class="in">    &#39;[%s][%s][\\textbf{%s}]{%s}{\\fa%s}{%s}&#39;,</span></span>
+<span id="cb217-28"><a href="custom-blocks.html#cb217-28" aria-hidden="true" tabindex="-1"></a><span class="in">    vrulecolor, hrule, title, vrulewidth, icon, iconcolor</span></span>
+<span id="cb217-29"><a href="custom-blocks.html#cb217-29" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb217-30"><a href="custom-blocks.html#cb217-30" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb217-31"><a href="custom-blocks.html#cb217-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb217-32"><a href="custom-blocks.html#cb217-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-33"><a href="custom-blocks.html#cb217-33" aria-hidden="true" tabindex="-1"></a>Pass some arguments to the <span class="in">`awesomeblock`</span> environment through</span>
+<span id="cb217-34"><a href="custom-blocks.html#cb217-34" aria-hidden="true" tabindex="-1"></a>an inline R expression:</span>
+<span id="cb217-35"><a href="custom-blocks.html#cb217-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-36"><a href="custom-blocks.html#cb217-36" aria-hidden="true" tabindex="-1"></a>::: {.awesomeblock data-latex=&quot;<span class="in">`r box_args(title = &#39;NOTICE!&#39;)`</span>&quot;}</span>
+<span id="cb217-37"><a href="custom-blocks.html#cb217-37" aria-hidden="true" tabindex="-1"></a>Thank you for noticing this **new notice**!</span>
+<span id="cb217-38"><a href="custom-blocks.html#cb217-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-39"><a href="custom-blocks.html#cb217-39" aria-hidden="true" tabindex="-1"></a>Your noticing it has been noted, and _will be reported to</span>
+<span id="cb217-40"><a href="custom-blocks.html#cb217-40" aria-hidden="true" tabindex="-1"></a>the authorities_!</span>
+<span id="cb217-41"><a href="custom-blocks.html#cb217-41" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="raw-content.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/yihui/rmarkdown-cookbook/edit/master/09-multiformat.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["rmarkdown-cookbook.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

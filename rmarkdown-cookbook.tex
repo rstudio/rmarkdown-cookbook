@@ -1,0 +1,1403 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{krantz}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={R Markdown Cookbook},
+  pdfauthor={Yihui Xie, Christophe Dervieux, Emily Riederer},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.33,0.33,0.33}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.61,0.61,0.61}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.06,0.06,0.06}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.5,0.5,0.5}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0,0,0}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.27,0.27,0.27}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.27,0.27,0.27}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.06,0.06,0.06}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.14,0.14,0.14}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.06,0.06,0.06}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0,0,0}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.27,0.27,0.27}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.43,0.43,0.43}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0,0,0}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.5,0.5,0.5}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.5,0.5,0.5}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0,0,0}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.5,0.5,0.5}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[bf,singlelinecheck=off]{caption}
+
+\usepackage{Alegreya}
+\usepackage[scale=.8]{sourcecodepro}
+
+\usepackage{framed,color}
+\definecolor{shadecolor}{RGB}{248,248,248}
+
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
+
+\renewenvironment{quote}{\begin{VF}}{\end{VF}}
+\usepackage{hyperref} %require for pandoc 2.18 and above
+\let\oldhref\href
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+
+\ifxetex
+  \usepackage{letltxmacro}
+  \setlength{\XeTeXLinkMargin}{1pt}
+  \LetLtxMacro\SavedIncludeGraphics\includegraphics
+  \def\includegraphics#1#{% #1 catches optional stuff (star/opt. arg.)
+    \IncludeGraphicsAux{#1}%
+  }%
+  \newcommand*{\IncludeGraphicsAux}[2]{%
+    \XeTeXLinkBox{%
+      \SavedIncludeGraphics#1{#2}%
+    }%
+  }%
+\fi
+
+\usepackage{makeidx}
+\makeindex
+
+\urlstyle{tt}
+
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+\frontmatter
+\usepackage{color}
+\usepackage{framed}
+\setlength{\fboxsep}{.8em}
+
+\newenvironment{blackbox}{
+  \definecolor{shadecolor}{rgb}{0, 0, 0}  % black
+  \color{white}
+  \begin{shaded}}
+ {\end{shaded}}
+\newenvironment{infobox}[1]
+  {
+  \begin{itemize}
+  \renewcommand{\labelitemi}{
+    \raisebox{-.7\height}[0pt][0pt]{
+      {\setkeys{Gin}{width=3em,keepaspectratio}
+        \includegraphics{images/#1}}
+    }
+  }
+  \setlength{\fboxsep}{1em}
+  \begin{blackbox}
+  \item
+  }
+  {
+  \end{blackbox}
+  \end{itemize}
+  }
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{R Markdown Cookbook}
+\author{Yihui Xie, Christophe Dervieux, Emily Riederer}
+\date{2026-02-03}
+
+\begin{document}
+\maketitle
+
+\cleardoublepage\newpage\thispagestyle{empty}\null
+\cleardoublepage\newpage\thispagestyle{empty}\null
+%\cleardoublepage\newpage
+\thispagestyle{empty}
+\begin{large}
+To the most amazing cooks in my life, Xie Shaobai and Si Zhinan.
+\begin{flushright}
+---Yihui
+\end{flushright}
+
+\bigskip
+
+To my supporting wife, Caroline, and our lovely newborn, Axel.
+\begin{flushright}
+---Christophe
+\end{flushright}
+
+\bigskip
+
+To my mom, who taught me the joy of life-long learning.
+\begin{flushright}
+---Emily
+\end{flushright}
+\end{large}
+
+\setlength{\abovedisplayskip}{-5pt}
+\setlength{\abovedisplayshortskip}{-5pt}
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\listoffigures
+\listoftables
+\hypertarget{preface}{%
+\chapter*{Preface}\label{preface}}
+
+
+R Markdown is a powerful tool for combining analysis and reporting into the same document. Since the birth of the \textbf{rmarkdown} package \citep{R-rmarkdown} in early 2014, R Markdown has grown substantially from a package that supports a few output formats, to an extensive and diverse ecosystem that supports the creation of books, blogs, scientific articles, websites, and even resumes.
+
+There is a wealth of guidance that has been written over the past few years, and the book \href{https://bookdown.org/yihui/rmarkdown/}{\emph{R Markdown: The Definitive Guide}} \citep{rmarkdown2018} provides a detailed reference on the built-in R Markdown output formats of the \textbf{rmarkdown} package, as well as several other extension packages. However, we have received comments from our readers and publisher that it would be beneficial to provide more practical and relatively short examples to show the interesting and useful usage of R Markdown, because it can be daunting to find out how to achieve a certain task from the aforementioned reference book (put another way, that book is too dry to read). As a result, this cookbook was born.
+
+Despite the existence of the official documentation, R Markdown users often seek help on Stack Overflow, a popular Q\&A forum. At the time of writing, there are more than 6,000 questions with \href{https://stackoverflow.com/questions/tagged/r-markdown}{the \texttt{r-markdown} tag.} This huge number means that the use of the forum can be difficult if you do not have a specific problem to search for. Therefore, it may be hard for you to realize all possible things that you could do with R Markdown or how to do them. This book aims to draw together popular posts from Stack Overflow and other online resources (such as blog posts or tutorials) to provide up-to-date solutions for everyday queries that users commonly make. In fact, to help us make decisions on the potential topics to cover in this book, the second author of this book, Christophe, has built an R Markdown dashboard to scrape Stack Overflow daily for the most popular posts. Hopefully, our cookbook can become more useful by including recipes from these popular posts.
+
+This book is designed to provide a range of examples on how to extend the functionality of your R Markdown documents. As a cookbook, this guide is recommended to new and intermediate R Markdown users who desire to enhance the efficiency of using R Markdown and also explore the power of R Markdown.
+
+\hypertarget{how-to-read-this-book}{%
+\section*{How to read this book}\label{how-to-read-this-book}}
+
+
+It is recommended that readers have a basic understanding of R Markdown. \href{https://bookdown.org/yihui/rmarkdown/basics.html}{Chapter 2} of \emph{R Markdown: The Definitive Guide} \citep{rmarkdown2018} provides an overview of the basics of R Markdown and is recommended background reading for any new users of R Markdown. For example, we did not cover Markdown syntax in this book, and expect readers to learn Markdown elsewhere. In particular, we strongly recommend that you go through \href{https://pandoc.org/MANUAL.html}{the full manual of Pandoc} at least once. The manual is quite lengthy, but it is also a gold mine. You do not have to remember everything, but it will be very helpful if you are aware of the possible features of Markdown. \href{https://yihui.org/en/2018/11/hard-markdown/}{For countless times, I have seen} people fail to write verbatim code blocks that contain three backticks, or list items that contain child elements. Without fully reading the Markdown syntax in the manual, perhaps you will never know or understand the rule ``\texttt{N + 1} outer backticks for \texttt{N} inner backticks'' or ``indent properly to indicate child elements.''
+
+We do not intend to provide a full technical reference for R Markdown in this cookbook. This cookbook aims to supplement, instead of replace, the existing literature. Therefore, readers may explore the following books if they want to seek further information:
+
+\begin{itemize}
+\item
+  \emph{R Markdown: The Definitive Guide} \citep{rmarkdown2018}, the technical reference for all R Markdown output formats in the \textbf{rmarkdown} package and several other extension packages.
+\item
+  Part V (``Communicate'') of \emph{R for Data Science} \citep{wickham2016}. This part is less technical than the above ``Definitive Guide,'' and hence may be a gentler introduction to R Markdown.
+\item
+  \emph{Dynamic Documents with R and knitr} \citep{knitr2015} provides a thorough introduction to the \textbf{knitr} package \citep{R-knitr} (note that R Markdown is only one of the document formats that \textbf{knitr} supports). If you want to read a shorter version, you may find Karl Broman's minimal tutorial \href{https://kbroman.org/knitr_knutshell/}{``knitr in a knutshell''} helpful.
+\item
+  \emph{bookdown: Authoring Books and Technical Documents with R Markdown} \citep{bookdown2016} is a short book as the official documentation of the \textbf{bookdown} package \citep{R-bookdown}, which is designed to simplify the creation of long-format documents in R Markdown.
+\item
+  \emph{blogdown: Creating Websites with R Markdown} \citep{blogdown2017} introduces how to create websites in R Markdown with the \textbf{blogdown} package \citep{R-blogdown}.
+\end{itemize}
+
+Where relevant, this book provides references to these existing resources. By the way, the official R Markdown website also contains a lot of resources that you may find helpful: \url{https://rmarkdown.rstudio.com}.
+
+You do not need to read this book in a particular order. Later chapters are not necessarily more challenging than previous chapters. The chapters and sections that we consider to be more advanced than others are marked with an asterisk (\texttt{*}) in their titles. It may be most efficient to read this book when you have some specific tasks in mind that you want to do with R Markdown, otherwise you can thumb through the table of contents and see if you are interested in any particular parts. We have tried to make each section and example as self-contained as possible, so you do not have to go back and forth among different parts of this book. In some cases, cross-referencing is unavoidable, and we will refer you to the background knowledge required to understand a certain example.
+
+If you want to try the examples by yourself, the full source code of this book and examples are freely provided on GitHub at \url{https://github.com/yihui/rmarkdown-cookbook}. If you are reading the electronic version of this book, you may also just copy and paste the examples from the pages and run them in your favorite editor.
+
+\hypertarget{structure-of-the-book}{%
+\section*{Structure of the book}\label{structure-of-the-book}}
+
+
+The book is broken down into small ``recipes'' that aim to demonstrate a single concept at a time. Chapter \ref{installation} provides instructions on how to install the necessary software tools. Chapter \ref{conceptual-overview} gives a conceptual overview of R Markdown. Chapter \ref{basics} introduces the basic components of R Markdown, and how to convert between R Markdown documents and R scripts. Chapter \ref{document-elements} tells you how to generate certain document elements, such as page breaks, bibliographies, numbered figures, animations, diagrams, etc. Chapter \ref{formatting} shows how to format content, such as adjusting the figure size and alignment. Chapter \ref{latex-output} introduces tips and tricks for those who only want LaTeX/PDF output. Similarly, Chapter \ref{html-output} is for HTML users, and Chapter \ref{word} is for Word users. If you want to produce output documents in multiple output formats (which is often tricky), you may find Chapter \ref{multi-formats} useful. Chapter \ref{tables} is, to be honest, my least favorite chapter, but I know a lot of users really want to learn how to produce tables. I'm not an expert on fancy tables, but hope you will at least find the list of packages there helpful. Chapter \ref{chunk-options} shows some applications of \textbf{knitr}'s chunk options that you may not know. Chapter \ref{output-hooks} and Chapter \ref{chunk-hooks} are a little advanced, but should also be very useful because they show you the great power of being able to control \textbf{knitr}'s output and behavior with custom hook functions. Chapter \ref{knitr-misc} introduces a variety of \textbf{knitr} tricks. Chapter \ref{other-languages} shows examples of using other languages in R Markdown, so you know R Markdown is not only for R. It also teaches you how to make \textbf{knitr} work with a new language that has not been supported yet. Chapter \ref{managing-projects} introduces tips on managing projects related to R Markdown. Chapter \ref{workflow} presents some tips on enhancing your workflow.
+
+The recipes in this book are usually independent of each other, so you can pick up any one to read if you do not have a specific goal in mind.
+
+\hypertarget{software-info}{%
+\section*{Software information and conventions}\label{software-info}}
+
+
+The basic R session information when compiling this book is as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xfun}\SpecialCharTok{::}\FunctionTok{session\_info}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+  \StringTok{\textquotesingle{}bookdown\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}knitr\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}rmarkdown\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}xfun\textquotesingle{}}
+\NormalTok{), }\AttributeTok{dependencies =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## R version 4.5.2 (2025-10-31)
+## Platform: x86_64-pc-linux-gnu
+## Running under: Ubuntu 24.04.3 LTS
+## 
+## Locale:
+##   LC_CTYPE=C.UTF-8       LC_NUMERIC=C          
+##   LC_TIME=C.UTF-8        LC_COLLATE=C.UTF-8    
+##   LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+##   LC_PAPER=C.UTF-8       LC_NAME=C             
+##   LC_ADDRESS=C           LC_TELEPHONE=C        
+##   LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+## 
+## Package version:
+##   bookdown_0.46  knitr_1.51.2   rmarkdown_2.30
+##   xfun_0.56     
+## 
+## Pandoc version: 2.17.1.1
+\end{verbatim}
+
+We do not add prompts (\texttt{\textgreater{}} and \texttt{+}) to R source code in this book, and we comment out the text output with two hashes \texttt{\#\#} by default, as you can see from the R session information above. This is for your convenience when you want to copy and run the code (the text output will be ignored since it is commented out). Package names are in bold text (e.g., \textbf{rmarkdown}), and inline code and filenames are formatted in a typewriter font (e.g., \texttt{knitr::knit(\textquotesingle{}foo.Rmd\textquotesingle{})}). Function names are followed by parentheses (e.g., \texttt{blogdown::serve\_site()}). The double-colon operator \texttt{::} means accessing an object from a package.
+
+``Rmd'' is the filename extension of R Markdown files, and also an abbreviation of R Markdown in this book.
+
+\hypertarget{acknowledgments}{%
+\section*{Acknowledgments}\label{acknowledgments}}
+
+
+As usual, first I want to thank my employer RStudio for giving me the freedom to work on this book. Since I started working on it, my weekly meeting time with my manager, Tareef Kawaf, was first reduced from 15 minutes to 5 minutes, and then the meetings were just canceled. I have heard from several friends that they have too many unbearable meetings in their institutions, which waste a lot of their time. In terms of managing distractions, one of them recently lamented, ``You may be able to mute Slack for five minutes, but can you possibly mute it for \emph{a whole day}?'' ``Of course, I can!'' I told her. I can probably mute it for a whole month if I like. Do not get me wrong---I do not mean Tareef or my colleagues are distractions. I only mean how much freedom they can offer me.
+
+I came up with the idea of writing this cookbook after I published the \emph{R Markdown Definitive Guide}, but ideas are often cheap. It is the execution that is hard and expensive. If it were not for \href{http://mikeyharper.uk}{Michael Harper's} initial pushing, I would never have started working on it seriously. Christophe Dervieux has always been around whenever I need help. He used his R and R Markdown skills to build a dashboard (with the \textbf{flexdashboard} package) to guide me to the potentially interesting and useful topics to write on. Meanwhile, he has also helped me in numerous other GitHub issues, so I could have more time for writing the book, instead of spending whole days on wrestling with bug reports that do not have minimal reproducible examples attached. Similarly, several people have been helping with answering R Markdown questions on Stack Overflow, including Martin Schmelzer, Marcel Schilling, and Ralf Stubner. Perhaps it was not their intention to save me time, but their effort did save me a lot of time. Recently, Johannes Friedrich also came to my attention on Stack Overflow, after a few times when I opened a new Stack Overflow question only to find it already answered by him.
+
+David Keyes saved my life in Section \ref{table-other}, since he had written \href{https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/}{a wonderful blog post} to introduce several R packages to create tables, with which I was not very familiar. Other online materials that have helped me a lot include Holtz Yan's \href{https://holtzy.github.io/Pimp-my-rmd/}{post on some R Markdown tips,} Nicholas Tierney's book \emph{\href{https://rmd4sci.njtierney.com}{R Markdown for Scientists}}, Maëlle Salmon's \href{https://github.com/maelle/rmd_course_isglobal}{R Markdown course,} Jennifer Thompson's \href{https://github.com/jenniferthompson/RepResearchRMarkdown}{R Markdown course,} Emi Tanaka's \href{https://github.com/emitanaka/combine2019}{R Markdown workshop,} Alison Hill's \href{https://arm.rbind.io}{R Markdown workshop} (co-taught with me), and Alison Hill and Emi Tanaka's \href{https://ysc-rmarkdown.netlify.app}{R Markdown workshop.}
+
+Many people have made contributions in the GitHub repository of this book by either sending pull requests or filing issues, including Maria Bekker-Nielsen Dunbar, Nathan Eastwood, Johannes Friedrich, Krishnakumar Gopalakrishnan, Xiangyun Huang, Florian Kohrt, Romain Lesur, Jiaxiang Li, Song Li, Ulrik Lyngs, Matt Small, Jake Stephen, Atsushi Yasumoto, Hao Zhu, and John Zobolas. The marvelous cover artwork of this book \href{https://github.com/yihui/rmarkdown-cookbook/issues/180}{was designed by Allison Horst} and the full cover was finalized by Kevin Craig.
+
+The original idea of this book was partially motivated from a remote talk that I delivered to the RaukR Summer School in 2018, in which I introduced some lesser known features of \textbf{knitr}. The audience seemed to like those short introductions of \textbf{knitr} features, which were like recipes. I'd like to thank the organizers of the summer school, including Marcin Kierczak and Sebastian Dilorenzo, for inviting me. I have given similar talks later at Genentech and \href{http://dahshu.org}{DahShu.} I want to thank Michael Lawrence and Yuqing Zhang for the invitations, as well as the audience of these talks, for their feedback. Paul Johnson published a very helpful critique of our book \emph{R Markdown: The Definitive Guide} in the journal \emph{The American Statistician} in 2020. He complained that the book lacked in-depth examples, therefore the definitive guide was not definitive enough. I truly appreciate and agree with his comments. I hope this new (cook)book can fill the gap.
+
+This is the fifth book that I have published with my editor John Kimmel. It has always been a pleasure to work with him and the team at Chapman \& Hall/CRC. I'm excited every time John tells me the new success of \textbf{bookdown} as it is more widely adopted by other authors. I feel honored to hear from John that Suzanne Lassandro, the production editor of my previous books, still tried hard to help with this book even though she has many other responsibilities and rarely works directly with authors now. Suzanne and our proofreader (Rebecca Condit) managed to identify ``only'' 377 issues in our first draft. Apparently, I was too optimistic \href{https://bookdown.org/yihui/rmarkdown/acknowledgments.html}{when I wondered last time} if I would have less than 30 issues in my next book. The LaTeX expert Shashi Kumar helped us fix a thorny LaTeX issue, which was our last obstacle before the PDF could be printed.
+
+John reached out to several reviewers for their feedback on the manuscript. Eventually we received nine great reviews. One of them was so great that we could not help inviting her to co-author this book! It was a lot of work to deal with the nine reviews, but it was definitely worth the effort. I'd like to thank all these reviewers for their helpful feedback, including Carl Boettiger, John Blischak, Sharla Gelfand, Johannes Friedrich, Atsushi Yasumoto, and other anonymous reviewers.
+
+I worked on the last part of this book in the vacant house (without Internet!) of my good old neighbors, Dong Guo and Qian Jia, after they moved to another city. I'm grateful to them for letting me use their house as my temporary office to finish up the book when I felt rather exhausted and needed a quiet environment. It was sad to say goodbye to them. To me, this book, finished in their house, will also be associated with some of my fond memories of this family, including their parents and lovely little daughter.
+
+Lastly, I will definitely not miss this unique opportunity to thank my two little ``super helpful co-workers'' (5 and 3) at home during the COVID-19 pandemic, without whom I could have published this book five months earlier. Now I miss the teachers at their daycare center (Small Miracle) and feel daycare centers are perhaps not that expensive\ldots{}
+
+\begin{flushright}
+Yihui Xie\\
+Elkhorn, Nebraska
+
+\end{flushright}
+
+\hypertarget{author}{%
+\chapter*{About the Authors}\label{author}}
+
+
+Yihui typed out most of the words in this book, which is the only justification for him being the ``first'' author. Christophe has made substantial contribution to this book by helping Yihui organize all the GitHub issues and occasionally writing a few sections. Emily was originally a reviewer of this book. Since Yihui was not patient enough to deal with her lengthy comments, he invited her to become a co-author of this book (out of revenge) to feel his pain of having to deal with so many additional things when he thought he was pretty much done! Just kidding\ldots{} No, he invited her out of full appreciation, because her comments were so helpful, yet Yihui lacked the time to do all the improvements that she suggested.
+
+When you see the pronoun ``I'' in this book, it refers to Yihui. Using ``I'' instead of ``We'' does not mean the co-authors were forgotten, but Yihui wanted to express certain opinions completely on his own. He certainly wants to appear smart, but in case he is actually silly, he wants to be silly alone.
+
+\hypertarget{yihui-xie}{%
+\section*{Yihui Xie}\label{yihui-xie}}
+
+
+Yihui Xie (\url{https://yihui.org}) is a software engineer at RStudio (\url{https://www.rstudio.com}). He earned his PhD from the Department of Statistics, Iowa State University. He is interested in interactive statistical graphics and statistical computing. As an active R user, he has authored several R packages, such as \textbf{knitr}, \textbf{bookdown}, \textbf{blogdown}, \textbf{xaringan}, \textbf{tinytex}, \textbf{rolldown}, \textbf{animation}, \textbf{DT}, \textbf{tufte}, \textbf{formatR}, \textbf{fun}, \textbf{xfun}, \textbf{testit}, \textbf{mime}, \textbf{highr}, \textbf{servr}, and \textbf{Rd2roxygen}, among which the \textbf{animation} package won the 2009 John M. Chambers Statistical Software Award (ASA). He also co-authored a few other R packages, including \textbf{shiny}, \textbf{rmarkdown}, \textbf{pagedown}, and \textbf{leaflet}.
+
+He has authored two books, \emph{Dynamic Documents with knitr} \citep{knitr2015}, and \emph{bookdown: Authoring Books and Technical Documents with R Markdown} \citep{bookdown2016}, and co-authored two books, \emph{blogdown: Creating Websites with R Markdown} \citep{blogdown2017}, and \emph{R Markdown: The Definitive Guide} \citep{rmarkdown2018}.
+
+In 2006, he founded the Capital of Statistics (\url{https://cosx.org}), which has grown into a large online community on statistics in China. He initiated the Chinese R conference in 2008, and has been involved in organizing R conferences in China since then. During his PhD training at Iowa State University, he won the Vince Sposito Statistical Computing Award (2011) and the Snedecor Award (2012) in the Department of Statistics.
+
+He usually reads Twitter messages once a week (\url{https://twitter.com/xieyihui}), and most of the time you can find him on GitHub (\url{https://github.com/yihui}).
+
+He has four hobbies: reading, writing (mostly blogging), cooking, and playing badminton. He is actually more interested in cooking than eating. There are not many types of food that he cannot resist eating, and spicy food is one of the few. Since cooking is more fun, he rarely goes to restaurants. When he does go and is asked ``how spicy you want your food to be'' in the restaurant, he usually answers ``as spicy as your chef can make it to be.''
+
+\hypertarget{christophe-dervieux}{%
+\section*{Christophe Dervieux}\label{christophe-dervieux}}
+
+
+Christophe Dervieux is an active member of the R community, currently living in France. With a master's degree in energy and economics, he started working with R as an analyst doing economic studies about market designs, before becoming a developer advocate and R admin, promoting R and supporting R users where he works.
+
+He is interested in helping others get the most from R, and you can find him wandering in the RStudio Community as a sustainer, or on several GitHub issue boards for various R packages. In both places, you may better recognize him by his shorter handle ``cderv.''
+
+As an R developer, he is a contributor to several R packages, such as \textbf{bookdown}, \textbf{rmarkdown}, and \textbf{knitr}. He has also co-authored the \textbf{crrri} package. His own projects can be found on GitHub (\url{https://github.com/cderv}), and sometimes he shares his ideas on Twitter (\url{https://twitter.com/chrisderv}).
+
+He does not like spicy food, but he enjoys playing badminton every week.
+
+\hypertarget{emily-riederer}{%
+\section*{Emily Riederer}\label{emily-riederer}}
+
+
+Emily Riederer works in data science for the consumer finance industry where she leads a team to build analysis tools in R and cultivate an open science culture in industry. Previously, she studied mathematics and statistics at the University of North Carolina at Chapel Hill.
+
+Emily frequently discusses R on Twitter (\url{https://twitter.com/emilyriederer}) and in her blog (\url{https://emily.rbind.io}) and shared projects, including her \textbf{projmgr} R package, on GitHub (\url{https://github.com/emilyriederer}). She has also served as a package reviewer for rOpenSci and a founding co-organizer of the annual satRday Chicago R conference.
+
+Emily's other interests include reading and weightlifting. She thinks she likes spicy food, but since she has only ever lived in the United States, she has been told that she does not really know what that actually means.
+
+\mainmatter
+\chapter{Installation}\label{installation}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Use a Pandoc version not bundled with the RStudio IDE}\label{install-pandoc}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Install LaTeX (TinyTeX) for PDF reports}\label{install-latex}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Install missing LaTeX packages}\label{install-latex-pkgs}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Conceptual Overview}\label{conceptual-overview}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{What happens when we render?}\label{rmarkdown-process}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A diagram illustrating how an R Markdown document is converted to the final output document.}\end{figure}
+
+\section{R Markdown anatomy}\label{rmarkdown-anatomy}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{YAML metadata}\label{yaml-metadata}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Narrative}\label{narrative}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Code chunks}\label{code-chunks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A flowchart of inputs and outputs to a language engine.}\end{figure}
+
+\subsection{Document body}\label{document-body}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A simple R Markdown document illustrated as a set of nested containers.}\end{figure}
+
+\section{What can we change to change the results?}\label{what-to-change}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Basics}\label{basics}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Code chunks and inline R code}\label{r-code}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Write Markdown in the RStudio visual editor}\label{rstudio-visual}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{The visual Markdown editor in RStudio.}\end{figure}
+
+\section{Render an R script to a report}\label{spin}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Convert R Markdown to R script}\label{purl}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{R Markdown Notebooks}\label{notebook}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Document Elements}\label{document-elements}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Insert page breaks}\label{pagebreaks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Set the document title dynamically}\label{dynamic-yaml}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Access the document metadata in R code}\label{document-metadata}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Unnumbered sections}\label{unnumbered-sections}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Bibliographies and citations}\label{bibliography}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Changing citation style}\label{changing-citation-style}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Add an item to a bibliography without using it}\label{add-an-item-to-a-bibliography-without-using-it}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Add all items to the bibliography}\label{add-all-items-to-the-bibliography}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Include appendix after bibliography (*)}\label{include-appendix-after-bibliography}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Generate R package citations}\label{write-bib}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Cross-referencing within documents}\label{cross-ref}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{Example of cross-referencing within an R Markdown document.}\end{figure}
+
+\section{Update the date automatically}\label{update-date}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{table}\caption{\label{tab:date-format} Date and time formats in R.}\end{table}
+
+\section{Multiple authors in a document}\label{multiple-authors}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Numbered figure captions}\label{figure-number}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Combine words into a comma-separated phrase}\label{combine-words}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Preserve a large number of line breaks}\label{linebreaks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Convert models to equations}\label{equatiomatic}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Create an animation from multiple R plots}\label{animation}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A Pac-man animation.}\end{figure}
+
+\section{Create diagrams}\label{diagrams}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Basic diagrams}\label{basic-diagrams}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A diagram showing a programmer's daydream.}\end{figure}
+
+\subsection{Adding parameters to plots}\label{adding-parameters-to-plots}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A diagram using parameters input from R.}\end{figure}
+
+\subsection{Other packages for making diagrams}\label{other-packages-for-making-diagrams}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Escape special characters}\label{special-chars}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Comment out text}\label{comments}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Omit a heading in the table of contents}\label{toc-unlisted}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Put together all code in the appendix (*)}\label{code-appendix}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Manipulate Markdown via Pandoc Lua filters (*)}\label{lua-filters}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Formatting}\label{formatting}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Font color}\label{font-color}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Using an R function to write raw HTML or LaTeX code}\label{using-an-r-function-to-write-raw-html-or-latex-code}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Using a Pandoc Lua filter (*)}\label{lua-color}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Indent text}\label{indent-text}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Control the width of text output}\label{text-width}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{Normal text output that is too wide.}\end{figure}
+
+\begin{figure}\caption{Text output wrapped with the listings package.}\end{figure}
+
+\section{Control the size of plots/images}\label{figure-size}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Figure alignment}\label{fig-align}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Verbatim code chunks}\label{verbatim-code-chunks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Show a verbatim inline expression}\label{show-a-verbatim-inline-expression}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Line numbers for code blocks (*)}\label{number-lines}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Multi-column layout (*)}\label{multi-column}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A two-column layout that works for HTML, LaTeX, and Beamer output.}\end{figure}
+
+\chapter{LaTeX Output}\label{latex-output}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Add LaTeX code to the preamble}\label{latex-preamble}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Pandoc options for LaTeX output}\label{latex-variables}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Add logo to title page}\label{latex-logo}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A logo on a LaTeX title page.}\end{figure}
+
+\section{Include additional LaTeX packages}\label{latex-extra}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Loading LaTeX packages}\label{loading-latex-packages}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Example packages}\label{example-packages}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Control the placement of figures}\label{figure-placement}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Floating environments}\label{floating-environments}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Prevent figures from floating}\label{prevent-figures-from-floating}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Force floats forward}\label{force-floats-forward}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Adjust LaTeX placement rules (*)}\label{adjust-latex-placement-rules}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{table}\caption{\label{tab:float-default}Default LaTeX float settings.}\end{table}
+
+\section{LaTeX sub-figures}\label{latex-subfigure}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Render documents containing Unicode characters}\label{latex-unicode}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Generate a LaTeX fragment}\label{latex-fragment}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Add custom headers and footers (*)}\label{latex-header}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Use a custom Pandoc LaTeX template (*)}\label{latex-template}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Write raw LaTeX code}\label{raw-latex}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{For hardcore LaTeX users (*)}\label{latex-hardcore}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{HTML Output}\label{html-output}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Apply custom CSS}\label{html-css}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Center section headings}\label{center-heading}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Style code blocks and text output}\label{chunk-styling}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Scrollable code blocks (*)}\label{html-scroll}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Fold all code blocks but show some initially}\label{fold-show}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Put content in tabs}\label{html-tabs}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Embed the Rmd source file in the HTML output file}\label{embed-rmd}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Embed arbitrary files in the HTML output file}\label{embed-file}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Use a custom HTML template (*)}\label{html-template}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Include the content of an existing HTML file (*)}\label{include-html}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Add a custom browser icon}\label{favicon}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Use the \texttt{\textless{}details\textgreater{}} disclosure element}{Use the \textless details\textgreater{} disclosure element}}\label{details-tag}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{Wrap text output in the details element.}\end{figure}
+
+\section{Sharing HTML output on the web}\label{html-share}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{R-specific services}\label{r-specific-services}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Static website services}\label{static-website-services}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Improve accessibility of HTML pages}\label{html-accessibility}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{For hardcore HTML users (*)}\label{html-hardcore}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Word}\label{word}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Custom Word templates}\label{word-template}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{Find the styles of a specific document element.}\end{figure}
+
+\begin{figure}\caption{Modify the styles of an element in a Word document.}\end{figure}
+
+\begin{figure}\caption{Modify the styles of tables in a Word document.}\end{figure}
+
+\section{The two-way workflow between R Markdown and Word}\label{word-redoc}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Style individual elements}\label{word-officedown}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Multiple Output Formats}\label{multi-formats}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{LaTeX or HTML output}\label{latex-html}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Display HTML widgets}\label{html-widgets}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Embed a web page}\label{include-url}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Multiple figures side by side}\label{figures-side}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{Side-by-side figures.}\end{figure}
+
+\section{Write raw content (*)}\label{raw-content}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Custom blocks (*)}\label{custom-blocks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Syntax}\label{block-syntax}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Adding a shaded box}\label{block-shaded}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Including icons}\label{block-image}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Tables}\label{tables}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{The function \texttt{knitr::kable()}}{The function knitr::kable()}}\label{kable}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Supported table formats}\label{kable-formats}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Change column names}\label{change-column-names}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Specify column alignment}\label{specify-column-alignment}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Add a table caption}\label{kable-caption}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{table}\caption{\label{tab:kable-cap}An example table caption.}\end{table}
+
+\subsection{Format numeric columns}\label{format-numeric-columns}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Display missing values}\label{display-missing-values}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Escape special characters}\label{escape-special-characters}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Multiple tables side by side}\label{multiple-tables-side-by-side}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{table}\caption{\label{tab:two-tables}Two tables placed side by side.}\end{table}
+
+\begin{table}\caption{\label{tab:kables}Two tables created by knitr::kables().}\end{table}
+
+\subsection{\texorpdfstring{Generate multiple tables from a \texttt{for}-loop (*)}{Generate multiple tables from a for-loop (*)}}\label{generate-multiple-tables-from-a-for-loop}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Customize LaTeX tables (*)}\label{customize-latex-tables}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Customize HTML tables (*)}\label{customize-html-tables}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A striped table created with HTML and CSS.}\end{figure}
+
+\section{\texorpdfstring{The \textbf{kableExtra} package}{The kableExtra package}}\label{kableextra}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Set the font size}\label{set-the-font-size}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Style specific rows/columns}\label{style-specific-rowscolumns}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Group rows/columns}\label{group-rowscolumns}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Scaling down wide tables in LaTeX}\label{scaling-down-wide-tables-in-latex}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Other packages for creating tables}\label{table-other}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Chunk Options}\label{chunk-options}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Use variables in chunk options}\label{chunk-variable}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Do not stop on error}\label{opts-error}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Multiple graphical output formats for the same plot}\label{dev-vector}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Cache time-consuming code chunks}\label{cache}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Cache a code chunk for multiple output formats}\label{cache-path}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Cache large objects}\label{cache-lazy}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Hide code, text output, messages, or plots}\label{hide-one}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Hide everything from a chunk}\label{hide-all}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Collapse text output blocks into source blocks}\label{opts-collapse}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Reformat R source code}\label{opts-tidy}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Output text as raw Markdown content (*)}\label{results-asis}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Remove leading hashes in text output}\label{opts-comment}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Add attributes to text output blocks (*)}\label{attr-output}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Post-process plots (*)}\label{fig-process}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{High-quality graphics (*)}\label{graphical-device}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A plot rendered via the tikz device.}\end{figure}
+
+\section{Step-by-step plots with low-level plotting functions (*)}\label{low-plots}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Customize the printing of objects in chunks (*)}\label{opts-render}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Option hooks (*)}\label{option-hooks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Output Hooks (*)}\label{output-hooks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Redact source code}\label{hook-hide}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Add line numbers to source code}\label{hook-number}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Scrollable text output}\label{hook-scroll}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Truncate text output}\label{hook-truncate}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Output figures in the HTML5 format}\label{hook-html5}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Chunk Hooks (*)}\label{chunk-hooks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Crop plots}\label{crop-plot}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A plot that is not cropped.}\end{figure}
+
+\begin{figure}\caption{A plot that is cropped.}\end{figure}
+
+\section{Optimize PNG plots}\label{optipng}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Report how much time each chunk takes to run}\label{time-chunk}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Show the chunk header in the output}\label{show-header}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Embed an interactive 3D plot with rgl}\label{rgl-3d}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{A 3D scatterplot generated from the rgl package.}\end{figure}
+
+\chapter{Miscellaneous knitr Tricks}\label{knitr-misc}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Reuse code chunks}\label{reuse-chunks}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Embed one chunk in another chunk (*)}\label{embed-chunk}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Use the same chunk label in another chunk}\label{same-label}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Use reference labels (*)}\label{ref-label}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Use an object before it is created (*)}\label{load-cache}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Exit knitting early}\label{knit-exit}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Generate a plot and display it elsewhere}\label{fig-chunk}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Modify a plot in a previous code chunk}\label{global-device}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Save a group of chunk options and reuse them (*)}\label{opts-template}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Use \texttt{knitr::knit\_expand()} to generate Rmd source}{Use knitr::knit\_expand() to generate Rmd source}}\label{knit-expand}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Allow duplicate labels in code chunks (*)}\label{duplicate-label}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{A more transparent caching mechanism}\label{cache-rds}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Invalidate the cache by changing code in the expression}\label{invalidate-the-cache-by-changing-code-in-the-expression}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Invalidate the cache by changes in global variables}\label{invalidate-the-cache-by-changes-in-global-variables}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Keep multiple copies of the cache}\label{keep-multiple-copies-of-the-cache}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{\texorpdfstring{Comparison with \textbf{knitr}'s caching}{Comparison with knitr's caching}}\label{comparison-with-knitrs-caching}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Other Languages}\label{other-languages}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Register a custom language engine (*)}\label{custom-engine}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Run Python code and interact with Python}\label{eng-python}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Execute content conditionally via the \texttt{asis} engine}{Execute content conditionally via the asis engine}}\label{eng-asis}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Execute Shell scripts}\label{eng-bash}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Visualization with D3}\label{d3}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Write the chunk content to a file via the \texttt{cat} engine}{Write the chunk content to a file via the cat engine}}\label{eng-cat}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Write to a CSS file}\label{write-to-a-css-file}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Include LaTeX code in the preamble}\label{include-latex-code-in-the-preamble}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Write YAML data to a file and also display it}\label{write-yaml-data-to-a-file-and-also-display-it}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Run SAS code}\label{eng-sas}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Run Stata code}\label{eng-stata}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Create graphics with Asymptote}\label{eng-asy}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Generate data in R and read it in Asymptote}\label{generate-data-in-r-and-read-it-in-asymptote}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Style HTML pages with Sass/SCSS}\label{eng-sass}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Managing Projects}\label{managing-projects}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Source external R scripts}\label{source-script}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Read external scripts into a chunk}\label{option-code}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Read multiple code chunks from an external script (*)}\label{read-chunk}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Child documents (*)}\label{child-document}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Keep the plot files}\label{keep-files}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{The working directory for R code chunks}\label{working-directory}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{Change the default working directory for all R Markdown documents in RStudio.}\end{figure}
+
+\begin{figure}\caption{Knit an Rmd document with other possible working directories in RStudio.}\end{figure}
+
+\begin{figure}\caption{Autocomplete file paths in an Rmd document in RStudio.}\end{figure}
+
+\section{R package vignettes}\label{package-vignette}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{R Markdown templates in R packages}\label{package-template}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Template use-cases}\label{template-use-cases}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Template setup}\label{template-setup}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Write books and long-form reports with \textbf{bookdown}}{Write books and long-form reports with bookdown}}\label{bookdown}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Build websites with \textbf{blogdown}}{Build websites with blogdown}}\label{blogdown}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{Workflow}\label{workflow}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Use RStudio keyboard shortcuts}\label{rstudio-shortcuts}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{table}\caption{\label{tab:shortcuts}RStudio keyboard shortcuts related to R Markdown.}\end{table}
+
+\section{Spell-check R Markdown}\label{spell-check}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Render R Markdown with \texttt{rmarkdown::render()}}{Render R Markdown with rmarkdown::render()}}\label{rmarkdown-render}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Parameterized reports}\label{parameterized-reports}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Customize the \texttt{Knit} button (*)}{Customize the Knit button (*)}}\label{custom-knit}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Collaborate on Rmd documents through Google Drive with trackdown}\label{google-drive}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{The trackdown Workflow}\label{the-trackdown-workflow}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\begin{figure}\caption{trackdown workflow, collaborative code writing is done locally using Git whereas collaborative writing of the narrative text is done online using Google Docs}\end{figure}
+
+\subsubsection*{Functions and Special Features}\label{functions-and-special-features}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsubsection*{Advantages of Google Docs}\label{advantages-of-google-docs}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{\texorpdfstring{Organize an R Markdown project into a research website with \textbf{workflowr}}{Organize an R Markdown project into a research website with workflowr}}\label{workflowr}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Send emails based on R Markdown}\label{blastula-email}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\chapter{\texorpdfstring{\textbf{knitr}'s Chunk and Package Options}{knitr's Chunk and Package Options}}\label{full-options}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Chunk options}\label{chunk-options-full}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Code evaluation}\label{code-evaluation}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Text output}\label{text-output}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Code decoration}\label{code-decoration}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Cache}\label{cache-options}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Plots}\label{plots}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Animation}\label{animation-options}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Code chunk}\label{code-chunk}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Child documents}\label{child-documents}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Language engines}\label{language-engines}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Option templates}\label{option-templates}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Extracting source code}\label{extracting-source-code}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\subsection{Other chunk options}\label{other-chunk-options}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Package options}\label{package-options}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\section{Global R Options}\label{global-r-options}
+
+This PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.
+
+\end{document}

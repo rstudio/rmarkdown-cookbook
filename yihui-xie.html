@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Yihui Xie | R Markdown Cookbook</title>
+  <meta name="description" content="This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Yihui Xie | R Markdown Cookbook" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/yihui/rmarkdown-cookbook//images/cover.png" />
+  <meta property="og:description" content="This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis." />
+  <meta name="github-repo" content="yihui/rmarkdown-cookbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Yihui Xie | R Markdown Cookbook" />
+  
+  <meta name="twitter:description" content="This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis." />
+  <meta name="twitter:image" content="https://bookdown.org/yihui/rmarkdown-cookbook//images/cover.png" />
+
+<meta name="author" content="Yihui Xie, Christophe Dervieux, Emily Riederer" />
+
+
+<meta name="date" content="2026-02-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="author.html"/>
+<link rel="next" href="christophe-dervieux.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/box.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Markdown Cookbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="how-to-read-this-book.html"><a href="how-to-read-this-book.html"><i class="fa fa-check"></i>How to read this book</a></li>
+<li class="chapter" data-level="" data-path="structure-of-the-book.html"><a href="structure-of-the-book.html"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="software-info.html"><a href="software-info.html"><i class="fa fa-check"></i>Software information and conventions</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>About the Authors</a>
+<ul>
+<li class="chapter" data-level="" data-path="yihui-xie.html"><a href="yihui-xie.html"><i class="fa fa-check"></i>Yihui Xie</a></li>
+<li class="chapter" data-level="" data-path="christophe-dervieux.html"><a href="christophe-dervieux.html"><i class="fa fa-check"></i>Christophe Dervieux</a></li>
+<li class="chapter" data-level="" data-path="emily-riederer.html"><a href="emily-riederer.html"><i class="fa fa-check"></i>Emily Riederer</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1</b> Installation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="install-pandoc.html"><a href="install-pandoc.html"><i class="fa fa-check"></i><b>1.1</b> Use a Pandoc version not bundled with the RStudio IDE</a></li>
+<li class="chapter" data-level="1.2" data-path="install-latex.html"><a href="install-latex.html"><i class="fa fa-check"></i><b>1.2</b> Install LaTeX (TinyTeX) for PDF reports</a></li>
+<li class="chapter" data-level="1.3" data-path="install-latex-pkgs.html"><a href="install-latex-pkgs.html"><i class="fa fa-check"></i><b>1.3</b> Install missing LaTeX packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conceptual-overview.html"><a href="conceptual-overview.html"><i class="fa fa-check"></i><b>2</b> Conceptual Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="rmarkdown-process.html"><a href="rmarkdown-process.html"><i class="fa fa-check"></i><b>2.1</b> What happens when we render?</a></li>
+<li class="chapter" data-level="2.2" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html"><i class="fa fa-check"></i><b>2.2</b> R Markdown anatomy</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#yaml-metadata"><i class="fa fa-check"></i><b>2.2.1</b> YAML metadata</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#narrative"><i class="fa fa-check"></i><b>2.2.2</b> Narrative</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#code-chunks"><i class="fa fa-check"></i><b>2.2.3</b> Code chunks</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rmarkdown-anatomy.html"><a href="rmarkdown-anatomy.html#document-body"><i class="fa fa-check"></i><b>2.2.4</b> Document body</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="what-to-change.html"><a href="what-to-change.html"><i class="fa fa-check"></i><b>2.3</b> What can we change to change the results?</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="r-code.html"><a href="r-code.html"><i class="fa fa-check"></i><b>3.1</b> Code chunks and inline R code</a></li>
+<li class="chapter" data-level="3.2" data-path="rstudio-visual.html"><a href="rstudio-visual.html"><i class="fa fa-check"></i><b>3.2</b> Write Markdown in the RStudio visual editor</a></li>
+<li class="chapter" data-level="3.3" data-path="spin.html"><a href="spin.html"><i class="fa fa-check"></i><b>3.3</b> Render an R script to a report</a></li>
+<li class="chapter" data-level="3.4" data-path="purl.html"><a href="purl.html"><i class="fa fa-check"></i><b>3.4</b> Convert R Markdown to R script</a></li>
+<li class="chapter" data-level="3.5" data-path="notebook.html"><a href="notebook.html"><i class="fa fa-check"></i><b>3.5</b> R Markdown Notebooks</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="document-elements.html"><a href="document-elements.html"><i class="fa fa-check"></i><b>4</b> Document Elements</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pagebreaks.html"><a href="pagebreaks.html"><i class="fa fa-check"></i><b>4.1</b> Insert page breaks</a></li>
+<li class="chapter" data-level="4.2" data-path="dynamic-yaml.html"><a href="dynamic-yaml.html"><i class="fa fa-check"></i><b>4.2</b> Set the document title dynamically</a></li>
+<li class="chapter" data-level="4.3" data-path="document-metadata.html"><a href="document-metadata.html"><i class="fa fa-check"></i><b>4.3</b> Access the document metadata in R code</a></li>
+<li class="chapter" data-level="4.4" data-path="unnumbered-sections.html"><a href="unnumbered-sections.html"><i class="fa fa-check"></i><b>4.4</b> Unnumbered sections</a></li>
+<li class="chapter" data-level="4.5" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>4.5</b> Bibliographies and citations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="bibliography.html"><a href="bibliography.html#changing-citation-style"><i class="fa fa-check"></i><b>4.5.1</b> Changing citation style</a></li>
+<li class="chapter" data-level="4.5.2" data-path="bibliography.html"><a href="bibliography.html#add-an-item-to-a-bibliography-without-using-it"><i class="fa fa-check"></i><b>4.5.2</b> Add an item to a bibliography without using it</a></li>
+<li class="chapter" data-level="4.5.3" data-path="bibliography.html"><a href="bibliography.html#add-all-items-to-the-bibliography"><i class="fa fa-check"></i><b>4.5.3</b> Add all items to the bibliography</a></li>
+<li class="chapter" data-level="4.5.4" data-path="bibliography.html"><a href="bibliography.html#include-appendix-after-bibliography"><i class="fa fa-check"></i><b>4.5.4</b> Include appendix after bibliography (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="write-bib.html"><a href="write-bib.html"><i class="fa fa-check"></i><b>4.6</b> Generate R package citations</a></li>
+<li class="chapter" data-level="4.7" data-path="cross-ref.html"><a href="cross-ref.html"><i class="fa fa-check"></i><b>4.7</b> Cross-referencing within documents</a></li>
+<li class="chapter" data-level="4.8" data-path="update-date.html"><a href="update-date.html"><i class="fa fa-check"></i><b>4.8</b> Update the date automatically</a></li>
+<li class="chapter" data-level="4.9" data-path="multiple-authors.html"><a href="multiple-authors.html"><i class="fa fa-check"></i><b>4.9</b> Multiple authors in a document</a></li>
+<li class="chapter" data-level="4.10" data-path="figure-number.html"><a href="figure-number.html"><i class="fa fa-check"></i><b>4.10</b> Numbered figure captions</a></li>
+<li class="chapter" data-level="4.11" data-path="combine-words.html"><a href="combine-words.html"><i class="fa fa-check"></i><b>4.11</b> Combine words into a comma-separated phrase</a></li>
+<li class="chapter" data-level="4.12" data-path="linebreaks.html"><a href="linebreaks.html"><i class="fa fa-check"></i><b>4.12</b> Preserve a large number of line breaks</a></li>
+<li class="chapter" data-level="4.13" data-path="equatiomatic.html"><a href="equatiomatic.html"><i class="fa fa-check"></i><b>4.13</b> Convert models to equations</a></li>
+<li class="chapter" data-level="4.14" data-path="animation.html"><a href="animation.html"><i class="fa fa-check"></i><b>4.14</b> Create an animation from multiple R plots</a></li>
+<li class="chapter" data-level="4.15" data-path="diagrams.html"><a href="diagrams.html"><i class="fa fa-check"></i><b>4.15</b> Create diagrams</a>
+<ul>
+<li class="chapter" data-level="4.15.1" data-path="diagrams.html"><a href="diagrams.html#basic-diagrams"><i class="fa fa-check"></i><b>4.15.1</b> Basic diagrams</a></li>
+<li class="chapter" data-level="4.15.2" data-path="diagrams.html"><a href="diagrams.html#adding-parameters-to-plots"><i class="fa fa-check"></i><b>4.15.2</b> Adding parameters to plots</a></li>
+<li class="chapter" data-level="4.15.3" data-path="diagrams.html"><a href="diagrams.html#other-packages-for-making-diagrams"><i class="fa fa-check"></i><b>4.15.3</b> Other packages for making diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="4.16" data-path="special-chars.html"><a href="special-chars.html"><i class="fa fa-check"></i><b>4.16</b> Escape special characters</a></li>
+<li class="chapter" data-level="4.17" data-path="comments.html"><a href="comments.html"><i class="fa fa-check"></i><b>4.17</b> Comment out text</a></li>
+<li class="chapter" data-level="4.18" data-path="toc-unlisted.html"><a href="toc-unlisted.html"><i class="fa fa-check"></i><b>4.18</b> Omit a heading in the table of contents</a></li>
+<li class="chapter" data-level="4.19" data-path="code-appendix.html"><a href="code-appendix.html"><i class="fa fa-check"></i><b>4.19</b> Put together all code in the appendix (*)</a></li>
+<li class="chapter" data-level="4.20" data-path="lua-filters.html"><a href="lua-filters.html"><i class="fa fa-check"></i><b>4.20</b> Manipulate Markdown via Pandoc Lua filters (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="formatting.html"><a href="formatting.html"><i class="fa fa-check"></i><b>5</b> Formatting</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="font-color.html"><a href="font-color.html"><i class="fa fa-check"></i><b>5.1</b> Font color</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="font-color.html"><a href="font-color.html#using-an-r-function-to-write-raw-html-or-latex-code"><i class="fa fa-check"></i><b>5.1.1</b> Using an R function to write raw HTML or LaTeX code</a></li>
+<li class="chapter" data-level="5.1.2" data-path="font-color.html"><a href="font-color.html#lua-color"><i class="fa fa-check"></i><b>5.1.2</b> Using a Pandoc Lua filter (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="indent-text.html"><a href="indent-text.html"><i class="fa fa-check"></i><b>5.2</b> Indent text</a></li>
+<li class="chapter" data-level="5.3" data-path="text-width.html"><a href="text-width.html"><i class="fa fa-check"></i><b>5.3</b> Control the width of text output</a></li>
+<li class="chapter" data-level="5.4" data-path="figure-size.html"><a href="figure-size.html"><i class="fa fa-check"></i><b>5.4</b> Control the size of plots/images</a></li>
+<li class="chapter" data-level="5.5" data-path="fig-align.html"><a href="fig-align.html"><i class="fa fa-check"></i><b>5.5</b> Figure alignment</a></li>
+<li class="chapter" data-level="5.6" data-path="verbatim-code-chunks.html"><a href="verbatim-code-chunks.html"><i class="fa fa-check"></i><b>5.6</b> Verbatim code chunks</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="verbatim-code-chunks.html"><a href="verbatim-code-chunks.html#show-a-verbatim-inline-expression"><i class="fa fa-check"></i><b>5.6.1</b> Show a verbatim inline expression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="number-lines.html"><a href="number-lines.html"><i class="fa fa-check"></i><b>5.7</b> Line numbers for code blocks (*)</a></li>
+<li class="chapter" data-level="5.8" data-path="multi-column.html"><a href="multi-column.html"><i class="fa fa-check"></i><b>5.8</b> Multi-column layout (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="latex-output.html"><a href="latex-output.html"><i class="fa fa-check"></i><b>6</b> LaTeX Output</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="latex-preamble.html"><a href="latex-preamble.html"><i class="fa fa-check"></i><b>6.1</b> Add LaTeX code to the preamble</a></li>
+<li class="chapter" data-level="6.2" data-path="latex-variables.html"><a href="latex-variables.html"><i class="fa fa-check"></i><b>6.2</b> Pandoc options for LaTeX output</a></li>
+<li class="chapter" data-level="6.3" data-path="latex-logo.html"><a href="latex-logo.html"><i class="fa fa-check"></i><b>6.3</b> Add logo to title page</a></li>
+<li class="chapter" data-level="6.4" data-path="latex-extra.html"><a href="latex-extra.html"><i class="fa fa-check"></i><b>6.4</b> Include additional LaTeX packages</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="latex-extra.html"><a href="latex-extra.html#loading-latex-packages"><i class="fa fa-check"></i><b>6.4.1</b> Loading LaTeX packages</a></li>
+<li class="chapter" data-level="6.4.2" data-path="latex-extra.html"><a href="latex-extra.html#example-packages"><i class="fa fa-check"></i><b>6.4.2</b> Example packages</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="figure-placement.html"><a href="figure-placement.html"><i class="fa fa-check"></i><b>6.5</b> Control the placement of figures</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="figure-placement.html"><a href="figure-placement.html#floating-environments"><i class="fa fa-check"></i><b>6.5.1</b> Floating environments</a></li>
+<li class="chapter" data-level="6.5.2" data-path="figure-placement.html"><a href="figure-placement.html#prevent-figures-from-floating"><i class="fa fa-check"></i><b>6.5.2</b> Prevent figures from floating</a></li>
+<li class="chapter" data-level="6.5.3" data-path="figure-placement.html"><a href="figure-placement.html#force-floats-forward"><i class="fa fa-check"></i><b>6.5.3</b> Force floats forward</a></li>
+<li class="chapter" data-level="6.5.4" data-path="figure-placement.html"><a href="figure-placement.html#adjust-latex-placement-rules"><i class="fa fa-check"></i><b>6.5.4</b> Adjust LaTeX placement rules (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="latex-subfigure.html"><a href="latex-subfigure.html"><i class="fa fa-check"></i><b>6.6</b> LaTeX sub-figures</a></li>
+<li class="chapter" data-level="6.7" data-path="latex-unicode.html"><a href="latex-unicode.html"><i class="fa fa-check"></i><b>6.7</b> Render documents containing Unicode characters</a></li>
+<li class="chapter" data-level="6.8" data-path="latex-fragment.html"><a href="latex-fragment.html"><i class="fa fa-check"></i><b>6.8</b> Generate a LaTeX fragment</a></li>
+<li class="chapter" data-level="6.9" data-path="latex-header.html"><a href="latex-header.html"><i class="fa fa-check"></i><b>6.9</b> Add custom headers and footers (*)</a></li>
+<li class="chapter" data-level="6.10" data-path="latex-template.html"><a href="latex-template.html"><i class="fa fa-check"></i><b>6.10</b> Use a custom Pandoc LaTeX template (*)</a></li>
+<li class="chapter" data-level="6.11" data-path="raw-latex.html"><a href="raw-latex.html"><i class="fa fa-check"></i><b>6.11</b> Write raw LaTeX code</a></li>
+<li class="chapter" data-level="6.12" data-path="latex-hardcore.html"><a href="latex-hardcore.html"><i class="fa fa-check"></i><b>6.12</b> For hardcore LaTeX users (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="html-output.html"><a href="html-output.html"><i class="fa fa-check"></i><b>7</b> HTML Output</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="html-css.html"><a href="html-css.html"><i class="fa fa-check"></i><b>7.1</b> Apply custom CSS</a></li>
+<li class="chapter" data-level="7.2" data-path="center-heading.html"><a href="center-heading.html"><i class="fa fa-check"></i><b>7.2</b> Center section headings</a></li>
+<li class="chapter" data-level="7.3" data-path="chunk-styling.html"><a href="chunk-styling.html"><i class="fa fa-check"></i><b>7.3</b> Style code blocks and text output</a></li>
+<li class="chapter" data-level="7.4" data-path="html-scroll.html"><a href="html-scroll.html"><i class="fa fa-check"></i><b>7.4</b> Scrollable code blocks (*)</a></li>
+<li class="chapter" data-level="7.5" data-path="fold-show.html"><a href="fold-show.html"><i class="fa fa-check"></i><b>7.5</b> Fold all code blocks but show some initially</a></li>
+<li class="chapter" data-level="7.6" data-path="html-tabs.html"><a href="html-tabs.html"><i class="fa fa-check"></i><b>7.6</b> Put content in tabs</a></li>
+<li class="chapter" data-level="7.7" data-path="embed-rmd.html"><a href="embed-rmd.html"><i class="fa fa-check"></i><b>7.7</b> Embed the Rmd source file in the HTML output file</a></li>
+<li class="chapter" data-level="7.8" data-path="embed-file.html"><a href="embed-file.html"><i class="fa fa-check"></i><b>7.8</b> Embed arbitrary files in the HTML output file</a></li>
+<li class="chapter" data-level="7.9" data-path="html-template.html"><a href="html-template.html"><i class="fa fa-check"></i><b>7.9</b> Use a custom HTML template (*)</a></li>
+<li class="chapter" data-level="7.10" data-path="include-html.html"><a href="include-html.html"><i class="fa fa-check"></i><b>7.10</b> Include the content of an existing HTML file (*)</a></li>
+<li class="chapter" data-level="7.11" data-path="favicon.html"><a href="favicon.html"><i class="fa fa-check"></i><b>7.11</b> Add a custom browser icon</a></li>
+<li class="chapter" data-level="7.12" data-path="details-tag.html"><a href="details-tag.html"><i class="fa fa-check"></i><b>7.12</b> Use the <code>&lt;details&gt;</code> disclosure element</a></li>
+<li class="chapter" data-level="7.13" data-path="html-share.html"><a href="html-share.html"><i class="fa fa-check"></i><b>7.13</b> Sharing HTML output on the web</a>
+<ul>
+<li class="chapter" data-level="7.13.1" data-path="html-share.html"><a href="html-share.html#r-specific-services"><i class="fa fa-check"></i><b>7.13.1</b> R-specific services</a></li>
+<li class="chapter" data-level="7.13.2" data-path="html-share.html"><a href="html-share.html#static-website-services"><i class="fa fa-check"></i><b>7.13.2</b> Static website services</a></li>
+</ul></li>
+<li class="chapter" data-level="7.14" data-path="html-accessibility.html"><a href="html-accessibility.html"><i class="fa fa-check"></i><b>7.14</b> Improve accessibility of HTML pages</a></li>
+<li class="chapter" data-level="7.15" data-path="html-hardcore.html"><a href="html-hardcore.html"><i class="fa fa-check"></i><b>7.15</b> For hardcore HTML users (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="word.html"><a href="word.html"><i class="fa fa-check"></i><b>8</b> Word</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="word-template.html"><a href="word-template.html"><i class="fa fa-check"></i><b>8.1</b> Custom Word templates</a></li>
+<li class="chapter" data-level="8.2" data-path="word-redoc.html"><a href="word-redoc.html"><i class="fa fa-check"></i><b>8.2</b> The two-way workflow between R Markdown and Word</a></li>
+<li class="chapter" data-level="8.3" data-path="word-officedown.html"><a href="word-officedown.html"><i class="fa fa-check"></i><b>8.3</b> Style individual elements</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multi-formats.html"><a href="multi-formats.html"><i class="fa fa-check"></i><b>9</b> Multiple Output Formats</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="latex-html.html"><a href="latex-html.html"><i class="fa fa-check"></i><b>9.1</b> LaTeX or HTML output</a></li>
+<li class="chapter" data-level="9.2" data-path="html-widgets.html"><a href="html-widgets.html"><i class="fa fa-check"></i><b>9.2</b> Display HTML widgets</a></li>
+<li class="chapter" data-level="9.3" data-path="include-url.html"><a href="include-url.html"><i class="fa fa-check"></i><b>9.3</b> Embed a web page</a></li>
+<li class="chapter" data-level="9.4" data-path="figures-side.html"><a href="figures-side.html"><i class="fa fa-check"></i><b>9.4</b> Multiple figures side by side</a></li>
+<li class="chapter" data-level="9.5" data-path="raw-content.html"><a href="raw-content.html"><i class="fa fa-check"></i><b>9.5</b> Write raw content (*)</a></li>
+<li class="chapter" data-level="9.6" data-path="custom-blocks.html"><a href="custom-blocks.html"><i class="fa fa-check"></i><b>9.6</b> Custom blocks (*)</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="custom-blocks.html"><a href="custom-blocks.html#block-syntax"><i class="fa fa-check"></i><b>9.6.1</b> Syntax</a></li>
+<li class="chapter" data-level="9.6.2" data-path="custom-blocks.html"><a href="custom-blocks.html#block-shaded"><i class="fa fa-check"></i><b>9.6.2</b> Adding a shaded box</a></li>
+<li class="chapter" data-level="9.6.3" data-path="custom-blocks.html"><a href="custom-blocks.html#block-image"><i class="fa fa-check"></i><b>9.6.3</b> Including icons</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>10</b> Tables</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="kable.html"><a href="kable.html"><i class="fa fa-check"></i><b>10.1</b> The function <code>knitr::kable()</code></a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="kable.html"><a href="kable.html#kable-formats"><i class="fa fa-check"></i><b>10.1.1</b> Supported table formats</a></li>
+<li class="chapter" data-level="10.1.2" data-path="kable.html"><a href="kable.html#change-column-names"><i class="fa fa-check"></i><b>10.1.2</b> Change column names</a></li>
+<li class="chapter" data-level="10.1.3" data-path="kable.html"><a href="kable.html#specify-column-alignment"><i class="fa fa-check"></i><b>10.1.3</b> Specify column alignment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="kable.html"><a href="kable.html#kable-caption"><i class="fa fa-check"></i><b>10.1.4</b> Add a table caption</a></li>
+<li class="chapter" data-level="10.1.5" data-path="kable.html"><a href="kable.html#format-numeric-columns"><i class="fa fa-check"></i><b>10.1.5</b> Format numeric columns</a></li>
+<li class="chapter" data-level="10.1.6" data-path="kable.html"><a href="kable.html#display-missing-values"><i class="fa fa-check"></i><b>10.1.6</b> Display missing values</a></li>
+<li class="chapter" data-level="10.1.7" data-path="kable.html"><a href="kable.html#escape-special-characters"><i class="fa fa-check"></i><b>10.1.7</b> Escape special characters</a></li>
+<li class="chapter" data-level="10.1.8" data-path="kable.html"><a href="kable.html#multiple-tables-side-by-side"><i class="fa fa-check"></i><b>10.1.8</b> Multiple tables side by side</a></li>
+<li class="chapter" data-level="10.1.9" data-path="kable.html"><a href="kable.html#generate-multiple-tables-from-a-for-loop"><i class="fa fa-check"></i><b>10.1.9</b> Generate multiple tables from a <code>for</code>-loop (*)</a></li>
+<li class="chapter" data-level="10.1.10" data-path="kable.html"><a href="kable.html#customize-latex-tables"><i class="fa fa-check"></i><b>10.1.10</b> Customize LaTeX tables (*)</a></li>
+<li class="chapter" data-level="10.1.11" data-path="kable.html"><a href="kable.html#customize-html-tables"><i class="fa fa-check"></i><b>10.1.11</b> Customize HTML tables (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="kableextra.html"><a href="kableextra.html"><i class="fa fa-check"></i><b>10.2</b> The <strong>kableExtra</strong> package</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="kableextra.html"><a href="kableextra.html#set-the-font-size"><i class="fa fa-check"></i><b>10.2.1</b> Set the font size</a></li>
+<li class="chapter" data-level="10.2.2" data-path="kableextra.html"><a href="kableextra.html#style-specific-rowscolumns"><i class="fa fa-check"></i><b>10.2.2</b> Style specific rows/columns</a></li>
+<li class="chapter" data-level="10.2.3" data-path="kableextra.html"><a href="kableextra.html#group-rowscolumns"><i class="fa fa-check"></i><b>10.2.3</b> Group rows/columns</a></li>
+<li class="chapter" data-level="10.2.4" data-path="kableextra.html"><a href="kableextra.html#scaling-down-wide-tables-in-latex"><i class="fa fa-check"></i><b>10.2.4</b> Scaling down wide tables in LaTeX</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="table-other.html"><a href="table-other.html"><i class="fa fa-check"></i><b>10.3</b> Other packages for creating tables</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="chunk-options.html"><a href="chunk-options.html"><i class="fa fa-check"></i><b>11</b> Chunk Options</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="chunk-variable.html"><a href="chunk-variable.html"><i class="fa fa-check"></i><b>11.1</b> Use variables in chunk options</a></li>
+<li class="chapter" data-level="11.2" data-path="opts-error.html"><a href="opts-error.html"><i class="fa fa-check"></i><b>11.2</b> Do not stop on error</a></li>
+<li class="chapter" data-level="11.3" data-path="dev-vector.html"><a href="dev-vector.html"><i class="fa fa-check"></i><b>11.3</b> Multiple graphical output formats for the same plot</a></li>
+<li class="chapter" data-level="11.4" data-path="cache.html"><a href="cache.html"><i class="fa fa-check"></i><b>11.4</b> Cache time-consuming code chunks</a></li>
+<li class="chapter" data-level="11.5" data-path="cache-path.html"><a href="cache-path.html"><i class="fa fa-check"></i><b>11.5</b> Cache a code chunk for multiple output formats</a></li>
+<li class="chapter" data-level="11.6" data-path="cache-lazy.html"><a href="cache-lazy.html"><i class="fa fa-check"></i><b>11.6</b> Cache large objects</a></li>
+<li class="chapter" data-level="11.7" data-path="hide-one.html"><a href="hide-one.html"><i class="fa fa-check"></i><b>11.7</b> Hide code, text output, messages, or plots</a></li>
+<li class="chapter" data-level="11.8" data-path="hide-all.html"><a href="hide-all.html"><i class="fa fa-check"></i><b>11.8</b> Hide everything from a chunk</a></li>
+<li class="chapter" data-level="11.9" data-path="opts-collapse.html"><a href="opts-collapse.html"><i class="fa fa-check"></i><b>11.9</b> Collapse text output blocks into source blocks</a></li>
+<li class="chapter" data-level="11.10" data-path="opts-tidy.html"><a href="opts-tidy.html"><i class="fa fa-check"></i><b>11.10</b> Reformat R source code</a></li>
+<li class="chapter" data-level="11.11" data-path="results-asis.html"><a href="results-asis.html"><i class="fa fa-check"></i><b>11.11</b> Output text as raw Markdown content (*)</a></li>
+<li class="chapter" data-level="11.12" data-path="opts-comment.html"><a href="opts-comment.html"><i class="fa fa-check"></i><b>11.12</b> Remove leading hashes in text output</a></li>
+<li class="chapter" data-level="11.13" data-path="attr-output.html"><a href="attr-output.html"><i class="fa fa-check"></i><b>11.13</b> Add attributes to text output blocks (*)</a></li>
+<li class="chapter" data-level="11.14" data-path="fig-process.html"><a href="fig-process.html"><i class="fa fa-check"></i><b>11.14</b> Post-process plots (*)</a></li>
+<li class="chapter" data-level="11.15" data-path="graphical-device.html"><a href="graphical-device.html"><i class="fa fa-check"></i><b>11.15</b> High-quality graphics (*)</a></li>
+<li class="chapter" data-level="11.16" data-path="low-plots.html"><a href="low-plots.html"><i class="fa fa-check"></i><b>11.16</b> Step-by-step plots with low-level plotting functions (*)</a></li>
+<li class="chapter" data-level="11.17" data-path="opts-render.html"><a href="opts-render.html"><i class="fa fa-check"></i><b>11.17</b> Customize the printing of objects in chunks (*)</a></li>
+<li class="chapter" data-level="11.18" data-path="option-hooks.html"><a href="option-hooks.html"><i class="fa fa-check"></i><b>11.18</b> Option hooks (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="output-hooks.html"><a href="output-hooks.html"><i class="fa fa-check"></i><b>12</b> Output Hooks (*)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="hook-hide.html"><a href="hook-hide.html"><i class="fa fa-check"></i><b>12.1</b> Redact source code</a></li>
+<li class="chapter" data-level="12.2" data-path="hook-number.html"><a href="hook-number.html"><i class="fa fa-check"></i><b>12.2</b> Add line numbers to source code</a></li>
+<li class="chapter" data-level="12.3" data-path="hook-scroll.html"><a href="hook-scroll.html"><i class="fa fa-check"></i><b>12.3</b> Scrollable text output</a></li>
+<li class="chapter" data-level="12.4" data-path="hook-truncate.html"><a href="hook-truncate.html"><i class="fa fa-check"></i><b>12.4</b> Truncate text output</a></li>
+<li class="chapter" data-level="12.5" data-path="hook-html5.html"><a href="hook-html5.html"><i class="fa fa-check"></i><b>12.5</b> Output figures in the HTML5 format</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="chunk-hooks.html"><a href="chunk-hooks.html"><i class="fa fa-check"></i><b>13</b> Chunk Hooks (*)</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="crop-plot.html"><a href="crop-plot.html"><i class="fa fa-check"></i><b>13.1</b> Crop plots</a></li>
+<li class="chapter" data-level="13.2" data-path="optipng.html"><a href="optipng.html"><i class="fa fa-check"></i><b>13.2</b> Optimize PNG plots</a></li>
+<li class="chapter" data-level="13.3" data-path="time-chunk.html"><a href="time-chunk.html"><i class="fa fa-check"></i><b>13.3</b> Report how much time each chunk takes to run</a></li>
+<li class="chapter" data-level="13.4" data-path="show-header.html"><a href="show-header.html"><i class="fa fa-check"></i><b>13.4</b> Show the chunk header in the output</a></li>
+<li class="chapter" data-level="13.5" data-path="rgl-3d.html"><a href="rgl-3d.html"><i class="fa fa-check"></i><b>13.5</b> Embed an interactive 3D plot with rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="knitr-misc.html"><a href="knitr-misc.html"><i class="fa fa-check"></i><b>14</b> Miscellaneous knitr Tricks</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="reuse-chunks.html"><a href="reuse-chunks.html"><i class="fa fa-check"></i><b>14.1</b> Reuse code chunks</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="reuse-chunks.html"><a href="reuse-chunks.html#embed-chunk"><i class="fa fa-check"></i><b>14.1.1</b> Embed one chunk in another chunk (*)</a></li>
+<li class="chapter" data-level="14.1.2" data-path="reuse-chunks.html"><a href="reuse-chunks.html#same-label"><i class="fa fa-check"></i><b>14.1.2</b> Use the same chunk label in another chunk</a></li>
+<li class="chapter" data-level="14.1.3" data-path="reuse-chunks.html"><a href="reuse-chunks.html#ref-label"><i class="fa fa-check"></i><b>14.1.3</b> Use reference labels (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="load-cache.html"><a href="load-cache.html"><i class="fa fa-check"></i><b>14.2</b> Use an object before it is created (*)</a></li>
+<li class="chapter" data-level="14.3" data-path="knit-exit.html"><a href="knit-exit.html"><i class="fa fa-check"></i><b>14.3</b> Exit knitting early</a></li>
+<li class="chapter" data-level="14.4" data-path="fig-chunk.html"><a href="fig-chunk.html"><i class="fa fa-check"></i><b>14.4</b> Generate a plot and display it elsewhere</a></li>
+<li class="chapter" data-level="14.5" data-path="global-device.html"><a href="global-device.html"><i class="fa fa-check"></i><b>14.5</b> Modify a plot in a previous code chunk</a></li>
+<li class="chapter" data-level="14.6" data-path="opts-template.html"><a href="opts-template.html"><i class="fa fa-check"></i><b>14.6</b> Save a group of chunk options and reuse them (*)</a></li>
+<li class="chapter" data-level="14.7" data-path="knit-expand.html"><a href="knit-expand.html"><i class="fa fa-check"></i><b>14.7</b> Use <code>knitr::knit_expand()</code> to generate Rmd source</a></li>
+<li class="chapter" data-level="14.8" data-path="duplicate-label.html"><a href="duplicate-label.html"><i class="fa fa-check"></i><b>14.8</b> Allow duplicate labels in code chunks (*)</a></li>
+<li class="chapter" data-level="14.9" data-path="cache-rds.html"><a href="cache-rds.html"><i class="fa fa-check"></i><b>14.9</b> A more transparent caching mechanism</a>
+<ul>
+<li class="chapter" data-level="14.9.1" data-path="cache-rds.html"><a href="cache-rds.html#invalidate-the-cache-by-changing-code-in-the-expression"><i class="fa fa-check"></i><b>14.9.1</b> Invalidate the cache by changing code in the expression</a></li>
+<li class="chapter" data-level="14.9.2" data-path="cache-rds.html"><a href="cache-rds.html#invalidate-the-cache-by-changes-in-global-variables"><i class="fa fa-check"></i><b>14.9.2</b> Invalidate the cache by changes in global variables</a></li>
+<li class="chapter" data-level="14.9.3" data-path="cache-rds.html"><a href="cache-rds.html#keep-multiple-copies-of-the-cache"><i class="fa fa-check"></i><b>14.9.3</b> Keep multiple copies of the cache</a></li>
+<li class="chapter" data-level="14.9.4" data-path="cache-rds.html"><a href="cache-rds.html#comparison-with-knitrs-caching"><i class="fa fa-check"></i><b>14.9.4</b> Comparison with <strong>knitr</strong>’s caching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="other-languages.html"><a href="other-languages.html"><i class="fa fa-check"></i><b>15</b> Other Languages</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="custom-engine.html"><a href="custom-engine.html"><i class="fa fa-check"></i><b>15.1</b> Register a custom language engine (*)</a></li>
+<li class="chapter" data-level="15.2" data-path="eng-python.html"><a href="eng-python.html"><i class="fa fa-check"></i><b>15.2</b> Run Python code and interact with Python</a></li>
+<li class="chapter" data-level="15.3" data-path="eng-asis.html"><a href="eng-asis.html"><i class="fa fa-check"></i><b>15.3</b> Execute content conditionally via the <code>asis</code> engine</a></li>
+<li class="chapter" data-level="15.4" data-path="eng-bash.html"><a href="eng-bash.html"><i class="fa fa-check"></i><b>15.4</b> Execute Shell scripts</a></li>
+<li class="chapter" data-level="15.5" data-path="d3.html"><a href="d3.html"><i class="fa fa-check"></i><b>15.5</b> Visualization with D3</a></li>
+<li class="chapter" data-level="15.6" data-path="eng-cat.html"><a href="eng-cat.html"><i class="fa fa-check"></i><b>15.6</b> Write the chunk content to a file via the <code>cat</code> engine</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="eng-cat.html"><a href="eng-cat.html#write-to-a-css-file"><i class="fa fa-check"></i><b>15.6.1</b> Write to a CSS file</a></li>
+<li class="chapter" data-level="15.6.2" data-path="eng-cat.html"><a href="eng-cat.html#include-latex-code-in-the-preamble"><i class="fa fa-check"></i><b>15.6.2</b> Include LaTeX code in the preamble</a></li>
+<li class="chapter" data-level="15.6.3" data-path="eng-cat.html"><a href="eng-cat.html#write-yaml-data-to-a-file-and-also-display-it"><i class="fa fa-check"></i><b>15.6.3</b> Write YAML data to a file and also display it</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="eng-sas.html"><a href="eng-sas.html"><i class="fa fa-check"></i><b>15.7</b> Run SAS code</a></li>
+<li class="chapter" data-level="15.8" data-path="eng-stata.html"><a href="eng-stata.html"><i class="fa fa-check"></i><b>15.8</b> Run Stata code</a></li>
+<li class="chapter" data-level="15.9" data-path="eng-asy.html"><a href="eng-asy.html"><i class="fa fa-check"></i><b>15.9</b> Create graphics with Asymptote</a>
+<ul>
+<li class="chapter" data-level="15.9.1" data-path="eng-asy.html"><a href="eng-asy.html#generate-data-in-r-and-read-it-in-asymptote"><i class="fa fa-check"></i><b>15.9.1</b> Generate data in R and read it in Asymptote</a></li>
+</ul></li>
+<li class="chapter" data-level="15.10" data-path="eng-sass.html"><a href="eng-sass.html"><i class="fa fa-check"></i><b>15.10</b> Style HTML pages with Sass/SCSS</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="managing-projects.html"><a href="managing-projects.html"><i class="fa fa-check"></i><b>16</b> Managing Projects</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="source-script.html"><a href="source-script.html"><i class="fa fa-check"></i><b>16.1</b> Source external R scripts</a></li>
+<li class="chapter" data-level="16.2" data-path="option-code.html"><a href="option-code.html"><i class="fa fa-check"></i><b>16.2</b> Read external scripts into a chunk</a></li>
+<li class="chapter" data-level="16.3" data-path="read-chunk.html"><a href="read-chunk.html"><i class="fa fa-check"></i><b>16.3</b> Read multiple code chunks from an external script (*)</a></li>
+<li class="chapter" data-level="16.4" data-path="child-document.html"><a href="child-document.html"><i class="fa fa-check"></i><b>16.4</b> Child documents (*)</a></li>
+<li class="chapter" data-level="16.5" data-path="keep-files.html"><a href="keep-files.html"><i class="fa fa-check"></i><b>16.5</b> Keep the plot files</a></li>
+<li class="chapter" data-level="16.6" data-path="working-directory.html"><a href="working-directory.html"><i class="fa fa-check"></i><b>16.6</b> The working directory for R code chunks</a></li>
+<li class="chapter" data-level="16.7" data-path="package-vignette.html"><a href="package-vignette.html"><i class="fa fa-check"></i><b>16.7</b> R package vignettes</a></li>
+<li class="chapter" data-level="16.8" data-path="package-template.html"><a href="package-template.html"><i class="fa fa-check"></i><b>16.8</b> R Markdown templates in R packages</a>
+<ul>
+<li class="chapter" data-level="16.8.1" data-path="package-template.html"><a href="package-template.html#template-use-cases"><i class="fa fa-check"></i><b>16.8.1</b> Template use-cases</a></li>
+<li class="chapter" data-level="16.8.2" data-path="package-template.html"><a href="package-template.html#template-setup"><i class="fa fa-check"></i><b>16.8.2</b> Template setup</a></li>
+</ul></li>
+<li class="chapter" data-level="16.9" data-path="bookdown.html"><a href="bookdown.html"><i class="fa fa-check"></i><b>16.9</b> Write books and long-form reports with <strong>bookdown</strong></a></li>
+<li class="chapter" data-level="16.10" data-path="blogdown.html"><a href="blogdown.html"><i class="fa fa-check"></i><b>16.10</b> Build websites with <strong>blogdown</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>17</b> Workflow</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="rstudio-shortcuts.html"><a href="rstudio-shortcuts.html"><i class="fa fa-check"></i><b>17.1</b> Use RStudio keyboard shortcuts</a></li>
+<li class="chapter" data-level="17.2" data-path="spell-check.html"><a href="spell-check.html"><i class="fa fa-check"></i><b>17.2</b> Spell-check R Markdown</a></li>
+<li class="chapter" data-level="17.3" data-path="rmarkdown-render.html"><a href="rmarkdown-render.html"><i class="fa fa-check"></i><b>17.3</b> Render R Markdown with <code>rmarkdown::render()</code></a></li>
+<li class="chapter" data-level="17.4" data-path="parameterized-reports.html"><a href="parameterized-reports.html"><i class="fa fa-check"></i><b>17.4</b> Parameterized reports</a></li>
+<li class="chapter" data-level="17.5" data-path="custom-knit.html"><a href="custom-knit.html"><i class="fa fa-check"></i><b>17.5</b> Customize the <code>Knit</code> button (*)</a></li>
+<li class="chapter" data-level="17.6" data-path="google-drive.html"><a href="google-drive.html"><i class="fa fa-check"></i><b>17.6</b> Collaborate on Rmd documents through Google Drive with trackdown</a>
+<ul>
+<li class="chapter" data-level="17.6.1" data-path="google-drive.html"><a href="google-drive.html#the-trackdown-workflow"><i class="fa fa-check"></i><b>17.6.1</b> The trackdown Workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="17.7" data-path="workflowr.html"><a href="workflowr.html"><i class="fa fa-check"></i><b>17.7</b> Organize an R Markdown project into a research website with <strong>workflowr</strong></a></li>
+<li class="chapter" data-level="17.8" data-path="blastula-email.html"><a href="blastula-email.html"><i class="fa fa-check"></i><b>17.8</b> Send emails based on R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Markdown Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="yihui-xie" class="section level2 unnumbered hasAnchor">
+<h2>Yihui Xie<a href="yihui-xie.html#yihui-xie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Yihui Xie (<a href="https://yihui.org" class="uri">https://yihui.org</a>) is a software engineer at RStudio (<a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a>). He earned his PhD from the Department of Statistics, Iowa State University. He is interested in interactive statistical graphics and statistical computing. As an active R user, he has authored several R packages, such as <strong>knitr</strong>, <strong>bookdown</strong>, <strong>blogdown</strong>, <strong>xaringan</strong>, <strong>tinytex</strong>, <strong>rolldown</strong>, <strong>animation</strong>, <strong>DT</strong>, <strong>tufte</strong>, <strong>formatR</strong>, <strong>fun</strong>, <strong>xfun</strong>, <strong>testit</strong>, <strong>mime</strong>, <strong>highr</strong>, <strong>servr</strong>, and <strong>Rd2roxygen</strong>, among which the <strong>animation</strong> package won the 2009 John M. Chambers Statistical Software Award (ASA). He also co-authored a few other R packages, including <strong>shiny</strong>, <strong>rmarkdown</strong>, <strong>pagedown</strong>, and <strong>leaflet</strong>.</p>
+<p>He has authored two books, <em>Dynamic Documents with knitr</em> <span class="citation">(<a href="#ref-knitr2015" role="doc-biblioref">Xie 2015</a>)</span>, and <em>bookdown: Authoring Books and Technical Documents with R Markdown</em> <span class="citation">(<a href="#ref-bookdown2016" role="doc-biblioref">Xie 2016</a>)</span>, and co-authored two books, <em>blogdown: Creating Websites with R Markdown</em> <span class="citation">(<a href="#ref-blogdown2017" role="doc-biblioref">Xie, Hill, and Thomas 2017</a>)</span>, and <em>R Markdown: The Definitive Guide</em> <span class="citation">(<a href="#ref-rmarkdown2018" role="doc-biblioref">Xie, Allaire, and Grolemund 2018</a>)</span>.</p>
+<p>In 2006, he founded the Capital of Statistics (<a href="https://cosx.org" class="uri">https://cosx.org</a>), which has grown into a large online community on statistics in China. He initiated the Chinese R conference in 2008, and has been involved in organizing R conferences in China since then. During his PhD training at Iowa State University, he won the Vince Sposito Statistical Computing Award (2011) and the Snedecor Award (2012) in the Department of Statistics.</p>
+<p>He usually reads Twitter messages once a week (<a href="https://twitter.com/xieyihui" class="uri">https://twitter.com/xieyihui</a>), and most of the time you can find him on GitHub (<a href="https://github.com/yihui" class="uri">https://github.com/yihui</a>).</p>
+<p>He has four hobbies: reading, writing (mostly blogging), cooking, and playing badminton. He is actually more interested in cooking than eating. There are not many types of food that he cannot resist eating, and spicy food is one of the few. Since cooking is more fun, he rarely goes to restaurants. When he does go and is asked “how spicy you want your food to be” in the restaurant, he usually answers “as spicy as your chef can make it to be.”</p>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-knitr2015" class="csl-entry">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+</div>
+<div id="ref-bookdown2016" class="csl-entry">
+———. 2016. <em>Bookdown: Authoring Books and Technical Documents with <span>R</span> Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/bookdown">https://bookdown.org/yihui/bookdown</a>.
+</div>
+<div id="ref-rmarkdown2018" class="csl-entry">
+Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown: The Definitive Guide</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown">https://bookdown.org/yihui/rmarkdown</a>.
+</div>
+<div id="ref-blogdown2017" class="csl-entry">
+Xie, Yihui, Alison Presmanes Hill, and Amber Thomas. 2017. <em>Blogdown: Creating Websites with <span>R</span> Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/blogdown/">https://bookdown.org/yihui/blogdown/</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="author.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="christophe-dervieux.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/yihui/rmarkdown-cookbook/edit/master/00-authors.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["rmarkdown-cookbook.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
